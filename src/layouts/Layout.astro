@@ -21,7 +21,7 @@ const { title = 'BCF Content' } = Astro.props;
 	</head>
 	<body class="h-full">
 		<Navbar />
-		<main class="pt-16 pb-16">
+		<main class="pt-16"> <!-- No pb-16 as the footer is sticky and merges straight into the main content -->
 			<slot />
 		</main>
 		<Footer />
