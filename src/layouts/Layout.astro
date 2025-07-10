@@ -8,6 +8,7 @@ export interface Props {
 }
 
 const { title = 'BCF Content' } = Astro.props;
+const isShowcasePage = Astro.url.pathname === '/showcase' || Astro.url.pathname === '/showcase/';
 ---
 
 <!doctype html>
@@ -19,12 +20,12 @@ const { title = 'BCF Content' } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body class="h-full">
+	<body class={isShowcasePage ? "h-full overflow-hidden" : "h-full"}>
 		<Navbar />
-		<main class="pt-16"> <!-- No pb-16 as the footer is sticky and merges straight into the main content -->
+		<main class={isShowcasePage ? "pt-16 h-full" : "pt-16"}> <!-- No pb-16 as the footer is sticky and merges straight into the main content -->
 			<slot />
 		</main>
-		<Footer />
+		{!isShowcasePage && <Footer />}
 	</body>
 </html>
 

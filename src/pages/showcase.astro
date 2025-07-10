@@ -3,9 +3,59 @@ import Layout from '../layouts/Layout.astro';
 
 const ambassadors = [
   {
+    id: 'lyndsay-conklin',
+    name: 'Lyndsay Conklin',
+    role: 'BCF Ambassador',
+    location: 'United States',
+    specialties: ['Clean Language', 'Organizational Development', 'Executive Coaching'],
+    bio: 'Lyndsay brings a unique blend of business acumen and communication expertise to her work with Fortune 500 companies. Her innovative approach to Clean Language has transformed how organizations approach strategic conversations and team alignment.',
+    impact: '200+ leaders coached',
+    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop'
+  },
+  {
+    id: 'evelina-de-lain',
+    name: 'Evelina De Lain',
+    role: 'BCF Ambassador',
+    location: 'United Kingdom',
+    specialties: ['Emergent Knowledge', 'Creative Industries', 'Innovation Workshops'],
+    bio: 'Evelina specializes in applying Better Conversations principles to creative and innovation processes. Her work with design teams and creative agencies has revolutionized how these organizations harness collective creativity.',
+    impact: '100+ workshops delivered',
+    image: 'https://images.unsplash.com/photo-1598550874175-4d0ef436c909?w=400&h=400&fit=crop'
+  },
+  {
+    id: 'virginia-mckendry',
+    name: 'Virginia McKendry, Ph.D.',
+    role: 'BCF Ambassador',
+    location: 'Canada',
+    specialties: ['Academic Research', 'Healthcare Communication', 'Evidence-Based Practice'],
+    bio: 'Dr. McKendry bridges the gap between academic research and practical application. Her groundbreaking studies on communication in healthcare settings have improved patient outcomes and team collaboration across multiple institutions.',
+    impact: '15 research publications',
+    image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop'
+  },
+  {
+    id: 'matthew-michaelsen',
+    name: 'Matthew Michaelsen',
+    role: 'BCF Ambassador',
+    location: 'Australia',
+    specialties: ['Technology Teams', 'Agile Coaching', 'Remote Collaboration'],
+    bio: 'Matthew has pioneered the integration of Better Conversations methodology into agile software development practices. His frameworks for improving communication in distributed tech teams have been adopted by startups and enterprises globally.',
+    impact: '50+ tech companies',
+    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop'
+  },
+  {
+    id: 'robyn-odegaard',
+    name: 'Dr Robyn Odegaard',
+    role: 'BCF Ambassador',
+    location: 'New Zealand',
+    specialties: ['Leadership Development', 'Emotional Intelligence', 'Team Dynamics'],
+    bio: 'Dr. Odegaard is renowned for her work in developing emotionally intelligent leaders. Her unique approach combines Better Conversations techniques with neuroscience insights to create transformative leadership programs.',
+    impact: '1000+ leaders trained',
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop'
+  },
+  {
     id: 'dan-parsons',
     name: 'Dan Parsons',
-    role: 'Global Ambassador',
+    role: 'BCF Ambassador',
     location: 'United Kingdom',
     specialties: ['Clean Language', 'Executive Coaching', 'Team Dynamics'],
     bio: 'Dan has been instrumental in bringing Better Conversations methodology to Fortune 500 companies across Europe. His innovative approach to Clean Language in corporate settings has transformed how leadership teams communicate.',
@@ -13,19 +63,9 @@ const ambassadors = [
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop'
   },
   {
-    id: 'virginia-barb',
-    name: 'Virginia & Barb',
-    role: 'Community Partners',
-    location: 'Australia',
-    specialties: ['Community Building', 'Workshop Facilitation', 'Peer Learning'],
-    bio: 'This dynamic duo has created a thriving BCF community in the Asia-Pacific region. Their monthly "Conversation Cafés" have become a model for grassroots engagement worldwide.',
-    impact: '50+ community events',
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop'
-  },
-  {
     id: 'christine-stief',
     name: 'Christine Stief',
-    role: 'Education Partner',
+    role: 'BCF Ambassador',
     location: 'Germany',
     specialties: ['Academic Integration', 'Research', 'Youth Programs'],
     bio: 'Christine has pioneered the integration of Better Conversations principles into educational curricula. Her work with universities has created a new generation of communication-conscious professionals.',
@@ -33,26 +73,23 @@ const ambassadors = [
     image: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400&h=400&fit=crop'
   },
   {
-    id: 'michael-zhang',
-    name: 'Michael Zhang',
-    role: 'Technology Partner',
-    location: 'Singapore',
-    specialties: ['Digital Innovation', 'Remote Facilitation', 'Platform Development'],
-    bio: 'Michael has revolutionized how Better Conversations training is delivered online. His digital tools and platforms have made our methodology accessible to thousands of remote learners.',
-    impact: '10,000+ online participants',
-    image: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=400&h=400&fit=crop'
-  },
-  {
-    id: 'sarah-williams',
-    name: 'Sarah Williams',
-    role: 'Healthcare Ambassador',
+    id: 'barb-collombin',
+    name: 'Barb Collombin',
+    role: 'BCF Ambassador',
     location: 'Canada',
-    specialties: ['Medical Communication', 'Patient Care', 'Staff Wellbeing'],
-    bio: 'Sarah has transformed communication practices in healthcare settings across North America. Her adaptation of BCF principles for medical professionals has improved both patient outcomes and staff satisfaction.',
-    impact: '25 hospitals transformed',
-    image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop'
+    specialties: ['Community Building', 'Workshop Facilitation', 'Peer Learning'],
+    bio: 'Barb has created thriving BCF communities across North America. Her innovative "Conversation Cafés" have become a model for grassroots engagement, bringing Better Conversations principles to diverse communities and organizations.',
+    impact: '75+ community events',
+    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop'
   }
 ];
+
+// Sort ambassadors alphabetically by last name
+const sortedAmbassadors = [...ambassadors].sort((a, b) => {
+  const lastNameA = a.name.split(' ').pop();
+  const lastNameB = b.name.split(' ').pop();
+  return lastNameA.localeCompare(lastNameB);
+});
 ---
 
 <Layout title="Ambassador & Partner Showcase - Better Conversations Foundation">
@@ -129,7 +166,7 @@ const ambassadors = [
   <!-- Progress Indicator -->
   <div class="progress-indicator hidden lg:block">
     <div class="progress-dot active" data-name="Introduction" data-section="hero"></div>
-    {ambassadors.map((person) => (
+    {sortedAmbassadors.map((person) => (
       <div class="progress-dot" data-name={person.name.split(' ')[0]} data-section={person.id}></div>
     ))}
   </div>
@@ -155,7 +192,7 @@ const ambassadors = [
     </section>
 
     <!-- Ambassador Cards -->
-    {ambassadors.map((person, index) => (
+    {sortedAmbassadors.map((person, index) => (
       <section id={person.id} class="showcase-section">
         <div class="absolute inset-0 bg-gradient-to-br from-white to-gray-50"></div>
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -197,11 +234,25 @@ const ambassadors = [
                 </div>
               </div>
 
-              <div class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] text-white rounded-lg shadow-sm">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <span class="font-medium">{person.impact}</span>
+              <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] text-white rounded-lg shadow-sm">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <span class="font-medium">{person.impact}</span>
+                </div>
+                <a 
+                  href={`https://www.linkedin.com/search/results/all/?keywords=${encodeURIComponent(person.name)}`} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 bg-white rounded-lg shadow-sm hover:bg-gray-50 transition-colors"
+                  title={`Connect with ${person.name} on LinkedIn`}
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                  </svg>
+                  <span class="font-medium">LinkedIn</span>
+                </a>
               </div>
             </div>
           </div>
