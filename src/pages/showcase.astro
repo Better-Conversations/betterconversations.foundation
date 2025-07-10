@@ -1,0 +1,254 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const ambassadors = [
+  {
+    id: 'dan-parsons',
+    name: 'Dan Parsons',
+    role: 'Global Ambassador',
+    location: 'United Kingdom',
+    specialties: ['Clean Language', 'Executive Coaching', 'Team Dynamics'],
+    bio: 'Dan has been instrumental in bringing Better Conversations methodology to Fortune 500 companies across Europe. His innovative approach to Clean Language in corporate settings has transformed how leadership teams communicate.',
+    impact: '500+ executives trained',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop'
+  },
+  {
+    id: 'virginia-barb',
+    name: 'Virginia & Barb',
+    role: 'Community Partners',
+    location: 'Australia',
+    specialties: ['Community Building', 'Workshop Facilitation', 'Peer Learning'],
+    bio: 'This dynamic duo has created a thriving BCF community in the Asia-Pacific region. Their monthly "Conversation Cafés" have become a model for grassroots engagement worldwide.',
+    impact: '50+ community events',
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop'
+  },
+  {
+    id: 'christine-stief',
+    name: 'Christine Stief',
+    role: 'Education Partner',
+    location: 'Germany',
+    specialties: ['Academic Integration', 'Research', 'Youth Programs'],
+    bio: 'Christine has pioneered the integration of Better Conversations principles into educational curricula. Her work with universities has created a new generation of communication-conscious professionals.',
+    impact: '10 universities engaged',
+    image: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400&h=400&fit=crop'
+  },
+  {
+    id: 'michael-zhang',
+    name: 'Michael Zhang',
+    role: 'Technology Partner',
+    location: 'Singapore',
+    specialties: ['Digital Innovation', 'Remote Facilitation', 'Platform Development'],
+    bio: 'Michael has revolutionized how Better Conversations training is delivered online. His digital tools and platforms have made our methodology accessible to thousands of remote learners.',
+    impact: '10,000+ online participants',
+    image: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=400&h=400&fit=crop'
+  },
+  {
+    id: 'sarah-williams',
+    name: 'Sarah Williams',
+    role: 'Healthcare Ambassador',
+    location: 'Canada',
+    specialties: ['Medical Communication', 'Patient Care', 'Staff Wellbeing'],
+    bio: 'Sarah has transformed communication practices in healthcare settings across North America. Her adaptation of BCF principles for medical professionals has improved both patient outcomes and staff satisfaction.',
+    impact: '25 hospitals transformed',
+    image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop'
+  }
+];
+---
+
+<Layout title="Ambassador & Partner Showcase - Better Conversations Foundation">
+  <style>
+    .showcase-container {
+      scroll-snap-type: y mandatory;
+      overflow-y: scroll;
+      height: 100vh;
+      position: relative;
+    }
+    
+    .showcase-section {
+      scroll-snap-align: start;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    
+    .progress-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    
+    .progress-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #e5e7eb;
+      margin: 1rem 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .progress-dot.active {
+      background-color: #54C4B6;
+      transform: scale(1.5);
+    }
+    
+    .progress-dot:hover::after {
+      content: attr(data-name);
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #1f2937;
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 0.375rem;
+      white-space: nowrap;
+      font-size: 0.875rem;
+    }
+    
+    .card-enter {
+      animation: cardFlip 0.6s ease-out;
+    }
+    
+    @keyframes cardFlip {
+      0% {
+        transform: translateY(100px) rotateX(-15deg);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0) rotateX(0);
+        opacity: 1;
+      }
+    }
+  </style>
+
+  <!-- Progress Indicator -->
+  <div class="progress-indicator hidden lg:block">
+    <div class="progress-dot active" data-name="Introduction" data-section="hero"></div>
+    {ambassadors.map((person) => (
+      <div class="progress-dot" data-name={person.name.split(' ')[0]} data-section={person.id}></div>
+    ))}
+  </div>
+
+  <div class="showcase-container">
+    <!-- Hero Section -->
+    <section id="hero" class="showcase-section bg-gradient-to-b from-white via-gray-50 to-white">
+      <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/5 to-[#A8D381]/5"></div>
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+          Meet Our <span class="text-[#54C4B6]">Ambassadors</span> & <span class="text-[#A8D381]">Partners</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          Dedicated professionals around the world who champion Better Conversations methodology and create lasting impact in their communities.
+        </p>
+        <div class="flex items-center justify-center gap-2 text-gray-500">
+          <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
+          <span>Scroll to explore</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ambassador Cards -->
+    {ambassadors.map((person, index) => (
+      <section id={person.id} class="showcase-section">
+        <div class="absolute inset-0 bg-gradient-to-br from-white to-gray-50"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div class={`card-enter flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12 lg:gap-16`}>
+            <!-- Image Section -->
+            <div class="flex-shrink-0 relative">
+              <div class="absolute -inset-6 bg-gradient-to-r from-[#54C4B6]/20 to-[#A8D381]/20 rounded-full blur-3xl"></div>
+              <div class={`absolute top-4 ${index % 2 === 0 ? 'left-4' : 'right-4'} w-[250px] h-[250px] bg-gradient-to-br from-[#54C4B6] to-[#A8D381] rounded-full opacity-20`}></div>
+              <img 
+                src={person.image} 
+                alt={person.name} 
+                class="relative rounded-full object-cover block shadow-2xl border-4 border-white" 
+                style="width: 250px; height: 250px;" 
+              />
+              <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-white rounded-full px-4 py-2 shadow-lg">
+                <p class="text-sm font-medium text-gray-700">{person.location}</p>
+              </div>
+            </div>
+
+            <!-- Content Section -->
+            <div class="flex-1 text-center lg:text-left">
+              <div class="mb-6">
+                <h2 class="text-4xl font-bold text-gray-900 mb-2">{person.name}</h2>
+                <p class="text-xl text-[#54C4B6] font-medium">{person.role}</p>
+              </div>
+
+              <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                {person.bio}
+              </p>
+
+              <div class="mb-6">
+                <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Specialties</h3>
+                <div class="flex flex-wrap gap-2 justify-center lg:justify-start">
+                  {person.specialties.map((specialty) => (
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-[#54C4B6]/10 to-[#A8D381]/10 text-gray-700">
+                      {specialty}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] text-white rounded-lg shadow-sm">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="font-medium">{person.impact}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    ))}
+  </div>
+
+  <script>
+    // Handle progress indicator clicks
+    document.querySelectorAll('.progress-dot').forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        section?.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Update active dot on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          document.querySelectorAll('.progress-dot').forEach((dot) => {
+            dot.classList.remove('active');
+            if (dot.getAttribute('data-section') === entry.target.id) {
+              dot.classList.add('active');
+            }
+          });
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.showcase-section').forEach((section) => {
+      observer.observe(section);
+    });
+
+    // Add card animation on scroll
+    const cardObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.querySelector('.card-enter')?.classList.add('card-enter');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.showcase-section:not(#hero)').forEach((section) => {
+      cardObserver.observe(section);
+    });
+  </script>
+</Layout>
