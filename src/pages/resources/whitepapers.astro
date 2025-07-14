@@ -1,0 +1,455 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// Sample whitepapers data
+const whitepapers = [
+  {
+    id: 1,
+    title: "The ROI of Better Conversations: A Data-Driven Analysis",
+    abstract: "This comprehensive study examines the measurable impact of implementing Better Conversations methodology across 50 organizations, revealing an average 34% improvement in team productivity and 28% reduction in conflict-related costs.",
+    authors: ["Dr. Sarah Mitchell", "Prof. James Chen"],
+    date: "January 2024",
+    readTime: "25 min read",
+    pages: 32,
+    downloads: 1247,
+    category: "Business Impact",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop"
+  },
+  {
+    id: 2,
+    title: "Clean Language in Leadership: Transforming Executive Communication",
+    abstract: "An in-depth exploration of how Clean Language techniques can revolutionize leadership communication, featuring case studies from Fortune 500 companies and practical implementation frameworks.",
+    authors: ["Michael Thompson", "Dr. Emily Rodriguez"],
+    date: "December 2023",
+    readTime: "30 min read",
+    pages: 42,
+    downloads: 892,
+    category: "Leadership",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop"
+  },
+  {
+    id: 3,
+    title: "Building Psychological Safety Through Structured Conversations",
+    abstract: "Research-based strategies for creating psychologically safe environments using Better Conversations principles, including metrics for measuring progress and common implementation challenges.",
+    authors: ["Dr. Lisa Park", "Simon Davies"],
+    date: "November 2023",
+    readTime: "20 min read",
+    pages: 28,
+    downloads: 1563,
+    category: "Organizational Culture",
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=400&fit=crop"
+  },
+  {
+    id: 4,
+    title: "The Science of Emergent Knowledge in Team Dynamics",
+    abstract: "A scientific examination of how Emergent Knowledge techniques facilitate innovation and problem-solving in cross-functional teams, backed by neuroscience research and field studies.",
+    authors: ["Prof. David Wilson", "Dr. Anna Martinez"],
+    date: "October 2023",
+    readTime: "35 min read",
+    pages: 48,
+    downloads: 734,
+    category: "Research",
+    image: "https://images.unsplash.com/photo-1532619675605-1ede6c2ed2b0?w=800&h=400&fit=crop"
+  }
+];
+---
+
+<Layout title="Whitepapers - Better Conversations Foundation">
+  <style>
+    /* Floating particles background */
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      33% { transform: translateY(-20px) rotate(120deg); }
+      66% { transform: translateY(20px) rotate(240deg); }
+    }
+    
+    .floating-particle {
+      position: absolute;
+      opacity: 0.1;
+      animation: float 20s ease-in-out infinite;
+    }
+    
+    /* Download progress animation */
+    .download-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #54C4B6, #A8D381);
+      width: 0;
+      transition: width 2s ease-out;
+    }
+    
+    /* Paper stack effect */
+    .paper-stack {
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+    
+    .paper-stack::before,
+    .paper-stack::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.75rem;
+      z-index: -1;
+      transition: transform 0.3s ease;
+    }
+    
+    .paper-stack::before {
+      transform: rotate(-2deg) translateY(4px);
+    }
+    
+    .paper-stack::after {
+      transform: rotate(1deg) translateY(8px);
+    }
+    
+    .paper-stack:hover {
+      transform: translateY(-4px);
+    }
+    
+    .paper-stack:hover::before {
+      transform: rotate(-3deg) translateY(6px);
+    }
+    
+    .paper-stack:hover::after {
+      transform: rotate(2deg) translateY(12px);
+    }
+    
+    /* Interactive stats */
+    .stat-counter {
+      display: inline-block;
+      min-width: 4ch;
+      text-align: right;
+    }
+    
+    /* Spotlight effect on hover */
+    .spotlight-card {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .spotlight-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(84, 196, 182, 0.1) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    
+    .spotlight-card:hover::before {
+      opacity: 1;
+    }
+    
+    /* Reading progress indicator */
+    .reading-ring {
+      position: relative;
+      width: 60px;
+      height: 60px;
+    }
+    
+    .reading-ring svg {
+      transform: rotate(-90deg);
+    }
+    
+    .reading-ring-bg {
+      fill: none;
+      stroke: #e5e7eb;
+      stroke-width: 4;
+    }
+    
+    .reading-ring-progress {
+      fill: none;
+      stroke: url(#gradient);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-dasharray: 157;
+      stroke-dashoffset: 157;
+      transition: stroke-dashoffset 1s ease;
+    }
+  </style>
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white">
+    <!-- Floating particles -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="floating-particle top-20 left-10 w-4 h-4 bg-[#54C4B6] rounded-full" style="animation-delay: 0s;"></div>
+      <div class="floating-particle top-40 right-20 w-6 h-6 bg-[#A8D381] rounded-full" style="animation-delay: 3s;"></div>
+      <div class="floating-particle bottom-20 left-1/3 w-5 h-5 bg-[#54C4B6] rounded-full" style="animation-delay: 6s;"></div>
+      <div class="floating-particle bottom-40 right-1/4 w-4 h-4 bg-[#A8D381] rounded-full" style="animation-delay: 9s;"></div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+      <div class="text-center">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+          Research & <span class="text-[#54C4B6]">Whitepapers</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          Evidence-based insights and comprehensive research to help you make the case for Better Conversations in your organization.
+        </p>
+        
+        <!-- Live Stats -->
+        <div class="flex flex-wrap justify-center gap-8 text-center">
+          <div class="stat-group">
+            <div class="text-3xl font-bold text-[#54C4B6]">
+              <span class="stat-counter" data-target="4236">0</span>+
+            </div>
+            <div class="text-sm text-gray-600">Total Downloads</div>
+          </div>
+          <div class="stat-group">
+            <div class="text-3xl font-bold text-[#A8D381]">
+              <span class="stat-counter" data-target="156">0</span>
+            </div>
+            <div class="text-sm text-gray-600">Organizations Reached</div>
+          </div>
+          <div class="stat-group">
+            <div class="text-3xl font-bold text-[#54C4B6]">
+              <span class="stat-counter" data-target="92">0</span>%
+            </div>
+            <div class="text-sm text-gray-600">Implementation Success</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Wave separator -->
+    <div class="absolute bottom-0 left-0 right-0">
+      <svg class="w-full h-16 text-white" preserveAspectRatio="none" viewBox="0 0 1440 54" fill="currentColor">
+        <path d="M0,22L60,27.2C120,32,240,43,360,44.7C480,46,600,38,720,30.3C840,22,960,14,1080,16.3C1200,19,1320,32,1380,38.5L1440,45L1440,54L1380,54C1320,54,1200,54,1080,54C960,54,840,54,720,54C600,54,480,54,360,54C240,54,120,54,60,54L0,54Z"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Whitepapers Grid -->
+  <section class="py-16 lg:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid gap-8 lg:gap-12">
+        {whitepapers.map((paper, index) => (
+          <article class="paper-stack spotlight-card bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden group">
+            <div class="lg:flex">
+              <!-- Image Section -->
+              <div class="lg:w-1/3 relative overflow-hidden">
+                <img 
+                  src={paper.image} 
+                  alt={paper.title}
+                  class="w-full h-64 lg:h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent lg:bg-gradient-to-r"></div>
+                
+                <!-- Category Badge -->
+                <div class="absolute top-4 left-4">
+                  <span class="px-3 py-1 bg-white/90 backdrop-blur-sm text-[#54C4B6] text-sm font-medium rounded-full">
+                    {paper.category}
+                  </span>
+                </div>
+              </div>
+              
+              <!-- Content Section -->
+              <div class="lg:w-2/3 p-8 lg:p-10">
+                <div class="flex flex-col h-full">
+                  <!-- Header -->
+                  <div class="mb-4">
+                    <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-3 group-hover:text-[#54C4B6] transition-colors">
+                      {paper.title}
+                    </h2>
+                    <div class="flex flex-wrap items-center gap-4 text-sm text-gray-600">
+                      <div class="flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                        </svg>
+                        {paper.authors.join(", ")}
+                      </div>
+                      <div class="flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        {paper.date}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Abstract -->
+                  <p class="text-gray-600 mb-6 flex-grow line-clamp-3 lg:line-clamp-none">
+                    {paper.abstract}
+                  </p>
+                  
+                  <!-- Footer -->
+                  <div class="flex flex-wrap items-center justify-between gap-4">
+                    <!-- Metrics -->
+                    <div class="flex items-center gap-6 text-sm text-gray-500">
+                      <div class="flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                        </svg>
+                        {paper.pages} pages
+                      </div>
+                      <div class="flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        {paper.readTime}
+                      </div>
+                      <div class="flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/>
+                        </svg>
+                        <span class="download-count">{paper.downloads}</span> downloads
+                      </div>
+                    </div>
+                    
+                    <!-- Actions -->
+                    <div class="flex items-center gap-3">
+                      <button 
+                        class="read-button px-4 py-2 text-[#54C4B6] border border-[#54C4B6] rounded-lg hover:bg-[#54C4B6]/10 transition-colors"
+                        data-id={paper.id}
+                      >
+                        Read Online
+                      </button>
+                      <button 
+                        class="download-button px-4 py-2 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] text-white rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300 relative overflow-hidden"
+                        data-id={paper.id}
+                        data-downloads={paper.downloads}
+                      >
+                        <span class="relative z-10">Download PDF</span>
+                        <div class="download-progress"></div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold text-white mb-4">Need Custom Research?</h2>
+      <p class="text-xl text-white/90 max-w-2xl mx-auto mb-8">
+        We can work with your organization to develop tailored research and case studies specific to your industry and challenges.
+      </p>
+      <a href="/about/contact" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-[#54C4B6] bg-white hover:bg-gray-50 transition-colors">
+        Discuss Research Partnership
+      </a>
+    </div>
+  </section>
+
+  <!-- SVG Definitions -->
+  <svg class="hidden">
+    <defs>
+      <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#54C4B6" />
+        <stop offset="100%" stop-color="#A8D381" />
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <script>
+    // Animated counter
+    function animateCounter(element, target, duration = 2000) {
+      const start = 0;
+      const increment = target / (duration / 16);
+      let current = start;
+      
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        element.textContent = Math.floor(current).toLocaleString();
+      }, 16);
+    }
+    
+    // Initialize counters on page load
+    document.querySelectorAll('.stat-counter').forEach(counter => {
+      const target = parseInt(counter.dataset.target);
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCounter(counter, target);
+            observer.unobserve(entry.target);
+          }
+        });
+      });
+      observer.observe(counter);
+    });
+    
+    // Download animation
+    document.querySelectorAll('.download-button').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const progress = this.querySelector('.download-progress');
+        const downloads = parseInt(this.dataset.downloads);
+        const id = this.dataset.id;
+        
+        // Start download animation
+        progress.style.width = '100%';
+        this.classList.add('pointer-events-none');
+        
+        // Update download count
+        setTimeout(() => {
+          const countElement = this.closest('article').querySelector('.download-count');
+          countElement.textContent = (downloads + 1).toLocaleString();
+          
+          // Reset button
+          progress.style.width = '0';
+          this.classList.remove('pointer-events-none');
+          
+          // Simulate download
+          alert('Download started! (This is a demo)');
+        }, 2000);
+      });
+    });
+    
+    // Read online functionality
+    document.querySelectorAll('.read-button').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const id = this.dataset.id;
+        
+        // Create reading progress animation
+        const originalText = this.innerHTML;
+        this.innerHTML = `
+          <div class="flex items-center gap-2">
+            <div class="reading-ring">
+              <svg width="20" height="20">
+                <circle cx="10" cy="10" r="8" class="reading-ring-bg"/>
+                <circle cx="10" cy="10" r="8" class="reading-ring-progress" style="stroke-dashoffset: 0;"/>
+              </svg>
+            </div>
+            <span>Opening...</span>
+          </div>
+        `;
+        
+        setTimeout(() => {
+          this.innerHTML = originalText;
+          alert('Opening reader... (This is a demo)');
+        }, 1500);
+      });
+    });
+    
+    // Mouse spotlight effect
+    document.querySelectorAll('.spotlight-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        
+        card.style.setProperty('--mouse-x', `${x}%`);
+        card.style.setProperty('--mouse-y', `${y}%`);
+      });
+    });
+  </script>
+</Layout>

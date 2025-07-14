@@ -3,30 +3,130 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Better Conversations Foundation">
+	<style>
+		/* Floating animation */
+		@keyframes float {
+			0%, 100% { transform: translateY(0) translateX(0); }
+			33% { transform: translateY(-10px) translateX(5px); }
+			66% { transform: translateY(5px) translateX(-5px); }
+		}
+		
+		.floating {
+			animation: float 6s ease-in-out infinite;
+		}
+		
+		/* Morphing blob */
+		@keyframes morph {
+			0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+			50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+		}
+		
+		.morphing {
+			animation: morph 8s ease-in-out infinite;
+		}
+		
+		/* Gradient animation */
+		@keyframes gradient-shift {
+			0% { background-position: 0% 50%; }
+			50% { background-position: 100% 50%; }
+			100% { background-position: 0% 50%; }
+		}
+		
+		.animated-gradient {
+			background-size: 200% 200%;
+			animation: gradient-shift 10s ease infinite;
+		}
+		
+		/* Pulse effect for circles */
+		@keyframes pulse {
+			0%, 100% { transform: scale(1); opacity: 0.3; }
+			50% { transform: scale(1.2); opacity: 0.6; }
+		}
+		
+		.pulse-circle {
+			animation: pulse 4s ease-in-out infinite;
+		}
+		
+		/* Ripple button effect */
+		.ripple-button {
+			position: relative;
+			overflow: hidden;
+			transform: translateZ(0);
+		}
+		
+		.ripple-button::before {
+			content: '';
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 0;
+			height: 0;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, 0.5);
+			transform: translate(-50%, -50%);
+			transition: width 0.6s, height 0.6s;
+		}
+		
+		.ripple-button:hover::before {
+			width: 300px;
+			height: 300px;
+		}
+	</style>
+	
 	<!-- Hero Section -->
 	<section class="relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white">
-		<div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10"></div>
+		<!-- Animated gradient background -->
+		<div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/30 via-transparent to-[#A8D381]/30 animated-gradient"></div>
+		
+		<!-- Floating particles -->
+		<div class="absolute inset-0 pointer-events-none">
+			<div class="floating absolute top-20 left-[10%] w-4 h-4 bg-[#54C4B6] rounded-full opacity-20"></div>
+			<div class="floating absolute top-40 right-[15%] w-6 h-6 bg-[#A8D381] rounded-full opacity-20" style="animation-delay: 2s;"></div>
+			<div class="floating absolute bottom-40 left-[20%] w-5 h-5 bg-[#54C4B6] rounded-full opacity-20" style="animation-delay: 4s;"></div>
+			<div class="floating absolute bottom-20 right-[25%] w-4 h-4 bg-[#A8D381] rounded-full opacity-20" style="animation-delay: 1s;"></div>
+			
+			<!-- Pulse circles -->
+			<div class="pulse-circle absolute top-[30%] left-[5%] w-8 h-8 bg-[#54C4B6] rounded-full"></div>
+			<div class="pulse-circle absolute top-[60%] right-[10%] w-10 h-10 bg-[#A8D381] rounded-full" style="animation-delay: 2s;"></div>
+			<div class="pulse-circle absolute bottom-[25%] left-[15%] w-6 h-6 bg-[#54C4B6] rounded-full" style="animation-delay: 1s;"></div>
+		</div>
+		
 		<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 lg:py-48">
 			<div class="text-center">
 				<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-					Open the door to <span class="text-[#54C4B6]">better communication</span>
+					Open the door to <span class="text-[#54C4B6] relative">
+						better communication
+						<svg class="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 200 8" preserveAspectRatio="none">
+							<path d="M0 7 Q50 0 100 3 T200 7" stroke="#54C4B6" stroke-width="2" fill="none" opacity="0.5"/>
+						</svg>
+					</span>
 				</h1>
 				<p class="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
-					Nice to meet you. We are the Better Conversations Foundation. We help people connect on a human level.
+					Nice to meet you. We are the Better Conversations Foundation. We help people 
+					<span class="text-[#54C4B6] font-semibold">connect</span> 
+					on a human level.
 				</p>
 				<div class="flex flex-col sm:flex-row gap-4 justify-center">
-					<a href="#join" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-[#54C4B6] hover:bg-[#54C4B6]/90 transition-colors shadow-sm">
+					<a href="#join" class="ripple-button inline-flex items-center px-8 py-4 border border-transparent text-base font-medium rounded-full text-white bg-gradient-to-r from-[#54C4B6] to-[#A8D381] hover:shadow-xl transform hover:scale-105 transition-all duration-300">
 						Join the Foundation
+						<svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+						</svg>
 					</a>
-					<a href="#course" class="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors shadow-sm">
+					<a href="#course" class="group inline-flex items-center px-8 py-4 border-2 border-gray-300 text-base font-medium rounded-full text-gray-700 bg-white hover:border-[#54C4B6] hover:text-[#54C4B6] transition-all duration-300">
 						Attend a Course
+						<svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+						</svg>
 					</a>
 				</div>
 			</div>
 		</div>
-		<!-- Decorative elements -->
-		<div class="absolute top-10 right-0 w-72 h-72 bg-[#A8D381]/10 rounded-full blur-3xl"></div>
-		<div class="absolute bottom-10 left-0 w-72 h-72 bg-[#54C4B6]/10 rounded-full blur-3xl"></div>
+		
+		<!-- Morphing decorative elements -->
+		<div class="absolute top-10 right-0 w-96 h-96 bg-[#A8D381]/20 rounded-full blur-3xl morphing"></div>
+		<div class="absolute bottom-10 left-0 w-96 h-96 bg-[#54C4B6]/20 rounded-full blur-3xl morphing" style="animation-delay: 4s;"></div>
+		<div class="absolute bottom-0 right-20 w-72 h-72 bg-[#A8D381]/15 rounded-full blur-2xl morphing" style="animation-delay: 2s;"></div>
 		<!-- Wave separator -->
 		<div class="absolute bottom-0 left-0 right-0">
 			<svg class="w-full h-16 text-white" preserveAspectRatio="none" viewBox="0 0 1440 54" fill="currentColor">
@@ -37,94 +137,6 @@ import Layout from '../layouts/Layout.astro';
 
 	<!-- About Section -->
 	<section class="py-16 lg:py-24 bg-white relative overflow-hidden">
-		<!-- Network Background Graphic -->
-		<div class="absolute inset-0">
-			<svg class="w-full h-full opacity-[0.25]" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice">
-				<!-- Network connections -->
-				<g stroke="#54C4B6" stroke-width="2" fill="none">
-					<!-- Primary connections -->
-					<line x1="200" y1="150" x2="400" y2="100" opacity="0.6"/>
-					<line x1="400" y1="100" x2="600" y2="200" opacity="0.6"/>
-					<line x1="600" y1="200" x2="800" y2="150" opacity="0.6"/>
-					<line x1="800" y1="150" x2="1000" y2="250" opacity="0.6"/>
-					<line x1="200" y1="150" x2="300" y2="300" opacity="0.6"/>
-					<line x1="300" y1="300" x2="500" y2="350" opacity="0.6"/>
-					<line x1="500" y1="350" x2="700" y2="300" opacity="0.6"/>
-					<line x1="700" y1="300" x2="900" y2="400" opacity="0.6"/>
-					
-					<!-- Secondary connections -->
-					<line x1="400" y1="100" x2="500" y2="350" opacity="0.3"/>
-					<line x1="600" y1="200" x2="700" y2="300" opacity="0.3"/>
-					<line x1="200" y1="150" x2="500" y2="200" opacity="0.3"/>
-					<line x1="800" y1="150" x2="700" y2="300" opacity="0.3"/>
-					<line x1="300" y1="300" x2="600" y2="200" opacity="0.3"/>
-					<line x1="1000" y1="250" x2="900" y2="400" opacity="0.3"/>
-					
-					<!-- Additional mesh -->
-					<line x1="100" y1="400" x2="300" y2="300" opacity="0.2"/>
-					<line x1="900" y1="100" x2="800" y2="150" opacity="0.2"/>
-					<line x1="1100" y1="350" x2="900" y2="400" opacity="0.2"/>
-					<line x1="150" y1="50" x2="400" y2="100" opacity="0.2"/>
-				</g>
-				
-				<g stroke="#A8D381" stroke-width="2" fill="none">
-					<!-- Complementary network -->
-					<line x1="150" y1="250" x2="350" y2="200" opacity="0.5"/>
-					<line x1="350" y1="200" x2="550" y2="300" opacity="0.5"/>
-					<line x1="550" y1="300" x2="750" y2="250" opacity="0.5"/>
-					<line x1="750" y1="250" x2="950" y2="350" opacity="0.5"/>
-					<line x1="250" y1="450" x2="450" y2="400" opacity="0.5"/>
-					<line x1="450" y1="400" x2="650" y2="450" opacity="0.5"/>
-					<line x1="650" y1="450" x2="850" y2="500" opacity="0.5"/>
-				</g>
-				
-				<!-- Network nodes -->
-				<g>
-					<!-- Primary nodes -->
-					<circle cx="200" cy="150" r="6" fill="#54C4B6" opacity="0.9"/>
-					<circle cx="400" cy="100" r="7" fill="#54C4B6" opacity="0.9"/>
-					<circle cx="600" cy="200" r="6" fill="#54C4B6" opacity="0.9"/>
-					<circle cx="800" cy="150" r="8" fill="#54C4B6" opacity="0.9"/>
-					<circle cx="1000" cy="250" r="6" fill="#54C4B6" opacity="0.9"/>
-					
-					<circle cx="300" cy="300" r="7" fill="#A8D381" opacity="0.9"/>
-					<circle cx="500" cy="350" r="6" fill="#A8D381" opacity="0.9"/>
-					<circle cx="700" cy="300" r="8" fill="#A8D381" opacity="0.9"/>
-					<circle cx="900" cy="400" r="6" fill="#A8D381" opacity="0.9"/>
-					
-					<!-- Secondary nodes -->
-					<circle cx="150" cy="250" r="4" fill="#A8D381" opacity="0.7"/>
-					<circle cx="350" cy="200" r="4" fill="#A8D381" opacity="0.7"/>
-					<circle cx="550" cy="300" r="4" fill="#A8D381" opacity="0.7"/>
-					<circle cx="750" cy="250" r="4" fill="#A8D381" opacity="0.7"/>
-					<circle cx="950" cy="350" r="4" fill="#A8D381" opacity="0.7"/>
-					
-					<circle cx="100" cy="400" r="4" fill="#54C4B6" opacity="0.6"/>
-					<circle cx="900" cy="100" r="4" fill="#54C4B6" opacity="0.6"/>
-					<circle cx="1100" cy="350" r="4" fill="#54C4B6" opacity="0.6"/>
-					<circle cx="150" cy="50" r="4" fill="#54C4B6" opacity="0.6"/>
-					
-					<!-- Small connector nodes -->
-					<circle cx="250" cy="450" r="2" fill="#A8D381" opacity="0.4"/>
-					<circle cx="450" cy="400" r="2" fill="#A8D381" opacity="0.4"/>
-					<circle cx="650" cy="450" r="2" fill="#A8D381" opacity="0.4"/>
-					<circle cx="850" cy="500" r="2" fill="#A8D381" opacity="0.4"/>
-					<circle cx="500" cy="200" r="2" fill="#54C4B6" opacity="0.4"/>
-				</g>
-				
-				<!-- Subtle animations -->
-				<g opacity="0.5">
-					<circle cx="600" cy="200" r="2" fill="#54C4B6">
-						<animate attributeName="r" values="2;10;2" dur="4s" repeatCount="indefinite"/>
-						<animate attributeName="opacity" values="0.5;0;0.5" dur="4s" repeatCount="indefinite"/>
-					</circle>
-					<circle cx="700" cy="300" r="2" fill="#A8D381">
-						<animate attributeName="r" values="2;10;2" dur="4s" begin="2s" repeatCount="indefinite"/>
-						<animate attributeName="opacity" values="0.5;0;0.5" dur="4s" begin="2s" repeatCount="indefinite"/>
-					</circle>
-				</g>
-			</svg>
-		</div>
 
 		<!-- Section Content -->
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">

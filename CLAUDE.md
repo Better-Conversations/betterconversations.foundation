@@ -1,0 +1,150 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+This is the Better Conversations Foundation (BCF) website built with Astro. The site promotes BCF's mission of improving professional and personal communication through Clean Language methodology and Emergent Knowledge techniques.
+
+## Development Commands
+
+```bash
+npm install          # Install dependencies
+npm run dev          # Start dev server at localhost:4321
+npm run build        # Build production site to ./dist/
+npm run preview      # Preview production build locally
+```
+
+## Architecture & Key Patterns
+
+### Framework Stack
+- **Astro v5.11.0** - Static site generator
+- **Tailwind CSS v3.4.17** - Utility-first styling (configured with @astrojs/tailwind)
+- **TypeScript** - Strict configuration enabled
+
+### Project Structure
+- `src/pages/` - File-based routing (Astro automatically creates routes)
+- `src/components/` - Reusable Astro components (Navbar, Footer)
+- `src/layouts/` - Page wrapper components
+- `public/` - Static assets served directly
+
+### Key Architectural Decisions
+
+1. **Layout System**: All pages use `Layout.astro` except the showcase page which has special handling:
+   ```astro
+   const isShowcasePage = Astro.url.pathname === '/showcase' || Astro.url.pathname === '/showcase/';
+   ```
+   The showcase page has no footer and uses full-height scroll-snap behavior.
+
+2. **Navigation Structure**: Multi-level dropdown navigation defined in `Navbar.astro`:
+   - Learn → Getting Started, Documentation, Tutorials, API Reference
+   - Resources → Blog, Whitepapers, Guides, Success Stories, Tools
+   - Community → Forums, Events, Contributors, Code of Conduct
+   - Partner With Us → Organizations, Facilitator, Research, Support
+   - About → Mission, Team, Ambassador Showcase, Contact
+
+3. **Design System**:
+   - Primary brand colors: `#54C4B6` (teal), `#A8D381` (green)
+   - Consistent gradient patterns: `from-[#54C4B6] to-[#A8D381]`
+   - Wave separator SVG pattern used between sections
+   - Responsive breakpoints: mobile-first with sm/md/lg/xl
+
+4. **Special Features**:
+   - **Footer behavior**: Sticky minimal footer that expands when scrolled to bottom
+   - **Showcase page**: Full-screen ambassador profiles with scroll-snap and progress indicators
+   - **Interactive elements**: Magnetic buttons, 3D tilt cards, typewriter effects
+
+### Import Path Conventions
+
+When moving files between directories, update import paths:
+- From `pages/`: `import Layout from '../layouts/Layout.astro'`
+- From `pages/about/`: `import Layout from '../../layouts/Layout.astro'`
+- From `pages/resources/`: `import Layout from '../../layouts/Layout.astro'`
+
+### Component Patterns
+
+Astro components use frontmatter for logic:
+```astro
+---
+// TypeScript/JavaScript logic here
+const { prop } = Astro.props;
+---
+<!-- HTML template here -->
+```
+
+### Styling Approach
+
+1. Tailwind utilities for most styling
+2. Scoped `<style>` blocks in components for animations/complex CSS
+3. Global styles in `src/styles/global.css` (only Tailwind directives)
+
+## Design Philosophy
+
+### Core Principles
+
+1. **Function First, Innovation Second**: Every innovative design element must serve a functional purpose. Animations and effects enhance user experience, not distract from it.
+
+2. **Modern & Clean Aesthetic**: 
+   - Generous whitespace and breathing room
+   - Subtle gradients and soft shadows
+   - Rounded corners (typically `rounded-lg` or `rounded-2xl`)
+   - Clean typography with clear hierarchy
+
+3. **Consistent Visual Language**:
+   - **Colors**: Primary teal (`#54C4B6`) and secondary green (`#A8D381`)
+   - **Gradients**: Always `from-[#54C4B6] to-[#A8D381]` for brand consistency
+   - **Backgrounds**: Subtle gradient overlays using `bg-gradient-to-br from-[#54C4B6]/5 to-[#A8D381]/5`
+   - **Wave separators**: Used between major sections for visual flow
+
+### Interactive Elements Philosophy
+
+Each page should include 2-3 signature interactive elements that make it memorable:
+
+1. **Hero Sections**:
+   - Animated backgrounds (morphing blobs, floating particles, network graphics)
+   - Dynamic text effects (typewriter, color transitions)
+   - Always include wave separator at bottom
+
+2. **Card Components**:
+   - 3D tilt effects on hover
+   - Stacked paper effects for depth
+   - Smooth scale transforms on interaction
+   - Group hover states for cohesive interaction
+
+3. **Micro-interactions**:
+   - Magnetic buttons that follow cursor
+   - Ripple effects on clicks
+   - Progress indicators with smooth animations
+   - Floating form labels that animate on focus
+
+### Page-Specific Patterns
+
+- **Landing Page**: Network background graphic, feature cards with hover effects
+- **About Page**: Staggered founder profiles with decorative offset circles
+- **Blog Page**: Grid layout with featured/regular post distinction
+- **Showcase Page**: Full-screen scroll-snap with progress indicators
+- **Contact Page**: Morphing blobs, typewriter effect, 3D tilt cards
+- **Whitepapers Page**: Paper stack effects, live counters, download progress
+
+### Animation Guidelines
+
+- Use CSS animations over JavaScript where possible
+- Prefer `transition-all duration-300` for standard transitions
+- Animation timing: `ease-out` for entrances, `ease-in-out` for continuous
+- Stagger animations with delays for visual hierarchy
+- Keep animations subtle - they should enhance, not dominate
+
+### Responsive Design
+
+- Mobile-first approach using Tailwind breakpoints
+- Ensure all interactive elements work on touch devices
+- Simplify or remove complex animations on mobile for performance
+- Test scroll-based effects on various viewport sizes
+
+## Important Notes
+
+- The showcase page (`/showcase`) requires special handling - it has unique scroll behavior and no footer
+- When creating new pages in subdirectories, ensure import paths are updated accordingly
+- All images should be placed in `/public/` directory
+- The site uses no runtime JavaScript framework - all interactivity is vanilla JS in `<script>` tags
+- Maintain the balance between innovation and usability - the site should feel fresh but remain accessible
