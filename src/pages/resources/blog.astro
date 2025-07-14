@@ -1,15 +1,21 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
-// Sample blog posts data - in a real app, this would come from a CMS or markdown files
+// Get all blog posts from content collection
+const allBlogPosts = await getCollection('blog');
+
+// Convert to the format expected by the template and add sample posts
 const blogPosts = [
+  // Real blog post from content collection
   {
     id: 1,
-    title: "Getting Started with Clean Language in Professional Settings",
-    excerpt: "Discover how Clean Language techniques can transform your workplace communication and enhance team collaboration.",
-    author: "Sarah Johnson",
-    date: "January 15, 2024",
-    category: "Clean Language",
+    title: allBlogPosts[0]?.data.title || "What links Bulls and Better Conversations?",
+    excerpt: allBlogPosts[0]?.data.excerpt || "Exploring how Picasso's Bull series parallels our journey in creating Better Conversations - from complexity to essential simplicity in Clean Language training.",
+    author: allBlogPosts[0]?.data.author || "Chandima Dutton",
+    date: allBlogPosts[0]?.data.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }) || "October 22, 2024",
+    category: allBlogPosts[0]?.data.category || "Clean Language",
+    slug: allBlogPosts[0]?.slug || "bulls-and-better-conversations",
     readTime: "5 min read",
     featured: true,
     image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop"
@@ -152,7 +158,7 @@ const regularPosts = blogPosts.filter(post => !post.featured);
                 <span>{post.readTime}</span>
               </div>
               <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors mb-3">
-                <a href={`/blog/${post.id}`} class="stretched-link">
+                <a href={post.slug ? `/blog/${post.slug}` : `#`} class="stretched-link">
                   {post.title}
                 </a>
               </h3>
@@ -228,7 +234,7 @@ const regularPosts = blogPosts.filter(post => !post.featured);
                     <span>{post.readTime}</span>
                   </div>
                   <h3 class="text-lg font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors mb-2">
-                    <a href={`/blog/${post.id}`}>
+                    <a href={post.slug ? `/blog/${post.slug}` : `#`}>
                       {post.title}
                     </a>
                   </h3>
