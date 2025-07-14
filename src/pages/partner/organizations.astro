@@ -1,0 +1,730 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+---
+
+<Layout title="Organizations Partnership - Better Conversations Foundation">
+  <style>
+    /* Collaborative network animation */
+    @keyframes networkPulse {
+      0%, 100% { 
+        r: 4;
+        opacity: 0.3;
+      }
+      50% { 
+        r: 8;
+        opacity: 0.8;
+      }
+    }
+    
+    .network-node {
+      animation: networkPulse 3s ease-in-out infinite;
+    }
+    
+    /* Growing connection lines */
+    @keyframes growConnection {
+      0% { 
+        stroke-dashoffset: 200;
+        opacity: 0;
+      }
+      100% { 
+        stroke-dashoffset: 0;
+        opacity: 0.3;
+      }
+    }
+    
+    .connection-path {
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      animation: growConnection 2s ease-out forwards;
+    }
+    
+    /* Text reveal with float */
+    @keyframes revealFloat {
+      0% { 
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% { 
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .reveal-float {
+      opacity: 0;
+      animation: revealFloat 0.8s ease-out forwards;
+    }
+    
+    /* Rotating values icons */
+    @keyframes gentleRotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .rotate-gentle {
+      animation: gentleRotate 20s linear infinite;
+    }
+    
+    /* Breathing effect */
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    .breathe {
+      animation: breathe 4s ease-in-out infinite;
+    }
+    
+    /* Journey circle animations */
+    @keyframes scaleIn {
+      0% {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    
+    .journey-circle {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    
+    .journey-circle.animate {
+      animation: scaleIn 0.6s ease-out forwards;
+    }
+    
+    /* Glow pulse animation */
+    @keyframes glowPulse {
+      0% {
+        opacity: 0;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.5;
+        transform: scale(1.5);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.8);
+      }
+    }
+    
+    .glow-pulse {
+      animation: glowPulse 2s ease-out;
+    }
+    
+    /* Partner card tilt effect */
+    .partner-card {
+      transform-style: preserve-3d;
+      transition: transform 0.3s ease;
+    }
+    
+    .partner-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(84, 196, 182, 0.05), rgba(168, 211, 129, 0.05));
+      border-radius: 1rem;
+      transform: translateZ(-1px);
+      z-index: -1;
+    }
+  </style>
+
+  <HeroSection 
+    title="Partnership for Organizations"
+    titleHighlight="Organizations"
+    description="Join a global community transforming workplace communication through shared values and collaborative learning."
+  />
+
+  <!-- Philosophy Section -->
+  <section class="py-16 lg:py-24 bg-white relative overflow-hidden">
+    <div class="absolute inset-0">
+      <svg class="absolute w-full h-full" viewBox="0 0 800 400">
+        <!-- Network visualization -->
+        <circle class="network-node" cx="100" cy="100" fill="#54C4B6" />
+        <circle class="network-node" cx="300" cy="200" fill="#A8D381" style="animation-delay: 0.5s;" />
+        <circle class="network-node" cx="500" cy="150" fill="#54C4B6" style="animation-delay: 1s;" />
+        <circle class="network-node" cx="700" cy="300" fill="#A8D381" style="animation-delay: 1.5s;" />
+        <path class="connection-path" d="M 100 100 L 300 200" stroke="#54C4B6" stroke-width="1" fill="none" />
+        <path class="connection-path" d="M 300 200 L 500 150" stroke="#A8D381" stroke-width="1" fill="none" style="animation-delay: 0.5s;" />
+        <path class="connection-path" d="M 500 150 L 700 300" stroke="#54C4B6" stroke-width="1" fill="none" style="animation-delay: 1s;" />
+        <path class="connection-path" d="M 100 100 L 500 150" stroke="#A8D381" stroke-width="1" fill="none" style="animation-delay: 1.5s;" />
+      </svg>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 reveal-float">A Collaborative Approach to Better Conversations</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto reveal-float" style="animation-delay: 0.2s;">
+          We believe in the power of partnership. BCF provides free, Creative Commons licensed materials 
+          and support to organizations that share our commitment to transforming communication.
+        </p>
+      </div>
+
+      <!-- Values Alignment -->
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h3 class="text-2xl font-semibold text-gray-900 mb-4">Who We Partner With</h3>
+          <p class="text-lg text-gray-600">
+            We work with organizations that are committed to making a positive difference in their communities:
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-8 mb-16">
+          <div class="partner-card relative bg-white rounded-2xl p-8 shadow-lg cursor-pointer group">
+            <div class="relative z-10">
+              <div class="w-16 h-16 bg-[#54C4B6]/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <svg class="w-8 h-8 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+              </div>
+              <h4 class="text-xl font-semibold text-gray-900 mb-3">Mission-Aligned Organizations</h4>
+              <ul class="space-y-2 text-gray-600">
+                <li class="flex items-start">
+                  <span class="text-[#54C4B6] mr-2 mt-1">•</span>
+                  <span>Non-profits and charities</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-[#54C4B6] mr-2 mt-1">•</span>
+                  <span>Social enterprises</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-[#54C4B6] mr-2 mt-1">•</span>
+                  <span>Public sector bodies</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-[#54C4B6] mr-2 mt-1">•</span>
+                  <span>Community groups</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="partner-card relative bg-white rounded-2xl p-8 shadow-lg cursor-pointer group">
+            <div class="relative z-10">
+              <div class="w-16 h-16 bg-[#A8D381]/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <svg class="w-8 h-8 text-[#A8D381]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h4 class="text-xl font-semibold text-gray-900 mb-3">Values-Aligned Businesses</h4>
+              <ul class="space-y-2 text-gray-600">
+                <li class="flex items-start">
+                  <span class="text-[#A8D381] mr-2 mt-1">•</span>
+                  <span>B-Corps and social businesses</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-[#A8D381] mr-2 mt-1">•</span>
+                  <span>Purpose-driven companies</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-[#A8D381] mr-2 mt-1">•</span>
+                  <span>Employee-owned organizations</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-[#A8D381] mr-2 mt-1">•</span>
+                  <span>Ethical enterprises</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What We Provide Section -->
+  <section class="py-16 lg:py-24 bg-gradient-to-b from-white to-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Resources & Support</h2>
+        <p class="mt-2 text-3xl font-bold text-gray-900">Everything you need to deliver Better Conversations</p>
+      </div>
+
+      <div class="max-w-5xl mx-auto">
+        <!-- Course Materials -->
+        <div class="mb-12 reveal-float">
+          <div class="flex items-start">
+            <div class="flex-shrink-0 w-16 h-16 bg-[#54C4B6]/10 rounded-2xl flex items-center justify-center rotate-gentle">
+              <svg class="w-8 h-8 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+            </div>
+            <div class="ml-6 flex-1">
+              <h3 class="text-xl font-semibold text-gray-900 mb-3">Complete Course Materials</h3>
+              <p class="text-gray-600 mb-4">
+                Access our comprehensive suite of training resources, all freely available under Creative Commons licensing:
+              </p>
+              <div class="grid sm:grid-cols-2 gap-4 text-gray-600">
+                <div>• Detailed flight plans for facilitators</div>
+                <div>• Participant workbooks and handouts</div>
+                <div>• Session plans and timing guides</div>
+                <div>• Activities and exercise templates</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technology Support -->
+        <div class="mb-12 reveal-float" style="animation-delay: 0.2s;">
+          <div class="flex items-start">
+            <div class="flex-shrink-0 w-16 h-16 bg-[#A8D381]/10 rounded-2xl flex items-center justify-center">
+              <svg class="w-8 h-8 text-[#A8D381]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div class="ml-6 flex-1">
+              <h3 class="text-xl font-semibold text-gray-900 mb-3">Technology & Tools</h3>
+              <p class="text-gray-600 mb-4">
+                Leverage our purpose-built tools to enhance delivery and track impact:
+              </p>
+              <div class="grid sm:grid-cols-2 gap-4 text-gray-600">
+                <div>• Feedback collection app</div>
+                <div>• Certificate generation system</div>
+                <div>• Online verification platform</div>
+                <div>• Resource download portal</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Community Support -->
+        <div class="mb-12 reveal-float" style="animation-delay: 0.4s;">
+          <div class="flex items-start">
+            <div class="flex-shrink-0 w-16 h-16 bg-[#54C4B6]/10 rounded-2xl flex items-center justify-center breathe">
+              <svg class="w-8 h-8 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </div>
+            <div class="ml-6 flex-1">
+              <h3 class="text-xl font-semibold text-gray-900 mb-3">Community & Collaboration</h3>
+              <p class="text-gray-600 mb-4">
+                Join a global network of practitioners committed to better conversations:
+              </p>
+              <div class="grid sm:grid-cols-2 gap-4 text-gray-600">
+                <div>• Partner community forums</div>
+                <div>• Regular community calls</div>
+                <div>• Peer support network</div>
+                <div>• Shared learning resources</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partnership Approach Section -->
+  <section class="py-16 lg:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Working Together</h2>
+        <p class="mt-2 text-3xl font-bold text-gray-900">How we support your journey</p>
+      </div>
+
+      <div class="max-w-4xl mx-auto">
+        <!-- Support Levels Description -->
+        <div class="prose prose-lg max-w-none text-gray-600 mb-12">
+          <p class="text-center">
+            We offer different levels of support based on your organization's needs and capacity. 
+            Our approach is flexible and collaborative, recognizing that each partner brings unique strengths and faces different challenges.
+          </p>
+        </div>
+
+        <!-- Visual Journey -->
+        <div class="relative max-w-5xl mx-auto">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4">
+            <!-- Foundation Support -->
+            <div class="relative">
+              <div class="text-center">
+                <div class="relative inline-flex flex-col items-center mb-4">
+                  <div class="journey-glow absolute inset-0 bg-gradient-to-br from-[#54C4B6]/20 to-transparent rounded-full blur-2xl scale-150 opacity-0"></div>
+                  <div class="journey-circle relative w-24 h-24 bg-gradient-to-br from-white to-[#54C4B6]/10 border-4 border-[#54C4B6] rounded-full flex items-center justify-center shadow-lg">
+                    <span class="text-3xl font-bold text-[#54C4B6]">1</span>
+                  </div>
+                  <!-- Arrow indicator -->
+                  <div class="journey-arrow hidden md:block absolute left-full top-1/2 transform -translate-y-1/2 text-gray-400 opacity-0" style="margin-left: calc(50% - 1rem);">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </div>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Foundation Support</h3>
+                <p class="text-gray-600">
+                  Self-directed partners access all materials and join our community forums for peer support
+                </p>
+              </div>
+            </div>
+
+            <!-- Community Support -->
+            <div class="relative">
+              <div class="text-center">
+                <div class="relative inline-flex flex-col items-center mb-4">
+                  <div class="journey-glow absolute inset-0 bg-gradient-to-br from-[#A8D381]/20 to-transparent rounded-full blur-2xl scale-150 opacity-0"></div>
+                  <div class="journey-circle relative w-24 h-24 bg-gradient-to-br from-white to-[#A8D381]/10 border-4 border-[#A8D381] rounded-full flex items-center justify-center shadow-lg" style="animation-delay: 0.2s;">
+                    <span class="text-3xl font-bold text-[#A8D381]">2</span>
+                  </div>
+                  <!-- Arrow indicator -->
+                  <div class="journey-arrow hidden md:block absolute -right-12 top-1/2 transform -translate-y-1/2 text-gray-300 opacity-0" style="animation-delay: 0.3s;">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </div>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Community Support</h3>
+                <p class="text-gray-600">
+                  Active partners receive volunteer facilitator matching and implementation guidance
+                </p>
+              </div>
+            </div>
+
+            <!-- Professional Support -->
+            <div class="relative">
+              <div class="text-center">
+                <div class="relative inline-flex flex-col items-center mb-4">
+                  <div class="journey-glow absolute inset-0 bg-gradient-to-br from-[#54C4B6]/20 to-transparent rounded-full blur-2xl scale-150 opacity-0"></div>
+                  <div class="journey-circle relative w-24 h-24 bg-gradient-to-br from-white to-[#54C4B6]/10 border-4 border-[#54C4B6] rounded-full flex items-center justify-center shadow-lg" style="animation-delay: 0.4s;">
+                    <span class="text-3xl font-bold text-[#54C4B6]">3</span>
+                  </div>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Professional Support</h3>
+                <p class="text-gray-600">
+                  Dedicated support for organizations needing customization and train-the-trainer programs
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Journey indicator text -->
+          <div class="mt-8 text-center opacity-0 journey-text">
+            <p class="text-sm text-gray-500 italic">Your partnership journey grows with your needs</p>
+          </div>
+        </div>
+
+        <p class="text-center text-gray-600 mt-12">
+          All support is provided on a best-efforts basis by our volunteer community. 
+          Commercial support options are available for organizations requiring guaranteed response times.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shared Commitments Section -->
+  <section class="py-16 lg:py-24 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+    <!-- Decorative elements -->
+    <div class="absolute top-10 right-0 w-64 h-64 bg-[#54C4B6]/5 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-10 left-0 w-64 h-64 bg-[#A8D381]/5 rounded-full blur-3xl"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="text-center mb-12">
+        <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Shared Commitments</h2>
+        <p class="mt-2 text-3xl font-bold text-gray-900">Maintaining quality through collaboration</p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <!-- Course Standards -->
+        <div>
+          <h3 class="text-2xl font-semibold text-gray-900 mb-6">Course Standards</h3>
+          <p class="text-gray-600 mb-6">
+            Together, we maintain the integrity of Better Conversations while adapting to local contexts:
+          </p>
+          <div class="space-y-4">
+            <div class="flex items-start">
+              <div class="w-8 h-8 bg-[#54C4B6]/10 rounded-lg flex items-center justify-center mt-0.5 mr-4 flex-shrink-0">
+                <svg class="w-4 h-4 text-[#54C4B6]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-medium text-gray-900">Core Content</h4>
+                <p class="text-gray-600 text-sm mt-1">5 essential modules delivered in sequence with Clean Language methodology</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <div class="w-8 h-8 bg-[#54C4B6]/10 rounded-lg flex items-center justify-center mt-0.5 mr-4 flex-shrink-0">
+                <svg class="w-4 h-4 text-[#54C4B6]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-medium text-gray-900">Practical Focus</h4>
+                <p class="text-gray-600 text-sm mt-1">Minimum 40% hands-on practice and real-world application</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <div class="w-8 h-8 bg-[#54C4B6]/10 rounded-lg flex items-center justify-center mt-0.5 mr-4 flex-shrink-0">
+                <svg class="w-4 h-4 text-[#54C4B6]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-medium text-gray-900">Flexible Delivery</h4>
+                <p class="text-gray-600 text-sm mt-1">Adapt timing, examples, and format to your organization's needs</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Partnership Expectations -->
+        <div>
+          <h3 class="text-2xl font-semibold text-gray-900 mb-6">Partnership Expectations</h3>
+          <p class="text-gray-600 mb-6">
+            We ask all partners to embrace these principles in our collaborative journey:
+          </p>
+          <div class="space-y-4">
+            <div class="flex items-start">
+              <div class="w-8 h-8 bg-[#A8D381]/10 rounded-lg flex items-center justify-center mt-0.5 mr-4 flex-shrink-0">
+                <svg class="w-4 h-4 text-[#A8D381]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-medium text-gray-900">Live the Values</h4>
+                <p class="text-gray-600 text-sm mt-1">Use Better Conversations principles in all interactions</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <div class="w-8 h-8 bg-[#A8D381]/10 rounded-lg flex items-center justify-center mt-0.5 mr-4 flex-shrink-0">
+                <svg class="w-4 h-4 text-[#A8D381]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-medium text-gray-900">Share Knowledge</h4>
+                <p class="text-gray-600 text-sm mt-1">Contribute improvements and learnings to the community</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <div class="w-8 h-8 bg-[#A8D381]/10 rounded-lg flex items-center justify-center mt-0.5 mr-4 flex-shrink-0">
+                <svg class="w-4 h-4 text-[#A8D381]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-medium text-gray-900">Honor Attribution</h4>
+                <p class="text-gray-600 text-sm mt-1">Credit BCF and respect Creative Commons licensing</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visual Separator -->
+  <div class="relative h-32 bg-gradient-to-b from-gray-50 to-white">
+    <div class="absolute inset-0 flex items-center justify-center">
+      <div class="flex items-center space-x-8">
+        <div class="w-16 h-0.5 bg-gradient-to-r from-transparent to-[#54C4B6]"></div>
+        <div class="relative">
+          <div class="w-12 h-12 bg-gradient-to-br from-[#54C4B6] to-[#A8D381] rounded-full flex items-center justify-center">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          </div>
+          <div class="absolute -inset-2 bg-gradient-to-br from-[#54C4B6]/20 to-[#A8D381]/20 rounded-full blur-xl"></div>
+        </div>
+        <div class="w-16 h-0.5 bg-gradient-to-l from-transparent to-[#A8D381]"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recognition Section -->
+  <section class="py-16 lg:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Mutual Recognition</h2>
+        <p class="mt-2 text-3xl font-bold text-gray-900">Celebrating our partnership</p>
+      </div>
+
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-gradient-to-br from-[#54C4B6]/5 to-[#A8D381]/5 rounded-2xl p-8 lg:p-12">
+          <div class="text-center mb-8">
+            <p class="text-lg text-gray-600">
+              Partnership with BCF is about mutual support and shared success. We celebrate your achievements 
+              and help showcase the impact you're making in your community.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="font-semibold text-gray-900 mb-4">You Receive</h3>
+              <ul class="space-y-3 text-gray-600">
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-[#54C4B6] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Official partner recognition</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-[#54C4B6] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Directory listing on our website</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-[#54C4B6] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Co-marketing opportunities</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-[#54C4B6] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Certificate verification system</span>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="font-semibold text-gray-900 mb-4">You Provide</h3>
+              <ul class="space-y-3 text-gray-600">
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-[#A8D381] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>BCF attribution on materials</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-[#A8D381] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Success stories and feedback</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-[#A8D381] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Course improvement suggestions</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-[#A8D381] mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Community participation</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-8 p-6 bg-white/50 rounded-lg">
+            <p class="text-sm text-gray-600 italic text-center">
+              "This Better Conversations course is delivered in partnership with the Better Conversations Foundation. 
+              Course materials are licensed under Creative Commons CC BY-SA 4.0."
+            </p>
+            <p class="text-xs text-gray-500 text-center mt-2">
+              Simple attribution that acknowledges our collaboration
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="py-16 lg:py-24 bg-gradient-to-r from-[#54C4B6]/10 via-[#A8D381]/10 to-[#54C4B6]/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Begin Your Partnership Journey</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+          The first step in partnering with BCF is experiencing Better Conversations yourself. 
+          Join us in creating workplaces where authentic communication thrives.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+          <a href="/course" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gradient-to-r from-[#54C4B6] to-[#A8D381] hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+            Take the Course
+            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a href="/about/contact" class="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+            Contact Us
+            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </a>
+        </div>
+        
+        <p class="text-gray-600">
+          Already completed the course? <a href="/about/contact" class="text-[#54C4B6] hover:underline">Get in touch</a> to discuss partnership opportunities.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Animate elements on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+        }
+      });
+    }, observerOptions);
+    
+    // Observe all animated elements
+    document.querySelectorAll('.reveal-float').forEach(el => {
+      el.style.animationPlayState = 'paused';
+      observer.observe(el);
+    });
+    
+    // Journey animation observer
+    const journeyObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Animate circles
+          const circles = entry.target.querySelectorAll('.journey-circle');
+          circles.forEach((circle, index) => {
+            setTimeout(() => {
+              circle.classList.add('animate');
+              // Add glow effect after circle animates
+              const glow = circle.previousElementSibling;
+              if (glow && glow.classList.contains('journey-glow')) {
+                setTimeout(() => {
+                  glow.classList.add('glow-pulse');
+                }, 300);
+              }
+            }, index * 200);
+          });
+          
+          // Animate arrows
+          const arrows = entry.target.querySelectorAll('.journey-arrow');
+          arrows.forEach((arrow, index) => {
+            setTimeout(() => {
+              arrow.style.opacity = '1';
+              arrow.style.transform = 'translateY(-50%) translateX(0)';
+              arrow.style.transition = 'all 0.5s ease-out';
+            }, 300 + (index * 200));
+          });
+          
+          // Animate text
+          const text = entry.target.querySelector('.journey-text');
+          if (text) {
+            setTimeout(() => {
+              text.style.opacity = '1';
+              text.style.transform = 'translateY(0)';
+              text.style.transition = 'all 0.8s ease-out';
+            }, 800);
+          }
+        }
+      });
+    }, { threshold: 0.3 });
+    
+    // Observe journey section
+    const journeySection = document.querySelector('.grid.grid-cols-1.md\\:grid-cols-3').parentElement;
+    if (journeySection) {
+      journeyObserver.observe(journeySection);
+    }
+  </script>
+</Layout>

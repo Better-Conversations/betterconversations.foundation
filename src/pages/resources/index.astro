@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import HeroSection from '../../components/HeroSection.astro';
 ---
 
 <Layout title="Resources - Better Conversations Foundation">
@@ -31,25 +32,85 @@ import Layout from '../../layouts/Layout.astro';
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
+    
+    /* Quick links network effect */
+    .quick-links-container {
+      position: relative;
+    }
+    
+    .network-lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    .quick-link-card {
+      position: relative;
+      z-index: 10;
+      background: white;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+    
+    .quick-link-card::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle, #54C4B6 0%, transparent 70%);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s ease, height 0.6s ease;
+      opacity: 0.3;
+      z-index: -1;
+    }
+    
+    .quick-link-card:hover::before {
+      width: 200px;
+      height: 200px;
+    }
+    
+    .quick-link-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      border-color: #54C4B6;
+    }
+    
+    .quick-link-icon {
+      transition: all 0.3s ease;
+    }
+    
+    .quick-link-card:hover .quick-link-icon {
+      transform: scale(1.1) rotate(5deg);
+      color: #54C4B6;
+    }
+    
+    @keyframes pulse-line {
+      0% {
+        stroke-dashoffset: 0;
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        stroke-dashoffset: -30;
+        opacity: 0;
+      }
+    }
   </style>
 
-  <!-- Hero Section -->
-  <section class="relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white py-20">
-    <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/10 via-transparent to-[#A8D381]/10"></div>
-    
-    <!-- Decorative circles -->
-    <div class="absolute top-20 left-[10%] w-32 h-32 bg-[#54C4B6]/10 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-20 right-[10%] w-40 h-40 bg-[#A8D381]/10 rounded-full blur-3xl"></div>
-    
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-        Explore Our <span class="gradient-text">Resources</span>
-      </h1>
-      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-        Access a wealth of knowledge, tools, and insights to enhance your Better Conversations journey. From technical documentation to thought-provoking articles, we've gathered everything you need in one place.
-      </p>
-    </div>
-  </section>
+  <HeroSection 
+    title="Explore Our Resources"
+    titleHighlight="Resources"
+    description="Access a wealth of knowledge, tools, and insights to enhance your Better Conversations journey. From technical documentation to thought-provoking articles, we've gathered everything you need in one place."
+  />
 
   <!-- Resources Grid -->
   <section class="py-16 lg:py-24 bg-white">
@@ -147,36 +208,91 @@ import Layout from '../../layouts/Layout.astro';
     </div>
   </section>
 
-  <!-- Quick Links Section -->
-  <section class="py-16 bg-gray-50">
+  <!-- Quick Links Section with Network Effect -->
+  <section class="py-16 bg-gray-50 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">Quick Links</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <a href="/learn/getting-started" class="text-center p-4 bg-white rounded-lg hover:shadow-md transition-shadow">
-          <svg class="w-8 h-8 mx-auto mb-2 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-          </svg>
-          <span class="text-gray-700">Getting Started</span>
-        </a>
-        <a href="/community" class="text-center p-4 bg-white rounded-lg hover:shadow-md transition-shadow">
-          <svg class="w-8 h-8 mx-auto mb-2 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
-          <span class="text-gray-700">Community</span>
-        </a>
-        <a href="/about/contact" class="text-center p-4 bg-white rounded-lg hover:shadow-md transition-shadow">
-          <svg class="w-8 h-8 mx-auto mb-2 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-          </svg>
-          <span class="text-gray-700">Contact Us</span>
-        </a>
-        <a href="/partner" class="text-center p-4 bg-white rounded-lg hover:shadow-md transition-shadow">
-          <svg class="w-8 h-8 mx-auto mb-2 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-          </svg>
-          <span class="text-gray-700">Partner With Us</span>
-        </a>
+      <h2 class="text-2xl font-bold text-gray-900 mb-2 text-center">Quick Access</h2>
+      <p class="text-gray-600 text-center mb-8">Navigate to key areas of Better Conversations</p>
+      
+      <div class="quick-links-container relative">
+        <!-- Network lines SVG -->
+        <svg class="network-lines hidden md:block" viewBox="0 0 800 200">
+          <defs>
+            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#54C4B6;stop-opacity:0.3" />
+              <stop offset="50%" style="stop-color:#A8D381;stop-opacity:0.3" />
+              <stop offset="100%" style="stop-color:#54C4B6;stop-opacity:0.3" />
+            </linearGradient>
+          </defs>
+          <!-- Connecting lines -->
+          <line x1="200" y1="100" x2="400" y2="100" stroke="url(#lineGradient)" stroke-width="2" stroke-dasharray="5,5">
+            <animate attributeName="stroke-dashoffset" from="0" to="-10" dur="20s" repeatCount="indefinite" />
+          </line>
+          <line x1="400" y1="100" x2="600" y2="100" stroke="url(#lineGradient)" stroke-width="2" stroke-dasharray="5,5">
+            <animate attributeName="stroke-dashoffset" from="0" to="-10" dur="20s" repeatCount="indefinite" />
+          </line>
+          <line x1="600" y1="100" x2="800" y2="100" stroke="url(#lineGradient)" stroke-width="2" stroke-dasharray="5,5">
+            <animate attributeName="stroke-dashoffset" from="0" to="-10" dur="20s" repeatCount="indefinite" />
+          </line>
+          <!-- Diagonal connections -->
+          <line x1="200" y1="100" x2="600" y2="100" stroke="url(#lineGradient)" stroke-width="1" stroke-dasharray="3,7" opacity="0.2">
+            <animate attributeName="stroke-dashoffset" from="0" to="-10" dur="15s" repeatCount="indefinite" />
+          </line>
+          <line x1="400" y1="100" x2="800" y2="100" stroke="url(#lineGradient)" stroke-width="1" stroke-dasharray="3,7" opacity="0.2">
+            <animate attributeName="stroke-dashoffset" from="0" to="-10" dur="15s" repeatCount="indefinite" />
+          </line>
+        </svg>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <a href="/learn/getting-started" class="quick-link-card text-center p-6 rounded-xl border-2 border-gray-200 group">
+            <div class="relative">
+              <svg class="quick-link-icon w-12 h-12 mx-auto mb-3 text-gray-600 group-hover:text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
+              <div class="absolute -top-1 -right-1 w-3 h-3 bg-[#A8D381] rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            </div>
+            <span class="text-gray-700 font-medium">Getting Started</span>
+            <p class="text-sm text-gray-500 mt-1">Begin your journey</p>
+          </a>
+          
+          <a href="/community" class="quick-link-card text-center p-6 rounded-xl border-2 border-gray-200 group">
+            <div class="relative">
+              <svg class="quick-link-icon w-12 h-12 mx-auto mb-3 text-gray-600 group-hover:text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              <div class="absolute -top-1 -right-1 w-3 h-3 bg-[#A8D381] rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            </div>
+            <span class="text-gray-700 font-medium">Community</span>
+            <p class="text-sm text-gray-500 mt-1">Connect with others</p>
+          </a>
+          
+          <a href="/about/contact" class="quick-link-card text-center p-6 rounded-xl border-2 border-gray-200 group">
+            <div class="relative">
+              <svg class="quick-link-icon w-12 h-12 mx-auto mb-3 text-gray-600 group-hover:text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <div class="absolute -top-1 -right-1 w-3 h-3 bg-[#A8D381] rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            </div>
+            <span class="text-gray-700 font-medium">Contact Us</span>
+            <p class="text-sm text-gray-500 mt-1">Get in touch</p>
+          </a>
+          
+          <a href="/partner" class="quick-link-card text-center p-6 rounded-xl border-2 border-gray-200 group">
+            <div class="relative">
+              <svg class="quick-link-icon w-12 h-12 mx-auto mb-3 text-gray-600 group-hover:text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+              <div class="absolute -top-1 -right-1 w-3 h-3 bg-[#A8D381] rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            </div>
+            <span class="text-gray-700 font-medium">Partner With Us</span>
+            <p class="text-sm text-gray-500 mt-1">Join our mission</p>
+          </a>
+        </div>
       </div>
     </div>
+    
+    <!-- Background decoration -->
+    <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-[#54C4B6]/10 rounded-full blur-3xl"></div>
+    <div class="absolute -top-10 -left-10 w-40 h-40 bg-[#A8D381]/10 rounded-full blur-3xl"></div>
   </section>
 </Layout>

@@ -113,13 +113,13 @@ These pages are linked in the navigation but don't exist yet:
   - [ ] `/community/contributors` - Contributors
   - [ ] `/community/code-of-conduct` - Code of conduct
 - [ ] **Partner Section**
-  - [ ] `/partner` - Main partner page
-  - [ ] `/partner/organizations` - For organizations
-  - [ ] `/partner/facilitator` - Become a facilitator
+  - [ ] `/partner/organizations` - For organizations (include service levels, course standards, crediting)
+  - [ ] `/partner/facilitator` - Become a facilitator (qualification requirements, training pathway, resources)
   - [ ] `/partner/research` - Research collaboration
-  - [ ] `/partner/support` - Support the foundation
+  - [ ] `/partner/support` - Support the foundation (contribute improvements, volunteer, commercial options)
+  - [ ] `/partner/resources` - Partnership resources (expectations, licensing, support levels)
 - [ ] **About Section**
-  - [ ] `/about/mission` - Mission page
+  - [x] `/about/mission` - Mission page
   - [ ] `/about/team` - Team page
 
 ### 3. Additional Content Needs

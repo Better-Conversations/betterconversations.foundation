@@ -2,6 +2,9 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+# Important Notes
+- This project is written using UK English and spelling should be done in accordance with that.
+
 ## Project Overview
 
 This is the Better Conversations Foundation (BCF) website built with Astro. The site promotes BCF's mission of improving professional and personal communication through Clean Language methodology and Emergent Knowledge techniques.
@@ -95,6 +98,14 @@ const { prop } = Astro.props;
    - **Gradients**: Always `from-[#54C4B6] to-[#A8D381]` for brand consistency
    - **Backgrounds**: Subtle gradient overlays using `bg-gradient-to-br from-[#54C4B6]/5 to-[#A8D381]/5`
    - **Wave separators**: Used between major sections for visual flow
+   - **Avoid boxed sections**: Prefer open, flowing layouts over contained boxes
+   - **Unique page elements**: Each page should have at least one distinctive interactive feature
+
+4. **Mission-Driven Design**:
+   - **Not a sales site**: BCF is not selling anything - avoid product/pricing page designs
+   - **Collaborative focus**: Emphasize partnership, shared values, and mutual benefit
+   - **Community-oriented**: Present information as resources and opportunities, not services
+   - **Open approach**: Reflect BCF's Creative Commons philosophy in design openness
 
 ### Interactive Elements Philosophy
 
@@ -125,6 +136,7 @@ Each page should include 2-3 signature interactive elements that make it memorab
 - **Showcase Page**: Full-screen scroll-snap with progress indicators
 - **Contact Page**: Morphing blobs, typewriter effect, 3D tilt cards
 - **Whitepapers Page**: Paper stack effects, live counters, download progress
+- **Partner Page**: Flip card animations, staggered reveals, floating icons
 
 ### Animation Guidelines
 
