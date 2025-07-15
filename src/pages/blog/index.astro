@@ -155,13 +155,13 @@ const regularPosts = blogPosts.filter(post => !post.featured);
       
       <div class="grid gap-8 lg:grid-cols-2">
         {featuredPosts.map((post) => (
-          <article class="group relative bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300">
+          <article class="group relative bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300 blog-post" data-category={post.category} data-author={post.author}>
             <div class="aspect-w-16 aspect-h-9 bg-gray-200">
               <img src={post.image} alt={post.title} class="w-full h-48 object-cover object-top" />
             </div>
             <div class="p-6">
               <div class="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                <span class="text-[#54C4B6] font-medium">{post.category}</span>
+                <button class="text-[#54C4B6] font-medium hover:text-[#54C4B6]/80 hover:underline transition-colors cursor-pointer filter-category" data-category={post.category}>{post.category}</button>
                 <span>{post.date}</span>
                 <span>{post.readTime}</span>
               </div>
@@ -173,7 +173,7 @@ const regularPosts = blogPosts.filter(post => !post.featured);
               <p class="text-gray-600 mb-4">{post.excerpt}</p>
               <div class="flex items-center">
                 <div class="text-sm">
-                  <p class="text-gray-900 font-medium">{post.author}</p>
+                  <button class="text-gray-900 font-medium hover:text-[#54C4B6] hover:underline transition-colors cursor-pointer filter-author" data-author={post.author}>{post.author}</button>
                 </div>
               </div>
             </div>
@@ -193,15 +193,15 @@ const regularPosts = blogPosts.filter(post => !post.featured);
             <h3 class="text-lg font-semibold text-gray-900 mb-4">Categories</h3>
             <nav class="space-y-1">
               {categories.map((category) => (
-                <a
-                  href={`#${category.toLowerCase().replace(' ', '-')}`}
-                  class="group flex items-center justify-between px-3 py-2 text-sm font-medium rounded-md hover:text-[#54C4B6] hover:bg-white transition-colors"
+                <button
+                  class="group flex items-center justify-between w-full px-3 py-2 text-sm font-medium rounded-md hover:text-[#54C4B6] hover:bg-white transition-colors text-left filter-category"
+                  data-category={category === "All" ? "" : category}
                 >
                   {category}
                   <span class="text-xs text-gray-400 group-hover:text-[#54C4B6]">
                     {category === "All" ? blogPosts.length : blogPosts.filter(p => p.category === category).length}
                   </span>
-                </a>
+                </button>
               ))}
             </nav>
 
@@ -232,13 +232,13 @@ const regularPosts = blogPosts.filter(post => !post.featured);
 
           <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
             {regularPosts.map((post) => (
-              <article class="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-300">
+              <article class="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-300 blog-post" data-category={post.category} data-author={post.author}>
                 <div class="aspect-w-16 aspect-h-9 bg-gray-200">
                   <img src={post.image} alt={post.title} class="w-full h-48 object-cover object-top" />
                 </div>
                 <div class="p-6">
                   <div class="flex items-center gap-3 text-xs text-gray-500 mb-2">
-                    <span class="text-[#54C4B6] font-medium">{post.category}</span>
+                    <button class="text-[#54C4B6] font-medium hover:text-[#54C4B6]/80 hover:underline transition-colors cursor-pointer filter-category" data-category={post.category}>{post.category}</button>
                     <span>{post.readTime}</span>
                   </div>
                   <h3 class="text-lg font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors mb-2">
@@ -248,7 +248,7 @@ const regularPosts = blogPosts.filter(post => !post.featured);
                   </h3>
                   <p class="text-sm text-gray-600 mb-3 line-clamp-2">{post.excerpt}</p>
                   <div class="flex items-center justify-between">
-                    <p class="text-sm text-gray-500">{post.author}</p>
+                    <button class="text-sm text-gray-500 hover:text-[#54C4B6] hover:underline transition-colors cursor-pointer filter-author" data-author={post.author}>{post.author}</button>
                     <p class="text-sm text-gray-400">{post.date}</p>
                   </div>
                 </div>
@@ -285,4 +285,113 @@ const regularPosts = blogPosts.filter(post => !post.featured);
       </a>
     </div>
   </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const categoryFilters = document.querySelectorAll('.filter-category');
+      const authorFilters = document.querySelectorAll('.filter-author');
+      const articles = document.querySelectorAll('.blog-post');
+      
+      // Get URL parameters for initial filtering
+      const urlParams = new URLSearchParams(window.location.search);
+      let currentCategoryFilter = urlParams.get('category') || '';
+      let currentAuthorFilter = urlParams.get('author') || '';
+      let currentTagFilter = urlParams.get('tag') || '';
+      
+      function filterArticles() {
+        articles.forEach(article => {
+          const articleCategory = article.dataset.category;
+          const articleAuthor = article.dataset.author;
+          
+          const categoryMatch = !currentCategoryFilter || articleCategory === currentCategoryFilter;
+          const authorMatch = !currentAuthorFilter || articleAuthor === currentAuthorFilter;
+          
+          if (categoryMatch && authorMatch) {
+            article.style.display = '';
+            article.classList.remove('opacity-0');
+            article.classList.add('opacity-100');
+          } else {
+            article.style.display = 'none';
+            article.classList.remove('opacity-100');
+            article.classList.add('opacity-0');
+          }
+        });
+        
+        updateActiveStates();
+        updateURL();
+      }
+      
+      function updateURL() {
+        const url = new URL(window.location);
+        if (currentCategoryFilter) {
+          url.searchParams.set('category', currentCategoryFilter);
+        } else {
+          url.searchParams.delete('category');
+        }
+        if (currentAuthorFilter) {
+          url.searchParams.set('author', currentAuthorFilter);
+        } else {
+          url.searchParams.delete('author');
+        }
+        
+        // Update URL without page reload
+        window.history.replaceState({}, '', url);
+      }
+      
+      function updateActiveStates() {
+        // Update category filters in sidebar
+        document.querySelectorAll('.filter-category').forEach(btn => {
+          const category = btn.dataset.category;
+          if (category === currentCategoryFilter || (!currentCategoryFilter && category === '')) {
+            btn.classList.add('bg-[#54C4B6]', 'text-white');
+            btn.classList.remove('hover:text-[#54C4B6]', 'hover:bg-white');
+          } else {
+            btn.classList.remove('bg-[#54C4B6]', 'text-white');
+            btn.classList.add('hover:text-[#54C4B6]', 'hover:bg-white');
+          }
+        });
+      }
+      
+      // Category filter handlers
+      categoryFilters.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const category = this.dataset.category;
+          
+          if (currentCategoryFilter === category) {
+            currentCategoryFilter = '';
+          } else {
+            currentCategoryFilter = category;
+          }
+          
+          currentAuthorFilter = '';
+          filterArticles();
+        });
+      });
+      
+      // Author filter handlers  
+      authorFilters.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const author = this.dataset.author;
+          
+          if (currentAuthorFilter === author) {
+            currentAuthorFilter = '';
+          } else {
+            currentAuthorFilter = author;
+          }
+          
+          currentCategoryFilter = '';
+          filterArticles();
+        });
+      });
+      
+      // Initialize and apply any URL parameter filters
+      if (currentCategoryFilter || currentAuthorFilter) {
+        filterArticles();
+      } else {
+        updateActiveStates();
+      }
+    });
+  </script>
 </Layout>
