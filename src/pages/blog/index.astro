@@ -20,7 +20,8 @@ const blogPosts = [
     slug: post.slug,
     readTime: `${post.data.readingTime || 5} min read`,
     featured: index === 0, // First post is featured
-    image: post.data.image || "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop"
+    image: post.data.image || "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop",
+    tags: post.data.tags || []
   })) : []),
   {
     id: 2,
@@ -32,7 +33,8 @@ const blogPosts = [
     slug: null, // Sample post - no actual page
     readTime: "7 min read",
     featured: true,
-    image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=400&fit=crop"
+    image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=400&fit=crop",
+    tags: ["remote-work", "team-building", "communication"]
   },
   {
     id: 3,
@@ -44,7 +46,8 @@ const blogPosts = [
     slug: null, // Sample post - no actual page
     readTime: "6 min read",
     featured: false,
-    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&h=400&fit=crop"
+    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&h=400&fit=crop",
+    tags: ["emergent-knowledge", "facilitation", "workshops"]
   },
   {
     id: 4,
@@ -56,7 +59,8 @@ const blogPosts = [
     slug: null, // Sample post - no actual page
     readTime: "4 min read",
     featured: false,
-    image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&h=400&fit=crop"
+    image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&h=400&fit=crop",
+    tags: ["trust", "authenticity", "leadership"]
   },
   {
     id: 5,
@@ -68,7 +72,8 @@ const blogPosts = [
     slug: null, // Sample post - no actual page
     readTime: "8 min read",
     featured: false,
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=400&fit=crop"
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=400&fit=crop",
+    tags: ["case-study", "culture", "transformation"]
   },
   {
     id: 6,
@@ -80,7 +85,8 @@ const blogPosts = [
     slug: null, // Sample post - no actual page
     readTime: "10 min read",
     featured: false,
-    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=400&fit=crop"
+    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=400&fit=crop",
+    tags: ["research", "listening", "neuroscience"]
   },
   {
     id: 7,
@@ -92,7 +98,8 @@ const blogPosts = [
     slug: null, // Sample post - no actual page
     readTime: "8 min read",
     featured: false,
-    image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&h=400&fit=crop"
+    image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&h=400&fit=crop",
+    tags: ["clean-language", "cross-cultural", "diversity"]
   }
 ];
 
@@ -155,7 +162,7 @@ const regularPosts = blogPosts.filter(post => !post.featured);
       
       <div class="grid gap-8 lg:grid-cols-2">
         {featuredPosts.map((post) => (
-          <article class="group relative bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300 blog-post" data-category={post.category} data-author={post.author}>
+          <article class="group relative bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300 blog-post" data-category={post.category} data-author={post.author} data-tags={post.tags ? post.tags.join(',') : ''}>
             <div class="aspect-w-16 aspect-h-9 bg-gray-200">
               <img src={post.image} alt={post.title} class="w-full h-48 object-cover object-top" />
             </div>
@@ -171,10 +178,22 @@ const regularPosts = blogPosts.filter(post => !post.featured);
                 </a>
               </h3>
               <p class="text-gray-600 mb-4">{post.excerpt}</p>
-              <div class="flex items-center">
+              <div class="flex items-center justify-between">
                 <div class="text-sm">
                   <button class="text-gray-900 font-medium hover:text-[#54C4B6] hover:underline transition-colors cursor-pointer filter-author" data-author={post.author}>{post.author}</button>
                 </div>
+                {post.tags && post.tags.length > 0 && (
+                  <div class="flex gap-2 flex-wrap">
+                    {post.tags.slice(0, 2).map((tag) => (
+                      <button class="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full hover:bg-[#54C4B6] hover:text-white transition-colors cursor-pointer filter-tag" data-tag={tag}>
+                        #{tag}
+                      </button>
+                    ))}
+                    {post.tags.length > 2 && (
+                      <span class="text-xs text-gray-400">+{post.tags.length - 2}</span>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </article>
@@ -219,7 +238,21 @@ const regularPosts = blogPosts.filter(post => !post.featured);
         <!-- Blog Posts Grid -->
         <div class="lg:col-span-3">
           <div class="flex items-center justify-between mb-8">
-            <h2 class="text-2xl font-bold text-gray-900">Latest Articles</h2>
+            <div class="flex items-center gap-4">
+              <h2 class="text-2xl font-bold text-gray-900">Latest Articles</h2>
+              <!-- Active Filters Display -->
+              <div id="active-filters" class="hidden gap-2 flex-wrap">
+                <button id="clear-all-filters" class="inline-flex items-center gap-1 px-3 py-1 text-xs font-medium text-[#54C4B6] border border-[#54C4B6] rounded-full hover:bg-[#54C4B6] hover:text-white transition-colors">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+                  Clear Filters
+                </button>
+                <span id="category-filter-display" class="hidden px-3 py-1 text-xs font-medium bg-[#54C4B6] text-white rounded-full"></span>
+                <span id="author-filter-display" class="hidden px-3 py-1 text-xs font-medium bg-[#A8D381] text-white rounded-full"></span>
+                <span id="tag-filter-display" class="hidden px-3 py-1 text-xs font-medium bg-gray-600 text-white rounded-full cursor-pointer hover:bg-gray-700 transition-colors" title="Click to clear tag filter"></span>
+              </div>
+            </div>
             <div class="flex items-center gap-2">
               <label for="sort" class="text-sm text-gray-600">Sort by:</label>
               <select id="sort" class="text-sm border-gray-300 rounded-md focus:ring-[#54C4B6] focus:border-[#54C4B6]">
@@ -232,7 +265,7 @@ const regularPosts = blogPosts.filter(post => !post.featured);
 
           <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
             {regularPosts.map((post) => (
-              <article class="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-300 blog-post" data-category={post.category} data-author={post.author}>
+              <article class="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-300 blog-post" data-category={post.category} data-author={post.author} data-tags={post.tags ? post.tags.join(',') : ''}>
                 <div class="aspect-w-16 aspect-h-9 bg-gray-200">
                   <img src={post.image} alt={post.title} class="w-full h-48 object-cover object-top" />
                 </div>
@@ -247,10 +280,22 @@ const regularPosts = blogPosts.filter(post => !post.featured);
                     </a>
                   </h3>
                   <p class="text-sm text-gray-600 mb-3 line-clamp-2">{post.excerpt}</p>
-                  <div class="flex items-center justify-between">
+                  <div class="flex items-center justify-between mb-3">
                     <button class="text-sm text-gray-500 hover:text-[#54C4B6] hover:underline transition-colors cursor-pointer filter-author" data-author={post.author}>{post.author}</button>
                     <p class="text-sm text-gray-400">{post.date}</p>
                   </div>
+                  {post.tags && post.tags.length > 0 && (
+                    <div class="flex gap-1 flex-wrap">
+                      {post.tags.slice(0, 3).map((tag) => (
+                        <button class="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full hover:bg-[#54C4B6] hover:text-white transition-colors cursor-pointer filter-tag" data-tag={tag}>
+                          #{tag}
+                        </button>
+                      ))}
+                      {post.tags.length > 3 && (
+                        <span class="text-xs text-gray-400 self-center">+{post.tags.length - 3}</span>
+                      )}
+                    </div>
+                  )}
                 </div>
               </article>
             ))}
@@ -290,6 +335,7 @@ const regularPosts = blogPosts.filter(post => !post.featured);
     document.addEventListener('DOMContentLoaded', function() {
       const categoryFilters = document.querySelectorAll('.filter-category');
       const authorFilters = document.querySelectorAll('.filter-author');
+      const tagFilters = document.querySelectorAll('.filter-tag');
       const articles = document.querySelectorAll('.blog-post');
       
       // Get URL parameters for initial filtering
@@ -299,21 +345,24 @@ const regularPosts = blogPosts.filter(post => !post.featured);
       let currentTagFilter = urlParams.get('tag') || '';
       
       function filterArticles() {
-        articles.forEach(article => {
-          const articleCategory = article.dataset.category;
-          const articleAuthor = article.dataset.author;
+        articles.forEach((article) => {
+          const htmlElement = article as HTMLElement;
+          const articleCategory = htmlElement.dataset.category;
+          const articleAuthor = htmlElement.dataset.author;
+          const articleTags = htmlElement.dataset.tags ? htmlElement.dataset.tags.split(',') : [];
           
           const categoryMatch = !currentCategoryFilter || articleCategory === currentCategoryFilter;
           const authorMatch = !currentAuthorFilter || articleAuthor === currentAuthorFilter;
+          const tagMatch = !currentTagFilter || articleTags.includes(currentTagFilter);
           
-          if (categoryMatch && authorMatch) {
-            article.style.display = '';
-            article.classList.remove('opacity-0');
-            article.classList.add('opacity-100');
+          if (categoryMatch && authorMatch && tagMatch) {
+            htmlElement.style.display = '';
+            htmlElement.classList.remove('opacity-0');
+            htmlElement.classList.add('opacity-100');
           } else {
-            article.style.display = 'none';
-            article.classList.remove('opacity-100');
-            article.classList.add('opacity-0');
+            htmlElement.style.display = 'none';
+            htmlElement.classList.remove('opacity-100');
+            htmlElement.classList.add('opacity-0');
           }
         });
         
@@ -322,7 +371,7 @@ const regularPosts = blogPosts.filter(post => !post.featured);
       }
       
       function updateURL() {
-        const url = new URL(window.location);
+        const url = new URL(window.location.href);
         if (currentCategoryFilter) {
           url.searchParams.set('category', currentCategoryFilter);
         } else {
@@ -333,6 +382,11 @@ const regularPosts = blogPosts.filter(post => !post.featured);
         } else {
           url.searchParams.delete('author');
         }
+        if (currentTagFilter) {
+          url.searchParams.set('tag', currentTagFilter);
+        } else {
+          url.searchParams.delete('tag');
+        }
         
         // Update URL without page reload
         window.history.replaceState({}, '', url);
@@ -340,28 +394,95 @@ const regularPosts = blogPosts.filter(post => !post.featured);
       
       function updateActiveStates() {
         // Update category filters in sidebar
-        document.querySelectorAll('.filter-category').forEach(btn => {
-          const category = btn.dataset.category;
+        document.querySelectorAll('.filter-category').forEach((btn) => {
+          const htmlBtn = btn as HTMLElement;
+          const category = htmlBtn.dataset.category;
           if (category === currentCategoryFilter || (!currentCategoryFilter && category === '')) {
-            btn.classList.add('bg-[#54C4B6]', 'text-white');
-            btn.classList.remove('hover:text-[#54C4B6]', 'hover:bg-white');
+            htmlBtn.classList.add('bg-[#54C4B6]', 'text-white');
+            htmlBtn.classList.remove('hover:text-[#54C4B6]', 'hover:bg-white');
           } else {
-            btn.classList.remove('bg-[#54C4B6]', 'text-white');
-            btn.classList.add('hover:text-[#54C4B6]', 'hover:bg-white');
+            htmlBtn.classList.remove('bg-[#54C4B6]', 'text-white');
+            htmlBtn.classList.add('hover:text-[#54C4B6]', 'hover:bg-white');
           }
         });
+        
+        // Update tag filters to show active state
+        document.querySelectorAll('.filter-tag').forEach((btn) => {
+          const htmlBtn = btn as HTMLElement;
+          const tag = htmlBtn.dataset.tag;
+          if (tag === currentTagFilter) {
+            htmlBtn.classList.add('bg-[#54C4B6]', 'text-white');
+            htmlBtn.classList.remove('bg-gray-100', 'text-gray-600', 'hover:bg-[#54C4B6]', 'hover:text-white');
+          } else {
+            htmlBtn.classList.remove('bg-[#54C4B6]', 'text-white');
+            htmlBtn.classList.add('bg-gray-100', 'text-gray-600', 'hover:bg-[#54C4B6]', 'hover:text-white');
+          }
+        });
+        
+        // Update active filters display
+        updateActiveFiltersDisplay();
+      }
+      
+      function updateActiveFiltersDisplay() {
+        const activeFiltersContainer = document.getElementById('active-filters');
+        const categoryDisplay = document.getElementById('category-filter-display');
+        const authorDisplay = document.getElementById('author-filter-display');
+        const tagDisplay = document.getElementById('tag-filter-display');
+        
+        const hasActiveFilters = currentCategoryFilter || currentAuthorFilter || currentTagFilter;
+        
+        if (activeFiltersContainer) {
+          if (hasActiveFilters) {
+            activeFiltersContainer.classList.remove('hidden');
+            activeFiltersContainer.classList.add('flex');
+          } else {
+            activeFiltersContainer.classList.add('hidden');
+            activeFiltersContainer.classList.remove('flex');
+          }
+        }
+        
+        // Category filter display
+        if (categoryDisplay) {
+          if (currentCategoryFilter) {
+            categoryDisplay.textContent = `Category: ${currentCategoryFilter}`;
+            categoryDisplay.classList.remove('hidden');
+          } else {
+            categoryDisplay.classList.add('hidden');
+          }
+        }
+        
+        // Author filter display
+        if (authorDisplay) {
+          if (currentAuthorFilter) {
+            authorDisplay.textContent = `Author: ${currentAuthorFilter}`;
+            authorDisplay.classList.remove('hidden');
+          } else {
+            authorDisplay.classList.add('hidden');
+          }
+        }
+        
+        // Tag filter display
+        if (tagDisplay) {
+          if (currentTagFilter) {
+            tagDisplay.textContent = `Tag: #${currentTagFilter}`;
+            tagDisplay.classList.remove('hidden');
+          } else {
+            tagDisplay.classList.add('hidden');
+          }
+        }
       }
       
       // Category filter handlers
       categoryFilters.forEach(btn => {
-        btn.addEventListener('click', function(e) {
+        btn.addEventListener('click', (e) => {
           e.preventDefault();
-          const category = this.dataset.category;
+          const target = e.target as HTMLElement;
+          const category = target.dataset.category;
           
           if (currentCategoryFilter === category) {
             currentCategoryFilter = '';
           } else {
-            currentCategoryFilter = category;
+            currentCategoryFilter = category || '';
           }
           
           currentAuthorFilter = '';
@@ -371,14 +492,15 @@ const regularPosts = blogPosts.filter(post => !post.featured);
       
       // Author filter handlers  
       authorFilters.forEach(btn => {
-        btn.addEventListener('click', function(e) {
+        btn.addEventListener('click', (e) => {
           e.preventDefault();
-          const author = this.dataset.author;
+          const target = e.target as HTMLElement;
+          const author = target.dataset.author;
           
           if (currentAuthorFilter === author) {
             currentAuthorFilter = '';
           } else {
-            currentAuthorFilter = author;
+            currentAuthorFilter = author || '';
           }
           
           currentCategoryFilter = '';
@@ -386,8 +508,49 @@ const regularPosts = blogPosts.filter(post => !post.featured);
         });
       });
       
+      // Tag filter handlers  
+      tagFilters.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const target = e.target as HTMLElement;
+          const tag = target.dataset.tag;
+          
+          if (currentTagFilter === tag) {
+            currentTagFilter = '';
+          } else {
+            currentTagFilter = tag || '';
+          }
+          
+          currentCategoryFilter = '';
+          currentAuthorFilter = '';
+          filterArticles();
+        });
+      });
+      
+      // Clear all filters handler
+      const clearAllBtn = document.getElementById('clear-all-filters');
+      if (clearAllBtn) {
+        clearAllBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          currentCategoryFilter = '';
+          currentAuthorFilter = '';
+          currentTagFilter = '';
+          filterArticles();
+        });
+      }
+      
+      // Clear individual tag filter by clicking the tag display
+      const tagDisplayBtn = document.getElementById('tag-filter-display');
+      if (tagDisplayBtn) {
+        tagDisplayBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          currentTagFilter = '';
+          filterArticles();
+        });
+      }
+      
       // Initialize and apply any URL parameter filters
-      if (currentCategoryFilter || currentAuthorFilter) {
+      if (currentCategoryFilter || currentAuthorFilter || currentTagFilter) {
         filterArticles();
       } else {
         updateActiveStates();
