@@ -21,7 +21,7 @@ const { Content } = await entry.render();
 <Layout title={`${entry.data.title} - Better Conversations Foundation`}>
   <!-- Featured Image -->
   <section class="relative overflow-hidden">
-    <div class="w-full h-80 md:h-96 lg:h-[28rem] bg-gradient-to-br from-[#54C4B6] to-[#A8D381] overflow-hidden">
+    <div class="w-full h-80 md:h-96 lg:h-[32rem] bg-gradient-to-br from-[#54C4B6] to-[#A8D381] overflow-hidden">
       <img 
         src={entry.data.image || "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=600&fit=crop&q=80"} 
         alt={entry.data.title}
@@ -39,10 +39,10 @@ const { Content } = await entry.render();
   </section>
 
   <!-- Blog Post Header -->
-  <section class="relative py-16 lg:py-20 bg-white">
+  <section class="relative pt-8 pb-4 lg:pt-10 lg:pb-6 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="mb-8">
-        <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
+      <div class="mb-4">
+        <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-8">
           <span class="text-[#54C4B6] font-medium">{entry.data.category}</span>
           <span>{entry.data.date.toLocaleDateString('en-GB', { 
             year: 'numeric', 
@@ -50,7 +50,10 @@ const { Content } = await entry.render();
             day: 'numeric' 
           })}</span>
           <span>By {entry.data.author}</span>
-          <span>5 min read</span>
+          <span>4 min read</span>
+          {entry.data.imageCredit && (
+            <span>Photo by <a href={entry.data.imageCredit.photographerUrl} class="text-gray-600 hover:text-[#54C4B6] transition-colors" target="_blank" rel="noopener">{entry.data.imageCredit.photographer}</a>{entry.data.imageCredit.source && ` on ${entry.data.imageCredit.source}`}</span>
+          )}
         </div>
         
         <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
@@ -76,9 +79,9 @@ const { Content } = await entry.render();
   </section>
 
   <!-- Blog Content -->
-  <article class="py-16 bg-white">
+  <article class="py-8 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="prose prose-lg prose-gray max-w-none prose-headings:text-gray-900 prose-a:text-[#54C4B6] prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-blockquote:border-l-[#54C4B6] prose-blockquote:text-gray-700">
+      <div class="prose prose-lg prose-gray max-w-none prose-headings:text-gray-900 prose-a:text-[#54C4B6] prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-blockquote:border-l-[#54C4B6] prose-blockquote:text-gray-700 [&_.footnotes]:text-sm [&_.footnotes]:text-gray-600 [&_.footnotes_p]:mb-2 [&_.footnotes_ol]:pl-4">
         <Content />
       </div>
     </div>
@@ -129,3 +132,30 @@ const { Content } = await entry.render();
     </div>
   </section>
 </Layout>
+
+<style>
+  /* Footnote styling */
+  .prose :global(.footnote-backref) {
+    @apply text-xs ml-1;
+  }
+  
+  .prose :global(.footnotes) {
+    @apply text-sm text-gray-600 mt-12 pt-8 border-t border-gray-200;
+  }
+  
+  .prose :global(.footnotes ol) {
+    @apply space-y-2;
+  }
+  
+  .prose :global(.footnotes li) {
+    @apply text-sm leading-tight;
+  }
+  
+  .prose :global(.footnotes p) {
+    @apply inline;
+  }
+  
+  .prose :global(sup) {
+    @apply text-xs;
+  }
+</style>

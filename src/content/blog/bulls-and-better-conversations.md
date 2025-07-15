@@ -1,11 +1,15 @@
 ---
 title: 'What links Bulls and Better Conversations?'
-excerpt: "Exploring how Picasso's Bull series parallels our journey in creating Better Conversations - from complexity to essential simplicity in Clean Language training."
+excerpt: "Exploring how Picasso's Bull series parallels our journey in creating Better Conversations - from complexity to essential simplicity in Clean Language training"
 date: 2024-10-22T00:00:00.000Z
 author: Chandima Dutton
 tags: [clean-language, complexity, better-conversations]
 category: Clean Language
 image: "/images/blog/bulls-and-better-conversations.png"
+imageCredit:
+  photographer: "Jennifer Coffin-Grey"
+  photographerUrl: "https://unsplash.com/@jennifergrey?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+  source: "Unsplash"
 ---
 
 

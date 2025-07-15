@@ -10,6 +10,11 @@ const blog = defineCollection({
     tags: z.array(z.string()),
     category: z.string(),
     image: z.string().optional(),
+    imageCredit: z.object({
+      photographer: z.string(),
+      photographerUrl: z.string().url(),
+      source: z.string().optional(),
+    }).optional(),
   }),
 });
 

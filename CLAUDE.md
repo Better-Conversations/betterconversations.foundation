@@ -88,6 +88,15 @@ When moving files between directories, update import paths:
    - Blog pages use `CollectionEntry<'blog'>` type from Astro
    - Props are properly typed to avoid TypeScript errors
 
+5. **Reading Time Estimates**:
+   - Calculate reading time based on actual word count, not assumptions
+   - Use standard reading speed of 200-250 words per minute
+   - Count words in main content only (exclude frontmatter, footnotes count towards total)
+   - Round to nearest minute for user-friendly display
+   - For thoughtful, conceptual content, lean towards the lower end (200 wpm)
+   - Update the hardcoded value in the blog template at `src/pages/blog/[slug].astro`
+   - Consider adding reading time to the blog schema for future automation
+
 ### Component Patterns
 
 Astro components use frontmatter for logic:
