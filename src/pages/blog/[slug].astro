@@ -20,8 +20,8 @@ const { Content } = await entry.render();
 
 <Layout title={`${entry.data.title} - Better Conversations Foundation`}>
   <!-- Featured Image -->
-  <section class="relative">
-    <div class="w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-[#54C4B6] to-[#A8D381] overflow-hidden">
+  <section class="relative overflow-hidden">
+    <div class="w-full h-80 md:h-96 lg:h-[28rem] bg-gradient-to-br from-[#54C4B6] to-[#A8D381] overflow-hidden">
       <img 
         src={entry.data.image || "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=600&fit=crop&q=80"} 
         alt={entry.data.title}
@@ -39,13 +39,8 @@ const { Content } = await entry.render();
   </section>
 
   <!-- Blog Post Header -->
-  <section class="relative py-8 lg:py-12 bg-gradient-to-b from-white via-gray-50 to-white">
-    <!-- Background decorations -->
-    <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/10 via-transparent to-[#A8D381]/10"></div>
-    <div class="absolute top-10 right-[10%] w-48 h-48 bg-[#54C4B6]/15 rounded-full blur-2xl"></div>
-    <div class="absolute bottom-10 left-[10%] w-56 h-56 bg-[#A8D381]/15 rounded-full blur-2xl"></div>
-    
-    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section class="relative py-16 lg:py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="mb-8">
         <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
           <span class="text-[#54C4B6] font-medium">{entry.data.category}</span>

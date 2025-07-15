@@ -17,7 +17,7 @@ We’ve been working on Better Conversations for a while now. We've iterated and
 
 In this work, Picasso was experimenting with new media and taking an unconventional approach. He created a series of prints that show progression towards the essence of a bull. Over a period of time he found a representation that was enough to evoke the idea of a bull with just 12 lines[^artsy].
 
-![Picasso's Bull series showing progression from complex to simple](/images/blog/picasso-bull-series.png)
+![Picasso's Bull series showing progression from complex to simple](/images/blog/picasso-bull-series.jpg)
 
 [^artsy]: See [Picasso's Drawings of Bulls](https://www.artsy.net/article/artsy-editorial-picassos-drawings-bulls-inspired-apples-famously-simple-designs) on Artsy.
 
