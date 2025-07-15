@@ -43,16 +43,16 @@ const { Content } = await entry.render();
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="mb-4">
         <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-8">
-          <span class="text-[#54C4B6] font-medium">{entry.data.category}</span>
+          <a href={`/blog?category=${encodeURIComponent(entry.data.category)}`} class="text-[#54C4B6] font-medium hover:text-[#54C4B6]/80 transition-colors">{entry.data.category}</a>
           <span>{entry.data.date.toLocaleDateString('en-GB', { 
             year: 'numeric', 
             month: 'long', 
             day: 'numeric' 
           })}</span>
-          <span>By {entry.data.author}</span>
+          <span>By <a href={`/blog?author=${encodeURIComponent(entry.data.author)}`} class="text-gray-600 hover:text-[#54C4B6] transition-colors">{entry.data.author}</a></span>
           <span>4 min read</span>
           {entry.data.imageCredit && (
-            <span>Photo by <a href={entry.data.imageCredit.photographerUrl} class="text-gray-600 hover:text-[#54C4B6] transition-colors" target="_blank" rel="noopener">{entry.data.imageCredit.photographer}</a>{entry.data.imageCredit.source && ` on ${entry.data.imageCredit.source}`}</span>
+            <span>Photo by <a href={entry.data.imageCredit.photographerUrl} class="text-gray-600 hover:text-[#54C4B6] transition-colors underline" target="_blank" rel="noopener">{entry.data.imageCredit.photographer}</a>{entry.data.imageCredit.source && ` on ${entry.data.imageCredit.source}`}</span>
           )}
         </div>
         
@@ -115,7 +115,7 @@ const { Content } = await entry.render();
   </section>
 
   <!-- Related Content / CTA Section -->
-  <section class="py-16 lg:py-24 bg-gradient-to-r from-[#54C4B6] to-[#A8D381]">
+  <section class="py-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381]">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl font-bold text-white mb-4">Continue the Conversation</h2>
       <p class="text-xl text-white/90 mb-8">
@@ -140,7 +140,7 @@ const { Content } = await entry.render();
   }
   
   .prose :global(.footnotes) {
-    @apply text-sm text-gray-600 mt-12 pt-8 border-t border-gray-200;
+    @apply text-base text-gray-600 mt-12 pt-8 border-t border-gray-200;
   }
   
   .prose :global(.footnotes ol) {
@@ -148,7 +148,7 @@ const { Content } = await entry.render();
   }
   
   .prose :global(.footnotes li) {
-    @apply text-sm leading-tight;
+    @apply text-base leading-tight;
   }
   
   .prose :global(.footnotes p) {

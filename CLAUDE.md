@@ -186,6 +186,31 @@ Each page should include 2-3 signature interactive elements that make it memorab
 - Simplify or remove complex animations on mobile for performance
 - Test scroll-based effects on various viewport sizes
 
+### Clickable Content Styling
+
+**Standard Web Conventions:**
+- **Traditional approach**: Underlined text in different color (universally recognized)
+- **Modern approach**: Different color without underline, underline appears on hover
+
+**Context-Specific Practices:**
+- **Navigation menus**: No underline, just color/hover effects
+- **Blog metadata**: No initial underline, hover effects reveal clickability
+- **Body text links**: More likely underlined for accessibility and clarity
+- **Buttons**: Color, padding, and styling make them obviously clickable
+- **Credits/attributions**: Traditional underlined approach preferred
+
+**Accessibility Considerations:**
+- Ensure links are identifiable without relying solely on color
+- Use sufficient color contrast + visual cues
+- Consistent hover states help with discoverability
+- Underlines are more accessible than color-only differentiation
+
+**BCF Implementation Standards:**
+- **Primary links**: Teal color (`text-[#54C4B6]`), hover effects
+- **Secondary links**: Gray to teal transition on hover
+- **Metadata links**: Subtle hover effects maintaining clean design
+- **External links**: Include underlines where appropriate for clarity
+
 ## Important Notes
 
 - The showcase page (`/showcase`) requires special handling - it has unique scroll behavior and no footer
