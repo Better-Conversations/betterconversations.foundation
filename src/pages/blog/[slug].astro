@@ -19,38 +19,15 @@ const { Content } = await entry.render();
 ---
 
 <Layout title={`${entry.data.title} - Better Conversations Foundation`}>
-  <!-- Blog Post Hero -->
-  <section class="relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white py-16 lg:py-24">
-    <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10"></div>
-    
-    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-8">
-        <div class="flex items-center justify-center gap-4 text-sm text-gray-500 mb-4">
-          <span class="text-[#54C4B6] font-medium">{entry.data.category}</span>
-          <span>{entry.data.date.toLocaleDateString('en-GB', { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-          })}</span>
-          <span>By {entry.data.author}</span>
-        </div>
-        
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-          {entry.data.title}
-        </h1>
-        
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          {entry.data.excerpt}
-        </p>
-      </div>
-      
-      <div class="flex flex-wrap justify-center gap-2 mb-8">
-        {entry.data.tags.map((tag: string) => (
-          <span class="px-3 py-1 bg-[#54C4B6]/10 text-[#54C4B6] rounded-full text-sm font-medium">
-            #{tag}
-          </span>
-        ))}
-      </div>
+  <!-- Featured Image -->
+  <section class="relative">
+    <div class="w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-[#54C4B6] to-[#A8D381] overflow-hidden">
+      <img 
+        src={entry.data.image || "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=600&fit=crop&q=80"} 
+        alt={entry.data.title}
+        class="w-full h-full object-cover object-top"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
     </div>
     
     <!-- Wave separator -->
@@ -58,6 +35,45 @@ const { Content } = await entry.render();
       <svg class="w-full h-16 text-white" preserveAspectRatio="none" viewBox="0 0 1440 54" fill="currentColor">
         <path d="M0,22L60,27.2C120,32,240,43,360,44.7C480,46,600,38,720,30.3C840,22,960,14,1080,16.3C1200,19,1320,32,1380,38.5L1440,45L1440,54L1380,54C1320,54,1200,54,1080,54C960,54,840,54,720,54C600,54,480,54,360,54C240,54,120,54,60,54L0,54Z"></path>
       </svg>
+    </div>
+  </section>
+
+  <!-- Blog Post Header -->
+  <section class="relative py-8 lg:py-12 bg-gradient-to-b from-white via-gray-50 to-white">
+    <!-- Background decorations -->
+    <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/10 via-transparent to-[#A8D381]/10"></div>
+    <div class="absolute top-10 right-[10%] w-48 h-48 bg-[#54C4B6]/15 rounded-full blur-2xl"></div>
+    <div class="absolute bottom-10 left-[10%] w-56 h-56 bg-[#A8D381]/15 rounded-full blur-2xl"></div>
+    
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-8">
+        <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
+          <span class="text-[#54C4B6] font-medium">{entry.data.category}</span>
+          <span>{entry.data.date.toLocaleDateString('en-GB', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+          })}</span>
+          <span>By {entry.data.author}</span>
+          <span>5 min read</span>
+        </div>
+        
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+          {entry.data.title}
+        </h1>
+        
+        <p class="text-xl md:text-2xl text-[#54C4B6] mb-8 leading-relaxed">
+          {entry.data.excerpt}
+        </p>
+        
+        <div class="flex flex-wrap gap-2">
+          {entry.data.tags.map((tag: string) => (
+            <span class="px-3 py-1 bg-[#54C4B6]/10 text-[#54C4B6] rounded-full text-sm font-medium">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      </div>
     </div>
   </section>
 
@@ -93,6 +109,24 @@ const { Content } = await entry.render();
             </svg>
           </button>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Content / CTA Section -->
+  <section class="py-16 lg:py-24 bg-gradient-to-r from-[#54C4B6] to-[#A8D381]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold text-white mb-4">Continue the Conversation</h2>
+      <p class="text-xl text-white/90 mb-8">
+        Explore more insights and join our community of conversation practitioners.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/blog" class="inline-flex items-center px-6 py-3 border border-white/20 text-base font-medium rounded-md text-white bg-white/10 hover:bg-white/20 transition-colors">
+          More Articles
+        </a>
+        <a href="/community" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-[#54C4B6] bg-white hover:bg-gray-50 transition-colors">
+          Join Community
+        </a>
       </div>
     </div>
   </section>

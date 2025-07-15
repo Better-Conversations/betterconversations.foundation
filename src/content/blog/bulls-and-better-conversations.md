@@ -5,9 +5,9 @@ date: 2024-10-22T00:00:00.000Z
 author: Chandima Dutton
 tags: [clean-language, complexity, better-conversations]
 category: Clean Language
+image: "/images/blog/bulls-and-better-conversations.png"
 ---
 
-# What links Bulls and Better Conversations?
 
 We’ve been working on Better Conversations for a while now. We've iterated and improved the course and learned a lot along the way. We’ve had to make some tough decisions about what to include and what to leave out, which we are often asked about. This article is an attempt to explain our thinking by framing it in the context of Picasso’s Bull Series[^Picasso].
 
@@ -16,6 +16,8 @@ We’ve been working on Better Conversations for a while now. We've iterated and
 ## Picasso’s Bull series and the creative process
 
 In this work, Picasso was experimenting with new media and taking an unconventional approach. He created a series of prints that show progression towards the essence of a bull. Over a period of time he found a representation that was enough to evoke the idea of a bull with just 12 lines[^artsy].
+
+![Picasso's Bull series showing progression from complex to simple](/images/blog/picasso-bull-series.png)
 
 [^artsy]: See [Picasso's Drawings of Bulls](https://www.artsy.net/article/artsy-editorial-picassos-drawings-bulls-inspired-apples-famously-simple-designs) on Artsy.
 
