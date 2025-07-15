@@ -1,5 +1,8 @@
 # SEO & AI Visibility Todo List
 
+## Recent Changes
+- ✅ **Blog Restructuring Complete** (July 2025): Blog moved from `/resources/blog` to `/blog/` for cleaner URL structure while maintaining navigation under Resources menu
+
 ## Search Engine Optimization
 
 ### 1. Structured Data/Schema Markup
