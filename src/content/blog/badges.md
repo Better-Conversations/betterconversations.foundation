@@ -21,4 +21,4 @@ in the [community](https://community.betterconversations.foundation/t/credential
 
 Here's an example [from Chandima's LinkedIn](https://www.linkedin.com/in/chandimadutton/):
 
-![Badge Image](/images/blog/2024-10-07-badges-linkedin-example.png)
+![Badge Image](/images/blog/badges-linkedin-example.png)
