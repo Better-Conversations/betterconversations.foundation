@@ -29,7 +29,7 @@
 - [ ] Add descriptive alt text to all images
 - [ ] Implement internal linking strategy
 - [ ] Add breadcrumb navigation
-- [ ] Create XML feed for blog posts
+- [ ] Create XML feed for blog posts (RSS at `/blog/rss.xml`)
 
 ## AI Chat Visibility
 
@@ -92,7 +92,7 @@ Current pages that need content:
 - [ ] **About Page** (`/about`) - Update mission, values, team bios
 - [ ] **Contact Page** (`/about/contact`) - Add real contact information
 - [ ] **Ambassador Showcase** (`/showcase`) - Replace with real ambassador profiles and photos
-- [ ] **Blog** (`/resources/blog`) - Add real blog posts (currently using placeholders)
+- [ ] **Blog** (`/blog/`) - Add real blog posts (currently using placeholders)
 - [ ] **Whitepapers** (`/resources/whitepapers`) - Add real whitepapers and research articles
 
 ### 2. Navigation Pages (Currently 404s)

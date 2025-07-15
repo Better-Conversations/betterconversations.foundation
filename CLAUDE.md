@@ -45,6 +45,8 @@ npm run preview      # Preview production build locally
    - Community → Forums, Events, Contributors, Code of Conduct
    - Partner With Us → Organizations, Facilitator, Research, Support
    - About → Mission, Team, Ambassador Showcase, Contact
+   
+   **Note**: Blog is accessible under Resources in the navigation menu but has its own top-level URL structure at `/blog/`
 
 3. **Design System**:
    - Primary brand colors: `#54C4B6` (teal), `#A8D381` (green)
@@ -63,6 +65,28 @@ When moving files between directories, update import paths:
 - From `pages/`: `import Layout from '../layouts/Layout.astro'`
 - From `pages/about/`: `import Layout from '../../layouts/Layout.astro'`
 - From `pages/resources/`: `import Layout from '../../layouts/Layout.astro'`
+- From `pages/blog/`: `import Layout from '../../layouts/Layout.astro'`
+
+### Blog Architecture
+
+1. **URL Structure**:
+   - Blog listing page: `/blog/` (located at `src/pages/blog/index.astro`)
+   - Individual blog posts: `/blog/[slug]` (dynamic route at `src/pages/blog/[slug].astro`)
+   - Blog content files: `src/content/blog/*.md` (uses Astro's content collections)
+
+2. **Content Collections**:
+   - Blog posts are managed through Astro's content collections
+   - Schema defined in `src/content/config.ts` with frontmatter validation
+   - Each post requires: title, date, author, category, excerpt, and tags
+
+3. **Navigation Context**:
+   - Blog remains under "Resources" in the main navigation for information architecture
+   - Direct URL access provides cleaner, more SEO-friendly paths
+   - "Back to Blog" links in posts point to `/blog/`
+
+4. **TypeScript Types**:
+   - Blog pages use `CollectionEntry<'blog'>` type from Astro
+   - Props are properly typed to avoid TypeScript errors
 
 ### Component Patterns
 

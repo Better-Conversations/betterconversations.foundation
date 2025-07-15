@@ -1,38 +1,48 @@
-# Astro Starter Kit: Basics
+# Better Conversations Foundation Website
 
-```sh
-npm create astro@latest -- --template basics
-```
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+The official website for the Better Conversations Foundation (BCF), built with Astro and focused on promoting improved professional and personal communication through Clean Language methodology and Emergent Knowledge techniques.
 
 ## 🚀 Project Structure
 
-Inside of your Astro project, you'll see the following folders and files:
-
 ```text
 /
-├── public/
+├── public/                          # Static assets
+│   ├── Better-Conversations-Foundation-RGB.png
 │   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+├── src/
+│   ├── components/                  # Reusable Astro components
+│   │   ├── Navbar.astro
+│   │   ├── Footer.astro
+│   │   └── HeroSection.astro
+│   ├── content/                     # Content collections
+│   │   ├── blog/                    # Blog posts (markdown)
+│   │   │   └── *.md
+│   │   └── config.ts                # Content schema definitions
+│   ├── layouts/                     # Page wrapper components
+│   │   └── Layout.astro
+│   ├── pages/                       # File-based routing
+│   │   ├── about/
+│   │   │   ├── index.astro
+│   │   │   ├── contact.astro
+│   │   │   └── mission.astro
+│   │   ├── blog/                    # Blog pages
+│   │   │   ├── index.astro          # Blog listing (/blog/)
+│   │   │   └── [slug].astro         # Individual posts (/blog/[slug])
+│   │   ├── partner/
+│   │   │   ├── index.astro
+│   │   │   └── organizations.astro
+│   │   ├── resources/
+│   │   │   ├── index.astro          # Resources landing page
+│   │   │   └── whitepapers.astro
+│   │   ├── showcase.astro           # Ambassador showcase
+│   │   └── index.astro              # Homepage
+│   └── styles/
+│       └── global.css
+├── CLAUDE.md                        # Development guidance for Claude Code
+├── astro.config.mjs                 # Astro configuration
+├── tailwind.config.mjs              # Tailwind CSS configuration
+└── tsconfig.json                    # TypeScript configuration
 ```
-
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
 
 ## 🧞 Commands
 
@@ -47,6 +57,118 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-## 👀 Want to learn more?
+## 🏗️ Architecture
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+### Framework Stack
+- **Astro v5.11.0** - Static site generator with partial hydration
+- **Tailwind CSS v3.4.17** - Utility-first CSS framework
+- **TypeScript** - Type-safe JavaScript with strict configuration
+
+### Key Features
+- **Content Collections**: Blog posts managed through Astro's content collections with schema validation
+- **File-based Routing**: Automatic route generation from the `src/pages/` directory
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Interactive Elements**: Magnetic buttons, 3D tilt cards, typewriter effects
+- **SEO Optimized**: Clean URLs and proper meta tags
+
+### Blog Architecture
+- **URL Structure**: 
+  - Blog listing: `/blog/` (clean, SEO-friendly)
+  - Individual posts: `/blog/[slug]`
+- **Navigation**: Blog appears under "Resources" in the main menu but has its own URL structure
+- **Content**: Markdown files in `src/content/blog/` with frontmatter validation
+- **TypeScript**: Proper typing with `CollectionEntry<'blog'>` for type safety
+
+### Design System
+- **Brand Colors**: Primary teal (`#54C4B6`) and secondary green (`#A8D381`)
+- **Consistent Gradients**: `from-[#54C4B6] to-[#A8D381]` pattern throughout
+- **Wave Separators**: Custom SVG patterns between sections
+- **Interactive Elements**: Hover effects, transitions, and micro-interactions
+
+## 📝 Content Management
+
+### Adding Blog Posts
+1. Create a new markdown file in `src/content/blog/`
+2. Include required frontmatter:
+   ```yaml
+   ---
+   title: "Your Post Title"
+   date: 2024-01-15
+   author: "Author Name"
+   category: "Category"
+   excerpt: "Brief description of the post"
+   tags: ["tag1", "tag2"]
+   ---
+   ```
+3. Write your content in markdown
+4. The post will automatically appear in the blog listing
+
+### Page Structure
+- Most pages use the `Layout.astro` wrapper
+- Exception: Showcase page has special handling for full-screen layout
+- All pages follow the design system with consistent spacing and typography
+
+## 🎨 Styling Guidelines
+
+### Tailwind Classes
+- Use utility classes for most styling
+- Custom CSS in `<style>` blocks for animations and complex layouts
+- Maintain consistency with the design system
+
+### Responsive Design
+- Mobile-first approach using Tailwind breakpoints
+- Test interactive elements on touch devices
+- Simplify animations on mobile for performance
+
+### Brand Guidelines
+- Use UK English spelling throughout
+- Follow the colour palette and gradient patterns
+- Maintain the clean, modern aesthetic
+
+## 📚 Development Notes
+
+### Special Pages
+- **Showcase Page**: Has unique scroll behavior and no footer
+- **Blog Posts**: Use dynamic routing and content collections
+- **Resources**: Central hub linking to blog, whitepapers, and tools
+
+### Navigation
+- Multi-level dropdown navigation in `Navbar.astro`
+- Mobile-responsive with hamburger menu
+- Blog accessible via Resources → Blog but lives at `/blog/`
+
+### TypeScript
+- Strict configuration enabled
+- Proper typing for content collections
+- Import paths relative to directory structure
+
+## 🔧 Configuration
+
+### Important Files
+- `CLAUDE.md`: Development guidance and architectural decisions
+- `astro.config.mjs`: Astro configuration with integrations
+- `tailwind.config.mjs`: Tailwind customization
+- `src/content/config.ts`: Content collection schemas
+
+### Environment
+- Built for static deployment
+- No runtime database required
+- Content managed through markdown files
+
+## 🤝 Contributing
+
+This project follows the Better Conversations Foundation's mission of open collaboration. When making changes:
+
+1. Follow the existing code patterns
+2. Maintain design consistency
+3. Update documentation as needed
+4. Test responsive design thoroughly
+5. Use UK English spelling
+
+## 📞 Support
+
+For technical questions or contributions, please refer to the project documentation or contact the Better Conversations Foundation team.
+
+---
+
+*This website promotes better communication through Clean Language methodology and Emergent Knowledge techniques. Learn more at [Better Conversations Foundation](https://betterconversations.foundation).*
