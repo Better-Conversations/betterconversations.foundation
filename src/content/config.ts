@@ -15,6 +15,7 @@ const blog = defineCollection({
       photographerUrl: z.string().url(),
       source: z.string().optional(),
     }).optional(),
+    readingTime: z.number().positive().optional(),
   }),
 });
 

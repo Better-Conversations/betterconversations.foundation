@@ -18,7 +18,7 @@ const blogPosts = [
     date: post.data.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }),
     category: post.data.category,
     slug: post.slug,
-    readTime: "5 min read",
+    readTime: `${post.data.readingTime || 5} min read`,
     featured: index === 0, // First post is featured
     image: post.data.image || "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop"
   })) : []),

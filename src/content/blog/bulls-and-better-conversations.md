@@ -10,6 +10,7 @@ imageCredit:
   photographer: "Jennifer Coffin-Grey"
   photographerUrl: "https://unsplash.com/@jennifergrey?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
   source: "Unsplash"
+readingTime: 4
 ---
 
 
