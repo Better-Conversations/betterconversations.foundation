@@ -2,15 +2,13 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
-// Get all blog posts from content collection
+// Get all blog posts from content collection and sort by date
 const allBlogPosts = await getCollection('blog');
 
-// Content collection is working properly
-
-// Convert to the format expected by the template and add sample posts
-const blogPosts = [
-  // Real blog post from content collection
-  ...(allBlogPosts.length > 0 ? allBlogPosts.map((post, index) => ({
+// Sort posts by date (newest first) and convert to the format expected by the template
+const blogPosts = allBlogPosts
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .map((post, index) => ({
     id: index + 1,
     title: post.data.title,
     excerpt: post.data.excerpt,
@@ -19,91 +17,14 @@ const blogPosts = [
     category: post.data.category,
     slug: post.slug,
     readTime: `${post.data.readingTime || 5} min read`,
-    featured: index === 0, // First post is featured
+    featured: index === 0, // First (newest) post is featured
     image: post.data.image || "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop",
     tags: post.data.tags || []
-  })) : []),
-  {
-    id: 2,
-    title: "The Power of Better Conversations in Remote Teams",
-    excerpt: "Learn practical strategies for fostering meaningful connections and productive dialogue in distributed work environments.",
-    author: "Michael Chen",
-    date: "January 12, 2024",
-    category: "Remote Work",
-    slug: null, // Sample post - no actual page
-    readTime: "7 min read",
-    featured: true,
-    image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=400&fit=crop",
-    tags: ["remote-work", "team-building", "communication"]
-  },
-  {
-    id: 3,
-    title: "Emergent Knowledge: A Guide for Facilitators",
-    excerpt: "Explore the principles of Emergent Knowledge and how to apply them in your facilitation practice.",
-    author: "Emily Rodriguez",
-    date: "January 10, 2024",
-    category: "Facilitation",
-    slug: null, // Sample post - no actual page
-    readTime: "6 min read",
-    featured: false,
-    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&h=400&fit=crop",
-    tags: ["emergent-knowledge", "facilitation", "workshops"]
-  },
-  {
-    id: 4,
-    title: "Building Trust Through Authentic Communication",
-    excerpt: "Understanding the role of authenticity in creating lasting professional relationships and team dynamics.",
-    author: "David Thompson",
-    date: "January 8, 2024",
-    category: "Leadership",
-    slug: null, // Sample post - no actual page
-    readTime: "4 min read",
-    featured: false,
-    image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&h=400&fit=crop",
-    tags: ["trust", "authenticity", "leadership"]
-  },
-  {
-    id: 5,
-    title: "Success Stories: Transforming Organization Culture",
-    excerpt: "Real-world examples of how Better Conversations training has revolutionized company cultures.",
-    author: "Lisa Park",
-    date: "January 5, 2024",
-    category: "Success Stories",
-    slug: null, // Sample post - no actual page
-    readTime: "8 min read",
-    featured: false,
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=400&fit=crop",
-    tags: ["case-study", "culture", "transformation"]
-  },
-  {
-    id: 6,
-    title: "The Science Behind Effective Listening",
-    excerpt: "Dive into the research that supports active listening techniques and their impact on communication outcomes.",
-    author: "Dr. James Wilson",
-    date: "January 3, 2024",
-    category: "Research",
-    slug: null, // Sample post - no actual page
-    readTime: "10 min read",
-    featured: false,
-    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=400&fit=crop",
-    tags: ["research", "listening", "neuroscience"]
-  },
-  {
-    id: 7,
-    title: "Clean Language in Cross-Cultural Teams",
-    excerpt: "Learn how Clean Language techniques can bridge cultural gaps and improve collaboration in multinational organizations.",
-    author: "Dr. Maria Chen",
-    date: "January 2, 2024", 
-    category: "Clean Language",
-    slug: null, // Sample post - no actual page
-    readTime: "8 min read",
-    featured: false,
-    image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&h=400&fit=crop",
-    tags: ["clean-language", "cross-cultural", "diversity"]
-  }
-];
+  }));
 
-const categories = ["All", "Clean Language", "Remote Work", "Facilitation", "Leadership", "Success Stories", "Research"];
+// Get unique categories from actual blog posts
+const uniqueCategories = [...new Set(blogPosts.map(post => post.category))].sort();
+const categories = ["All", ...uniqueCategories];
 const featuredPosts = blogPosts.filter(post => post.featured);
 const regularPosts = blogPosts.filter(post => !post.featured);
 ---
