@@ -1,6 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
+
+// Import all blog images
+const images = import.meta.glob('../../assets/images/blog/*', { eager: true });
 
 // Get all blog posts from content collection and sort by date
 const allBlogPosts = await getCollection('blog');
@@ -8,19 +12,30 @@ const allBlogPosts = await getCollection('blog');
 // Sort posts by date (newest first) and convert to the format expected by the template
 const blogPosts = allBlogPosts
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
-  .map((post, index) => ({
-    id: index + 1,
-    title: post.data.title,
-    excerpt: post.data.excerpt,
-    author: post.data.author,
-    date: post.data.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }),
-    category: post.data.category,
-    slug: post.slug,
-    readTime: `${post.data.readingTime || 5} min read`,
-    featured: index === 0, // First (newest) post is featured
-    image: post.data.image || "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop",
-    tags: post.data.tags || []
-  }));
+  .map((post, index) => {
+    // Get optimized image
+    let optimizedImage = null;
+    if (post.data.image) {
+      const imagePath = post.data.image.replace('/images/blog/', '');
+      const imageKey = `../../assets/images/blog/${imagePath}`;
+      optimizedImage = images[imageKey] as any;
+    }
+    
+    return {
+      id: index + 1,
+      title: post.data.title,
+      excerpt: post.data.excerpt,
+      author: post.data.author,
+      date: post.data.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }),
+      category: post.data.category,
+      slug: post.slug,
+      readTime: `${post.data.readingTime || 5} min read`,
+      featured: index === 0, // First (newest) post is featured
+      image: post.data.image || "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop",
+      optimizedImage: optimizedImage,
+      tags: post.data.tags || []
+    };
+  });
 
 // Get unique categories from actual blog posts
 const uniqueCategories = [...new Set(blogPosts.map(post => post.category))].sort();
@@ -85,7 +100,18 @@ const regularPosts = blogPosts.filter(post => !post.featured);
         {featuredPosts.map((post) => (
           <article class="group relative bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300 blog-post" data-category={post.category} data-author={post.author} data-tags={post.tags ? post.tags.join(',') : ''}>
             <div class="aspect-w-16 aspect-h-9 bg-gray-200">
-              <img src={post.image} alt={post.title} class="w-full h-48 object-cover object-top" />
+              {post.optimizedImage ? (
+                <Image 
+                  src={post.optimizedImage.default}
+                  alt={post.title}
+                  width={800}
+                  height={400}
+                  class="w-full h-48 object-cover object-top"
+                  format="webp"
+                />
+              ) : (
+                <img src={post.image} alt={post.title} class="w-full h-48 object-cover object-top" />
+              )}
             </div>
             <div class="p-6">
               <div class="flex items-center gap-4 text-sm text-gray-500 mb-3">
@@ -188,7 +214,18 @@ const regularPosts = blogPosts.filter(post => !post.featured);
             {regularPosts.map((post) => (
               <article class="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-300 blog-post" data-category={post.category} data-author={post.author} data-tags={post.tags ? post.tags.join(',') : ''}>
                 <div class="aspect-w-16 aspect-h-9 bg-gray-200">
-                  <img src={post.image} alt={post.title} class="w-full h-48 object-cover object-top" />
+                  {post.optimizedImage ? (
+                    <Image 
+                      src={post.optimizedImage.default}
+                      alt={post.title}
+                      width={600}
+                      height={300}
+                      class="w-full h-48 object-cover object-top"
+                      format="webp"
+                    />
+                  ) : (
+                    <img src={post.image} alt={post.title} class="w-full h-48 object-cover object-top" />
+                  )}
                 </div>
                 <div class="p-6">
                   <div class="flex items-center gap-3 text-xs text-gray-500 mb-2">

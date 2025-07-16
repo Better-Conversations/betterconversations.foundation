@@ -7,15 +7,20 @@ The official website for the Better Conversations Foundation (BCF), built with A
 ```text
 /
 ├── public/                          # Static assets (served at root)
+│   ├── images/
+│   │   └── blog/                    # Inline blog images (not optimized)
+│   │       ├── badges-linkedin-example.png
+│   │       └── bulls-and-better-conversations-picasso-series.jpg
 │   ├── Better-Conversations-Foundation-RGB.png
 │   └── favicon.svg
 ├── src/
 │   ├── assets/                      # Optimized images (processed by Astro)
 │   │   └── images/
 │   │       └── blog/                # Blog hero images (auto-optimized)
-│   │           ├── blog-hero.jpg
-│   │           ├── other-blog-images.jpg
-│   │           └── other-blog-images.png
+│   │           ├── course-not-a-course-hero.png
+│   │           ├── bulls-and-better-conversations-hero.png
+│   │           ├── an-experiment-hero.png
+│   │           └── [other hero images...]
 │   ├── components/                  # Reusable Astro components
 │   │   ├── Navbar.astro
 │   │   ├── Footer.astro
@@ -104,7 +109,7 @@ All commands are run from the root of the project, from a terminal:
    category: "Category"
    excerpt: "Brief description of the post"
    tags: ["tag1", "tag2"]
-   image: "/images/blog/your-hero-image.jpg"
+   image: "/images/blog/your-hero-image.png"
    imageCredit:
      photographer: "Photographer Name"
      photographerUrl: "https://link-to-photographer"
@@ -115,12 +120,25 @@ All commands are run from the root of the project, from a terminal:
 4. The post will automatically appear in the blog listing
 
 ### Image File Management
-- **Blog Images**: Place in `/src/assets/images/blog/` directory
-  - **Automatic optimization**: Astro converts to WebP format and compresses
-  - **Dramatic size reduction**: Typically 90%+ smaller file sizes
-  - **Responsive**: Multiple sizes generated automatically
-- **Other Images**: Still use `/public/` for logos, favicons, etc.
-- **Referencing**: Blog posts use `/images/blog/` paths in frontmatter
+
+#### Hero Images (Optimized)
+- **Location**: `/src/assets/images/blog/` directory
+- **Usage**: Referenced in blog frontmatter as `image: "/images/blog/hero-name.png"`
+- **Benefits**: 
+  - Automatic WebP conversion
+  - 90%+ file size reduction
+  - Multiple responsive sizes generated
+  - Lazy loading built-in
+
+#### Inline Images (Not Optimized - Temporary)
+- **Location**: `/public/images/blog/` directory
+- **Usage**: Referenced in markdown content as `![alt text](/images/blog/inline-image.png)`
+- **Note**: These images are served as-is without optimization
+- **Future**: Will be optimized when upgrading to MDX (see todo.md)
+
+#### Other Static Assets
+- **Location**: `/public/` root
+- **Usage**: Logos, favicons, and other non-blog images
 
 ### Hero Image Best Practices
 - **File Size**: Original files can be larger (1-5 MB) since Astro optimizes them
@@ -129,7 +147,6 @@ All commands are run from the root of the project, from a terminal:
   - **Example**: 6.5 MB JPEG → 531 KB WebP (92% reduction)
 - **Dimensions**: 1920x1080px for desktop hero images (16:9 ratio)
 - **Format**: Upload as JPEG or PNG - Astro handles optimization
-- **Manual optimization**: No longer needed! Astro handles everything
 - **Responsive**: Multiple image sizes generated automatically
 - **Credits**: Always include photographer attribution in frontmatter
 

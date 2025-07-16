@@ -5,6 +5,11 @@ date: 2023-05-03T00:00:00.000Z
 author: Simon Coles
 tags: [experiment, delivery, faculty]
 category: Better Conversations
+image: "/images/blog/experiment-writeup-hero.png"
+imageCredit:
+  photographer: "Simona Marinkova"
+  photographerUrl: "https://unsplash.com/photos/a-bunch-of-different-colored-bars-of-soap-BnhTw3eXA5A"
+  source: "Unsplash"
 readingTime: 5
 ---
 

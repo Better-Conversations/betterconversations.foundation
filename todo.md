@@ -2,6 +2,17 @@
 
 ## Recent Changes
 - ✅ **Blog Restructuring Complete** (July 2025): Blog moved from `/resources/blog` to `/blog/` for cleaner URL structure while maintaining navigation under Resources menu
+- ✅ **Blog Image Optimization** (July 2025): Hero images now use Astro's Image component for automatic optimization (90%+ file size reduction)
+
+## Future Enhancements
+
+### Blog System Upgrade
+- [ ] **Upgrade to MDX for enhanced blog capabilities**
+  - Convert blog posts from `.md` to `.mdx` format
+  - Enable component usage within blog posts
+  - Allow optimized inline images using Astro's Image component
+  - Support interactive elements and custom layouts
+  - Better control over image optimization for all blog images
 
 ## Search Engine Optimization
 

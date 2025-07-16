@@ -5,10 +5,10 @@ date: 2023-06-06T00:00:00.000Z
 author: Chandima Dutton
 tags: [history, foundation]
 category: Better Conversations
-image: /images/blog/course-not-a-course-hero.jpg
+image: "/images/blog/course-not-a-course-hero.png"
 imageCredit:
-  photographer: "A Chosen Soul"
-  photographerUrl: "https://unsplash.com/photos/a-very-tall-building-with-lots-of-plants-growing-on-it-WBxcYXHbr_s"
+  photographer: "Ricardo Rocha"
+  photographerUrl: "https://unsplash.com/photos/timelapse-photo-of-road-during-nighttime-nj1bqRzClq8"
   source: "Unsplash"
 readingTime: 8
 ---

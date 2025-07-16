@@ -5,9 +5,10 @@ date: 2023-03-22T00:00:00.000Z
 author: Simon Coles
 tags: [experiment, delivery, faculty]
 category: Better Conversations
+image: "/images/blog/an-experiment-hero.png"
 imageCredit:
-  photographer: "A Chosen Soul"
-  photographerUrl: "https://unsplash.com/photos/a-very-tall-building-with-lots-of-plants-growing-on-it-WBxcYXHbr_s"
+  photographer: "Laura Peruchi"
+  photographerUrl: "https://unsplash.com/photos/a-pole-with-a-bunch-of-street-signs-on-it-vDOfb-Jf_I4"
   source: "Unsplash"
 readingTime: 2
 ---

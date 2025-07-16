@@ -5,6 +5,7 @@ date: 2024-10-07T00:00:00.000Z
 author: Simon Coles
 tags: [foundation, credentials]
 category: Better Conversations
+image: "/images/blog/badges-hero.png"
 readingTime: 1
 ---
 

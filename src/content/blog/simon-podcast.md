@@ -1,10 +1,15 @@
 ---
 title: 'Simon on the Curiosulus Chronicles Podcast'
-excerpt: "I was recently interviewed by Rohit Gautam for the Curiosulus Chronicles Podcast about leadership, culture and the Better Conversations course."
+excerpt: "Simon was interviewed by Rohit Gautam for the Curiosulus Chronicles Podcast."
 date: 2024-10-05T00:00:00.000Z
 author: Simon Coles
 tags: [podcast]
 category: Publicity
+image: "/images/blog/simon-podcast-hero.png"
+imageCredit:
+  photographer: "A. C."
+  photographerUrl: "https://unsplash.com/photos/a-black-microphone-with-a-yellow-background-mw9u1Q38rl4"
+  source: "Unsplash"
 readingTime: 1
 ---
 
