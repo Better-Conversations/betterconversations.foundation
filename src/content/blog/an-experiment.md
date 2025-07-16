@@ -5,6 +5,10 @@ date: 2023-03-22T00:00:00.000Z
 author: Simon Coles
 tags: [experiment, delivery, faculty]
 category: Better Conversations
+imageCredit:
+  photographer: "A Chosen Soul"
+  photographerUrl: "https://unsplash.com/photos/a-very-tall-building-with-lots-of-plants-growing-on-it-WBxcYXHbr_s"
+  source: "Unsplash"
 readingTime: 2
 ---
 

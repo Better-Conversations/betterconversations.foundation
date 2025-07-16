@@ -5,7 +5,11 @@ date: 2023-06-06T00:00:00.000Z
 author: Chandima Dutton
 tags: [history, foundation]
 category: Better Conversations
-image: images/blog/course-not-a-course-hero.jpg
+image: /images/blog/course-not-a-course-hero.jpg
+imageCredit:
+  photographer: "A Chosen Soul"
+  photographerUrl: "https://unsplash.com/photos/a-very-tall-building-with-lots-of-plants-growing-on-it-WBxcYXHbr_s"
+  source: "Unsplash"
 readingTime: 8
 ---
 

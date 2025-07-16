@@ -6,10 +6,16 @@ The official website for the Better Conversations Foundation (BCF), built with A
 
 ```text
 /
-├── public/                          # Static assets
+├── public/                          # Static assets (served at root)
 │   ├── Better-Conversations-Foundation-RGB.png
 │   └── favicon.svg
 ├── src/
+│   ├── assets/                      # Optimized images (processed by Astro)
+│   │   └── images/
+│   │       └── blog/                # Blog hero images (auto-optimized)
+│   │           ├── blog-hero.jpg
+│   │           ├── other-blog-images.jpg
+│   │           └── other-blog-images.png
 │   ├── components/                  # Reusable Astro components
 │   │   ├── Navbar.astro
 │   │   ├── Footer.astro
@@ -98,10 +104,34 @@ All commands are run from the root of the project, from a terminal:
    category: "Category"
    excerpt: "Brief description of the post"
    tags: ["tag1", "tag2"]
+   image: "/images/blog/your-hero-image.jpg"
+   imageCredit:
+     photographer: "Photographer Name"
+     photographerUrl: "https://link-to-photographer"
+     source: "Source Platform"
    ---
    ```
 3. Write your content in markdown
 4. The post will automatically appear in the blog listing
+
+### Image File Management
+- **Blog Images**: Place in `/src/assets/images/blog/` directory
+  - **Automatic optimization**: Astro converts to WebP format and compresses
+  - **Dramatic size reduction**: Typically 90%+ smaller file sizes
+  - **Responsive**: Multiple sizes generated automatically
+- **Other Images**: Still use `/public/` for logos, favicons, etc.
+- **Referencing**: Blog posts use `/images/blog/` paths in frontmatter
+
+### Hero Image Best Practices
+- **File Size**: Original files can be larger (1-5 MB) since Astro optimizes them
+  - **Automatic optimization**: Astro reduces file sizes by 90%+ during build
+  - **WebP conversion**: All images converted to WebP format automatically
+  - **Example**: 6.5 MB JPEG → 531 KB WebP (92% reduction)
+- **Dimensions**: 1920x1080px for desktop hero images (16:9 ratio)
+- **Format**: Upload as JPEG or PNG - Astro handles optimization
+- **Manual optimization**: No longer needed! Astro handles everything
+- **Responsive**: Multiple image sizes generated automatically
+- **Credits**: Always include photographer attribution in frontmatter
 
 ### Page Structure
 - Most pages use the `Layout.astro` wrapper
