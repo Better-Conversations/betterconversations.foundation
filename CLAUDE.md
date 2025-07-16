@@ -45,6 +45,8 @@ npm run preview      # Preview production build locally
    - Community → Forums, Events, Contributors, Code of Conduct
    - Partner With Us → Organizations, Facilitator, Research, Support
    - About → Mission, Team, Ambassador Showcase, Contact
+   
+   **Note**: Blog is accessible under Resources in the navigation menu but has its own top-level URL structure at `/blog/`
 
 3. **Design System**:
    - Primary brand colors: `#54C4B6` (teal), `#A8D381` (green)
@@ -63,6 +65,37 @@ When moving files between directories, update import paths:
 - From `pages/`: `import Layout from '../layouts/Layout.astro'`
 - From `pages/about/`: `import Layout from '../../layouts/Layout.astro'`
 - From `pages/resources/`: `import Layout from '../../layouts/Layout.astro'`
+- From `pages/blog/`: `import Layout from '../../layouts/Layout.astro'`
+
+### Blog Architecture
+
+1. **URL Structure**:
+   - Blog listing page: `/blog/` (located at `src/pages/blog/index.astro`)
+   - Individual blog posts: `/blog/[slug]` (dynamic route at `src/pages/blog/[slug].astro`)
+   - Blog content files: `src/content/blog/*.md` (uses Astro's content collections)
+
+2. **Content Collections**:
+   - Blog posts are managed through Astro's content collections
+   - Schema defined in `src/content/config.ts` with frontmatter validation
+   - Each post requires: title, date, author, category, excerpt, and tags
+
+3. **Navigation Context**:
+   - Blog remains under "Resources" in the main navigation for information architecture
+   - Direct URL access provides cleaner, more SEO-friendly paths
+   - "Back to Blog" links in posts point to `/blog/`
+
+4. **TypeScript Types**:
+   - Blog pages use `CollectionEntry<'blog'>` type from Astro
+   - Props are properly typed to avoid TypeScript errors
+
+5. **Reading Time Estimates**:
+   - Calculate reading time based on actual word count, not assumptions
+   - Use standard reading speed of 200-250 words per minute
+   - Count words in main content only (exclude frontmatter, footnotes count towards total)
+   - Round to nearest minute for user-friendly display
+   - For thoughtful, conceptual content, lean towards the lower end (200 wpm)
+   - Update the hardcoded value in the blog template at `src/pages/blog/[slug].astro`
+   - Consider adding reading time to the blog schema for future automation
 
 ### Component Patterns
 
@@ -152,6 +185,31 @@ Each page should include 2-3 signature interactive elements that make it memorab
 - Ensure all interactive elements work on touch devices
 - Simplify or remove complex animations on mobile for performance
 - Test scroll-based effects on various viewport sizes
+
+### Clickable Content Styling
+
+**Standard Web Conventions:**
+- **Traditional approach**: Underlined text in different color (universally recognized)
+- **Modern approach**: Different color without underline, underline appears on hover
+
+**Context-Specific Practices:**
+- **Navigation menus**: No underline, just color/hover effects
+- **Blog metadata**: No initial underline, hover effects reveal clickability
+- **Body text links**: More likely underlined for accessibility and clarity
+- **Buttons**: Color, padding, and styling make them obviously clickable
+- **Credits/attributions**: Traditional underlined approach preferred
+
+**Accessibility Considerations:**
+- Ensure links are identifiable without relying solely on color
+- Use sufficient color contrast + visual cues
+- Consistent hover states help with discoverability
+- Underlines are more accessible than color-only differentiation
+
+**BCF Implementation Standards:**
+- **Primary links**: Teal color (`text-[#54C4B6]`), hover effects
+- **Secondary links**: Gray to teal transition on hover
+- **Metadata links**: Subtle hover effects maintaining clean design
+- **External links**: Include underlines where appropriate for clarity
 
 ## Important Notes
 

@@ -1,0 +1,185 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('blog');
+  return blogEntries.map((entry: CollectionEntry<'blog'>) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+type Props = {
+  entry: CollectionEntry<'blog'>;
+};
+
+const { entry } = Astro.props as Props;
+const { Content } = await entry.render();
+
+// Import all blog images
+const images = import.meta.glob('../../assets/images/blog/*', { eager: true });
+
+// Find the matching image for this blog post
+let heroImage;
+if (entry.data.image) {
+  const imagePath = entry.data.image.replace('/images/blog/', '');
+  const imageKey = `../../assets/images/blog/${imagePath}`;
+  heroImage = images[imageKey] as any;
+}
+---
+
+<Layout title={`${entry.data.title} - Better Conversations Foundation`}>
+  <!-- Featured Image -->
+  <section class="relative overflow-hidden">
+    <div class="w-full h-80 md:h-96 lg:h-[32rem] bg-gradient-to-br from-[#54C4B6] to-[#A8D381] overflow-hidden">
+      {heroImage ? (
+        <Image 
+          src={heroImage.default}
+          alt={entry.data.title}
+          width={1920}
+          height={800}
+          class="w-full h-full object-cover object-top"
+          loading="eager"
+          format="webp"
+        />
+      ) : (
+        <img 
+          src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=600&fit=crop&q=80"
+          alt={entry.data.title}
+          class="w-full h-full object-cover object-top"
+        />
+      )}
+      <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+    </div>
+    
+    <!-- Wave separator -->
+    <div class="absolute bottom-0 left-0 right-0">
+      <svg class="w-full h-16 text-white" preserveAspectRatio="none" viewBox="0 0 1440 54" fill="currentColor">
+        <path d="M0,22L60,27.2C120,32,240,43,360,44.7C480,46,600,38,720,30.3C840,22,960,14,1080,16.3C1200,19,1320,32,1380,38.5L1440,45L1440,54L1380,54C1320,54,1200,54,1080,54C960,54,840,54,720,54C600,54,480,54,360,54C240,54,120,54,60,54L0,54Z"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Blog Post Header -->
+  <section class="relative pt-8 pb-4 lg:pt-10 lg:pb-6 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-4">
+        <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-8">
+          <a href={`/blog?category=${encodeURIComponent(entry.data.category)}`} class="text-[#54C4B6] font-medium hover:text-[#54C4B6]/80 transition-colors">{entry.data.category}</a>
+          <span>{entry.data.date.toLocaleDateString('en-GB', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+          })}</span>
+          <span>By <a href={`/blog?author=${encodeURIComponent(entry.data.author)}`} class="text-gray-600 hover:text-[#54C4B6] transition-colors">{entry.data.author}</a></span>
+          <span>{entry.data.readingTime || 5} min read</span>
+          {entry.data.imageCredit && (
+            <span>Photo by <a href={entry.data.imageCredit.photographerUrl} class="text-gray-600 hover:text-[#54C4B6] transition-colors underline" target="_blank" rel="noopener">{entry.data.imageCredit.photographer}</a>{entry.data.imageCredit.source && ` on ${entry.data.imageCredit.source}`}</span>
+          )}
+        </div>
+        
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+          {entry.data.title}
+        </h1>
+        
+        <p class="text-xl md:text-2xl text-[#54C4B6] mb-8 leading-relaxed">
+          {entry.data.excerpt}
+        </p>
+        
+        <div class="flex flex-wrap gap-2">
+          {entry.data.tags.map((tag: string) => (
+            <a 
+              href={`/blog?tag=${encodeURIComponent(tag)}`}
+              class="inline-block px-3 py-1 bg-[#54C4B6]/10 text-[#54C4B6] rounded-full text-sm font-medium hover:bg-[#54C4B6]/20 transition-colors"
+            >
+              #{tag}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Content -->
+  <article class="py-8 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="prose prose-lg prose-gray max-w-none prose-headings:text-gray-900 prose-a:text-[#54C4B6] prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-blockquote:border-l-[#54C4B6] prose-blockquote:text-gray-700 [&_.footnotes]:text-sm [&_.footnotes]:text-gray-600 [&_.footnotes_p]:mb-2 [&_.footnotes_ol]:pl-4 [&_iframe]:w-full [&_iframe]:aspect-video">
+        <Content />
+      </div>
+    </div>
+  </article>
+
+  <!-- Navigation -->
+  <section class="py-12 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center">
+        <a href="/blog" class="inline-flex items-center text-[#54C4B6] hover:text-[#54C4B6]/80 transition-colors">
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Back to Blog
+        </a>
+        
+        <div class="flex gap-4">
+          <button class="p-2 text-gray-400 hover:text-[#54C4B6] transition-colors" title="Share on Twitter">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+            </svg>
+          </button>
+          <button class="p-2 text-gray-400 hover:text-[#54C4B6] transition-colors" title="Share on LinkedIn">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Content / CTA Section -->
+  <section class="py-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold text-white mb-4">Continue the Conversation</h2>
+      <p class="text-xl text-white/90 mb-8">
+        Explore more insights and join our community of conversation practitioners.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/blog" class="inline-flex items-center px-6 py-3 border border-white/20 text-base font-medium rounded-md text-white bg-white/10 hover:bg-white/20 transition-colors">
+          More Articles
+        </a>
+        <a href="/community" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-[#54C4B6] bg-white hover:bg-gray-50 transition-colors">
+          Join Community
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Footnote styling */
+  .prose :global(.footnote-backref) {
+    @apply text-xs ml-1;
+  }
+  
+  .prose :global(.footnotes) {
+    @apply text-base text-gray-600 mt-12 pt-8 border-t border-gray-200;
+  }
+  
+  .prose :global(.footnotes ol) {
+    @apply space-y-2;
+  }
+  
+  .prose :global(.footnotes li) {
+    @apply text-base leading-tight;
+  }
+  
+  .prose :global(.footnotes p) {
+    @apply inline;
+  }
+  
+  .prose :global(sup) {
+    @apply text-xs;
+  }
+</style>

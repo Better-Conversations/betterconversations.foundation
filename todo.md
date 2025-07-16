@@ -1,5 +1,19 @@
 # SEO & AI Visibility Todo List
 
+## Recent Changes
+- ✅ **Blog Restructuring Complete** (July 2025): Blog moved from `/resources/blog` to `/blog/` for cleaner URL structure while maintaining navigation under Resources menu
+- ✅ **Blog Image Optimization** (July 2025): Hero images now use Astro's Image component for automatic optimization (90%+ file size reduction)
+
+## Future Enhancements
+
+### Blog System Upgrade
+- [ ] **Upgrade to MDX for enhanced blog capabilities**
+  - Convert blog posts from `.md` to `.mdx` format
+  - Enable component usage within blog posts
+  - Allow optimized inline images using Astro's Image component
+  - Support interactive elements and custom layouts
+  - Better control over image optimization for all blog images
+
 ## Search Engine Optimization
 
 ### 1. Structured Data/Schema Markup
@@ -29,7 +43,7 @@
 - [ ] Add descriptive alt text to all images
 - [ ] Implement internal linking strategy
 - [ ] Add breadcrumb navigation
-- [ ] Create XML feed for blog posts
+- [ ] Create XML feed for blog posts (RSS at `/blog/rss.xml`)
 
 ## AI Chat Visibility
 
@@ -92,7 +106,7 @@ Current pages that need content:
 - [ ] **About Page** (`/about`) - Update mission, values, team bios
 - [ ] **Contact Page** (`/about/contact`) - Add real contact information
 - [ ] **Ambassador Showcase** (`/showcase`) - Replace with real ambassador profiles and photos
-- [ ] **Blog** (`/resources/blog`) - Add real blog posts (currently using placeholders)
+- [ ] **Blog** (`/blog/`) - Add real blog posts (currently using placeholders)
 - [ ] **Whitepapers** (`/resources/whitepapers`) - Add real whitepapers and research articles
 
 ### 2. Navigation Pages (Currently 404s)

@@ -1,0 +1,25 @@
+---
+title: 'Credentials/Badges are here!'
+excerpt: "We are now ready to issue credentials/badges which you can use on LinkedIn etc."
+date: 2024-10-07T00:00:00.000Z
+author: Simon Coles
+tags: [foundation, credentials]
+category: Better Conversations
+image: "/images/blog/badges-hero.png"
+readingTime: 1
+---
+
+
+We are now ready to issue credentials/badges which you can use on LinkedIn etc.
+
+We will be gradually emailing people who have completed the course to get
+them to claim their badges.
+
+We are also developing the capability for our Faculty and Partners to issue
+badges to participants on their private courses, which should be a major
+step forward in terms of credibility and recognition. We'll announce more
+in the [community](https://community.betterconversations.foundation/t/credentials-badges-are-here/509) when this is ready.
+
+Here's an example [from Chandima's LinkedIn](https://www.linkedin.com/in/chandimadutton/):
+
+![Badge Image](/images/blog/badges-linkedin-example.png)
