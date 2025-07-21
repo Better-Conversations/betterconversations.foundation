@@ -1,0 +1,297 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "We're working hard to bring you this content. Please check back soon!" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title} - Under Construction | Better Conversations Foundation</title>
+  </head>
+  <body>
+    <div class="construction-page">
+      <!-- Simple Header -->
+      <header class="header">
+        <a href="/" class="logo">
+          <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="45" stroke="#54C4B6" stroke-width="6"/>
+            <path d="M30 50C30 50 40 35 50 35C60 35 70 50 70 50C70 50 60 65 50 65C40 65 30 50 30 50Z" fill="#54C4B6" opacity="0.2"/>
+            <circle cx="50" cy="50" r="15" fill="#A8D381"/>
+          </svg>
+          <span>Better Conversations Foundation</span>
+        </a>
+      </header>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="construction-container">
+          <!-- Animated Construction Icon -->
+          <div class="icon-container">
+            <svg class="construction-icon" width="120" height="120" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path class="hammer" d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="#54C4B6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle class="bolt bolt-1" cx="8" cy="8" r="1" fill="#A8D381"/>
+              <circle class="bolt bolt-2" cx="16" cy="16" r="1" fill="#A8D381"/>
+              <circle class="bolt bolt-3" cx="16" cy="8" r="1" fill="#54C4B6"/>
+            </svg>
+          </div>
+
+          <h1 class="page-title">{title}</h1>
+          <p class="description">{description}</p>
+
+          <!-- Progress Bar -->
+          <div class="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill"></div>
+            </div>
+            <p class="progress-text">Building something amazing...</p>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="actions">
+            <a href="/" class="btn btn-primary">Return Home</a>
+            <a href="/about/contact" class="btn btn-secondary">Contact Us</a>
+          </div>
+        </div>
+      </main>
+
+      <!-- Wave Footer -->
+      <div class="wave-container">
+        <svg class="wave" preserveAspectRatio="none" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,40 C480,120 960,0 1440,80 L1440,120 L0,120 Z" fill="#54C4B6" opacity="0.1"/>
+          <path d="M0,60 C480,100 960,20 1440,60 L1440,120 L0,120 Z" fill="#A8D381" opacity="0.1"/>
+        </svg>
+      </div>
+    </div>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        color: #374151;
+        background: #f9fafb;
+        min-height: 100vh;
+      }
+
+      .construction-page {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+
+      /* Header */
+      .header {
+        padding: 1.5rem 2rem;
+        background: white;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        text-decoration: none;
+        color: #1f2937;
+        font-weight: 600;
+        font-size: 1.125rem;
+        transition: opacity 0.3s ease;
+      }
+
+      .logo:hover {
+        opacity: 0.8;
+      }
+
+      /* Main Content */
+      .main-content {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem 1.5rem;
+      }
+
+      .construction-container {
+        text-align: center;
+        max-width: 600px;
+        width: 100%;
+      }
+
+      /* Icon Animation */
+      .icon-container {
+        margin-bottom: 2rem;
+      }
+
+      .construction-icon {
+        animation: float 3s ease-in-out infinite;
+      }
+
+      .hammer {
+        transform-origin: center;
+        animation: hammer 2s ease-in-out infinite;
+      }
+
+      .bolt {
+        animation: sparkle 1.5s ease-in-out infinite;
+      }
+
+      .bolt-1 { animation-delay: 0s; }
+      .bolt-2 { animation-delay: 0.5s; }
+      .bolt-3 { animation-delay: 1s; }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+
+      @keyframes hammer {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(-10deg); }
+        75% { transform: rotate(10deg); }
+      }
+
+      @keyframes sparkle {
+        0%, 100% { opacity: 0.3; transform: scale(0.8); }
+        50% { opacity: 1; transform: scale(1.2); }
+      }
+
+      /* Typography */
+      .page-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #1f2937;
+        margin-bottom: 1rem;
+      }
+
+      .description {
+        font-size: 1.125rem;
+        color: #6b7280;
+        margin-bottom: 3rem;
+        line-height: 1.6;
+      }
+
+      /* Progress Bar */
+      .progress-container {
+        margin-bottom: 3rem;
+      }
+
+      .progress-bar {
+        height: 8px;
+        background: #e5e7eb;
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 0.75rem;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #54C4B6, #A8D381);
+        width: 0;
+        animation: progress 3s ease-in-out infinite;
+      }
+
+      @keyframes progress {
+        0% { width: 0; }
+        50% { width: 70%; }
+        100% { width: 0; }
+      }
+
+      .progress-text {
+        font-size: 0.875rem;
+        color: #9ca3af;
+      }
+
+      /* Buttons */
+      .actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: inline-block;
+      }
+
+      .btn-primary {
+        background: #54C4B6;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: #4bb3a6;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(84, 196, 182, 0.3);
+      }
+
+      .btn-secondary {
+        background: white;
+        color: #54C4B6;
+        border: 2px solid #54C4B6;
+      }
+
+      .btn-secondary:hover {
+        background: #f0fdf9;
+        transform: translateY(-2px);
+      }
+
+      /* Wave Footer */
+      .wave-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 120px;
+        overflow: hidden;
+      }
+
+      .wave {
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Responsive */
+      @media (max-width: 640px) {
+        .page-title {
+          font-size: 2rem;
+        }
+
+        .description {
+          font-size: 1rem;
+        }
+
+        .construction-icon {
+          width: 80px;
+          height: 80px;
+        }
+
+        .actions {
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .btn {
+          width: 100%;
+          text-align: center;
+        }
+      }
+    </style>
+  </body>
+</html>

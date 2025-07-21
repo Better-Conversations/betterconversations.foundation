@@ -5,7 +5,9 @@
       "Bash(git ls-tree:*)",
       "Bash(find:*)",
       "Bash(mkdir:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "WebFetch(domain:betterconversations.foundation)",
+      "WebFetch(domain:marketing.betterconversations.foundation)"
     ],
     "deny": []
   }
