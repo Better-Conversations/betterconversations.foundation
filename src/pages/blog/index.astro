@@ -115,7 +115,9 @@ const regularPosts = blogPosts.filter(post => !post.featured);
             </div>
             <div class="p-6">
               <div class="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                <button class="text-[#54C4B6] font-medium hover:text-[#54C4B6]/80 hover:underline transition-colors cursor-pointer filter-category" data-category={post.category}>{post.category}</button>
+                <button class="bg-black/60 backdrop-blur-sm px-3 py-1 border-l-2 border-[#54C4B6] text-center cursor-pointer filter-category hover:bg-black/80 transition-colors" data-category={post.category}>
+                  <span class="text-white text-xs font-medium tracking-wide">{post.category}</span>
+                </button>
                 <span>{post.date}</span>
                 <span>{post.readTime}</span>
               </div>
@@ -229,7 +231,9 @@ const regularPosts = blogPosts.filter(post => !post.featured);
                 </div>
                 <div class="p-6">
                   <div class="flex items-center gap-3 text-xs text-gray-500 mb-2">
-                    <button class="text-[#54C4B6] font-medium hover:text-[#54C4B6]/80 hover:underline transition-colors cursor-pointer filter-category" data-category={post.category}>{post.category}</button>
+                    <button class="bg-black/60 backdrop-blur-sm px-3 py-1 border-l-2 border-[#54C4B6] text-center cursor-pointer filter-category hover:bg-black/80 transition-colors" data-category={post.category}>
+                      <span class="text-white text-xs font-medium tracking-wide">{post.category}</span>
+                    </button>
                     <span>{post.readTime}</span>
                   </div>
                   <h3 class="text-lg font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors mb-2">
