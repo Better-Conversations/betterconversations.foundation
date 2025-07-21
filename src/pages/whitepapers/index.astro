@@ -213,9 +213,11 @@ const whitepapersWithStats = sortedWhitepapers.map((paper, index) => ({
                 
                 <!-- Category Badge -->
                 <div class="absolute top-4 left-4">
-                  <span class="px-3 py-1 bg-white/90 backdrop-blur-sm text-[#54C4B6] text-sm font-medium rounded-full">
-                    {paper.category}
-                  </span>
+                  <div class="bg-black/60 backdrop-blur-sm px-3 py-1 border-l-2 border-[#54C4B6] text-center">
+                    <span class="text-white text-xs font-medium tracking-wide">
+                      {paper.category}
+                    </span>
+                  </div>
                 </div>
               </div>
               
