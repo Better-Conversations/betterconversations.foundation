@@ -1,0 +1,68 @@
+---
+export interface Props {
+  tag: string;
+  active?: boolean;
+  clickable?: boolean;
+  size?: 'xs' | 'sm' | 'md';
+  class?: string;
+  href?: string;
+}
+
+const { 
+  tag, 
+  active = false, 
+  clickable = true, 
+  size = 'sm',
+  class: className = '',
+  href
+} = Astro.props;
+
+const sizeClasses = {
+  xs: 'text-xs px-2 py-1',
+  sm: 'text-sm px-3 py-1.5',
+  md: 'text-base px-4 py-2'
+};
+
+const baseClasses = `
+  ${sizeClasses[size]} 
+  rounded-full 
+  font-medium 
+  transition-all 
+  duration-200
+  ${clickable ? 'cursor-pointer hover:scale-105' : ''}
+  ${active 
+    ? 'bg-gradient-to-r from-[#54C4B6] to-[#A8D381] text-white shadow-sm' 
+    : 'bg-gray-100 text-gray-700 hover:bg-gradient-to-r hover:from-[#54C4B6] hover:to-[#A8D381] hover:text-white'
+  }
+  ${className}
+`;
+
+const TagElement = href ? 'a' : clickable ? 'button' : 'span';
+---
+
+<TagElement 
+  href={href}
+  class={baseClasses.trim()}
+  data-tag={tag}
+  data-active={active}
+  {...clickable && !href ? { type: 'button' } : {}}
+>
+  #{tag}
+</TagElement>
+
+<style>
+  @keyframes tagPulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+  }
+  
+  button:active, a:active {
+    animation: tagPulse 0.3s ease-out;
+  }
+</style>

@@ -1,0 +1,272 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TagButton from '../../components/TagButton.astro';
+import { getContentByTag, getRelatedTags, normalizeTag } from '../../utils/tags';
+import { Image } from 'astro:assets';
+
+export async function getStaticPaths() {
+  const { getAllTags } = await import('../../utils/tags');
+  const allTags = await getAllTags();
+  
+  return allTags.map(tag => ({
+    params: { tag: normalizeTag(tag.name) },
+    props: { tagName: tag.name }
+  }));
+}
+
+const { tag } = Astro.params;
+const { tagName } = Astro.props;
+
+const taggedContent = await getContentByTag(tag);
+const relatedTags = await getRelatedTags(tag, 8);
+
+// Separate content by type
+const blogPosts = taggedContent.filter(item => item.type === 'blog');
+const whitepapers = taggedContent.filter(item => item.type === 'whitepaper');
+
+// Import blog images
+const images = import.meta.glob('../../assets/images/blog/*', { eager: true });
+---
+
+<Layout title={`${tagName} - Better Conversations Foundation`}>
+  <style>
+    /* Content card hover effects */
+    .content-card {
+      transition: all 0.3s ease;
+    }
+    
+    .content-card:hover {
+      transform: translateY(-4px);
+    }
+    
+    /* Type badge styles */
+    .type-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      z-index: 10;
+    }
+    
+    /* Related tags animation */
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    .related-tag {
+      animation: slideIn 0.5s ease-out forwards;
+    }
+    
+    /* Empty state illustration */
+    .empty-state {
+      opacity: 0.5;
+      filter: grayscale(50%);
+    }
+  </style>
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white py-16 lg:py-20">
+    <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/10 via-transparent to-[#A8D381]/10"></div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <a href="/tags" class="inline-flex items-center text-[#54C4B6] hover:text-[#54C4B6]/80 transition-colors mb-6">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Back to all topics
+        </a>
+        
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+          <span class="text-[#54C4B6]">#</span>{tagName}
+        </h1>
+        
+        <div class="flex justify-center gap-8 text-center mb-8">
+          <div>
+            <div class="text-3xl font-bold text-[#54C4B6]">{taggedContent.length}</div>
+            <div class="text-sm text-gray-600">Total Items</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-[#A8D381]">{blogPosts.length}</div>
+            <div class="text-sm text-gray-600">Blog Posts</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-[#54C4B6]">{whitepapers.length}</div>
+            <div class="text-sm text-gray-600">Whitepapers</div>
+          </div>
+        </div>
+        
+        <!-- Related Tags -->
+        {relatedTags.length > 0 && (
+          <div class="mt-8">
+            <p class="text-sm text-gray-600 mb-3">Related topics:</p>
+            <div class="flex flex-wrap justify-center gap-2">
+              {relatedTags.map((relatedTag, index) => (
+                <a
+                  href={`/tags/${normalizeTag(relatedTag)}`}
+                  class="related-tag"
+                  style={`animation-delay: ${index * 0.1}s;`}
+                >
+                  <TagButton tag={relatedTag} size="xs" />
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+    
+    <!-- Wave separator -->
+    <div class="absolute bottom-0 left-0 right-0">
+      <svg class="w-full h-16 text-white" preserveAspectRatio="none" viewBox="0 0 1440 54" fill="currentColor">
+        <path d="M0,22L60,27.2C120,32,240,43,360,44.7C480,46,600,38,720,30.3C840,22,960,14,1080,16.3C1200,19,1320,32,1380,38.5L1440,45L1440,54L1380,54C1320,54,1200,54,1080,54C960,54,840,54,720,54C600,54,480,54,360,54C240,54,120,54,60,54L0,54Z"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Content Sections -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {blogPosts.length > 0 && (
+        <div class="mb-16">
+          <h2 class="text-2xl font-bold text-gray-900 mb-8">Blog Articles</h2>
+          <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {blogPosts.map(post => {
+              // Get optimized image if available
+              let optimizedImage = null;
+              if (post.type === 'blog') {
+                const imagePath = `/images/blog/${post.slug.split('/').pop()}.jpg`;
+                const imageKey = `../../assets/images/blog/${post.slug.split('/').pop()}.jpg`;
+                optimizedImage = images[imageKey] as any;
+              }
+              
+              return (
+                <article class="content-card group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg hover:border-[#54C4B6]/50">
+                  <a href={post.slug} class="block">
+                    <div class="relative h-48 overflow-hidden bg-gray-100">
+                      {optimizedImage ? (
+                        <Image
+                          src={optimizedImage.default}
+                          alt={post.title}
+                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      ) : (
+                        <div class="w-full h-full bg-gradient-to-br from-[#54C4B6]/20 to-[#A8D381]/20 flex items-center justify-center">
+                          <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path>
+                          </svg>
+                        </div>
+                      )}
+                      <div class="type-badge">
+                        <span class="px-3 py-1 bg-[#54C4B6] text-white text-xs font-medium rounded-full">
+                          Blog
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div class="p-6">
+                      <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#54C4B6] transition-colors line-clamp-2">
+                        {post.title}
+                      </h3>
+                      <p class="text-gray-600 mb-4 line-clamp-3">
+                        {post.excerpt}
+                      </p>
+                      
+                      <div class="flex items-center justify-between text-sm text-gray-500">
+                        <div class="flex items-center gap-4">
+                          <span>{typeof post.authors === 'string' ? post.authors : post.authors?.join(', ')}</span>
+                          <span>•</span>
+                          <span>{post.readingTime ? `${post.readingTime} min` : '5 min'}</span>
+                        </div>
+                        <time>{post.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' })}</time>
+                      </div>
+                    </div>
+                  </a>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      )}
+      
+      {whitepapers.length > 0 && (
+        <div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-8">Research & Whitepapers</h2>
+          <div class="space-y-6">
+            {whitepapers.map(paper => (
+              <article class="content-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg hover:border-[#A8D381]/50">
+                <a href={paper.slug} class="block">
+                  <div class="md:flex">
+                    <div class="md:w-1/4 relative h-48 md:h-auto bg-gray-100">
+                      <div class="absolute inset-0 bg-gradient-to-br from-[#A8D381]/20 to-[#54C4B6]/20 flex items-center justify-center">
+                        <svg class="w-20 h-20 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                      </div>
+                      <div class="type-badge">
+                        <span class="px-3 py-1 bg-[#A8D381] text-white text-xs font-medium rounded-full">
+                          Whitepaper
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div class="md:w-3/4 p-6">
+                      <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#A8D381] transition-colors">
+                        {paper.title}
+                      </h3>
+                      <p class="text-gray-600 mb-4 line-clamp-2">
+                        {paper.excerpt}
+                      </p>
+                      
+                      <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+                        <div class="flex items-center gap-2">
+                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                          </svg>
+                          <span>{Array.isArray(paper.authors) ? paper.authors.join(', ') : paper.authors}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                          </svg>
+                          <span>{paper.readingTime ? `${paper.readingTime} min read` : '20 min read'}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                          </svg>
+                          <time>{paper.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long' })}</time>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </article>
+            ))}
+          </div>
+        </div>
+      )}
+      
+      {taggedContent.length === 0 && (
+        <div class="text-center py-20">
+          <div class="empty-state inline-block mb-8">
+            <svg class="w-32 h-32 text-gray-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-medium text-gray-900 mb-2">No content found</h3>
+          <p class="text-gray-600 mb-8">We don't have any content tagged with "{tagName}" yet.</p>
+          <a href="/tags" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-[#54C4B6] hover:bg-[#54C4B6]/90 transition-colors">
+            Browse other topics
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+</Layout>

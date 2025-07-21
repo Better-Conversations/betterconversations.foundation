@@ -1,0 +1,306 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TagButton from '../../components/TagButton.astro';
+import { getCollection } from 'astro:content';
+import { getAllTags } from '../../utils/tags';
+
+// Get search query from URL
+const url = new URL(Astro.request.url);
+const query = url.searchParams.get('q') || '';
+const filter = url.searchParams.get('filter') || 'all';
+
+// Get all content
+const [blogs, whitepapers, tags] = await Promise.all([
+  getCollection('blog'),
+  getCollection('whitepapers'),
+  getAllTags()
+]);
+
+// Perform search if query exists
+let results = [];
+if (query) {
+  const searchTerm = query.toLowerCase();
+  
+  // Search blogs
+  if (filter === 'all' || filter === 'blog') {
+    const blogResults = blogs
+      .filter(post =>
+        post.data.title.toLowerCase().includes(searchTerm) ||
+        post.data.excerpt.toLowerCase().includes(searchTerm) ||
+        post.data.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+      )
+      .map(post => ({
+        type: 'blog',
+        title: post.data.title,
+        excerpt: post.data.excerpt,
+        slug: `/blog/${post.slug}`,
+        tags: post.data.tags,
+        author: post.data.author,
+        date: post.data.date,
+        category: post.data.category
+      }));
+    results.push(...blogResults);
+  }
+  
+  // Search whitepapers
+  if (filter === 'all' || filter === 'whitepaper') {
+    const whitepaperResults = whitepapers
+      .filter(paper =>
+        paper.data.title.toLowerCase().includes(searchTerm) ||
+        paper.data.excerpt.toLowerCase().includes(searchTerm) ||
+        paper.data.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+      )
+      .map(paper => ({
+        type: 'whitepaper',
+        title: paper.data.title,
+        excerpt: paper.data.excerpt,
+        slug: `/whitepapers/${paper.slug}`,
+        tags: paper.data.tags,
+        authors: paper.data.authors,
+        date: paper.data.date,
+        category: paper.data.category
+      }));
+    results.push(...whitepaperResults);
+  }
+  
+  // Search tags
+  if (filter === 'all' || filter === 'tag') {
+    const tagResults = tags
+      .filter(tag => tag.name.toLowerCase().includes(searchTerm))
+      .map(tag => ({
+        type: 'tag',
+        title: tag.name,
+        count: tag.count,
+        slug: `/tags/${tag.name.toLowerCase().replace(/\s+/g, '-')}`
+      }));
+    results.push(...tagResults);
+  }
+}
+
+// Sort results by relevance (title matches first, then by date)
+results.sort((a, b) => {
+  const aInTitle = a.title.toLowerCase().includes(query.toLowerCase());
+  const bInTitle = b.title.toLowerCase().includes(query.toLowerCase());
+  
+  if (aInTitle && !bInTitle) return -1;
+  if (!aInTitle && bInTitle) return 1;
+  
+  // For non-tag items, sort by date
+  if (a.date && b.date) {
+    return b.date.getTime() - a.date.getTime();
+  }
+  
+  return 0;
+});
+---
+
+<Layout title={query ? `Search results for "${query}"` : 'Search - Better Conversations Foundation'}>
+  <style>
+    /* Search input styles */
+    .search-input-wrapper {
+      position: relative;
+    }
+    
+    .search-input-wrapper::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(to right, #54C4B6, #A8D381);
+      border-radius: 0.75rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .search-input-wrapper:focus-within::before {
+      opacity: 0.2;
+    }
+    
+    /* Result card animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .result-card {
+      animation: fadeInUp 0.5s ease-out forwards;
+    }
+    
+    /* Filter pill styles */
+    .filter-pill {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .filter-pill::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, #54C4B6, #A8D381);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .filter-pill:hover::before {
+      opacity: 0.1;
+    }
+    
+    .filter-pill.active {
+      background: linear-gradient(to right, #54C4B6, #A8D381);
+      color: white;
+    }
+  </style>
+
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-b from-gray-50 to-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-900 mb-8 text-center">
+          {query ? `Search results for "${query}"` : 'Search'}
+        </h1>
+        
+        <!-- Search Form -->
+        <form method="get" action="/search" class="mb-8">
+          <div class="search-input-wrapper relative">
+            <input
+              type="text"
+              name="q"
+              value={query}
+              placeholder="Search blogs, whitepapers, and topics..."
+              class="w-full px-6 py-4 pl-14 text-lg bg-white border border-gray-300 rounded-xl focus:outline-none focus:border-[#54C4B6] focus:ring-2 focus:ring-[#54C4B6]/20 transition-all"
+              autofocus
+            />
+            <svg class="absolute left-5 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <input type="hidden" name="filter" value={filter} />
+          </div>
+          
+          <!-- Filters -->
+          <div class="flex gap-2 mt-4 justify-center">
+            <a href={`/search?q=${query}&filter=all`} class={`filter-pill px-4 py-2 rounded-full text-sm font-medium transition-all ${filter === 'all' ? 'active' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
+              All ({query ? results.length : '0'})
+            </a>
+            <a href={`/search?q=${query}&filter=blog`} class={`filter-pill px-4 py-2 rounded-full text-sm font-medium transition-all ${filter === 'blog' ? 'active' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
+              Blogs ({query ? results.filter(r => r.type === 'blog').length : '0'})
+            </a>
+            <a href={`/search?q=${query}&filter=whitepaper`} class={`filter-pill px-4 py-2 rounded-full text-sm font-medium transition-all ${filter === 'whitepaper' ? 'active' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
+              Whitepapers ({query ? results.filter(r => r.type === 'whitepaper').length : '0'})
+            </a>
+            <a href={`/search?q=${query}&filter=tag`} class={`filter-pill px-4 py-2 rounded-full text-sm font-medium transition-all ${filter === 'tag' ? 'active' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
+              Topics ({query ? results.filter(r => r.type === 'tag').length : '0'})
+            </a>
+          </div>
+        </form>
+        
+        <!-- Results Summary -->
+        {query && (
+          <div class="text-center text-gray-600 mb-8">
+            Found <span class="font-medium text-gray-900">{results.length}</span> {results.length === 1 ? 'result' : 'results'} for "<span class="font-medium text-gray-900">{query}</span>"
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- Search Results -->
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      {query && results.length > 0 ? (
+        <div class="space-y-6">
+          {results.map((result, index) => (
+            <article 
+              class="result-card bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg hover:border-[#54C4B6]/50 transition-all"
+              style={`animation-delay: ${index * 0.05}s;`}
+            >
+              <a href={result.slug} class="block">
+                <div class="flex items-start justify-between">
+                  <div class="flex-1">
+                    <h2 class="text-xl font-bold text-gray-900 mb-2 hover:text-[#54C4B6] transition-colors">
+                      {result.type === 'tag' && '#'}{result.title}
+                    </h2>
+                    
+                    {result.type === 'tag' ? (
+                      <p class="text-gray-600">{result.count} items tagged with this topic</p>
+                    ) : (
+                      <>
+                        <p class="text-gray-600 mb-3 line-clamp-2">{result.excerpt}</p>
+                        
+                        <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+                          {result.type === 'blog' && (
+                            <>
+                              <span>{result.author}</span>
+                              <span>•</span>
+                            </>
+                          )}
+                          {result.type === 'whitepaper' && result.authors && (
+                            <>
+                              <span>{Array.isArray(result.authors) ? result.authors.join(', ') : result.authors}</span>
+                              <span>•</span>
+                            </>
+                          )}
+                          {result.date && (
+                            <time>{result.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+                          )}
+                        </div>
+                        
+                        {result.tags && result.tags.length > 0 && (
+                          <div class="flex flex-wrap gap-2 mt-3">
+                            {result.tags.slice(0, 3).map(tag => (
+                              <TagButton tag={tag} size="xs" href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`} />
+                            ))}
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </div>
+                  
+                  <div class="ml-4 flex-shrink-0">
+                    <span class={`inline-flex items-center px-3 py-1 text-xs font-medium rounded-full ${
+                      result.type === 'blog' ? 'bg-[#54C4B6]/10 text-[#54C4B6]' :
+                      result.type === 'whitepaper' ? 'bg-[#A8D381]/10 text-[#A8D381]' :
+                      'bg-gray-100 text-gray-700'
+                    }`}>
+                      {result.type === 'blog' ? 'Blog' :
+                       result.type === 'whitepaper' ? 'Whitepaper' :
+                       'Topic'}
+                    </span>
+                  </div>
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+      ) : query ? (
+        <div class="text-center py-20">
+          <svg class="w-24 h-24 mx-auto mb-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <h2 class="text-2xl font-medium text-gray-900 mb-2">No results found</h2>
+          <p class="text-gray-600 mb-8">Try adjusting your search terms or filters</p>
+          <div class="space-y-2 text-gray-600">
+            <p>Suggestions:</p>
+            <ul class="list-disc list-inside space-y-1">
+              <li>Check your spelling</li>
+              <li>Try more general keywords</li>
+              <li>Use fewer keywords</li>
+            </ul>
+          </div>
+        </div>
+      ) : (
+        <div class="text-center py-20">
+          <svg class="w-24 h-24 mx-auto mb-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <h2 class="text-2xl font-medium text-gray-900 mb-2">Start searching</h2>
+          <p class="text-gray-600">Enter a search term above to find content</p>
+        </div>
+      )}
+    </div>
+  </section>
+</Layout>

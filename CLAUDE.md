@@ -211,6 +211,50 @@ Each page should include 2-3 signature interactive elements that make it memorab
 - **Metadata links**: Subtle hover effects maintaining clean design
 - **External links**: Include underlines where appropriate for clarity
 
+### Hover Effects Implementation
+
+**Important Note for Dynamic Content:**
+When creating hover effects for dynamically generated content (via JavaScript), CSS hover pseudo-classes may not work reliably. Use one of these approaches:
+
+1. **For Static Content** (Astro components, static HTML):
+   ```html
+   <article class="hover:shadow-lg hover:border-[#54C4B6] transition-all duration-300">
+   ```
+
+2. **For Dynamic Content** (JavaScript-generated HTML):
+   ```javascript
+   // Use inline event handlers with Tailwind classes
+   return `
+     <a href="${url}" 
+        class="block p-4 rounded-lg border border-gray-200 hover:bg-gray-50 hover:shadow-sm transition-all duration-200"
+        onmouseover="this.style.backgroundColor='#f0fdf4'; this.style.borderColor='#54C4B6';"
+        onmouseout="this.style.backgroundColor='white'; this.style.borderColor='#e5e7eb';">
+       Content here
+     </a>
+   `;
+   ```
+
+**Standard Hover Effects Across BCF Site:**
+- **Cards/Results**: Light background tint + teal border + shadow
+- **Buttons**: Opacity change or darker shade
+- **Tags**: Background changes to gradient, text to white
+- **Links**: Color transition to teal
+- **Images**: Scale transform (usually 105%)
+
+**Recommended Hover Pattern for Cards:**
+```html
+<!-- Static version -->
+<div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 hover:border-[#54C4B6] hover:shadow-sm transition-all duration-200">
+  <h3 class="text-gray-900 hover:text-[#54C4B6] transition-colors">Title</h3>
+</div>
+
+<!-- Dynamic version with inline handlers -->
+<div class="..." 
+     onmouseover="this.style.backgroundColor='#f0fdf4'; this.style.borderColor='#54C4B6';"
+     onmouseout="this.style.backgroundColor='white'; this.style.borderColor='#e5e7eb';">
+</div>
+```
+
 ## Important Notes
 
 - The showcase page (`/showcase`) requires special handling - it has unique scroll behavior and no footer

@@ -35,6 +35,7 @@ const navItems = [
     dropdown: [
       { name: 'Blog', href: '/blog' },
       { name: 'Whitepapers', href: '/whitepapers' },
+      { name: 'Browse by Topic', href: '/tags' },
       { name: 'Documentation', href: 'https://betterconversations.foundation/documentation/index.html' },
       { name: 'Success Stories', href: '/stories' }
     ]
@@ -79,7 +80,7 @@ const navItems = [
 
       <!-- Desktop Navigation -->
       <div class="hidden lg:block">
-        <div class="ml-10 flex items-baseline space-x-1">
+        <div class="ml-10 flex items-center space-x-1">
           {navItems.map((item) => (
             <div class="relative nav-item group">
               <a 
@@ -110,11 +111,31 @@ const navItems = [
               )}
             </div>
           ))}
+          
+          <!-- Search Button -->
+          <button
+            id="search-button"
+            class="ml-4 p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+            title="Search (Cmd/Ctrl + K)"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </button>
         </div>
       </div>
 
-      <!-- Mobile menu button -->
-      <div class="lg:hidden">
+      <!-- Mobile menu button and search -->
+      <div class="lg:hidden flex items-center gap-2">
+        <button
+          id="search-button-mobile"
+          class="p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+          title="Search"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </button>
         <button
           type="button"
           class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
@@ -289,4 +310,13 @@ const navItems = [
   
   // Update on page navigation (for Astro's client-side routing)
   document.addEventListener('astro:after-swap', updateNavbar);
+  
+  // Search button handlers
+  document.getElementById('search-button')?.addEventListener('click', () => {
+    if (window.openSearchModal) window.openSearchModal();
+  });
+  
+  document.getElementById('search-button-mobile')?.addEventListener('click', () => {
+    if (window.openSearchModal) window.openSearchModal();
+  });
 </script>

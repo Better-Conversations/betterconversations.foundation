@@ -1,6 +1,9 @@
 ---
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import Search from '../components/Search.astro';
+import { getCollection } from 'astro:content';
+import { getAllTags } from '../utils/tags';
 import '../styles/global.css';
 
 export interface Props {
@@ -9,6 +12,40 @@ export interface Props {
 
 const { title = 'BCF Content' } = Astro.props;
 const isShowcasePage = Astro.url.pathname === '/showcase' || Astro.url.pathname === '/showcase/';
+
+// Prepare search data
+const [blogs, whitepapers, tags] = await Promise.all([
+  getCollection('blog'),
+  getCollection('whitepapers'),
+  getAllTags()
+]);
+
+const searchData = {
+  blogs: blogs.map(post => ({
+    type: 'blog',
+    title: post.data.title,
+    excerpt: post.data.excerpt,
+    slug: `/blog/${post.slug}`,
+    tags: post.data.tags,
+    author: post.data.author,
+    date: post.data.date
+  })),
+  whitepapers: whitepapers.map(paper => ({
+    type: 'whitepaper',
+    title: paper.data.title,
+    excerpt: paper.data.excerpt,
+    slug: `/whitepapers/${paper.slug}`,
+    tags: paper.data.tags,
+    authors: paper.data.authors,
+    date: paper.data.date
+  })),
+  tags: tags.map(tag => ({
+    type: 'tag',
+    title: tag.name,
+    count: tag.count,
+    slug: `/tags/${tag.name.toLowerCase().replace(/\s+/g, '-')}`
+  }))
+};
 ---
 
 <!doctype html>
@@ -26,6 +63,7 @@ const isShowcasePage = Astro.url.pathname === '/showcase' || Astro.url.pathname 
 			<slot />
 		</main>
 		{!isShowcasePage && <Footer />}
+		<Search searchData={searchData} />
 	</body>
 </html>
 

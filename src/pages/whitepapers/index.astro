@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import TagButton from '../../components/TagButton.astro';
 
 // Get whitepapers from content collection
 const whitepapers = await getCollection('whitepapers');
@@ -18,8 +19,14 @@ const whitepapersWithStats = sortedWhitepapers.map((paper, index) => ({
   pages: [32, 42, 28][index] || Math.floor(Math.random() * 30) + 20,
   downloads: [1247, 892, 1563][index] || Math.floor(Math.random() * 1000) + 500,
   category: paper.data.category,
+  tags: paper.data.tags || [],
   image: paper.data.image || "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop"
 }));
+
+// Get unique categories and tags
+const uniqueCategories = [...new Set(whitepapersWithStats.map(paper => paper.category))].sort();
+const allTags = whitepapersWithStats.flatMap(paper => paper.tags);
+const uniqueTags = [...new Set(allTags)].sort();
 ---
 
 <Layout title="Whitepapers - Better Conversations Foundation">
@@ -164,7 +171,7 @@ const whitepapersWithStats = sortedWhitepapers.map((paper, index) => ({
         </p>
         
         <!-- Live Stats -->
-        <div class="flex flex-wrap justify-center gap-8 text-center">
+        <div class="flex flex-wrap justify-center gap-8 text-center mb-8">
           <div class="stat-group">
             <div class="text-3xl font-bold text-[#54C4B6]">
               <span class="stat-counter" data-target="4236">0</span>+
@@ -184,6 +191,12 @@ const whitepapersWithStats = sortedWhitepapers.map((paper, index) => ({
             <div class="text-sm text-gray-600">Implementation Success</div>
           </div>
         </div>
+        
+        <!-- Filter Display -->
+        <div class="flex justify-center gap-2 items-center">
+          <span id="category-filter-display" class="hidden px-3 py-1 text-xs font-medium bg-[#54C4B6] text-white rounded-full cursor-pointer hover:bg-[#54C4B6]/90 transition-colors" title="Click to clear filter"></span>
+          <span id="tag-filter-display" class="hidden px-3 py-1 text-xs font-medium bg-gradient-to-r from-[#54C4B6] to-[#A8D381] text-white rounded-full cursor-pointer hover:opacity-90 transition-opacity" title="Click to clear filter"></span>
+        </div>
       </div>
     </div>
     
@@ -198,9 +211,13 @@ const whitepapersWithStats = sortedWhitepapers.map((paper, index) => ({
   <!-- Whitepapers Grid -->
   <section class="py-16 lg:py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid gap-8 lg:gap-12">
+      <div class="grid gap-8 lg:gap-12" id="whitepapers-grid">
         {whitepapersWithStats.map((paper, index) => (
-          <article class="paper-stack spotlight-card bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden group">
+          <article 
+            class="paper-stack spotlight-card bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden group whitepaper-card"
+            data-category={paper.category}
+            data-tags={paper.tags.join(',')}
+          >
             <div class="lg:flex">
               <!-- Image Section -->
               <div class="lg:w-1/3 relative overflow-hidden">
@@ -246,9 +263,22 @@ const whitepapersWithStats = sortedWhitepapers.map((paper, index) => ({
                   </div>
                   
                   <!-- Abstract -->
-                  <p class="text-gray-600 mb-6 flex-grow line-clamp-3 lg:line-clamp-none">
+                  <p class="text-gray-600 mb-4 flex-grow line-clamp-3 lg:line-clamp-none">
                     {paper.abstract}
                   </p>
+                  
+                  <!-- Tags -->
+                  {paper.tags.length > 0 && (
+                    <div class="flex flex-wrap gap-2 mb-6">
+                      {paper.tags.map(tag => (
+                        <TagButton 
+                          tag={tag} 
+                          size="xs"
+                          class="filter-tag"
+                        />
+                      ))}
+                    </div>
+                  )}
                   
                   <!-- Footer -->
                   <div class="flex flex-wrap items-center justify-between gap-4">
@@ -326,6 +356,10 @@ const whitepapersWithStats = sortedWhitepapers.map((paper, index) => ({
   </svg>
 
   <script>
+    // State management
+    let currentCategoryFilter = '';
+    let currentTagFilter = '';
+    
     // Animated counter
     function animateCounter(element, target, duration = 2000) {
       const start = 0;
@@ -355,6 +389,100 @@ const whitepapersWithStats = sortedWhitepapers.map((paper, index) => ({
       });
       observer.observe(counter);
     });
+    
+    // Filter functionality
+    function filterWhitepapers() {
+      const cards = document.querySelectorAll('.whitepaper-card');
+      let visibleCount = 0;
+      
+      cards.forEach(card => {
+        const cardCategory = card.dataset.category;
+        const cardTags = card.dataset.tags.split(',').filter(t => t);
+        
+        const categoryMatch = !currentCategoryFilter || cardCategory === currentCategoryFilter;
+        const tagMatch = !currentTagFilter || cardTags.includes(currentTagFilter);
+        
+        if (categoryMatch && tagMatch) {
+          card.style.display = '';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      
+      // Update filter displays
+      const categoryDisplay = document.getElementById('category-filter-display');
+      const tagDisplay = document.getElementById('tag-filter-display');
+      
+      if (currentCategoryFilter) {
+        categoryDisplay.textContent = `Category: ${currentCategoryFilter}`;
+        categoryDisplay.classList.remove('hidden');
+      } else {
+        categoryDisplay.classList.add('hidden');
+      }
+      
+      if (currentTagFilter) {
+        tagDisplay.textContent = `#${currentTagFilter}`;
+        tagDisplay.classList.remove('hidden');
+      } else {
+        tagDisplay.classList.add('hidden');
+      }
+    }
+    
+    // Handle tag clicks
+    document.querySelectorAll('.filter-tag').forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        const tag = button.dataset.tag;
+        
+        if (currentTagFilter === tag) {
+          currentTagFilter = '';
+        } else {
+          currentTagFilter = tag;
+        }
+        
+        filterWhitepapers();
+        updateActiveStates();
+      });
+    });
+    
+    // Clear filters when clicking filter displays
+    document.getElementById('category-filter-display')?.addEventListener('click', () => {
+      currentCategoryFilter = '';
+      filterWhitepapers();
+      updateActiveStates();
+    });
+    
+    document.getElementById('tag-filter-display')?.addEventListener('click', () => {
+      currentTagFilter = '';
+      filterWhitepapers();
+      updateActiveStates();
+    });
+    
+    // Update active states on buttons
+    function updateActiveStates() {
+      document.querySelectorAll('.filter-tag').forEach(button => {
+        const isActive = button.dataset.tag === currentTagFilter;
+        button.dataset.active = isActive;
+        
+        if (isActive) {
+          button.classList.add('bg-gradient-to-r', 'from-[#54C4B6]', 'to-[#A8D381]', 'text-white');
+          button.classList.remove('bg-gray-100', 'text-gray-700', 'hover:bg-gradient-to-r', 'hover:from-[#54C4B6]', 'hover:to-[#A8D381]', 'hover:text-white');
+        } else {
+          button.classList.remove('bg-gradient-to-r', 'from-[#54C4B6]', 'to-[#A8D381]', 'text-white');
+          button.classList.add('bg-gray-100', 'text-gray-700', 'hover:bg-gradient-to-r', 'hover:from-[#54C4B6]', 'hover:to-[#A8D381]', 'hover:text-white');
+        }
+      });
+    }
+    
+    // Check for URL parameters on load
+    const urlParams = new URLSearchParams(window.location.search);
+    const tagParam = urlParams.get('tag');
+    if (tagParam) {
+      currentTagFilter = tagParam;
+      filterWhitepapers();
+      updateActiveStates();
+    }
     
     // Download animation
     document.querySelectorAll('.download-button').forEach(button => {
