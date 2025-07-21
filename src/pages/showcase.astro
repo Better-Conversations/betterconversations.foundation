@@ -1,6 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
+// Blank profile picture SVG data URL
+const blankProfilePicture = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Ccircle cx="100" cy="100" r="100" fill="%23f3f4f6"/%3E%3Cpath d="M100 50c16.6 0 30 13.4 30 30s-13.4 30-30 30-30-13.4-30-30 13.4-30 30-30zm0 70c33.1 0 60 26.9 60 60v20H40v-20c0-33.1 26.9-60 60-60z" fill="%23d1d5db"/%3E%3C/svg%3E';
+
 const ambassadors = [
   {
     id: 'lyndsay-conklin',
@@ -8,9 +11,9 @@ const ambassadors = [
     role: 'BCF Ambassador',
     location: 'United States',
     specialties: ['Clean Language', 'Organizational Development', 'Executive Coaching'],
-    bio: 'Lyndsay brings a unique blend of business acumen and communication expertise to her work with Fortune 500 companies. Her innovative approach to Clean Language has transformed how organizations approach strategic conversations and team alignment.',
+    bio: 'Lyndsay brings a unique blend of business acumen and communication expertise to her work with Fortune 500 companies. Her innovative approach to Clean Language has transformed how organizations approach strategic conversations and team alignment. ',
     impact: '200+ leaders coached',
-    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop'
+    image: blankProfilePicture
   },
   {
     id: 'evelina-de-lain',
@@ -20,7 +23,7 @@ const ambassadors = [
     specialties: ['Emergent Knowledge', 'Creative Industries', 'Innovation Workshops'],
     bio: 'Evelina specializes in applying Better Conversations principles to creative and innovation processes. Her work with design teams and creative agencies has revolutionized how these organizations harness collective creativity.',
     impact: '100+ workshops delivered',
-    image: 'https://images.unsplash.com/photo-1598550874175-4d0ef436c909?w=400&h=400&fit=crop'
+    image: blankProfilePicture
   },
   {
     id: 'virginia-mckendry',
@@ -30,7 +33,7 @@ const ambassadors = [
     specialties: ['Academic Research', 'Healthcare Communication', 'Evidence-Based Practice'],
     bio: 'Dr. McKendry bridges the gap between academic research and practical application. Her groundbreaking studies on communication in healthcare settings have improved patient outcomes and team collaboration across multiple institutions.',
     impact: '15 research publications',
-    image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop'
+    image: blankProfilePicture
   },
   {
     id: 'matthew-michaelsen',
@@ -40,7 +43,7 @@ const ambassadors = [
     specialties: ['Technology Teams', 'Agile Coaching', 'Remote Collaboration'],
     bio: 'Matthew has pioneered the integration of Better Conversations methodology into agile software development practices. His frameworks for improving communication in distributed tech teams have been adopted by startups and enterprises globally.',
     impact: '50+ tech companies',
-    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop'
+    image: blankProfilePicture
   },
   {
     id: 'robyn-odegaard',
@@ -50,7 +53,7 @@ const ambassadors = [
     specialties: ['Leadership Development', 'Emotional Intelligence', 'Team Dynamics'],
     bio: 'Dr. Odegaard is renowned for her work in developing emotionally intelligent leaders. Her unique approach combines Better Conversations techniques with neuroscience insights to create transformative leadership programs.',
     impact: '1000+ leaders trained',
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop'
+    image: blankProfilePicture
   },
   {
     id: 'dan-parsons',
@@ -60,7 +63,7 @@ const ambassadors = [
     specialties: ['Clean Language', 'Executive Coaching', 'Team Dynamics'],
     bio: 'Dan has been instrumental in bringing Better Conversations methodology to Fortune 500 companies across Europe. His innovative approach to Clean Language in corporate settings has transformed how leadership teams communicate.',
     impact: '500+ executives trained',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop'
+    image: blankProfilePicture
   },
   {
     id: 'christine-stief',
@@ -70,7 +73,7 @@ const ambassadors = [
     specialties: ['Academic Integration', 'Research', 'Youth Programs'],
     bio: 'Christine has pioneered the integration of Better Conversations principles into educational curricula. Her work with universities has created a new generation of communication-conscious professionals.',
     impact: '10 universities engaged',
-    image: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400&h=400&fit=crop'
+    image: blankProfilePicture
   },
   {
     id: 'barb-collombin',
@@ -80,7 +83,7 @@ const ambassadors = [
     specialties: ['Community Building', 'Workshop Facilitation', 'Peer Learning'],
     bio: 'Barb has created thriving BCF communities across North America. Her innovative "Conversation Cafés" have become a model for grassroots engagement, bringing Better Conversations principles to diverse communities and organizations.',
     impact: '75+ community events',
-    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop'
+    image: blankProfilePicture
   }
 ];
 
