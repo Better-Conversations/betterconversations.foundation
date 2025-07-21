@@ -10,6 +10,8 @@ featured: false
 image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=400&fit=crop"
 ---
 
+import ResponsiveImage from '../../components/ResponsiveImage.astro';
+
 export const SafetyMeter = () => {
   const [level, setLevel] = React.useState(3);
   const levels = [
@@ -66,6 +68,14 @@ Psychological safety—the belief that one can speak up without risk of punishme
 
 
 ## The Business Case for Psychological Safety
+
+<ResponsiveImage 
+  src="/images/blog/bulls-and-better-conversations-picasso-series.jpg"
+  alt="Picasso's Bull Series - Evolution of Understanding"
+  caption="Just as Picasso's bull series demonstrates the journey from complexity to essence, psychological safety allows teams to strip away fear and find the core of authentic communication."
+  aspectRatio="16:9"
+  onClick={true}
+/>
 
 ### Key Statistics
 
