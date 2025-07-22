@@ -51,4 +51,4 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: |
           # Send to bcf-production-common where Caddy will serve it
-          rsync --delete -vv -r -e 'ssh -o StrictHostKeyChecking=no' dist/* bcf-dev@bcf-production-common.anteater-catfish.ts.net:/home/amphoraresearch/html/
+          rsync --delete -vv -r -e 'ssh -o StrictHostKeyChecking=no' dist/* bcf-dev@bcf-production-common.anteater-catfish.ts.net:/home/bcf-dev/html/
