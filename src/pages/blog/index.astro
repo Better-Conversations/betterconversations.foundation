@@ -30,7 +30,7 @@ const blogPosts = allBlogPosts
       category: post.data.category,
       slug: post.slug,
       readTime: `${post.data.readingTime || 5} min read`,
-      featured: index === 0, // First (newest) post is featured
+      spotlight: post.data.spotlight || false,
       image: post.data.image || "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop",
       optimizedImage: optimizedImage,
       tags: post.data.tags || []
@@ -40,8 +40,23 @@ const blogPosts = allBlogPosts
 // Get unique categories from actual blog posts
 const uniqueCategories = [...new Set(blogPosts.map(post => post.category))].sort();
 const categories = ["All", ...uniqueCategories];
-const featuredPosts = blogPosts.filter(post => post.featured);
-const regularPosts = blogPosts.filter(post => !post.featured);
+
+// Determine featured posts based on spotlight logic
+const spotlightPosts = blogPosts.filter(post => post.spotlight);
+let featuredPosts;
+
+if (spotlightPosts.length > 0 && spotlightPosts.length <= 2) {
+  // Use all spotlight posts if there are 1-2
+  featuredPosts = spotlightPosts;
+} else if (spotlightPosts.length > 2) {
+  // Use the 2 most recent spotlight posts (already sorted by date)
+  featuredPosts = spotlightPosts.slice(0, 2);
+} else {
+  // No spotlight posts, use 2 most recent posts
+  featuredPosts = blogPosts.slice(0, 2);
+}
+
+const regularPosts = blogPosts.filter(post => !featuredPosts.includes(post));
 ---
 
 <Layout title="Blog - Better Conversations Foundation">
