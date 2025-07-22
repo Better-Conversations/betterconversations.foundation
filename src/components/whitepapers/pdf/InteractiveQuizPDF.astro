@@ -1,0 +1,185 @@
+---
+export interface QuizQuestion {
+  question: string;
+  options: string[];
+  correct: number;
+  explanation?: string;
+}
+
+export interface Props {
+  questions: QuizQuestion[];
+  title?: string;
+}
+
+const { questions, title = "Quick Knowledge Check" } = Astro.props;
+---
+
+<div class="quiz-pdf">
+  <h3 class="quiz-title">{title}</h3>
+  
+  <div class="questions-section">
+    {questions.map((q, qIndex) => (
+      <div class="question-block">
+        <h4 class="question-text">
+          <span class="question-number">{qIndex + 1}.</span> {q.question}
+        </h4>
+        
+        <div class="options-list">
+          {q.options.map((option, oIndex) => (
+            <div class="option-item">
+              <span class="option-letter">{String.fromCharCode(65 + oIndex)}.</span>
+              <span class="option-text">{option}</span>
+            </div>
+          ))}
+        </div>
+        
+        <div class="answer-space">
+          <span class="answer-label">Your answer: ___________</span>
+        </div>
+      </div>
+    ))}
+  </div>
+  
+  <div class="answer-key">
+    <h4 class="answer-key-title">Answer Key</h4>
+    <div class="answers-grid">
+      {questions.map((q, qIndex) => (
+        <div class="answer-item">
+          <span class="answer-number">{qIndex + 1}.</span>
+          <span class="correct-answer">{String.fromCharCode(65 + q.correct)}</span>
+          {q.explanation && (
+            <div class="answer-explanation">
+              <em>{q.explanation}</em>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .quiz-pdf {
+    margin: 20px 0;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  .quiz-title {
+    font-size: 20px;
+    color: #54C4B6;
+    margin-bottom: 20px;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #54C4B6;
+  }
+  
+  .questions-section {
+    margin-bottom: 30px;
+  }
+  
+  .question-block {
+    margin-bottom: 25px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #f9fafb;
+  }
+  
+  .question-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 15px 0;
+  }
+  
+  .question-number {
+    color: #54C4B6;
+    margin-right: 5px;
+  }
+  
+  .options-list {
+    margin-left: 20px;
+    margin-bottom: 15px;
+  }
+  
+  .option-item {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: baseline;
+  }
+  
+  .option-letter {
+    font-weight: 600;
+    color: #555;
+    margin-right: 10px;
+    min-width: 20px;
+  }
+  
+  .option-text {
+    color: #555;
+    line-height: 1.5;
+  }
+  
+  .answer-space {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed #ddd;
+  }
+  
+  .answer-label {
+    font-size: 14px;
+    color: #666;
+    font-style: italic;
+  }
+  
+  /* Answer Key Section */
+  .answer-key {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f0fdf4;
+    border: 2px solid #54C4B6;
+    border-radius: 8px;
+    page-break-before: always;
+    break-before: page;
+  }
+  
+  .answer-key-title {
+    font-size: 18px;
+    color: #54C4B6;
+    margin: 0 0 15px 0;
+    text-align: center;
+  }
+  
+  .answers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+  }
+  
+  .answer-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .answer-number {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .correct-answer {
+    font-weight: 600;
+    color: #54C4B6;
+    font-size: 16px;
+  }
+  
+  .answer-explanation {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.4;
+    margin-top: 5px;
+  }
+</style>

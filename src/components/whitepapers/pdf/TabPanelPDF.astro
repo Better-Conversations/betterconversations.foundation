@@ -1,0 +1,96 @@
+---
+export interface Tab {
+  label: string;
+  content: string;
+  icon?: string;
+}
+
+export interface Props {
+  tabs: Tab[];
+}
+
+const { tabs } = Astro.props;
+---
+
+<div class="tab-panel-pdf">
+  {tabs.map((tab, index) => (
+    <div class="tab-section">
+      <div class="tab-header">
+        {tab.icon && <span class="tab-icon">{tab.icon}</span>}
+        <h4 class="tab-title">{tab.label}</h4>
+      </div>
+      <div class="tab-content" set:html={tab.content} />
+    </div>
+  ))}
+</div>
+
+<style>
+  .tab-panel-pdf {
+    margin: 20px 0;
+  }
+  
+  .tab-section {
+    margin-bottom: 25px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .tab-header {
+    background-color: #f8f9fa;
+    padding: 12px 20px;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .tab-icon {
+    font-size: 20px;
+    display: inline-block;
+  }
+  
+  .tab-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .tab-content {
+    padding: 20px;
+    background-color: white;
+  }
+  
+  .tab-content h3 {
+    font-size: 18px;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 12px;
+  }
+  
+  .tab-content p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  
+  .tab-content ul, .tab-content ol {
+    margin: 12px 0;
+    padding-left: 25px;
+  }
+  
+  .tab-content li {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 6px;
+  }
+  
+  /* Last section doesn't need bottom margin */
+  .tab-section:last-child {
+    margin-bottom: 0;
+  }
+</style>

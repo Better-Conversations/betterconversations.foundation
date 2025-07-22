@@ -15,9 +15,14 @@ export interface Props {
 }
 
 const { items, maxValue = 100, showPercentage = true, animated = true, layout = 'vertical' } = Astro.props;
+
+// Check if we're in PDF mode
+const isPDF = Astro.url.pathname.endsWith('.pdf');
+// Disable animations in PDF mode
+const shouldAnimate = isPDF ? false : animated;
 ---
 
-<div class={`progress-container progress-${layout} ${animated ? 'animated' : ''}`}>
+<div class={`progress-container progress-${layout} ${shouldAnimate ? 'animated' : ''} ${isPDF ? 'pdf-mode' : ''}`}>
   {items.map((item, index) => (
     <div class="progress-item" data-index={index}>
       <div class="progress-header">
@@ -25,14 +30,14 @@ const { items, maxValue = 100, showPercentage = true, animated = true, layout = 
         <span class="progress-label">{item.label}</span>
         {showPercentage && (
           <span class="progress-value" data-target={item.value}>
-            {animated ? '0' : item.value}%
+            {shouldAnimate ? '0' : Math.round((item.value / maxValue * 100))}%
           </span>
         )}
       </div>
       <div class="progress-track">
         <div 
           class="progress-fill" 
-          style={`--progress-color: ${item.color || '#54C4B6'}; --progress-width: ${animated ? '0' : (item.value / maxValue * 100)}%;`}
+          style={`--progress-color: ${item.color || '#54C4B6'}; --progress-width: ${shouldAnimate ? '0' : (item.value / maxValue * 100)}%;`}
           data-width={`${item.value / maxValue * 100}%`}
         >
           <div class="progress-glow"></div>
@@ -204,6 +209,22 @@ const { items, maxValue = 100, showPercentage = true, animated = true, layout = 
   }
   
   /* Responsive */
+  /* PDF mode adjustments */
+  .progress-container.pdf-mode .progress-item {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  
+  .progress-container.pdf-mode .progress-fill {
+    width: var(--progress-width) !important;
+    transition: none !important;
+  }
+  
+  .progress-container.pdf-mode .progress-glow {
+    display: none !important;
+  }
+  
   @media (max-width: 768px) {
     .progress-horizontal {
       flex-direction: column;
@@ -231,7 +252,9 @@ const { items, maxValue = 100, showPercentage = true, animated = true, layout = 
 </style>
 
 <script>
-  // Animate progress bars on intersection
+  // Skip animations in PDF mode
+  if (!window.location.pathname.endsWith('.pdf')) {
+    // Animate progress bars on intersection
   const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px'
@@ -271,7 +294,8 @@ const { items, maxValue = 100, showPercentage = true, animated = true, layout = 
     });
   }, observerOptions);
   
-  document.querySelectorAll('.progress-container.animated').forEach(container => {
-    observer.observe(container);
-  });
+    document.querySelectorAll('.progress-container.animated').forEach(container => {
+      observer.observe(container);
+    });
+  }
 </script>

@@ -7,7 +7,9 @@
       "Bash(mkdir:*)",
       "Bash(mv:*)",
       "WebFetch(domain:betterconversations.foundation)",
-      "WebFetch(domain:marketing.betterconversations.foundation)"
+      "WebFetch(domain:marketing.betterconversations.foundation)",
+      "Bash(curl:*)",
+      "Bash(npm run dev:*)"
     ],
     "deny": []
   }

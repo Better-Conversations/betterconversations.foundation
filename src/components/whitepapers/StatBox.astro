@@ -8,11 +8,16 @@ export interface Props {
 }
 
 const { number, label, color = '#54C4B6', trend, animate = true } = Astro.props;
+
+// Check if we're in PDF mode by looking at the URL
+const isPDF = Astro.url.pathname.endsWith('.pdf');
+// Disable animations in PDF mode
+const shouldAnimate = isPDF ? false : animate;
 ---
 
-<div class={`stat-box ${animate ? 'animate' : ''}`} style={`--stat-color: ${color}`}>
+<div class={`stat-box ${shouldAnimate ? 'animate' : ''} ${isPDF ? 'pdf-mode' : ''}`} style={`--stat-color: ${color}`}>
   <div class="stat-number">
-    {animate ? (
+    {shouldAnimate ? (
       <span data-target={number} class="stat-counter">0</span>
     ) : (
       <span>{number}</span>
@@ -122,10 +127,27 @@ const { number, label, color = '#54C4B6', trend, animate = true } = Astro.props;
   .stat-box.animate {
     animation: countUp 0.6s ease-out;
   }
+  
+  /* PDF mode adjustments */
+  .stat-box.pdf-mode {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .stat-box.pdf-mode::before {
+    display: none !important;
+  }
+  
+  .stat-box.pdf-mode:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
 </style>
 
 <script>
-  // Animate numbers on intersection
+  // Skip script in PDF mode
+  if (!window.location.pathname.endsWith('.pdf')) {
+    // Animate numbers on intersection
   const observerOptions = {
     threshold: 0.5,
     rootMargin: '0px'
@@ -162,7 +184,8 @@ const { number, label, color = '#54C4B6', trend, animate = true } = Astro.props;
     });
   }, observerOptions);
   
-  document.querySelectorAll('.stat-box.animate').forEach(box => {
-    observer.observe(box);
-  });
+    document.querySelectorAll('.stat-box.animate').forEach(box => {
+      observer.observe(box);
+    });
+  }
 </script>

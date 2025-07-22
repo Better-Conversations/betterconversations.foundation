@@ -5,11 +5,12 @@ export interface Props {
   searchData?: {
     blogs: any[];
     whitepapers: any[];
+    pages: any[];
     tags: any[];
   };
 }
 
-const { searchData = { blogs: [], whitepapers: [], tags: [] } } = Astro.props;
+const { searchData = { blogs: [], whitepapers: [], pages: [], tags: [] } } = Astro.props;
 ---
 
 <div id="search-modal" class="fixed inset-0 z-[100] hidden">
@@ -49,6 +50,9 @@ const { searchData = { blogs: [], whitepapers: [], tags: [] } } = Astro.props;
           </button>
           <button class="search-filter px-3 py-1 text-sm rounded-full transition-colors" data-type="whitepaper">
             Whitepapers
+          </button>
+          <button class="search-filter px-3 py-1 text-sm rounded-full transition-colors" data-type="page">
+            Pages
           </button>
           <button class="search-filter px-3 py-1 text-sm rounded-full transition-colors" data-type="tag">
             Topics
@@ -213,6 +217,11 @@ const { searchData = { blogs: [], whitepapers: [], tags: [] } } = Astro.props;
     color: #4b5563;
   }
   
+  .result-type-page {
+    background-color: rgba(249, 115, 22, 0.1);
+    color: #ea580c;
+  }
+  
   .line-clamp-2 {
     overflow: hidden;
     display: -webkit-box;
@@ -261,6 +270,16 @@ const { searchData = { blogs: [], whitepapers: [], tags: [] } } = Astro.props;
         item.tags.some(tag => tag.toLowerCase().includes(searchTerm))
       );
       results.push(...whitepaperResults);
+    }
+    
+    // Search pages
+    if (currentFilter === 'all' || currentFilter === 'page') {
+      const pageResults = searchData.pages.filter(item =>
+        item.title.toLowerCase().includes(searchTerm) ||
+        item.excerpt.toLowerCase().includes(searchTerm) ||
+        item.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+      );
+      results.push(...pageResults);
     }
     
     // Search tags
@@ -319,6 +338,10 @@ const { searchData = { blogs: [], whitepapers: [], tags: [] } } = Astro.props;
         case 'tag':
           typeClass = 'result-type-tag';
           typeName = 'Topic';
+          break;
+        case 'page':
+          typeClass = 'result-type-page';
+          typeName = 'Page';
           break;
       }
       

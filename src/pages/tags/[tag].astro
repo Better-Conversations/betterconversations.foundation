@@ -23,6 +23,7 @@ const relatedTags = await getRelatedTags(tag, 8);
 // Separate content by type
 const blogPosts = taggedContent.filter(item => item.type === 'blog');
 const whitepapers = taggedContent.filter(item => item.type === 'whitepaper');
+const pages = taggedContent.filter(item => item.type === 'page');
 
 // Import blog images
 const images = import.meta.glob('../../assets/images/blog/*', { eager: true });
@@ -87,7 +88,7 @@ const images = import.meta.glob('../../assets/images/blog/*', { eager: true });
           <span class="text-[#54C4B6]">#</span>{tagName}
         </h1>
         
-        <div class="flex justify-center gap-8 text-center mb-8">
+        <div class="flex justify-center gap-6 md:gap-8 text-center mb-8 flex-wrap">
           <div>
             <div class="text-3xl font-bold text-[#54C4B6]">{taggedContent.length}</div>
             <div class="text-sm text-gray-600">Total Items</div>
@@ -99,6 +100,10 @@ const images = import.meta.glob('../../assets/images/blog/*', { eager: true });
           <div>
             <div class="text-3xl font-bold text-[#54C4B6]">{whitepapers.length}</div>
             <div class="text-sm text-gray-600">Whitepapers</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-orange-600">{pages.length}</div>
+            <div class="text-sm text-gray-600">Pages</div>
           </div>
         </div>
         

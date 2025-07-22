@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import TagButton from '../../components/TagButton.astro';
 import { getCollection } from 'astro:content';
 import { getAllTags } from '../../utils/tags';
+import { pageMetadata } from '../../data/pageMetadata';
 
 // Get search query from URL
 const url = new URL(Astro.request.url);
@@ -61,6 +62,25 @@ if (query) {
         category: paper.data.category
       }));
     results.push(...whitepaperResults);
+  }
+  
+  // Search pages
+  if (filter === 'all' || filter === 'page') {
+    const pageResults = Object.entries(pageMetadata)
+      .filter(([path, page]) =>
+        page.title.toLowerCase().includes(searchTerm) ||
+        page.excerpt.toLowerCase().includes(searchTerm) ||
+        page.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+      )
+      .map(([path, page]) => ({
+        type: 'page',
+        title: page.title,
+        excerpt: page.excerpt,
+        slug: path,
+        tags: page.tags,
+        category: page.category
+      }));
+    results.push(...pageResults);
   }
   
   // Search tags
@@ -192,6 +212,9 @@ results.sort((a, b) => {
             <a href={`/search?q=${query}&filter=whitepaper`} class={`filter-pill px-4 py-2 rounded-full text-sm font-medium transition-all ${filter === 'whitepaper' ? 'active' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
               Whitepapers ({query ? results.filter(r => r.type === 'whitepaper').length : '0'})
             </a>
+            <a href={`/search?q=${query}&filter=page`} class={`filter-pill px-4 py-2 rounded-full text-sm font-medium transition-all ${filter === 'page' ? 'active' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
+              Pages ({query ? results.filter(r => r.type === 'page').length : '0'})
+            </a>
             <a href={`/search?q=${query}&filter=tag`} class={`filter-pill px-4 py-2 rounded-full text-sm font-medium transition-all ${filter === 'tag' ? 'active' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
               Topics ({query ? results.filter(r => r.type === 'tag').length : '0'})
             </a>
@@ -264,10 +287,12 @@ results.sort((a, b) => {
                     <span class={`inline-flex items-center px-3 py-1 text-xs font-medium rounded-full ${
                       result.type === 'blog' ? 'bg-[#54C4B6]/10 text-[#54C4B6]' :
                       result.type === 'whitepaper' ? 'bg-[#A8D381]/10 text-[#A8D381]' :
+                      result.type === 'page' ? 'bg-orange-100 text-orange-700' :
                       'bg-gray-100 text-gray-700'
                     }`}>
                       {result.type === 'blog' ? 'Blog' :
                        result.type === 'whitepaper' ? 'Whitepaper' :
+                       result.type === 'page' ? 'Page' :
                        'Topic'}
                     </span>
                   </div>

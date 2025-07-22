@@ -13,9 +13,50 @@ export interface Props {
 
 const { questions, title = "Quick Knowledge Check" } = Astro.props;
 const quizId = Math.random().toString(36).substring(7);
+
+// Check if we're in PDF mode
+const isPDF = Astro.url.pathname.endsWith('.pdf');
 ---
 
-<div class="quiz-container" data-quiz-id={quizId}>
+{isPDF ? (
+  <!-- PDF Version - Static Quiz -->
+  <div class="quiz-pdf">
+    <h3 class="quiz-title">{title}</h3>
+    
+    <div class="questions-section">
+      {questions.map((q, qIndex) => (
+        <div class="question-block-pdf">
+          <h4 class="question-text">
+            <span class="question-number">{qIndex + 1}.</span> {q.question}
+          </h4>
+          
+          <div class="options-list">
+            {q.options.map((option, oIndex) => (
+              <div class="option-item-pdf">
+                <span class="option-letter">{String.fromCharCode(65 + oIndex)}.</span>
+                <span class="option-text">{option}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <div class="answer-key">
+      <h4 class="answer-key-title">Answer Key</h4>
+      <div class="answers-list">
+        {questions.map((q, qIndex) => (
+          <div class="answer-item">
+            <strong>{qIndex + 1}.</strong> {String.fromCharCode(65 + q.correct)}
+            {q.explanation && <span class="explanation-text"> - {q.explanation}</span>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+) : (
+  <!-- Interactive Version -->
+  <div class="quiz-container" data-quiz-id={quizId}>
   <h3 class="quiz-title">{title}</h3>
   
   <div class="quiz-content">
@@ -83,7 +124,8 @@ const quizId = Math.random().toString(36).substring(7);
     <p class="score-message"></p>
     <button class="restart-button">Try Again</button>
   </div>
-</div>
+  </div>
+)}
 
 <style>
   .quiz-container {
@@ -332,6 +374,83 @@ const quizId = Math.random().toString(36).substring(7);
     20%, 40%, 60%, 80% { transform: translateX(4px); }
   }
   
+  /* PDF Styles */
+  .quiz-pdf {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+  
+  .quiz-pdf .quiz-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin: 0 0 2rem 0;
+    text-align: center;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #54C4B6;
+  }
+  
+  .question-block-pdf {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #f9fafb;
+    border-radius: 8px;
+    page-break-inside: avoid;
+  }
+  
+  .question-block-pdf .question-text {
+    font-size: 1.125rem;
+    color: #374151;
+    margin: 0 0 1rem 0;
+  }
+  
+  .question-block-pdf .question-number {
+    color: #54C4B6;
+    margin-right: 0.5rem;
+  }
+  
+  .option-item-pdf {
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: baseline;
+  }
+  
+  .option-item-pdf .option-letter {
+    font-weight: bold;
+    color: #6b7280;
+    margin-right: 0.75rem;
+    min-width: 1.5rem;
+  }
+  
+  .answer-key {
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background: #f0fdf4;
+    border: 2px solid #54C4B6;
+    border-radius: 8px;
+    page-break-before: always;
+  }
+  
+  .answer-key-title {
+    font-size: 1.25rem;
+    color: #54C4B6;
+    margin: 0 0 1rem 0;
+    text-align: center;
+  }
+  
+  .answers-list .answer-item {
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+  }
+  
+  .explanation-text {
+    color: #6b7280;
+    font-style: italic;
+  }
+  
   @keyframes correctPulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
@@ -340,7 +459,9 @@ const quizId = Math.random().toString(36).substring(7);
 </style>
 
 <script define:vars={{ quizId, questions }}>
-  document.addEventListener('DOMContentLoaded', () => {
+  // Skip all interactivity in PDF mode
+  if (!window.location.pathname.endsWith('.pdf')) {
+    document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector(`[data-quiz-id="${quizId}"]`);
     if (!container) return;
     
@@ -496,7 +617,8 @@ const quizId = Math.random().toString(36).substring(7);
     
     restartButton.addEventListener('click', restartQuiz);
     
-    // Initialize
-    showQuestion(0);
-  });
+      // Initialize
+      showQuestion(0);
+    });
+  }
 </script>

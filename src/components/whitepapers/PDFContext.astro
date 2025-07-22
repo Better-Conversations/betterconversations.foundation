@@ -1,0 +1,15 @@
+---
+// This component wraps MDX content and provides PDF-aware component imports
+export interface Props {
+  isPDF?: boolean;
+}
+
+const { isPDF = false } = Astro.props;
+
+// Store context in a global variable that components can access
+if (typeof globalThis !== 'undefined') {
+  globalThis.__PDF_CONTEXT__ = isPDF;
+}
+---
+
+<slot />

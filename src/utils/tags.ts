@@ -1,5 +1,6 @@
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
+import { pageMetadata } from '../data/pageMetadata';
 
 export interface TagInfo {
   name: string;
@@ -7,15 +8,16 @@ export interface TagInfo {
   sources: {
     blog: number;
     whitepapers: number;
+    pages: number;
   };
 }
 
 export interface TaggedContent {
-  type: 'blog' | 'whitepaper';
+  type: 'blog' | 'whitepaper' | 'page';
   title: string;
   excerpt: string;
   slug: string;
-  date: Date;
+  date?: Date;
   authors?: string | string[];
   category: string;
   tags: string[];
@@ -43,7 +45,7 @@ export async function getAllTags(): Promise<TagInfo[]> {
       const existing = tagMap.get(normalizedTag) || {
         name: tag,
         count: 0,
-        sources: { blog: 0, whitepapers: 0 }
+        sources: { blog: 0, whitepapers: 0, pages: 0 }
       };
       existing.count++;
       existing.sources.blog++;
@@ -58,10 +60,25 @@ export async function getAllTags(): Promise<TagInfo[]> {
       const existing = tagMap.get(normalizedTag) || {
         name: tag,
         count: 0,
-        sources: { blog: 0, whitepapers: 0 }
+        sources: { blog: 0, whitepapers: 0, pages: 0 }
       };
       existing.count++;
       existing.sources.whitepapers++;
+      tagMap.set(normalizedTag, existing);
+    });
+  });
+
+  // Process page tags
+  Object.values(pageMetadata).forEach(page => {
+    page.tags.forEach(tag => {
+      const normalizedTag = normalizeTag(tag);
+      const existing = tagMap.get(normalizedTag) || {
+        name: tag,
+        count: 0,
+        sources: { blog: 0, whitepapers: 0, pages: 0 }
+      };
+      existing.count++;
+      existing.sources.pages++;
       tagMap.set(normalizedTag, existing);
     });
   });
@@ -116,8 +133,30 @@ export async function getContentByTag(tag: string): Promise<TaggedContent[]> {
     }
   });
 
-  // Sort by date (newest first)
-  return taggedContent.sort((a, b) => b.date.getTime() - a.date.getTime());
+  // Add matching pages
+  Object.entries(pageMetadata).forEach(([path, page]) => {
+    const hasTag = page.tags.some(t => normalizeTag(t) === normalizedTag);
+    if (hasTag) {
+      taggedContent.push({
+        type: 'page',
+        title: page.title,
+        excerpt: page.excerpt,
+        slug: path,
+        category: page.category || 'General',
+        tags: page.tags
+      });
+    }
+  });
+
+  // Sort by date (newest first for dated content, then pages)
+  return taggedContent.sort((a, b) => {
+    if (a.date && b.date) {
+      return b.date.getTime() - a.date.getTime();
+    }
+    if (a.date && !b.date) return -1;
+    if (!a.date && b.date) return 1;
+    return 0;
+  });
 }
 
 // Get popular tags (top N by count)

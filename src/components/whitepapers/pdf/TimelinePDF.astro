@@ -1,0 +1,99 @@
+---
+export interface TimelineEvent {
+  date: string;
+  title: string;
+  description: string;
+  color?: string;
+  icon?: string;
+}
+
+export interface Props {
+  events: TimelineEvent[];
+  orientation?: 'vertical' | 'horizontal';
+}
+
+const { events, orientation = 'vertical' } = Astro.props;
+---
+
+<div class="timeline-pdf">
+  {events.map((event, index) => (
+    <div class="timeline-event">
+      <div class="timeline-header">
+        <span class="timeline-number" style={`background-color: ${event.color || '#54C4B6'}; color: white;`}>
+          {event.icon || index + 1}
+        </span>
+        <span class="timeline-date">{event.date}</span>
+      </div>
+      <div class="timeline-body">
+        <h4 class="timeline-title">{event.title}</h4>
+        <p class="timeline-description">{event.description}</p>
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .timeline-pdf {
+    margin: 20px 0;
+  }
+  
+  .timeline-event {
+    margin-bottom: 25px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    border-left: 3px solid #54C4B6;
+    padding-left: 20px;
+    position: relative;
+  }
+  
+  .timeline-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .timeline-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 14px;
+    position: absolute;
+    left: -17px;
+    background-color: #54C4B6;
+  }
+  
+  .timeline-date {
+    font-size: 14px;
+    color: #666;
+    font-weight: 600;
+    margin-left: 20px;
+  }
+  
+  .timeline-body {
+    margin-left: 20px;
+  }
+  
+  .timeline-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin: 0 0 8px 0;
+  }
+  
+  .timeline-description {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+    margin: 0;
+  }
+  
+  /* Last item doesn't need bottom margin */
+  .timeline-event:last-child {
+    margin-bottom: 0;
+  }
+</style>

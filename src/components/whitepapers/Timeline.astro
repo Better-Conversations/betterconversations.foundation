@@ -13,9 +13,12 @@ export interface Props {
 }
 
 const { events, orientation = 'vertical' } = Astro.props;
+
+// Check if we're in PDF mode
+const isPDF = Astro.url.pathname.endsWith('.pdf');
 ---
 
-<div class={`timeline timeline-${orientation}`}>
+<div class={`timeline timeline-${orientation} ${isPDF ? 'pdf-mode' : ''}`}>
   {events.map((event, index) => (
     <div class="timeline-item" data-index={index}>
       <div class="timeline-marker" style={`--marker-color: ${event.color || '#54C4B6'}`}>
@@ -203,6 +206,26 @@ const { events, orientation = 'vertical' } = Astro.props;
     line-height: 1.5;
   }
   
+  /* PDF mode adjustments */
+  .timeline.pdf-mode .timeline-item {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  
+  .timeline.pdf-mode .timeline-marker {
+    transition: none !important;
+  }
+  
+  .timeline.pdf-mode .timeline-content {
+    transition: none !important;
+  }
+  
+  .timeline.pdf-mode .timeline-item:hover .timeline-content {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+  
   @keyframes slideIn {
     to {
       opacity: 1;
@@ -230,7 +253,9 @@ const { events, orientation = 'vertical' } = Astro.props;
 </style>
 
 <script>
-  // Optional: Add intersection observer for staggered animations
+  // Skip animations in PDF mode
+  if (!window.location.pathname.endsWith('.pdf')) {
+    // Optional: Add intersection observer for staggered animations
   const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px'
@@ -245,8 +270,9 @@ const { events, orientation = 'vertical' } = Astro.props;
   }, observerOptions);
   
   // Pause animations until in view
-  document.querySelectorAll('.timeline-item').forEach(item => {
-    item.style.animationPlayState = 'paused';
-    observer.observe(item);
-  });
+    document.querySelectorAll('.timeline-item').forEach(item => {
+      item.style.animationPlayState = 'paused';
+      observer.observe(item);
+    });
+  }
 </script>

@@ -4,6 +4,7 @@ import Footer from '../components/Footer.astro';
 import Search from '../components/Search.astro';
 import { getCollection } from 'astro:content';
 import { getAllTags } from '../utils/tags';
+import { pageMetadata } from '../data/pageMetadata';
 import '../styles/global.css';
 
 export interface Props {
@@ -38,6 +39,14 @@ const searchData = {
     tags: paper.data.tags,
     authors: paper.data.authors,
     date: paper.data.date
+  })),
+  pages: Object.entries(pageMetadata).map(([path, page]) => ({
+    type: 'page',
+    title: page.title,
+    excerpt: page.excerpt,
+    slug: path,
+    tags: page.tags,
+    category: page.category
   })),
   tags: tags.map(tag => ({
     type: 'tag',
