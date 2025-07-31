@@ -48,7 +48,7 @@ Transform the BCF website to be AI-friendly and better structured for both human
 - [ ] Add JSON-LD structured data (Organization, Article, Course, Person, FAQ schemas)
 - [ ] Create static `/api/content-index.json` with key site content (simple JSON file)
 - [ ] Add `.well-known/ai-plugin.json` for AI assistant integration
-- [ ] Implement OpenGraph and Twitter Card meta tags
+- [ ] Implement OpenGraph meta tags for social media sharing
 - [ ] Add RSS feeds for blog and whitepapers
 - [ ] Replace generic divs with semantic HTML5 elements
 - [ ] Add ARIA labels and proper heading hierarchy
@@ -121,9 +121,9 @@ Rationale: MDX will enable richer content experiences while maintaining current 
 
 - [x] Upgrade to MDX for enhanced blog capabilities
 - [ ] Convert blog posts from .md to .mdx format
-- [x] Enable component usage within blog posts
+- [ ] Enable component usage within blog posts
 - [ ] Allow optimized inline images using Astro's Image component
-- [x] Support interactive elements and custom layouts
+- [ ] Support interactive elements and custom layouts
 
 
 ### AI Assistant Integration
