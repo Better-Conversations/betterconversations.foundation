@@ -4,6 +4,13 @@ export interface PageMetadata {
   tags: string[];
   description?: string;
   category?: string;
+  // Enhanced metadata fields for AI readability
+  metaDescription?: string;   // 150-160 chars for SEO
+  executiveSummary?: string;  // 2-3 paragraphs for AI
+  keywords?: string[];        // SEO keywords beyond tags
+  schemaType?: 'WebPage' | 'AboutPage' | 'ContactPage' | 'FAQPage' | 'CollectionPage';
+  lastUpdated?: string;       // ISO date string
+  relatedPages?: string[];    // Array of page paths
 }
 
 export interface PageMetadataMap {
