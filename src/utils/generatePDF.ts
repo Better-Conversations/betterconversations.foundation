@@ -12,7 +12,7 @@ export async function generatePDFFromWhitepaper(options: PDFGenerationOptions): 
   
   // Launch Puppeteer
   const browser = await puppeteer.launch({
-    headless: 'new',
+    headless: true,
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
@@ -140,7 +140,7 @@ export async function generatePDFFromWhitepaper(options: PDFGenerationOptions): 
       `
     });
 
-    return pdfBuffer;
+    return Buffer.from(pdfBuffer);
   } finally {
     await browser.close();
   }
