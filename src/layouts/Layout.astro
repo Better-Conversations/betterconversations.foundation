@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import Search from '../components/Search.astro';
@@ -121,6 +122,9 @@ const searchData = {
 		<!-- Additional Meta Tags -->
 		<meta name="robots" content="index, follow" />
 		<meta name="language" content="en-GB" />
+		
+		<!-- View Transitions -->
+		<ClientRouter />
 		{metaProps.publishDate && <meta name="article:published_time" content={metaProps.publishDate.toISOString()} />}
 		
 		<!-- Structured Data -->

@@ -119,36 +119,56 @@ All commands are run from the root of the project, from a terminal:
 3. Write your content in markdown
 4. The post will automatically appear in the blog listing
 
-### Image File Management
+### Image Management
 
-#### Hero Images (Optimized)
-- **Location**: `/src/assets/images/blog/` directory
-- **Usage**: Referenced in blog frontmatter as `image: "/images/blog/hero-name.png"`
-- **Benefits**: 
-  - Automatic WebP conversion
-  - 90%+ file size reduction
-  - Multiple responsive sizes generated
-  - Lazy loading built-in
+#### Where to Place Images
 
-#### Inline Images (Not Optimized - Temporary)
-- **Location**: `/public/images/blog/` directory
-- **Usage**: Referenced in markdown content as `![alt text](/images/blog/inline-image.png)`
-- **Note**: These images are served as-is without optimization
-- **Future**: Will be optimized when upgrading to MDX (see todo.md)
+**In `/public/`** (served as-is, no optimization):
+- Favicons (`favicon.svg`, `favicon.ico`)
+- Open Graph/social media images (need static URLs)
+- External service images (RSS feeds, etc.)
 
-#### Other Static Assets
-- **Location**: `/public/` root
-- **Usage**: Logos, favicons, and other non-blog images
+**In `/src/assets/`** (optimized by Astro):
+- Author photos → `/src/assets/images/authors/`
+- Blog images → `/src/assets/images/blog/`
+- Logo variations → `/src/assets/images/logos/`
+- All other component images
 
-### Hero Image Best Practices
-- **File Size**: Original files can be larger (1-5 MB) since Astro optimizes them
-  - **Automatic optimization**: Astro reduces file sizes by 90%+ during build
-  - **WebP conversion**: All images converted to WebP format automatically
-  - **Example**: 6.5 MB JPEG → 531 KB WebP (92% reduction)
-- **Dimensions**: 1920x1080px for desktop hero images (16:9 ratio)
-- **Format**: Upload as JPEG or PNG - Astro handles optimization
-- **Responsive**: Multiple image sizes generated automatically
-- **Credits**: Always include photographer attribution in frontmatter
+#### Using Images
+
+**In Astro components:**
+```astro
+---
+import { Image } from 'astro:assets';
+import heroImage from '../assets/images/blog/my-post-hero.jpg';
+---
+<Image src={heroImage} alt="Description" width={1200} height={630} />
+```
+
+**In MDX files:**
+```mdx
+import { Image } from 'astro:assets';
+import diagram from '../assets/images/blog/diagram.png';
+
+<Image src={diagram} alt="Diagram" width={800} height={400} />
+```
+
+**Author images:**
+```astro
+---
+import { getAuthorImage } from '../data/authorImages';
+import { Image } from 'astro:assets';
+
+const authorImage = getAuthorImage(post.data.author);
+---
+<Image src={authorImage} alt={post.data.author} width={64} height={64} class="rounded-full" />
+```
+
+#### Image Guidelines
+- **Blog hero images**: 1200x630px (16:9 ratio)
+- **Author photos**: 400x400px (square)
+- **File formats**: `.jpg` for photos, `.png` for graphics with transparency, `.svg` for icons
+- **Naming**: Use kebab-case matching content slugs (e.g., `my-blog-post-hero.jpg`)
 
 ### Page Structure
 - Most pages use the `Layout.astro` wrapper
