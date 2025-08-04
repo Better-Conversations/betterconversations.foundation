@@ -1,0 +1,19 @@
+/* TEAM */
+
+Founders: Simon Coles, Chandima Dutton
+Organization: Better Conversations Foundation
+Location: Global
+
+/* THANKS */
+
+The Better Conversations Foundation would like to thank everyone who has contributed to this project.
+
+For a list of contributors and acknowledgments, please visit:
+https://betterconversations.foundation/about/thanks
+
+/* SITE */
+
+Last update: 2025-07-31
+Standards: HTML5, CSS3
+Software: Astro, Tailwind CSS
+Language: English (UK)
