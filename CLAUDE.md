@@ -97,6 +97,52 @@ When moving files between directories, update import paths:
    - Update the hardcoded value in the blog template at `src/pages/blog/[slug].astro`
    - Consider adding reading time to the blog schema for future automation
 
+### Image Management System
+
+The site uses an automatic image import system that eliminates the need for manual image imports in TypeScript files.
+
+1. **Dynamic Image Imports**:
+   - Uses Vite's `import.meta.glob` to automatically import all images from designated directories
+   - Images are processed at build time for optimization
+   - No need to manually update import statements when adding new images
+
+2. **Blog Images** (`src/data/blogImages.ts`):
+   - Place hero images in `/src/assets/images/blog/`
+   - Naming convention: `[blog-slug]-hero.{png,jpg,jpeg,webp}`
+   - Example: `my-awesome-post-hero.png` for blog post with slug `my-awesome-post`
+   - Special case: `modelling-sales` blog post uses `clean-in-sales-hero.png`
+   - Access via: `getBlogImage(slug)` returns optimized `ImageMetadata` or `null`
+
+3. **Author Images** (`src/data/authorImages.ts`):
+   - Place author photos in `/src/assets/images/authors/`
+   - Naming convention: `[firstname-lastname].{png,jpg,jpeg,webp}`
+   - Example: `jane-smith.jpg` automatically maps to author "Jane Smith"
+   - Include `default.jpg` as fallback for authors without specific images
+   - Access via: `getAuthorImage(authorName)` always returns an `ImageMetadata`
+
+4. **Image Usage in Templates**:
+   ```astro
+   // Blog hero images
+   import { getBlogImage } from '../data/blogImages';
+   const heroImage = getBlogImage(entry.slug);
+   
+   // Author images
+   import { getAuthorImage } from '../data/authorImages';
+   const authorImage = getAuthorImage(post.data.author);
+   ```
+
+5. **Frontmatter Image Field**:
+   - The `image` field in blog frontmatter is maintained for:
+     - SEO meta tags and Open Graph images
+     - Fallback compatibility
+     - External image URLs if needed
+   - However, the actual rendered images use the optimized versions from `src/assets/`
+
+6. **Public vs Assets Directory**:
+   - `/public/images/`: For images that need static URLs (Open Graph, RSS feeds)
+   - `/src/assets/images/`: For all images that should be optimized by Astro
+   - Blog content images referenced in markdown: Place in `/public/images/blog/`
+
 ### Component Patterns
 
 Astro components use frontmatter for logic:
