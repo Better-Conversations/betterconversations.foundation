@@ -6,6 +6,8 @@ import sitemap from '@astrojs/sitemap';
 import { contentDates } from './src/utils/generated-content-dates.js';
 import { pageMetadata } from './src/data/pageMetadata.js';
 
+/** @typedef {import('@astrojs/sitemap').ChangeFreqEnum} ChangeFreqEnum */
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://betterconversations.foundation',
@@ -23,13 +25,14 @@ export default defineConfig({
         const pathWithoutSlash = path.replace(/\/$/, '');
         
         // Check pageMetadata for sitemap fields
+        // @ts-ignore - Dynamic key access
         const metadata = pageMetadata[path] || pageMetadata[pathWithSlash] || pageMetadata[pathWithoutSlash] || pageMetadata['/' + pathWithoutSlash];
         
         if (metadata) {
           // Use values from pageMetadata if available
           if (metadata.priority !== undefined) item.priority = metadata.priority;
           if (metadata.lastmod) item.lastmod = metadata.lastmod;
-          if (metadata.changefreq) item.changefreq = metadata.changefreq;
+          if (metadata.changefreq) item.changefreq = /** @type {ChangeFreqEnum} */ (metadata.changefreq);
         } else {
           // Fallback for dynamic content
           
@@ -46,13 +49,15 @@ export default defineConfig({
           
           // Set changefreq for dynamic routes
           if (url.includes('/blog/') && !url.endsWith('/blog/')) {
-            item.changefreq = 'monthly';
+            item.changefreq = /** @type {ChangeFreqEnum} */ ('monthly');
           } else {
-            item.changefreq = 'weekly';
+            item.changefreq = /** @type {ChangeFreqEnum} */ ('weekly');
           }
           
           // Set lastmod using content dates or defaults
+          // @ts-ignore - Dynamic key access
           if (contentDates[path] || contentDates[pathWithSlash]) {
+            // @ts-ignore - Dynamic key access
             item.lastmod = contentDates[path] || contentDates[pathWithSlash];
           } else if (url.includes('/tags/') && !url.endsWith('/tags/')) {
             item.lastmod = '2025-08-03'; // Tag pages
