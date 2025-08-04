@@ -127,33 +127,47 @@ All commands are run from the root of the project, from a terminal:
 - Favicons (`favicon.svg`, `favicon.ico`)
 - Open Graph/social media images (need static URLs)
 - External service images (RSS feeds, etc.)
+- Inline blog content images referenced in markdown
 
 **In `/src/assets/`** (optimized by Astro):
 - Author photos → `/src/assets/images/authors/`
-- Blog images → `/src/assets/images/blog/`
+- Blog hero images → `/src/assets/images/blog/`
 - Logo variations → `/src/assets/images/logos/`
 - All other component images
 
+#### Automatic Image Import System
+
+The site uses dynamic image imports for blog and author images, eliminating the need for manual imports.
+
+**Blog Images:**
+- Place hero images in `/src/assets/images/blog/`
+- Follow naming convention: `[blog-slug]-hero.{png,jpg,jpeg,webp}`
+- Example: For a blog post with slug `my-awesome-post`, name the image `my-awesome-post-hero.png`
+- Images are automatically imported and optimized via `src/data/blogImages.ts`
+
+**Author Images:**
+- Place author photos in `/src/assets/images/authors/`
+- Follow naming convention: `[firstname-lastname].{png,jpg,jpeg,webp}`
+- Example: For author "Jane Smith", name the image `jane-smith.jpg`
+- The system automatically converts filenames to proper names (e.g., `jane-smith.jpg` → "Jane Smith")
+- Include a `default.jpg` for authors without specific images
+
 #### Using Images
 
-**In Astro components:**
+**Blog hero images (automatic):**
 ```astro
 ---
+import { getBlogImage } from '../data/blogImages';
 import { Image } from 'astro:assets';
-import heroImage from '../assets/images/blog/my-post-hero.jpg';
+
+const heroImage = getBlogImage(entry.slug);
 ---
-<Image src={heroImage} alt="Description" width={1200} height={630} />
+{heroImage && (
+  <Image src={heroImage} alt={entry.data.title} width={1920} height={800} />
+)}
 ```
 
-**In MDX files:**
-```mdx
-import { Image } from 'astro:assets';
-import diagram from '../assets/images/blog/diagram.png';
-
-<Image src={diagram} alt="Diagram" width={800} height={400} />
-```
-
-**Author images:**
+**Author images (automatic):**
 ```astro
 ---
 import { getAuthorImage } from '../data/authorImages';
@@ -164,11 +178,22 @@ const authorImage = getAuthorImage(post.data.author);
 <Image src={authorImage} alt={post.data.author} width={64} height={64} class="rounded-full" />
 ```
 
+**In MDX files:**
+```mdx
+import { Image } from 'astro:assets';
+import diagram from '../assets/images/blog/diagram.png';
+
+<Image src={diagram} alt="Diagram" width={800} height={400} />
+```
+
 #### Image Guidelines
 - **Blog hero images**: 1200x630px (16:9 ratio)
 - **Author photos**: 400x400px (square)
 - **File formats**: `.jpg` for photos, `.png` for graphics with transparency, `.svg` for icons
-- **Naming**: Use kebab-case matching content slugs (e.g., `my-blog-post-hero.jpg`)
+- **Naming conventions**:
+  - Blog heroes: `[slug]-hero.{ext}` (e.g., `my-blog-post-hero.jpg`)
+  - Authors: `[firstname-lastname].{ext}` (e.g., `john-doe.jpg`)
+  - Other images: Use descriptive kebab-case names
 
 ### Page Structure
 - Most pages use the `Layout.astro` wrapper
