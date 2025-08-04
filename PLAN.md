@@ -19,8 +19,8 @@ Transform the BCF website to be AI-friendly and better structured for both human
 ### Week 1: Clean Up 🧹
 **Developer Tasks:**
 - [ ] Remove 13 under-construction pages from navigation
-- [ ] Create robots.txt and sitemap.xml
-- [ ] Add basic meta descriptions to existing pages
+- [x] Create robots.txt and sitemap.xml
+- [x] Add basic meta descriptions to existing pages
 - [ ] Fix any broken navigation links
 
 **Content Creator Tasks:**
@@ -30,7 +30,7 @@ Transform the BCF website to be AI-friendly and better structured for both human
 ### Week 2: Consolidate 📦
 **Developer Tasks:**
 - [ ] Merge 4 partner pages into single `/partnership` page
-- [ ] Create unified `/resources` page (blog + whitepapers + stories)
+~~ [ ] Create unified `/resources` page (blog + whitepapers + stories)~~
 - [ ] Consolidate 5 get-started pages into single comprehensive page
 - [ ] Merge contact + schedule call into single `/contact` page
 - [ ] Update all internal links and navigation
@@ -39,16 +39,16 @@ Transform the BCF website to be AI-friendly and better structured for both human
 **Content Creator Tasks:**
 - [ ] Write partnership page content (merge existing 4 pages into sections)
 - [ ] Create comprehensive get-started page with clear action pathways
-- [ ] Create `/thanks` page with contributor and community acknowledgments
+- [x] Create `/thanks` page with contributor and community acknowledgments
 - [ ] Organize resource hub structure with filtering by type and tags
 - [ ] Consolidate contact information and scheduling options
 
 ### Week 3: AI & SEO 🤖
 **Developer Tasks:**
-- [ ] Add JSON-LD structured data (Organization, Article, Course, Person, FAQ schemas)
+- [x] Add JSON-LD structured data (Organization, Article, Course, Person, FAQ schemas)
 - [ ] Create static `/api/content-index.json` with key site content (simple JSON file)
 - [ ] Add `.well-known/ai-plugin.json` for AI assistant integration
-- [ ] Implement OpenGraph meta tags for social media sharing
+- [x] Implement OpenGraph meta tags for social media sharing
 - [ ] Add RSS feeds for blog and whitepapers
 - [ ] Replace generic divs with semantic HTML5 elements
 - [ ] Add ARIA labels and proper heading hierarchy
