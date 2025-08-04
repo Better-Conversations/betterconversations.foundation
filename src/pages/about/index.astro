@@ -1,6 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import HeroSection from '../../components/HeroSection.astro';
+import { Image } from 'astro:assets';
+import simonColes from '../../assets/images/authors/simon-coles.jpg';
+import chandimaDutton from '../../assets/images/authors/chandima-dutton.jpg';
 ---
 
 <Layout title="About Us - Better Conversations Foundation">
@@ -111,7 +114,7 @@ import HeroSection from '../../components/HeroSection.astro';
             <div class="flex-shrink-0 order-1 lg:order-1 relative">
               <div class="absolute -inset-4 bg-gradient-to-r from-[#54C4B6]/20 to-[#A8D381]/20 rounded-full blur-2xl"></div>
               <div class="absolute top-3 left-3 w-[200px] h-[200px] bg-[#54C4B6] rounded-full opacity-30"></div>
-              <img src="/simon-coles-bw.jpg" alt="Simon Coles" class="relative rounded-full object-cover block shadow-xl border-4 border-white" style="width: 200px; height: 200px;" />
+              <Image src={simonColes} alt="Simon Coles" width={200} height={200} class="relative rounded-full object-cover block shadow-xl border-4 border-white" />
             </div>
             <div class="flex-1 order-2 lg:order-2 text-center lg:text-left">
               <div class="inline-block">
@@ -135,7 +138,7 @@ import HeroSection from '../../components/HeroSection.astro';
             <div class="flex-shrink-0 order-1 relative">
               <div class="absolute -inset-4 bg-gradient-to-r from-[#A8D381]/20 to-[#54C4B6]/20 rounded-full blur-2xl"></div>
               <div class="absolute top-3 right-3 w-[200px] h-[200px] bg-[#A8D381] rounded-full opacity-30"></div>
-              <img src="/chandima-dutton-bw.jpg" alt="Chandima Dutton" class="relative rounded-full object-cover block shadow-xl border-4 border-white" style="width: 200px; height: 200px;" />
+              <Image src={chandimaDutton} alt="Chandima Dutton" width={200} height={200} class="relative rounded-full object-cover block shadow-xl border-4 border-white" />
             </div>
             <div class="flex-1 order-2 text-center lg:text-left">
               <div class="inline-block">

@@ -3,6 +3,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import { extractCollectionMetadata } from '../../utils/metadata';
+import { getBlogImage } from '../../data/blogImages';
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection('blog');
@@ -19,16 +20,8 @@ type Props = {
 const { entry } = Astro.props as Props;
 const { Content } = await entry.render();
 
-// Import all blog images
-const images = import.meta.glob('../../assets/images/blog/*', { eager: true });
-
-// Find the matching image for this blog post
-let heroImage;
-if (entry.data.image) {
-  const imagePath = entry.data.image.replace('/images/blog/', '');
-  const imageKey = `../../assets/images/blog/${imagePath}`;
-  heroImage = images[imageKey] as any;
-}
+// Get the optimized hero image for this blog post
+const heroImage = getBlogImage(entry.slug);
 
 // Generate enhanced metadata for the blog post
 const blogMetadata = extractCollectionMetadata(entry, 'blog');
@@ -49,7 +42,7 @@ const blogMetadata = extractCollectionMetadata(entry, 'blog');
     <div class="w-full h-80 md:h-96 lg:h-[32rem] bg-gradient-to-br from-[#54C4B6] to-[#A8D381] overflow-hidden">
       {heroImage ? (
         <Image 
-          src={heroImage.default}
+          src={heroImage}
           alt={entry.data.title}
           width={1920}
           height={800}

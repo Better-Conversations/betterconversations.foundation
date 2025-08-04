@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import bcfLogo from '../assets/images/logos/bcf-logo.png';
+
 export interface Props {
   class?: string;
 }
@@ -70,9 +73,11 @@ const navItems = [
       <!-- Logo -->
       <div class="flex-shrink-0">
         <a href="/" class="block logo-link transition-all duration-300">
-          <img 
-            src="/Better-Conversations-Foundation-RGB.png" 
+          <Image 
+            src={bcfLogo} 
             alt="Better Conversations Foundation" 
+            height={48}
+            width={300}
             class="h-12 w-auto transition-all duration-300" 
             id="navbar-logo"
           />
