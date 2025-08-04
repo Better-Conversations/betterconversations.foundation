@@ -303,28 +303,3 @@ export const pageMetadata: PageMetadataMap = {
   }
 };
 
-// Helper function to get all pages with a specific tag
-export function getPagesByTag(tag: string): Array<{ path: string; metadata: PageMetadata }> {
-  const normalizedTag = tag.toLowerCase();
-  return Object.entries(pageMetadata)
-    .filter(([_, metadata]) => 
-      metadata.tags.some(t => t.toLowerCase() === normalizedTag)
-    )
-    .map(([path, metadata]) => ({ path, metadata }));
-}
-
-// Helper function to get all unique page tags
-export function getAllPageTags(): Array<{ tag: string; count: number }> {
-  const tagMap = new Map<string, number>();
-  
-  Object.values(pageMetadata).forEach(metadata => {
-    metadata.tags.forEach(tag => {
-      const current = tagMap.get(tag) || 0;
-      tagMap.set(tag, current + 1);
-    });
-  });
-  
-  return Array.from(tagMap.entries())
-    .map(([tag, count]) => ({ tag, count }))
-    .sort((a, b) => b.count - a.count);
-}

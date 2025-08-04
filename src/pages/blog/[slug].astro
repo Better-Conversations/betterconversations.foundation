@@ -2,6 +2,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
+import { extractCollectionMetadata } from '../../utils/metadata';
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection('blog');
@@ -28,9 +29,21 @@ if (entry.data.image) {
   const imageKey = `../../assets/images/blog/${imagePath}`;
   heroImage = images[imageKey] as any;
 }
+
+// Generate enhanced metadata for the blog post
+const blogMetadata = extractCollectionMetadata(entry, 'blog');
 ---
 
-<Layout title={`${entry.data.title} - Better Conversations Foundation`}>
+<Layout 
+  title={blogMetadata.title}
+  description={blogMetadata.description}
+  keywords={blogMetadata.keywords}
+  author={blogMetadata.author}
+  publishDate={blogMetadata.publishDate}
+  schemaType={blogMetadata.schemaType}
+  canonicalURL={blogMetadata.canonicalURL}
+  image={blogMetadata.ogImage}
+>
   <!-- Featured Image -->
   <section class="relative overflow-hidden">
     <div class="w-full h-80 md:h-96 lg:h-[32rem] bg-gradient-to-br from-[#54C4B6] to-[#A8D381] overflow-hidden">

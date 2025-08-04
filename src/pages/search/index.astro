@@ -4,6 +4,7 @@ import TagButton from '../../components/TagButton.astro';
 import { getCollection } from 'astro:content';
 import { getAllTags } from '../../utils/tags';
 import { pageMetadata } from '../../data/pageMetadata';
+import { generateMetaProperties } from '../../utils/metadata';
 
 // Get search query from URL
 const url = new URL(Astro.request.url);
@@ -17,8 +18,22 @@ const [blogs, whitepapers, tags] = await Promise.all([
   getAllTags()
 ]);
 
+// Define the search result type
+interface SearchResult {
+  type: 'blog' | 'whitepaper' | 'page' | 'tag';
+  title: string;
+  excerpt?: string;
+  slug: string;
+  tags?: string[];
+  author?: string;
+  authors?: string[];
+  date?: Date;
+  category?: string;
+  count?: number;
+}
+
 // Perform search if query exists
-let results = [];
+let results: SearchResult[] = [];
 if (query) {
   const searchTerm = query.toLowerCase();
   
@@ -31,7 +46,7 @@ if (query) {
         post.data.tags.some(tag => tag.toLowerCase().includes(searchTerm))
       )
       .map(post => ({
-        type: 'blog',
+        type: 'blog' as const,
         title: post.data.title,
         excerpt: post.data.excerpt,
         slug: `/blog/${post.slug}`,
@@ -52,7 +67,7 @@ if (query) {
         paper.data.tags.some(tag => tag.toLowerCase().includes(searchTerm))
       )
       .map(paper => ({
-        type: 'whitepaper',
+        type: 'whitepaper' as const,
         title: paper.data.title,
         excerpt: paper.data.excerpt,
         slug: `/whitepapers/${paper.slug}`,
@@ -73,7 +88,7 @@ if (query) {
         page.tags.some(tag => tag.toLowerCase().includes(searchTerm))
       )
       .map(([path, page]) => ({
-        type: 'page',
+        type: 'page' as const,
         title: page.title,
         excerpt: page.excerpt,
         slug: path,
@@ -88,7 +103,7 @@ if (query) {
     const tagResults = tags
       .filter(tag => tag.name.toLowerCase().includes(searchTerm))
       .map(tag => ({
-        type: 'tag',
+        type: 'tag' as const,
         title: tag.name,
         count: tag.count,
         slug: `/tags/${tag.name.toLowerCase().replace(/\s+/g, '-')}`
@@ -105,16 +120,33 @@ results.sort((a, b) => {
   if (aInTitle && !bInTitle) return -1;
   if (!aInTitle && bInTitle) return 1;
   
-  // For non-tag items, sort by date
-  if (a.date && b.date) {
+  // For items with dates, sort by date
+  if ('date' in a && 'date' in b && a.date && b.date) {
     return b.date.getTime() - a.date.getTime();
   }
   
+  // Put items with dates before items without dates
+  if ('date' in a && a.date && !('date' in b)) return -1;
+  if ('date' in b && b.date && !('date' in a)) return 1;
+  
   return 0;
+});
+
+// Generate enhanced metadata for the search page
+const searchMetadata = generateMetaProperties('/search', {
+  title: query ? `Search results for "${query}"` : 'Search',
+  description: query ? 
+    `Search results for "${query}" across the Foundation's resources, blogs, and whitepapers.` :
+    'Search the Foundation\'s complete library of resources, blogs, and whitepapers.'
 });
 ---
 
-<Layout title={query ? `Search results for "${query}"` : 'Search - Better Conversations Foundation'}>
+<Layout 
+  title={searchMetadata.title}
+  description={searchMetadata.description}
+  keywords={searchMetadata.keywords}
+  schemaType="WebPage"
+>
   <style>
     /* Search input styles */
     .search-input-wrapper {

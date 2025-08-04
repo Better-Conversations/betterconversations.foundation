@@ -5,6 +5,7 @@ import Search from '../components/Search.astro';
 import { getCollection } from 'astro:content';
 import { getAllTags } from '../utils/tags';
 import { pageMetadata } from '../data/pageMetadata';
+import { generateMetaProperties, generateStructuredData, generateCanonicalURL } from '../utils/metadata';
 import '../styles/global.css';
 
 export interface Props {
@@ -28,6 +29,21 @@ const {
 	image,
 	canonicalURL
 } = Astro.props;
+
+// Generate enhanced metadata
+const metaProps = generateMetaProperties(Astro.url.pathname, {
+	title,
+	description,
+	keywords,
+	author,
+	publishDate,
+	schemaType,
+	ogImage: image,
+	canonicalURL
+});
+
+const structuredData = generateStructuredData(metaProps, Astro.url.pathname);
+const canonicalUrl = canonicalURL || generateCanonicalURL(Astro.url.pathname);
 const isShowcasePage = Astro.url.pathname === '/showcase' || Astro.url.pathname === '/showcase/';
 
 // Prepare search data
@@ -80,32 +96,35 @@ const searchData = {
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+		<title>{metaProps.title}</title>
 		
 		<!-- SEO Meta Tags -->
-		{description && <meta name="description" content={description} />}
-		{keywords && keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
-		{author && <meta name="author" content={Array.isArray(author) ? author.join(', ') : author} />}
-		{canonicalURL && <link rel="canonical" href={canonicalURL} />}
+		<meta name="description" content={metaProps.description} />
+		{metaProps.keywords && metaProps.keywords.length > 0 && <meta name="keywords" content={metaProps.keywords.join(', ')} />}
+		{metaProps.author && <meta name="author" content={Array.isArray(metaProps.author) ? metaProps.author.join(', ') : metaProps.author} />}
+		<link rel="canonical" href={canonicalUrl} />
 		
 		<!-- OpenGraph Meta Tags -->
-		<meta property="og:title" content={title} />
-		{description && <meta property="og:description" content={description} />}
-		<meta property="og:type" content={schemaType === 'WebPage' ? 'website' : 'article'} />
+		<meta property="og:title" content={metaProps.ogTitle} />
+		<meta property="og:description" content={metaProps.ogDescription} />
+		<meta property="og:type" content={metaProps.ogType} />
 		<meta property="og:url" content={Astro.url.href} />
-		{image && <meta property="og:image" content={image.startsWith('http') ? image : new URL(image, Astro.site).href} />}
+		{metaProps.ogImage && <meta property="og:image" content={metaProps.ogImage.startsWith('http') ? metaProps.ogImage : new URL(metaProps.ogImage, Astro.site).href} />}
 		<meta property="og:site_name" content="Better Conversations Foundation" />
 		
 		<!-- Twitter Card Meta Tags -->
-		<meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
-		<meta name="twitter:title" content={title} />
-		{description && <meta name="twitter:description" content={description} />}
-		{image && <meta name="twitter:image" content={image.startsWith('http') ? image : new URL(image, Astro.site).href} />}
+		<meta name="twitter:card" content={metaProps.twitterCard} />
+		<meta name="twitter:title" content={metaProps.ogTitle} />
+		<meta name="twitter:description" content={metaProps.ogDescription} />
+		{metaProps.ogImage && <meta name="twitter:image" content={metaProps.ogImage.startsWith('http') ? metaProps.ogImage : new URL(metaProps.ogImage, Astro.site).href} />}
 		
 		<!-- Additional Meta Tags -->
 		<meta name="robots" content="index, follow" />
 		<meta name="language" content="en-GB" />
-		{publishDate && <meta name="article:published_time" content={publishDate.toISOString()} />}
+		{metaProps.publishDate && <meta name="article:published_time" content={metaProps.publishDate.toISOString()} />}
+		
+		<!-- Structured Data -->
+		<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 	</head>
 	<body class={isShowcasePage ? "h-full overflow-hidden" : "h-full"}>
 		<Navbar />

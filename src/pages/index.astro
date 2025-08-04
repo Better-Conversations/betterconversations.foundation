@@ -1,8 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { generateMetaProperties } from '../utils/metadata';
+
+// Generate enhanced metadata for homepage
+const homeMetadata = generateMetaProperties('/');
 ---
 
-<Layout title="Better Conversations Foundation">
+<Layout 
+  title={homeMetadata.title}
+  description={homeMetadata.description}
+  keywords={homeMetadata.keywords}
+  schemaType="WebPage"
+>
 	<style>
 		/* Floating animation */
 		@keyframes float {
