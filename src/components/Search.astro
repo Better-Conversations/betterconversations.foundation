@@ -118,8 +118,13 @@ const { searchData = { blogs: [], whitepapers: [], pages: [], tags: [] } } = Ast
             <span class="hidden sm:inline">Close</span>
           </span>
         </div>
-        <div class="search-result-count hidden">
-          <span class="font-medium">0</span> results
+        <div class="flex items-center gap-4">
+          <a href="/search" class="text-[#54C4B6] hover:text-[#54C4B6]/80 text-sm font-medium transition-colors">
+            Advanced Search →
+          </a>
+          <div class="search-result-count hidden">
+            <span class="font-medium">0</span> results
+          </div>
         </div>
       </div>
     </div>

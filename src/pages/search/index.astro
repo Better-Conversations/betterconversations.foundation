@@ -1,6 +1,5 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import TagButton from '../../components/TagButton.astro';
 import { getCollection } from 'astro:content';
 import { getAllTags } from '../../utils/tags';
 import { pageMetadata } from '../../data/pageMetadata';
@@ -32,6 +31,11 @@ interface SearchResult {
   count?: number;
 }
 
+// Get recent blog posts for the initial state
+const recentBlogs = blogs
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
 // Perform search if query exists
 let results: SearchResult[] = [];
 if (query) {
@@ -43,6 +47,7 @@ if (query) {
       .filter(post =>
         post.data.title.toLowerCase().includes(searchTerm) ||
         post.data.excerpt.toLowerCase().includes(searchTerm) ||
+        
         post.data.tags.some(tag => tag.toLowerCase().includes(searchTerm))
       )
       .map(post => ({
@@ -134,7 +139,7 @@ results.sort((a, b) => {
 
 // Generate enhanced metadata for the search page
 const searchMetadata = generateMetaProperties('/search', {
-  title: query ? `Search results for "${query}"` : 'Search',
+  title: query ? `Search results for "${query}"` : 'Search - Better Conversations Foundation',
   description: query ? 
     `Search results for "${query}" across the Foundation's resources, blogs, and whitepapers.` :
     'Search the Foundation\'s complete library of resources, blogs, and whitepapers.'
@@ -145,219 +150,402 @@ const searchMetadata = generateMetaProperties('/search', {
   title={searchMetadata.title}
   description={searchMetadata.description}
   keywords={searchMetadata.keywords}
-  schemaType="WebPage"
+  schemaType="SearchResultsPage"
 >
   <style>
-    /* Search input styles */
-    .search-input-wrapper {
-      position: relative;
+    /* Match modal search styles */
+    .search-container {
+      max-width: 56rem; /* 896px - matches max-w-4xl */
+      margin: 0 auto;
     }
     
-    .search-input-wrapper::before {
-      content: '';
-      position: absolute;
-      inset: -2px;
-      background: linear-gradient(to right, #54C4B6, #A8D381);
-      border-radius: 0.75rem;
-      opacity: 0;
-      transition: opacity 0.3s;
+    /* Filter button styles to match modal */
+    .search-filter {
+      background-color: #f9fafb;
+      color: #6b7280;
+      border: 1px solid #e5e7eb;
+      transition: all 0.2s ease;
     }
     
-    .search-input-wrapper:focus-within::before {
-      opacity: 0.2;
+    .search-filter:hover {
+      background-color: #f3f4f6;
+      border-color: #d1d5db;
+      transform: translateY(-1px);
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
     }
     
-    /* Result card animation */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    .result-card {
-      animation: fadeInUp 0.5s ease-out forwards;
-    }
-    
-    /* Filter pill styles */
-    .filter-pill {
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .filter-pill::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, #54C4B6, #A8D381);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    
-    .filter-pill:hover::before {
-      opacity: 0.1;
-    }
-    
-    .filter-pill.active {
+    .search-filter.active {
       background: linear-gradient(to right, #54C4B6, #A8D381);
       color: white;
+      border-color: transparent;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    
+    /* Result item styles to match modal */
+    .search-result-item {
+      display: block;
+      padding: 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 0.5rem;
+      border: 1px solid #e5e7eb;
+      background-color: white;
+      transition: all 0.2s;
+    }
+    
+    .search-result-item:hover {
+      background-color: #f0fdf4;
+      border-color: #54C4B6;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    }
+    
+    .search-result-item.active {
+      background-color: #e0f7fa !important;
+      border-color: #54C4B6 !important;
+      box-shadow: 0 0 0 2px rgba(84, 196, 182, 0.2) !important;
+    }
+    
+    /* Type badges to match modal */
+    .result-type-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.125rem 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      border-radius: 9999px;
+    }
+    
+    .result-type-blog {
+      background-color: rgba(84, 196, 182, 0.1);
+      color: #54C4B6;
+    }
+    
+    .result-type-whitepaper {
+      background-color: rgba(168, 211, 129, 0.1);
+      color: #A8D381;
+    }
+    
+    .result-type-tag {
+      background-color: #f3f4f6;
+      color: #4b5563;
+    }
+    
+    .result-type-page {
+      background-color: rgba(249, 115, 22, 0.1);
+      color: #ea580c;
+    }
+    
+    .line-clamp-2 {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+    
+    /* Loading animation */
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .animate-spin {
+      animation: spin 1s linear infinite;
     }
   </style>
 
-  <!-- Hero Section -->
-  <section class="bg-gradient-to-b from-gray-50 to-white py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl mx-auto">
-        <h1 class="text-3xl font-bold text-gray-900 mb-8 text-center">
-          {query ? `Search results for "${query}"` : 'Search'}
-        </h1>
-        
-        <!-- Search Form -->
-        <form method="get" action="/search" class="mb-8">
-          <div class="search-input-wrapper relative">
+  <div class="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <!-- Search Header -->
+    <div class="pt-24 pb-6 border-b border-gray-200 bg-white">
+      <div class="search-container px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center gap-4 relative">
+          <svg class="w-6 h-6 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <form method="get" action="/search" class="flex-1 flex items-center gap-4">
             <input
               type="text"
               name="q"
+              id="search-input"
               value={query}
               placeholder="Search blogs, whitepapers, and topics..."
-              class="w-full px-6 py-4 pl-14 text-lg bg-white border border-gray-300 rounded-xl focus:outline-none focus:border-[#54C4B6] focus:ring-2 focus:ring-[#54C4B6]/20 transition-all"
+              class="flex-1 text-lg bg-transparent outline-none placeholder-gray-400 text-gray-900 font-medium"
+              autocomplete="off"
               autofocus
             />
-            <svg class="absolute left-5 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
-            <input type="hidden" name="filter" value={filter} />
-          </div>
-          
-          <!-- Filters -->
-          <div class="flex gap-2 mt-4 justify-center">
-            <a href={`/search?q=${query}&filter=all`} class={`filter-pill px-4 py-2 rounded-full text-sm font-medium transition-all ${filter === 'all' ? 'active' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
-              All ({query ? results.length : '0'})
-            </a>
-            <a href={`/search?q=${query}&filter=blog`} class={`filter-pill px-4 py-2 rounded-full text-sm font-medium transition-all ${filter === 'blog' ? 'active' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
-              Blogs ({query ? results.filter(r => r.type === 'blog').length : '0'})
-            </a>
-            <a href={`/search?q=${query}&filter=whitepaper`} class={`filter-pill px-4 py-2 rounded-full text-sm font-medium transition-all ${filter === 'whitepaper' ? 'active' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
-              Whitepapers ({query ? results.filter(r => r.type === 'whitepaper').length : '0'})
-            </a>
-            <a href={`/search?q=${query}&filter=page`} class={`filter-pill px-4 py-2 rounded-full text-sm font-medium transition-all ${filter === 'page' ? 'active' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
-              Pages ({query ? results.filter(r => r.type === 'page').length : '0'})
-            </a>
-            <a href={`/search?q=${query}&filter=tag`} class={`filter-pill px-4 py-2 rounded-full text-sm font-medium transition-all ${filter === 'tag' ? 'active' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
-              Topics ({query ? results.filter(r => r.type === 'tag').length : '0'})
-            </a>
-          </div>
-        </form>
+            <input type="hidden" name="filter" value={filter} id="filter-input" />
+            <!-- Keyboard shortcut hint -->
+            <div class="hidden sm:flex items-center gap-2 text-sm text-gray-400">
+              <kbd class="px-2 py-1 bg-gray-100 border border-gray-300 rounded text-xs font-mono">Cmd+K</kbd>
+              <span>for quick search</span>
+            </div>
+          </form>
+        </div>
         
-        <!-- Results Summary -->
-        {query && (
-          <div class="text-center text-gray-600 mb-8">
-            Found <span class="font-medium text-gray-900">{results.length}</span> {results.length === 1 ? 'result' : 'results'} for "<span class="font-medium text-gray-900">{query}</span>"
+        <!-- Filters -->
+        <div class="flex flex-wrap gap-2 mt-6">
+          <button class={`search-filter px-3 py-1 text-sm rounded-full transition-colors ${filter === 'all' ? 'active' : ''}`} data-type="all">
+            All
+          </button>
+          <button class={`search-filter px-3 py-1 text-sm rounded-full transition-colors ${filter === 'blog' ? 'active' : ''}`} data-type="blog">
+            Blogs
+          </button>
+          <button class={`search-filter px-3 py-1 text-sm rounded-full transition-colors ${filter === 'whitepaper' ? 'active' : ''}`} data-type="whitepaper">
+            Whitepapers
+          </button>
+          <button class={`search-filter px-3 py-1 text-sm rounded-full transition-colors ${filter === 'page' ? 'active' : ''}`} data-type="page">
+            Pages
+          </button>
+          <button class={`search-filter px-3 py-1 text-sm rounded-full transition-colors ${filter === 'tag' ? 'active' : ''}`} data-type="tag">
+            Topics
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Search Results -->
+    <div class="max-h-[calc(100vh-280px)] overflow-y-auto">
+      <div class="search-container px-4 sm:px-6 lg:px-8 py-6">
+        {query ? (
+          results.length > 0 ? (
+            <div class="search-results-container">
+              {results.map((result, index) => {
+                let typeClass = '';
+                let typeName = '';
+                
+                switch (result.type) {
+                  case 'blog':
+                    typeClass = 'result-type-blog';
+                    typeName = 'Blog';
+                    break;
+                  case 'whitepaper':
+                    typeClass = 'result-type-whitepaper';
+                    typeName = 'Whitepaper';
+                    break;
+                  case 'tag':
+                    typeClass = 'result-type-tag';
+                    typeName = 'Topic';
+                    break;
+                  case 'page':
+                    typeClass = 'result-type-page';
+                    typeName = 'Page';
+                    break;
+                }
+                
+                return result.type === 'tag' ? (
+                  <a href={result.slug} 
+                     class="search-result-item" 
+                     data-index={index}>
+                    <div class="flex items-center justify-between gap-4">
+                      <div>
+                        <h3 class="font-semibold text-gray-900 text-lg mb-1 transition-colors">
+                          <span class="text-[#54C4B6]">#</span>{result.title}
+                        </h3>
+                        <p class="text-sm text-gray-600">{result.count} {result.count === 1 ? 'item' : 'items'}</p>
+                      </div>
+                      <span class={`result-type-badge ${typeClass}`}>{typeName}</span>
+                    </div>
+                  </a>
+                ) : (
+                  <a href={result.slug} 
+                     class="search-result-item" 
+                     data-index={index}>
+                    <div class="flex items-start justify-between gap-4">
+                      <div class="flex-1 min-w-0">
+                        <h3 class="font-semibold text-gray-900 text-lg mb-1 truncate transition-colors">{result.title}</h3>
+                        <p class="text-sm text-gray-600 line-clamp-2 mb-2">{result.excerpt}</p>
+                        <div class="flex items-center gap-2 text-xs text-gray-500">
+                          {result.date && <time>{new Date(result.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'short' })}</time>}
+                          {result.tags && result.tags.length > 0 && (
+                            <>
+                              <span class="text-gray-400">•</span>
+                              <span>{result.tags.slice(0, 2).join(', ')}</span>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                      <span class={`result-type-badge ${typeClass} flex-shrink-0`}>{typeName}</span>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          ) : (
+            <!-- No results -->
+            <div class="text-center py-12">
+              <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <p class="text-lg font-medium text-gray-900 mb-2">No results found</p>
+              <p class="text-sm text-gray-600">Try adjusting your search or filters</p>
+            </div>
+          )
+        ) : (
+          <!-- Initial state with popular topics -->
+          <div class="max-w-4xl mx-auto">
+            <div class="mb-8">
+              <h2 class="text-lg font-semibold text-gray-900 mb-4">Popular Topics</h2>
+              <div class="flex flex-wrap gap-2">
+                <a href="/search?q=communication" class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
+                  Communication
+                </a>
+                <a href="/search?q=facilitation" class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
+                  Facilitation
+                </a>
+                <a href="/search?q=leadership" class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
+                  Leadership
+                </a>
+                <a href="/search?q=coaching" class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
+                  Coaching
+                </a>
+                <a href="/search?q=methodology" class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
+                  Methodology
+                </a>
+                <a href="/search?q=research" class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
+                  Research
+                </a>
+              </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Recent Blog Posts</h3>
+                <div class="space-y-3">
+                  {recentBlogs.map(post => (
+                    <a href={`/blog/${post.slug}`} class="block group">
+                      <h4 class="font-medium text-gray-900 group-hover:text-[#54C4B6] transition-colors">
+                        {post.data.title}
+                      </h4>
+                      <p class="text-sm text-gray-500 mt-1">
+                        {new Date(post.data.date).toLocaleDateString('en-GB', { month: 'short', day: 'numeric', year: 'numeric' })}
+                      </p>
+                    </a>
+                  ))}
+                  <a href="/blog" class="block text-[#54C4B6] hover:text-[#54C4B6]/80 transition-colors mt-4">
+                    View all blog posts →
+                  </a>
+                </div>
+              </div>
+              
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Browse by Type</h3>
+                <div class="space-y-2">
+                  <a href="/search?filter=blog" class="block text-gray-600 hover:text-[#54C4B6] transition-colors">
+                    Blog Articles
+                  </a>
+                  <a href="/search?filter=whitepaper" class="block text-gray-600 hover:text-[#54C4B6] transition-colors">
+                    Whitepapers & Research
+                  </a>
+                  <a href="/search?filter=page" class="block text-gray-600 hover:text-[#54C4B6] transition-colors">
+                    Foundation Pages
+                  </a>
+                  <a href="/tags" class="block text-gray-600 hover:text-[#54C4B6] transition-colors">
+                    All Topics
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>
     </div>
-  </section>
-
-  <!-- Search Results -->
-  <section class="py-16 bg-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      {query && results.length > 0 ? (
-        <div class="space-y-6">
-          {results.map((result, index) => (
-            <article 
-              class="result-card bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg hover:border-[#54C4B6]/50 transition-all"
-              style={`animation-delay: ${index * 0.05}s;`}
-            >
-              <a href={result.slug} class="block">
-                <div class="flex items-start justify-between">
-                  <div class="flex-1">
-                    <h2 class="text-xl font-bold text-gray-900 mb-2 hover:text-[#54C4B6] transition-colors">
-                      {result.type === 'tag' && '#'}{result.title}
-                    </h2>
-                    
-                    {result.type === 'tag' ? (
-                      <p class="text-gray-600">{result.count} items tagged with this topic</p>
-                    ) : (
-                      <>
-                        <p class="text-gray-600 mb-3 line-clamp-2">{result.excerpt}</p>
-                        
-                        <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500">
-                          {result.type === 'blog' && (
-                            <>
-                              <span>{result.author}</span>
-                              <span>•</span>
-                            </>
-                          )}
-                          {result.type === 'whitepaper' && result.authors && (
-                            <>
-                              <span>{Array.isArray(result.authors) ? result.authors.join(', ') : result.authors}</span>
-                              <span>•</span>
-                            </>
-                          )}
-                          {result.date && (
-                            <time>{result.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
-                          )}
-                        </div>
-                        
-                        {result.tags && result.tags.length > 0 && (
-                          <div class="flex flex-wrap gap-2 mt-3">
-                            {result.tags.slice(0, 3).map(tag => (
-                              <TagButton tag={tag} size="xs" href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`} />
-                            ))}
-                          </div>
-                        )}
-                      </>
-                    )}
-                  </div>
-                  
-                  <div class="ml-4 flex-shrink-0">
-                    <span class={`inline-flex items-center px-3 py-1 text-xs font-medium rounded-full ${
-                      result.type === 'blog' ? 'bg-[#54C4B6]/10 text-[#54C4B6]' :
-                      result.type === 'whitepaper' ? 'bg-[#A8D381]/10 text-[#A8D381]' :
-                      result.type === 'page' ? 'bg-orange-100 text-orange-700' :
-                      'bg-gray-100 text-gray-700'
-                    }`}>
-                      {result.type === 'blog' ? 'Blog' :
-                       result.type === 'whitepaper' ? 'Whitepaper' :
-                       result.type === 'page' ? 'Page' :
-                       'Topic'}
-                    </span>
-                  </div>
-                </div>
-              </a>
-            </article>
-          ))}
-        </div>
-      ) : query ? (
-        <div class="text-center py-20">
-          <svg class="w-24 h-24 mx-auto mb-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-          <h2 class="text-2xl font-medium text-gray-900 mb-2">No results found</h2>
-          <p class="text-gray-600 mb-8">Try adjusting your search terms or filters</p>
-          <div class="space-y-2 text-gray-600">
-            <p>Suggestions:</p>
-            <ul class="list-disc list-inside space-y-1">
-              <li>Check your spelling</li>
-              <li>Try more general keywords</li>
-              <li>Use fewer keywords</li>
-            </ul>
+    
+    <!-- Footer with keyboard shortcuts - only show when there are results -->
+    {query && (
+      <div class="p-4 sm:px-6 border-t border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100/50">
+        <div class="search-container flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-gray-500">
+          <div class="flex items-center gap-3 text-xs sm:text-sm">
+            <span class="flex items-center gap-1.5">
+              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-mono shadow-sm">↑</kbd>
+              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-mono shadow-sm">↓</kbd>
+              <span class="hidden sm:inline">Navigate</span>
+            </span>
+            <span class="text-gray-400">•</span>
+            <span class="flex items-center gap-1.5">
+              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-mono shadow-sm">Enter</kbd>
+              <span class="hidden sm:inline">Select</span>
+            </span>
+          </div>
+          <div class="search-result-count">
+            <span class="font-medium">{results.length}</span> {results.length === 1 ? 'result' : 'results'}
           </div>
         </div>
-      ) : (
-        <div class="text-center py-20">
-          <svg class="w-24 h-24 mx-auto mb-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-          </svg>
-          <h2 class="text-2xl font-medium text-gray-900 mb-2">Start searching</h2>
-          <p class="text-gray-600">Enter a search term above to find content</p>
-        </div>
-      )}
-    </div>
-  </section>
+      </div>
+    )}
+  </div>
+
+  <script>
+    // Initialize search functionality
+    let selectedIndex = -1;
+    const searchInput = document.getElementById('search-input') as HTMLInputElement;
+    const filterInput = document.getElementById('filter-input') as HTMLInputElement;
+    const filterButtons = document.querySelectorAll('.search-filter');
+    
+    // Filter button clicks
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const newFilter = button.getAttribute('data-type') || 'all';
+        filterInput.value = newFilter;
+        
+        // Submit form to update results
+        if (searchInput.value) {
+          searchInput.form?.submit();
+        } else {
+          // Update active state without submitting if no query
+          filterButtons.forEach(b => b.classList.remove('active'));
+          button.classList.add('active');
+        }
+      });
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      const results = document.querySelectorAll('.search-result-item');
+      
+      if (results.length > 0) {
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          selectedIndex = Math.min(selectedIndex + 1, results.length - 1);
+          updateSelectedResult();
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          selectedIndex = Math.max(selectedIndex - 1, -1);
+          updateSelectedResult();
+        } else if (e.key === 'Enter' && selectedIndex >= 0) {
+          e.preventDefault();
+          const selectedLink = results[selectedIndex] as HTMLAnchorElement;
+          if (selectedLink) {
+            window.location.href = selectedLink.href;
+          }
+        }
+      }
+      
+      // Cmd/Ctrl + K to open modal search
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        if (window.openSearchModal) {
+          window.openSearchModal();
+        }
+      }
+    });
+    
+    // Update selected result visual state
+    function updateSelectedResult() {
+      const results = document.querySelectorAll('.search-result-item');
+      results.forEach((item, index) => {
+        if (index === selectedIndex) {
+          item.classList.add('active');
+          item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        } else {
+          item.classList.remove('active');
+        }
+      });
+    }
+    
+    // Auto-submit on input after delay
+    let searchTimeout: number;
+    searchInput?.addEventListener('input', () => {
+      clearTimeout(searchTimeout);
+      searchTimeout = window.setTimeout(() => {
+        searchInput.form?.submit();
+      }, 500);
+    });
+  </script>
 </Layout>

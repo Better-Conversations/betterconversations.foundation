@@ -271,6 +271,16 @@ export const pageMetadata: PageMetadataMap = {
     priority: 0.6,
     changefreq: 'weekly'
   },
+  '/search': {
+    title: 'Search',
+    excerpt: 'Search across all Foundation content, resources, and publications',
+    tags: ['search', 'find', 'discover', 'explore'],
+    category: 'utility',
+    description: 'Search the Foundation\'s complete library of resources, blogs, and whitepapers',
+    lastmod: '2025-08-04',
+    priority: 0.5,
+    changefreq: 'monthly'
+  },
   '/tags': {
     title: 'Topics',
     excerpt: 'Browse content by topic and theme',
