@@ -4,12 +4,14 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node scripts/generate-content-dates.js && node scripts/update-lastmod-from-git.js",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.1",
+    "@astrojs/sitemap": "^3.4.2",
     "@tailwindcss/typography": "^0.5.16",
     "astro": "^5.11.0",
     "puppeteer": "^24.14.0"

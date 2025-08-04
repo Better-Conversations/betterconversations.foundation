@@ -1,0 +1,8 @@
+# Better Conversations Foundation robots.txt
+# This site promotes open content and accessibility
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://betterconversations.foundation/sitemap-index.xml
