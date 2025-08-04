@@ -150,7 +150,7 @@ const searchMetadata = generateMetaProperties('/search', {
   title={searchMetadata.title}
   description={searchMetadata.description}
   keywords={searchMetadata.keywords}
-  schemaType="SearchResultsPage"
+  schemaType="CollectionPage"
 >
   <style>
     /* Match modal search styles */
@@ -472,6 +472,13 @@ const searchMetadata = generateMetaProperties('/search', {
   </div>
 
   <script>
+    // Declare window.openSearchModal type
+    declare global {
+      interface Window {
+        openSearchModal?: () => void;
+      }
+    }
+    
     // Initialize search functionality
     let selectedIndex = -1;
     const searchInput = document.getElementById('search-input') as HTMLInputElement;

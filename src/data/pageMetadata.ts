@@ -291,16 +291,6 @@ export const pageMetadata: PageMetadataMap = {
     priority: 0.2,
     changefreq: 'weekly'
   },
-  '/search': {
-    title: 'Search',
-    excerpt: 'Search across all our content and resources',
-    tags: ['search', 'find', 'discover', 'explore', 'navigation'],
-    category: 'Navigation',
-    description: 'Search our complete library of resources and content',
-    lastmod: '2025-08-04',
-    priority: 0.2,
-    changefreq: 'weekly'
-  },
   '/': {
     title: 'Home',
     excerpt: 'Welcome to the Better Conversations Foundation',
