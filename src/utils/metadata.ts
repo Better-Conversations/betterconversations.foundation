@@ -44,7 +44,7 @@ export function generateMetaProperties(
                      pageData?.metaDescription || 
                      pageData?.excerpt || 
                      pageData?.description || 
-                     'Better Conversations Foundation - Transforming communication through Clean Language';
+                     'Better Conversations Foundation - Communication skills for teams and organizations';
 
   return {
     title,
@@ -68,7 +68,7 @@ export function generateStructuredData(
   const pageData = getPageMetadata(path);
   const url = `${baseURL}${path}`;
   
-  const baseSchema = {
+  const baseSchema: Record<string, any> = {
     '@context': 'https://schema.org',
     '@type': metaProps.schemaType || 'WebPage',
     name: metaProps.title,
@@ -82,7 +82,7 @@ export function generateStructuredData(
         '@type': 'Organization',
         name: 'Better Conversations Foundation',
         url: baseURL,
-        description: 'A foundation dedicated to transforming communication through Clean Language methodology',
+        description: 'A foundation dedicated to helping people connect meaningfully',
         sameAs: [
           'https://cleanlearning.co.uk',
           'https://twitter.com/bcfoundation'
@@ -146,14 +146,14 @@ export function generateExecutiveSummary(
   }
   
   if (pageData?.category) {
-    summary += `\n\n**Category**: This content belongs to the ${pageData.category} section of the Better Conversations Foundation website, focusing on Clean Language methodology.`;
+    summary += `\n\n**Category**: This content belongs to the ${pageData.category} section of the Better Conversations Foundation website, focusing on helping people connect meaningfully.`;
   }
   
   if (pageData?.tags && pageData.tags.length > 0) {
     summary += `\n\n**Key Topics**: ${pageData.tags.join(', ')}`;
   }
 
-  summary += `\n\n**Foundation Context**: The Better Conversations Foundation (BCF) is dedicated to making Clean Language accessible worldwide, promoting better communication through proven methodologies.`;
+  summary += `\n\n**Foundation Context**: The Better Conversations Foundation (BCF) is dedicated to to helping people around the world connect on a human level. We develop and support open resources to help people listen to each other and be heard. Better decision-making and effective collaboration start with better conversations.`;
 
   return summary;
 }

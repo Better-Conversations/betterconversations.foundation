@@ -5,7 +5,7 @@ import Search from '../components/Search.astro';
 import { getCollection } from 'astro:content';
 import { getAllTags } from '../utils/tags';
 import { pageMetadata } from '../data/pageMetadata';
-import { generateMetaProperties, generateStructuredData, generateCanonicalURL } from '../utils/metadata';
+import { generateMetaProperties, generateStructuredData, generateCanonicalURL, type SchemaType } from '../utils/metadata';
 import '../styles/global.css';
 
 export interface Props {
@@ -14,7 +14,7 @@ export interface Props {
 	keywords?: string[];
 	author?: string | string[];
 	publishDate?: Date;
-	schemaType?: string;
+	schemaType?: SchemaType;
 	image?: string;
 	canonicalURL?: string;
 }

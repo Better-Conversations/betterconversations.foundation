@@ -25,7 +25,7 @@ export const pageMetadata: PageMetadataMap = {
   // Partner Pages
   '/partner': {
     title: 'Partner With Us',
-    excerpt: 'Collaborate with BCF to bring Clean Language to your organisation',
+    excerpt: 'Collaborate with BCF to bring Better Conversations to your organisation',
     tags: ['partner', 'collaboration', 'organisations', 'facilitate', 'training'],
     category: 'Partnership',
     description: 'Partner with Better Conversations Foundation to transform communication in your organisation',
@@ -35,30 +35,30 @@ export const pageMetadata: PageMetadataMap = {
   },
   '/partner/organizations': {
     title: 'Partner Organisations',
-    excerpt: 'Bring Clean Language and Emergent Knowledge to your organisation',
+    excerpt: 'Bring Better Conversations to your organisation',
     tags: ['partner', 'organisations', 'business', 'workplace', 'collaboration'],
     category: 'Partnership',
-    description: 'Transform your organisation\'s communication culture with Clean Language',
+    description: 'Transform your culture with Better Conversations',
     lastmod: '2025-07-14',
     priority: 0.5,
     changefreq: 'weekly'
   },
   '/partner/deliver-courses': {
     title: 'Deliver Courses',
-    excerpt: 'Become a certified Clean Language facilitator and deliver BCF courses',
+    excerpt: 'Become a certified facilitator and deliver BCF courses',
     tags: ['partner', 'facilitator', 'training', 'certification', 'teaching'],
     category: 'Partnership',
-    description: 'Join our network of certified facilitators delivering Clean Language courses',
+    description: 'Join our network of certified facilitators delivering Better Conversations courses',
     lastmod: '2025-07-21',
     priority: 0.4,
     changefreq: 'weekly'
   },
   '/partner/research': {
     title: 'Research Partnership',
-    excerpt: 'Collaborate on Clean Language research and academic studies',
+    excerpt: 'Collaborate on research and academic studies',
     tags: ['partner', 'research', 'academic', 'studies', 'collaboration'],
     category: 'Partnership',
-    description: 'Partner with BCF on research projects exploring Clean Language applications',
+    description: 'Partner with BCF on research projects exploring Better Conversations applications',
     lastmod: '2025-07-21',
     priority: 0.4,
     changefreq: 'weekly'
@@ -68,7 +68,7 @@ export const pageMetadata: PageMetadataMap = {
     excerpt: 'Support the Better Conversations Foundation mission',
     tags: ['partner', 'support', 'donate', 'sponsor', 'contribute'],
     category: 'Partnership',
-    description: 'Support BCF\'s mission to make Clean Language accessible to everyone',
+    description: 'Support BCF\'s mission to make Better Conversations accessible to everyone',
     lastmod: '2025-07-21',
     priority: 0.4,
     changefreq: 'weekly'
@@ -87,10 +87,10 @@ export const pageMetadata: PageMetadataMap = {
   },
   '/about/mission': {
     title: 'Our Mission',
-    excerpt: 'BCF\'s mission to transform communication through Clean Language',
+    excerpt: 'BCF\'s mission to transform communication through Better Conversations',
     tags: ['about', 'mission', 'vision', 'values', 'purpose'],
     category: 'About',
-    description: 'Understanding BCF\'s mission to make Clean Language accessible worldwide',
+    description: 'Understanding BCF\'s mission to make Better Conversations accessible worldwide',
     lastmod: '2025-07-14',
     priority: 0.4,
     changefreq: 'monthly'
@@ -129,10 +129,10 @@ export const pageMetadata: PageMetadataMap = {
   // Get Started Pages
   '/get-started': {
     title: 'Get Started',
-    excerpt: 'Begin your Clean Language journey with BCF',
+    excerpt: 'Begin your Better Conversations journey with BCF',
     tags: ['start', 'begin', 'learn', 'introduction', 'guide'],
     category: 'Getting Started',
-    description: 'Start your Clean Language journey with our resources and courses',
+    description: 'Start your Better Conversations journey with our resources and courses',
     lastmod: '2025-07-21',
     priority: 0.8,
     changefreq: 'weekly'
@@ -149,30 +149,30 @@ export const pageMetadata: PageMetadataMap = {
   },
   '/get-started/attend-course': {
     title: 'Attend a Course',
-    excerpt: 'Find and attend Clean Language courses and workshops',
+    excerpt: 'Find and attend Better Conversations courses and workshops',
     tags: ['courses', 'training', 'workshops', 'learn', 'attend'],
     category: 'Getting Started',
-    description: 'Discover Clean Language courses and workshops near you',
+    description: 'Discover Better Conversations courses and workshops near you',
     lastmod: '2025-07-21',
     priority: 0.5,
     changefreq: 'weekly'
   },
   '/get-started/download': {
     title: 'Download Resources',
-    excerpt: 'Access free Clean Language resources and materials',
+    excerpt: 'Access free Better Conversations resources and materials',
     tags: ['download', 'resources', 'materials', 'free', 'guides'],
     category: 'Getting Started',
-    description: 'Download free Clean Language guides, worksheets, and resources',
+    description: 'Download free Better Conversations guides, worksheets, and resources',
     lastmod: '2025-07-21',
     priority: 0.5,
     changefreq: 'weekly'
   },
   '/get-started/schedule-call': {
     title: 'Schedule a Call',
-    excerpt: 'Book a consultation to discuss Clean Language for your needs',
+    excerpt: 'Book a consultation to discuss Better Conversations for your needs',
     tags: ['schedule', 'consultation', 'call', 'meeting', 'discuss'],
     category: 'Getting Started',
-    description: 'Schedule a consultation to explore Clean Language for your organisation',
+    description: 'Schedule a consultation to explore Better Conversations for your organisation',
     lastmod: '2025-08-04',
     priority: 0.4,
     changefreq: 'weekly'
@@ -181,7 +181,7 @@ export const pageMetadata: PageMetadataMap = {
   // Approach Pages
   '/approach': {
     title: 'Our Approach',
-    excerpt: 'Understanding BCF\'s approach to Clean Language and communication',
+    excerpt: 'Understanding BCF\'s approach to sharing resources and skills',
     tags: ['approach', 'methodology', 'philosophy', 'principles', 'framework'],
     category: 'Approach',
     description: 'Explore BCF\'s unique approach to transforming communication',
@@ -191,10 +191,10 @@ export const pageMetadata: PageMetadataMap = {
   },
   '/approach/courses': {
     title: 'Our Courses',
-    excerpt: 'Comprehensive Clean Language courses and learning pathways',
+    excerpt: 'Comprehensive Better Conversations courses and learning pathways',
     tags: ['courses', 'curriculum', 'learning', 'education', 'syllabus'],
     category: 'Approach',
-    description: 'Explore our comprehensive Clean Language course offerings',
+    description: 'Explore our comprehensive Better Conversations course offerings',
     lastmod: '2025-07-21',
     priority: 0.4,
     changefreq: 'weekly'
@@ -211,10 +211,10 @@ export const pageMetadata: PageMetadataMap = {
   },
   '/approach/faqs': {
     title: 'FAQs',
-    excerpt: 'Frequently asked questions about Clean Language and BCF',
+    excerpt: 'Frequently asked questions about Better Conversations and the Foundation',
     tags: ['faqs', 'questions', 'answers', 'help', 'information'],
     category: 'Approach',
-    description: 'Find answers to common questions about Clean Language and BCF',
+    description: 'Find answers to common questions about Better Conversations and BCF',
     lastmod: '2025-07-21',
     priority: 0.3,
     changefreq: 'weekly'
@@ -223,37 +223,37 @@ export const pageMetadata: PageMetadataMap = {
   // Resources & Other Pages
   '/resources': {
     title: 'Resources',
-    excerpt: 'Explore BCF\'s collection of Clean Language resources',
+    excerpt: 'Explore BCF\'s collection of resources and skills',
     tags: ['resources', 'materials', 'library', 'content', 'tools'],
     category: 'Resources',
-    description: 'Access BCF\'s comprehensive library of Clean Language resources',
+    description: 'Access BCF\'s comprehensive library of resources and skills',
     lastmod: '2025-07-21',
     priority: 0.7,
     changefreq: 'weekly'
   },
   '/stories': {
     title: 'Success Stories',
-    excerpt: 'Real-world impact of Clean Language in various contexts',
+    excerpt: 'Real-world impact of Better Conversations in various contexts',
     tags: ['stories', 'success', 'case-studies', 'testimonials', 'impact'],
     category: 'Resources',
-    description: 'Discover how Clean Language transforms communication in real situations',
+    description: 'Discover how Better Conversations transforms communication in real situations',
     lastmod: '2025-07-21',
     priority: 0.6,
     changefreq: 'weekly'
   },
   '/showcase': {
     title: 'Ambassador Showcase',
-    excerpt: 'Meet BCF\'s global ambassadors spreading Clean Language',
+    excerpt: 'Meet BCF\'s global ambassadors spreading Better Conversations',
     tags: ['ambassadors', 'showcase', 'community', 'leaders', 'global'],
     category: 'Community',
-    description: 'Meet the ambassadors bringing Clean Language to communities worldwide',
+    description: 'Meet the ambassadors bringing Better Conversations to communities worldwide',
     lastmod: '2025-07-21',
     priority: 0.3,
     changefreq: 'monthly'
   },
   '/blog': {
     title: 'Blog',
-    excerpt: 'Latest insights, updates, and articles about Clean Language',
+    excerpt: 'Latest insights, updates, and articles about Better Conversations',
     tags: ['blog', 'articles', 'news', 'insights', 'updates'],
     category: 'Resources',
     description: 'Read the latest articles and insights from the BCF community',
@@ -263,10 +263,10 @@ export const pageMetadata: PageMetadataMap = {
   },
   '/whitepapers': {
     title: 'Whitepapers',
-    excerpt: 'In-depth research and whitepapers on Clean Language applications',
+    excerpt: 'In-depth research and whitepapers on Better Conversations applications',
     tags: ['whitepapers', 'research', 'studies', 'reports', 'analysis'],
     category: 'Resources',
-    description: 'Access comprehensive whitepapers on Clean Language research and applications',
+    description: 'Access comprehensive whitepapers on Better Conversations research and applications',
     lastmod: '2025-07-21',
     priority: 0.6,
     changefreq: 'weekly'
@@ -283,11 +283,11 @@ export const pageMetadata: PageMetadataMap = {
   },
   '/search': {
     title: 'Search',
-    excerpt: 'Search across all BCF content and resources',
+    excerpt: 'Search across all our content and resources',
     tags: ['search', 'find', 'discover', 'explore', 'navigation'],
     category: 'Navigation',
-    description: 'Search BCF\'s complete library of resources and content',
-    lastmod: '2025-07-22',
+    description: 'Search our complete library of resources and content',
+    lastmod: '2025-08-04',
     priority: 0.2,
     changefreq: 'weekly'
   },
@@ -296,10 +296,9 @@ export const pageMetadata: PageMetadataMap = {
     excerpt: 'Welcome to the Better Conversations Foundation',
     tags: ['home', 'welcome', 'introduction', 'overview', 'start'],
     category: 'Navigation',
-    description: 'Better Conversations Foundation - Transforming communication through Clean Language',
-    lastmod: '2025-07-31',
+    description: 'Better Conversations Foundation - Six hours, lasting change. Communication skills training for any team, any sector.',
+    lastmod: '2025-08-04',
     priority: 1.0,
     changefreq: 'weekly'
   }
 };
-
