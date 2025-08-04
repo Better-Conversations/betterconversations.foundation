@@ -23,3 +23,6 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 better-conversations-overview.md
+
+# local Claude settings
+CLAUDE.local.MD
