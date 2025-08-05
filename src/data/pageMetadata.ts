@@ -257,7 +257,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['blog', 'articles', 'news', 'insights', 'updates'],
     category: 'Resources',
     description: 'Read the latest articles and insights from the BCF community',
-    lastmod: '2025-08-04',
+    lastmod: '2025-08-05',
     priority: 0.8,
     changefreq: 'daily'
   },

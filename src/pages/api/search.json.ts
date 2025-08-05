@@ -4,6 +4,9 @@ import { getAllTags } from '../../utils/tags';
 import { pageMetadata } from '../../data/pageMetadata';
 import type { SearchResult } from '../../types/search';
 
+// Disable prerendering for this API route
+export const prerender = false;
+
 export const GET: APIRoute = async ({ url }) => {
   try {
     const query = url.searchParams.get('q') || '';
@@ -27,50 +30,58 @@ export const GET: APIRoute = async ({ url }) => {
       getCollection('whitepapers'),
       getAllTags()
     ]);
-
+    
     const searchTerm = query.toLowerCase();
     const results: SearchResult[] = [];
 
     // Search blogs
     if (filter === 'all' || filter === 'blog') {
-      const blogResults = blogs
-        .filter(post =>
-          post.data.title.toLowerCase().includes(searchTerm) ||
-          post.data.excerpt.toLowerCase().includes(searchTerm) ||
-          post.data.tags.some(tag => tag.toLowerCase().includes(searchTerm))
-        )
-        .map(post => ({
-          type: 'blog' as const,
-          title: post.data.title,
-          excerpt: post.data.excerpt,
-          slug: `/blog/${post.slug}`,
-          tags: post.data.tags,
-          author: post.data.author,
-          date: post.data.date.toISOString(),
-          category: post.data.category
-        }));
-      results.push(...blogResults);
+      try {
+        const blogResults = blogs
+          .filter(post =>
+            post.data.title.toLowerCase().includes(searchTerm) ||
+            post.data.excerpt.toLowerCase().includes(searchTerm) ||
+            post.data.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+          )
+          .map(post => ({
+            type: 'blog' as const,
+            title: post.data.title,
+            excerpt: post.data.excerpt,
+            slug: `/blog/${post.slug}`,
+            tags: post.data.tags,
+            author: post.data.author,
+            date: post.data.date ? post.data.date.toISOString() : undefined,
+            category: post.data.category
+          }));
+        results.push(...blogResults);
+      } catch (err) {
+        console.error('Error searching blogs:', err);
+      }
     }
 
     // Search whitepapers
     if (filter === 'all' || filter === 'whitepaper') {
-      const whitepaperResults = whitepapers
-        .filter(paper =>
-          paper.data.title.toLowerCase().includes(searchTerm) ||
-          paper.data.excerpt.toLowerCase().includes(searchTerm) ||
-          paper.data.tags.some(tag => tag.toLowerCase().includes(searchTerm))
-        )
-        .map(paper => ({
-          type: 'whitepaper' as const,
-          title: paper.data.title,
-          excerpt: paper.data.excerpt,
-          slug: `/whitepapers/${paper.slug}`,
-          tags: paper.data.tags,
-          authors: paper.data.authors,
-          date: paper.data.date.toISOString(),
-          category: paper.data.category
-        }));
-      results.push(...whitepaperResults);
+      try {
+        const whitepaperResults = whitepapers
+          .filter(paper =>
+            paper.data.title.toLowerCase().includes(searchTerm) ||
+            paper.data.excerpt.toLowerCase().includes(searchTerm) ||
+            paper.data.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+          )
+          .map(paper => ({
+            type: 'whitepaper' as const,
+            title: paper.data.title,
+            excerpt: paper.data.excerpt,
+            slug: `/whitepapers/${paper.slug}`,
+            tags: paper.data.tags,
+            authors: paper.data.authors,
+            date: paper.data.date ? paper.data.date.toISOString() : undefined,
+            category: paper.data.category
+          }));
+        results.push(...whitepaperResults);
+      } catch (err) {
+        console.error('Error searching whitepapers:', err);
+      }
     }
 
     // Search pages

@@ -2,8 +2,12 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { getAllTags, getPopularTags } from '../../utils/tags';
+import { getAuthorNames } from '../../utils/authors';
 import { pageMetadata } from '../../data/pageMetadata';
 import { generateMetaProperties } from '../../utils/metadata';
+
+// Disable prerendering for this search page
+export const prerender = false;
 
 // Get search query from URL
 const url = new URL(Astro.request.url);
@@ -13,19 +17,22 @@ const dateRange = url.searchParams.get('dateRange') || '';
 const sortBy = url.searchParams.get('sort') || 'relevance';
 const authorFilter = url.searchParams.get('author') || '';
 const tagFilter = url.searchParams.get('tags') || '';
+const showFiltered = url.searchParams.get('showFiltered') === 'true';
 
 // Parse multiple filters
 const filters = filter.split(',').filter(f => f);
 const selectedTags = tagFilter.split(',').filter(t => t);
+const selectedAuthors = authorFilter.split(',').filter(a => a);
 
 // Get popular tags for display
 const popularTags = await getPopularTags(10);
 
 // Get all content
-const [blogs, whitepapers, tags] = await Promise.all([
+const [blogs, whitepapers, tags, authorNames] = await Promise.all([
   getCollection('blog'),
   getCollection('whitepapers'),
-  getAllTags()
+  getAllTags(),
+  getAuthorNames()
 ]);
 
 // Define the search result type
@@ -47,18 +54,20 @@ const recentBlogs = blogs
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
-// Perform search if query exists
+// Perform search if query exists OR if we have filters OR if showFiltered is true
 let results: SearchResult[] = [];
-if (query) {
+const hasAdvancedFilters = selectedTags.length > 0 || selectedAuthors.length > 0 || dateRange;
+
+if (query || (filter && filter !== 'all') || showFiltered || hasAdvancedFilters) {
   const searchTerm = query.toLowerCase();
   
   // Search blogs
   if (filters.length === 0 || filters.includes('all') || filters.includes('blog')) {
     const blogResults = blogs
       .filter(post =>
+        !query || // Show all if no query
         post.data.title.toLowerCase().includes(searchTerm) ||
         post.data.excerpt.toLowerCase().includes(searchTerm) ||
-        
         post.data.tags.some(tag => tag.toLowerCase().includes(searchTerm))
       )
       .map(post => ({
@@ -78,6 +87,7 @@ if (query) {
   if (filters.length === 0 || filters.includes('all') || filters.includes('whitepaper')) {
     const whitepaperResults = whitepapers
       .filter(paper =>
+        !query || // Show all if no query
         paper.data.title.toLowerCase().includes(searchTerm) ||
         paper.data.excerpt.toLowerCase().includes(searchTerm) ||
         paper.data.tags.some(tag => tag.toLowerCase().includes(searchTerm))
@@ -99,6 +109,7 @@ if (query) {
   if (filters.length === 0 || filters.includes('all') || filters.includes('page')) {
     const pageResults = Object.entries(pageMetadata)
       .filter(([path, page]) =>
+        !query || // Show all if no query
         page.title.toLowerCase().includes(searchTerm) ||
         page.excerpt.toLowerCase().includes(searchTerm) ||
         page.tags.some(tag => tag.toLowerCase().includes(searchTerm))
@@ -117,7 +128,7 @@ if (query) {
   // Search tags
   if (filters.length === 0 || filters.includes('all') || filters.includes('tag')) {
     const tagResults = tags
-      .filter(tag => tag.name.toLowerCase().includes(searchTerm))
+      .filter(tag => !query || tag.name.toLowerCase().includes(searchTerm))
       .map(tag => ({
         type: 'tag' as const,
         title: tag.name,
@@ -265,35 +276,29 @@ const searchMetadata = generateMetaProperties('/search', {
     
     /* Tag suggestion styles */
     .tag-suggestion {
-      @apply px-3 py-2 hover:bg-gray-100 cursor-pointer transition-colors;
+      @apply px-3 py-2.5 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100 last:border-b-0;
     }
     
     .tag-suggestion:hover {
-      @apply bg-gradient-to-r from-[#54C4B6]/10 to-[#A8D381]/10;
+      @apply bg-gradient-to-r from-[#54C4B6]/5 to-[#A8D381]/5;
     }
     
     .tag-suggestion.active {
-      @apply bg-gradient-to-r from-[#54C4B6]/20 to-[#A8D381]/20;
+      @apply bg-gradient-to-r from-[#54C4B6]/10 to-[#A8D381]/10;
+    }
+    
+    /* Author suggestion styles */
+    .author-suggestion:hover {
+      @apply bg-gradient-to-r from-[#54C4B6]/5 to-[#A8D381]/5;
+    }
+    
+    .author-suggestion.active {
+      @apply bg-gradient-to-r from-[#54C4B6]/10 to-[#A8D381]/10;
     }
     
     /* Advanced options animation */
     #advanced-options {
       transition: all 0.3s ease-in-out;
-    }
-    
-    #advanced-options:not(.hidden) {
-      animation: slideDown 0.3s ease-out;
-    }
-    
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
     
     /* Result item styles to match modal */
@@ -364,6 +369,11 @@ const searchMetadata = generateMetaProperties('/search', {
     .animate-spin {
       animation: spin 1s linear infinite;
     }
+    
+    /* Rotation for advanced toggle */
+    .rotate-180 {
+      transform: rotate(180deg);
+    }
   </style>
 
   <div class="min-h-screen bg-gradient-to-b from-gray-50 to-white">
@@ -377,21 +387,36 @@ const searchMetadata = generateMetaProperties('/search', {
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
           </svg>
           <form method="get" action="/search" class="flex-1 flex items-center gap-4">
-            <input
-              type="text"
-              name="q"
-              id="search-input"
-              value={query}
-              placeholder="Search blogs, whitepapers, and topics..."
-              class="flex-1 text-lg bg-transparent outline-none placeholder-gray-400 text-gray-900 font-medium"
-              autocomplete="off"
-              autofocus
-            />
+            <div class="flex-1 relative">
+              <input
+                type="text"
+                name="q"
+                id="search-input"
+                value={query}
+                placeholder="Search blogs, whitepapers, and topics..."
+                class="w-full text-lg bg-transparent outline-none placeholder-gray-400 text-gray-900 font-medium pr-8"
+                autocomplete="off"
+                autofocus
+              />
+              <!-- Clear button -->
+              {query && (
+                <button
+                  type="button"
+                  id="clear-search"
+                  class="absolute right-0 top-1/2 -translate-y-1/2 p-2 text-gray-400 hover:text-gray-600 transition-colors"
+                  aria-label="Clear search"
+                >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+                </button>
+              )}
+            </div>
             <input type="hidden" name="filter" value={filter} id="filter-input" />
             <!-- Keyboard shortcut hint -->
             <div class="hidden sm:flex items-center gap-2 text-sm text-gray-400">
-              <kbd class="px-2 py-1 bg-gray-100 border border-gray-300 rounded text-xs font-mono">Cmd+K</kbd>
-              <span>for quick search</span>
+              <kbd class="px-2 py-1 bg-gray-100 border border-gray-300 rounded text-xs font-mono">Esc</kbd>
+              <span>to clear</span>
             </div>
           </form>
         </div>
@@ -418,8 +443,8 @@ const searchMetadata = generateMetaProperties('/search', {
           
           <!-- Advanced Options Toggle -->
           <button id="advanced-toggle" class="text-sm text-[#54C4B6] hover:text-[#54C4B6]/80 font-medium flex items-center gap-1">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+            <svg class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
             </svg>
             Advanced Options
           </button>
@@ -427,7 +452,7 @@ const searchMetadata = generateMetaProperties('/search', {
         
         <!-- Advanced Search Options (Hidden by default) -->
         <div id="advanced-options" class="hidden mt-6 p-4 bg-gray-50 rounded-lg">
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <!-- Date Range -->
             <div class="relative">
               <label class="block text-sm font-medium text-gray-700 mb-2">Date Range</label>
@@ -469,32 +494,41 @@ const searchMetadata = generateMetaProperties('/search', {
             <div class="relative">
               <label class="block text-sm font-medium text-gray-700 mb-2">Author</label>
               <div class="relative">
-                <input type="text" id="author-filter" placeholder="Filter by author..." class="w-full px-3 py-2 pr-8 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#54C4B6]">
+                <input type="text" id="author-filter" placeholder="Type author name and press Enter..." class="w-full px-3 py-2 pr-8 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#54C4B6]">
                 <button type="button" class="clear-filter-btn absolute right-2 top-2.5 text-gray-400 hover:text-gray-600 hidden" data-filter="author-filter">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                   </svg>
                 </button>
+                <div id="author-suggestions" class="absolute z-10 w-full mt-1 bg-white rounded-lg shadow-lg border border-gray-200 max-h-48 overflow-y-auto hidden"></div>
               </div>
             </div>
             
             <!-- Tag Filter -->
-            <div class="md:col-span-2 lg:col-span-3">
+            <div class="relative">
               <label class="block text-sm font-medium text-gray-700 mb-2">Filter by Tags</label>
               <div class="relative">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">#</span>
                 <input 
                   type="text" 
                   id="tag-input" 
-                  placeholder="Type to search tags..." 
-                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#54C4B6]"
+                  placeholder="Type tag and press Enter..." 
+                  class="w-full pl-6 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#54C4B6]"
                   autocomplete="off"
                 >
                 <!-- Tag autocomplete dropdown -->
                 <div id="tag-suggestions" class="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg hidden z-50 max-h-48 overflow-y-auto"></div>
               </div>
-              <!-- Selected tags -->
-              <div id="selected-tags" class="flex flex-wrap gap-2 mt-2"></div>
+              <!-- Selected tags (moved outside to span full width) -->
             </div>
+          </div>
+          
+          <!-- Selected filters shown below the grid -->
+          <div class="space-y-2 mt-4">
+            <!-- Selected authors -->
+            <div id="selected-authors" class="flex flex-wrap gap-2"></div>
+            <!-- Selected tags -->
+            <div id="selected-tags" class="flex flex-wrap gap-2"></div>
           </div>
           
           <div class="mt-4 flex justify-end gap-2">
@@ -508,7 +542,7 @@ const searchMetadata = generateMetaProperties('/search', {
     <!-- Search Results -->
     <div class="max-h-[calc(100vh-280px)] overflow-y-auto">
       <div class="search-container px-4 sm:px-6 lg:px-8 py-6">
-        {query ? (
+        {(query || (filter && filter !== 'all') || showFiltered || hasAdvancedFilters) ? (
           results.length > 0 ? (
             <div class="search-results-container">
               {results.map((result, index) => {
@@ -587,9 +621,14 @@ const searchMetadata = generateMetaProperties('/search', {
           <div class="max-w-4xl mx-auto">
             <!-- Recent searches -->
             <div id="recent-searches" class="mb-8 hidden">
-              <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-3 mb-4">
                 <h2 class="text-lg font-semibold text-gray-900">Recent Searches</h2>
-                <button id="clear-history" class="text-sm text-gray-500 hover:text-gray-700">Clear</button>
+                <button 
+                  id="clear-history" 
+                  class="px-3 py-1 text-sm font-medium text-gray-600 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 hover:text-gray-900 transition-colors"
+                >
+                  Clear All
+                </button>
               </div>
               <div id="recent-searches-list" class="flex flex-wrap gap-2"></div>
             </div>
@@ -653,7 +692,7 @@ const searchMetadata = generateMetaProperties('/search', {
     </div>
     
     <!-- Footer with keyboard shortcuts - only show when there are results -->
-    {query && (
+    {(query || (filter && filter !== 'all') || showFiltered || hasAdvancedFilters) && results.length > 0 && (
       <div class="p-4 sm:px-6 border-t border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100/50">
         <div class="search-container flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-gray-500">
           <div class="flex items-center gap-3 text-xs sm:text-sm">
@@ -676,11 +715,12 @@ const searchMetadata = generateMetaProperties('/search', {
     )}
   </div>
 
-  <script define:vars={{ allTagNames: tags.map(t => t.name) }}>
+  <script define:vars={{ allTagNames: tags.map(t => t.name), allAuthorNames: authorNames }}>
     // Global variables
     let selectedIndex = -1;
     let selectedFilters = [];
     let selectedTags = [];
+    let selectedAuthors = [];
     let suggestionIndex = -1;
     let searchTimeout;
     
@@ -701,7 +741,8 @@ const searchMetadata = generateMetaProperties('/search', {
       
       // Advanced options toggle
       if (advancedToggle && advancedOptions) {
-        advancedToggle.addEventListener('click', () => {
+        advancedToggle.addEventListener('click', (e) => {
+          e.preventDefault();
           advancedOptions.classList.toggle('hidden');
           const icon = advancedToggle.querySelector('svg');
           if (icon) {
@@ -763,12 +804,23 @@ const searchMetadata = generateMetaProperties('/search', {
     const tagSuggestions = document.getElementById('tag-suggestions');
     const selectedTagsContainer = document.getElementById('selected-tags');
     
-    // Initialize selected tags from URL
+    // Author filter functionality
+    const authorFilterInput = document.getElementById('author-filter');
+    const authorSuggestions = document.getElementById('author-suggestions');
+    const selectedAuthorsContainer = document.getElementById('selected-authors');
+    
+    // Initialize selected tags and authors from URL
     const urlParams = new URLSearchParams(window.location.search);
     const urlTags = urlParams.get('tags');
     if (urlTags) {
       selectedTags = urlTags.split(',').filter(t => t);
       displaySelectedTags();
+    }
+    
+    const urlAuthor = urlParams.get('author');
+    if (urlAuthor) {
+      selectedAuthors = urlAuthor.split(',').filter(a => a);
+      displaySelectedAuthors();
     }
     
     // Tag input functionality
@@ -813,8 +865,9 @@ const searchMetadata = generateMetaProperties('/search', {
       
       if (matches.length > 0) {
         tagSuggestions.innerHTML = matches.map((tag, index) => `
-          <div class="tag-suggestion ${index === 0 ? 'active' : ''}" data-tag="${tag}">
-            #${tag}
+          <div class="tag-suggestion relative ${index === 0 ? 'active' : ''}" data-tag="${tag}">
+            <span class="absolute left-3 text-gray-400">#</span>
+            <span class="pl-6">${tag}</span>
           </div>
         `).join('');
         
@@ -882,10 +935,138 @@ const searchMetadata = generateMetaProperties('/search', {
     // Make removeTag available globally
     window.removeTag = removeTag;
     
+    // Author filter handling
+    let authorSuggestionIndex = -1;
+    
+    authorFilterInput?.addEventListener('input', (e) => {
+      const value = e.target.value.trim();
+      if (value.length > 0) {
+        showAuthorSuggestions(value);
+      } else {
+        hideAuthorSuggestions();
+      }
+    });
+    
+    authorFilterInput?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        
+        // If a suggestion is selected, use it
+        const suggestions = authorSuggestions?.querySelectorAll('.author-suggestion');
+        if (suggestions && authorSuggestionIndex >= 0 && authorSuggestionIndex < suggestions.length) {
+          const selectedAuthor = suggestions[authorSuggestionIndex].getAttribute('data-author');
+          if (selectedAuthor && !selectedAuthors.includes(selectedAuthor)) {
+            selectedAuthors.push(selectedAuthor);
+            displaySelectedAuthors();
+            authorFilterInput.value = '';
+            hideAuthorSuggestions();
+          }
+        } else {
+          // Otherwise use the typed value
+          const authorName = authorFilterInput.value.trim();
+          if (authorName && !selectedAuthors.includes(authorName)) {
+            selectedAuthors.push(authorName);
+            displaySelectedAuthors();
+            authorFilterInput.value = '';
+            hideAuthorSuggestions();
+          }
+        }
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        navigateAuthorSuggestions(1);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        navigateAuthorSuggestions(-1);
+      } else if (e.key === 'Escape') {
+        hideAuthorSuggestions();
+      }
+    });
+    
+    function showAuthorSuggestions(searchTerm) {
+      const matches = allAuthorNames.filter(author => 
+        author.toLowerCase().includes(searchTerm.toLowerCase())
+      ).slice(0, 10);
+      
+      if (matches.length > 0) {
+        authorSuggestions.innerHTML = matches.map((author, index) => `
+          <div class="author-suggestion px-3 py-2.5 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100 last:border-b-0 ${index === 0 ? 'active' : ''}" data-author="${author}">
+            ${author}
+          </div>
+        `).join('');
+        authorSuggestions.classList.remove('hidden');
+        authorSuggestionIndex = 0;
+        
+        // Add click handlers
+        authorSuggestions.querySelectorAll('.author-suggestion').forEach(suggestion => {
+          suggestion.addEventListener('click', () => {
+            const author = suggestion.getAttribute('data-author');
+            if (author && !selectedAuthors.includes(author)) {
+              selectedAuthors.push(author);
+              displaySelectedAuthors();
+              authorFilterInput.value = '';
+              hideAuthorSuggestions();
+            }
+          });
+        });
+      } else {
+        hideAuthorSuggestions();
+      }
+    }
+    
+    function hideAuthorSuggestions() {
+      authorSuggestions?.classList.add('hidden');
+      authorSuggestionIndex = -1;
+    }
+    
+    function navigateAuthorSuggestions(direction) {
+      const suggestions = authorSuggestions?.querySelectorAll('.author-suggestion');
+      if (!suggestions || suggestions.length === 0) return;
+      
+      // Remove active class from current selection
+      if (authorSuggestionIndex >= 0 && authorSuggestionIndex < suggestions.length) {
+        suggestions[authorSuggestionIndex].classList.remove('active', 'bg-gradient-to-r', 'from-[#54C4B6]/10', 'to-[#A8D381]/10');
+      }
+      
+      // Update index
+      authorSuggestionIndex = Math.max(0, Math.min(suggestions.length - 1, authorSuggestionIndex + direction));
+      
+      // Add active class to new selection
+      suggestions[authorSuggestionIndex].classList.add('active', 'bg-gradient-to-r', 'from-[#54C4B6]/10', 'to-[#A8D381]/10');
+      
+      // Scroll into view if needed
+      suggestions[authorSuggestionIndex].scrollIntoView({ block: 'nearest' });
+    }
+    
+    function displaySelectedAuthors() {
+      if (!selectedAuthorsContainer) return;
+      
+      selectedAuthorsContainer.innerHTML = selectedAuthors.map(author => `
+        <span class="selected-tag">
+          ${author}
+          <button type="button" onclick="removeAuthor('${author.replace(/'/g, "\\'")}')" class="remove-tag-btn">
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </span>
+      `).join('');
+    }
+    
+    function removeAuthor(author) {
+      selectedAuthors = selectedAuthors.filter(a => a !== author);
+      displaySelectedAuthors();
+    }
+    
+    // Make removeAuthor available globally
+    window.removeAuthor = removeAuthor;
+    
     // Click outside to close suggestions
     document.addEventListener('click', (e) => {
       if (!tagInput?.contains(e.target) && !tagSuggestions?.contains(e.target)) {
         hideTagSuggestions();
+      }
+      if (!authorFilterInput?.contains(e.target) && !authorSuggestions?.contains(e.target)) {
+        hideAuthorSuggestions();
       }
     });
     
@@ -894,14 +1075,32 @@ const searchMetadata = generateMetaProperties('/search', {
       // Collect all advanced filter values
       const dateRange = document.getElementById('date-range')?.value;
       const sortBy = document.getElementById('sort-by')?.value;
-      const author = document.getElementById('author-filter')?.value;
       
       // Build advanced query params
-      const params = new URLSearchParams(window.location.search);
+      const params = new URLSearchParams();
+      
+      // Keep the search query if it exists
+      const currentQuery = searchInput?.value || '';
+      if (currentQuery) {
+        params.set('q', currentQuery);
+      }
+      
+      // Keep the filter type if it exists and isn't 'all'
+      if (selectedFilters.length > 0) {
+        params.set('filter', selectedFilters.join(','));
+      }
+      
+      // Add advanced filters
       if (dateRange) params.set('dateRange', dateRange);
       if (sortBy) params.set('sort', sortBy);
-      if (author) params.set('author', author);
+      if (selectedAuthors.length > 0) params.set('author', selectedAuthors.join(','));
       if (selectedTags.length > 0) params.set('tags', selectedTags.join(','));
+      
+      // If we have any filters but no query, we still want to show results
+      // So we'll use a special marker that the server-side code can recognize
+      if (!currentQuery && (selectedAuthors.length > 0 || selectedTags.length > 0 || dateRange)) {
+        params.set('showFiltered', 'true');
+      }
       
       // Navigate with new params
       window.location.href = `/search?${params.toString()}`;
@@ -913,7 +1112,9 @@ const searchMetadata = generateMetaProperties('/search', {
       document.getElementById('sort-by').value = 'relevance';
       document.getElementById('author-filter').value = '';
       selectedTags = [];
+      selectedAuthors = [];
       displaySelectedTags();
+      displaySelectedAuthors();
       updateClearButtons();
     });
     
@@ -970,9 +1171,48 @@ const searchMetadata = generateMetaProperties('/search', {
     // Initialize clear buttons
     updateClearButtons();
     
+    // Clear search button functionality
+    const clearSearchBtn = document.getElementById('clear-search');
+    if (clearSearchBtn) {
+      clearSearchBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        searchInput.focus();
+        clearSearchBtn.classList.add('hidden');
+        // Navigate to search page without query
+        window.location.href = '/search';
+      });
+      
+      // Show/hide clear button based on input
+      searchInput?.addEventListener('input', () => {
+        if (searchInput.value.trim()) {
+          clearSearchBtn.classList.remove('hidden');
+        } else {
+          clearSearchBtn.classList.add('hidden');
+        }
+      });
+    }
+    
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
       const results = document.querySelectorAll('.search-result-item');
+      
+      // Escape key to clear search
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        if (searchInput && searchInput.value) {
+          searchInput.value = '';
+          searchInput.focus();
+          if (clearSearchBtn) {
+            clearSearchBtn.classList.add('hidden');
+          }
+          // Navigate to search page without query
+          window.location.href = '/search';
+        }
+        // Also hide any open dropdowns
+        hideSearchSuggestions();
+        hideTagSuggestions();
+        return;
+      }
       
       if (results.length > 0) {
         if (e.key === 'ArrowDown') {
@@ -992,13 +1232,7 @@ const searchMetadata = generateMetaProperties('/search', {
         }
       }
       
-      // Cmd/Ctrl + K to open modal search
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        if (window.openSearchModal) {
-          window.openSearchModal();
-        }
-      }
+      // Removed Cmd/Ctrl + K handler - not needed on search page
     });
     
     // Update selected result visual state
