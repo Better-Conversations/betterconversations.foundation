@@ -12,7 +12,7 @@ The official website for the Better Conversations Foundation (BCF), built with A
 │   │       ├── badges-linkedin-example.png
 │   │       └── bulls-and-better-conversations-picasso-series.jpg
 │   ├── Better-Conversations-Foundation-RGB.png
-│   └── favicon.svg
+│   └── favicon.png
 ├── src/
 │   ├── assets/                      # Optimized images (processed by Astro)
 │   │   └── images/
@@ -71,8 +71,8 @@ All commands are run from the root of the project, from a terminal:
 ## 🏗️ Architecture
 
 ### Framework Stack
-- **Astro v5.11.0** - Static site generator with partial hydration
-- **Tailwind CSS v3.4.17** - Utility-first CSS framework
+- **Astro v5.11.0** - Static site generator (fully static build, no SSR)
+- **Tailwind CSS v3.4.17** - Utility-first CSS framework  
 - **TypeScript** - Type-safe JavaScript with strict configuration
 - **Alpine.js v3.14.9** - Lightweight framework for progressive enhancement
 
@@ -83,6 +83,7 @@ All commands are run from the root of the project, from a terminal:
 - **Interactive Elements**: Magnetic buttons, 3D tilt cards, typewriter effects
 - **SEO Optimized**: Clean URLs and proper meta tags
 - **Progressive Enhancement**: Server-rendered content enhanced with Alpine.js for interactivity
+- **Client-Side Search**: Fast, interactive search with advanced filtering (no SSR required)
 
 ### Blog Architecture
 - **URL Structure**: 
@@ -97,6 +98,8 @@ All commands are run from the root of the project, from a terminal:
 - **Consistent Gradients**: `from-[#54C4B6] to-[#A8D381]` pattern throughout
 - **Wave Separators**: Custom SVG patterns between sections
 - **Interactive Elements**: Hover effects, transitions, and micro-interactions
+- **Global CSS Classes**: Unified component system with `.bcf-*` prefix for consistency
+- **Content Cards**: Standardized card design using `.bcf-content-card-*` classes
 
 ## 📝 Content Management
 
@@ -126,7 +129,7 @@ All commands are run from the root of the project, from a terminal:
 #### Where to Place Images
 
 **In `/public/`** (served as-is, no optimization):
-- Favicons (`favicon.svg`, `favicon.ico`)
+- Favicons (`favicon.png`)
 - Open Graph/social media images (need static URLs)
 - External service images (RSS feeds, etc.)
 - Inline blog content images referenced in markdown
@@ -136,6 +139,12 @@ All commands are run from the root of the project, from a terminal:
 - Blog hero images → `/src/assets/images/blog/`
 - Logo variations → `/src/assets/images/logos/`
 - All other component images
+
+#### Content Type Image Strategy
+- **Blog Posts**: Hero images from `/src/assets/images/blog/` (auto-optimized)
+- **Whitepapers**: Default document icon (no custom images)
+- **Pages**: BCF symbol logo from `/src/assets/images/logos/bcf-symbol.png`
+- **Tag/Search Pages**: Consistent display with white backgrounds and borders
 
 #### Automatic Image Import System
 
@@ -206,8 +215,17 @@ import diagram from '../assets/images/blog/diagram.png';
 
 ### Tailwind Classes
 - Use utility classes for most styling
+- Global CSS classes with `.bcf-*` prefix for common components
 - Custom CSS in `<style>` blocks for animations and complex layouts
 - Maintain consistency with the design system
+
+### Global CSS Components
+The site uses a comprehensive global CSS system (`src/styles/global.css`) for consistency:
+- **Dropdowns**: `.bcf-dropdown-button`, `.bcf-dropdown-container`, etc.
+- **Forms**: `.bcf-input`, `.bcf-label`
+- **Buttons**: `.bcf-button-primary`, `.bcf-button-secondary`
+- **Content Cards**: `.bcf-content-card-*` classes for search/tag page results
+- **Typography**: `.bcf-section-header`, `.bcf-gradient-text`
 
 ### Responsive Design
 - Mobile-first approach using Tailwind breakpoints
@@ -260,9 +278,10 @@ import diagram from '../assets/images/blog/diagram.png';
 - `src/content/config.ts`: Content collection schemas
 
 ### Environment
-- Built for static deployment
+- Built for static deployment (fully static, no SSR)
 - No runtime database required
 - Content managed through markdown files
+- All search and filtering handled client-side
 
 ## 🤝 Contributing
 

@@ -104,7 +104,7 @@ npm run preview      # Preview production build locally
 ## Architecture & Key Patterns
 
 ### Framework Stack
-- **Astro v5.11.0** - Static site generator
+- **Astro v5.11.0** - Static site generator (fully static build, no SSR)
 - **Tailwind CSS v3.4.17** - Utility-first styling (configured with @astrojs/tailwind)
 - **TypeScript** - Strict configuration enabled
 
@@ -137,6 +137,7 @@ npm run preview      # Preview production build locally
    - Wave separator SVG pattern used between sections
    - Responsive breakpoints: mobile-first with sm/md/lg/xl
    - **IMPORTANT**: Use global CSS classes (`.bcf-*`) for common components to ensure consistency
+   - **Content Cards**: Unified card design system using `.bcf-content-card-*` classes across search and tag pages
 
 4. **Special Features**:
    - **Footer behavior**: Sticky minimal footer that expands when scrolled to bottom
@@ -183,10 +184,10 @@ When moving files between directories, update import paths:
 
 ### Search Page Architecture
 
-1. **Server-Side Rendering**:
-   - Search page has `export const prerender = false` (SSR, not static)
-   - Enables real-time search with URL parameters
-   - Maintains search state across page reloads
+1. **Static Rendering**:
+   - Search page is now statically generated (SSR removed from entire site)
+   - Uses client-side JavaScript for real-time search functionality
+   - URL parameters handled via JavaScript for state preservation
 
 2. **Advanced Filtering**:
    - Content type filter (blogs, whitepapers, pages, topics)
@@ -252,6 +253,12 @@ The site uses an automatic image import system that eliminates the need for manu
    - `/src/assets/images/`: For all images that should be optimized by Astro
    - Blog content images referenced in markdown: Place in `/public/images/blog/`
 
+7. **Content Type Image Strategy**:
+   - **Blog Posts**: Use hero images from `/src/assets/images/blog/` via `getBlogImage()`
+   - **Whitepapers**: Display default document icon (no custom images)
+   - **Pages**: Use BCF symbol logo from `/src/assets/images/logos/bcf-symbol.png`
+   - **Search/Tag Pages**: Consistent image display with white backgrounds and borders
+
 ### Component Patterns
 
 Astro components use frontmatter for logic:
@@ -304,7 +311,21 @@ The site uses a comprehensive set of global CSS classes defined in `src/styles/g
    - `.bcf-card` - Card containers with hover lift effect
    - `.bcf-search-result` - Search result cards with border hover
 
-5. **Typography**
+5. **Content Result Cards** (used for consistent display across search and tag pages)
+   - `.bcf-content-card` - Main card container with shadow and hover effects
+   - `.bcf-content-card-link` - Link wrapper for the entire card
+   - `.bcf-content-card-body` - Flex container for card layout
+   - `.bcf-content-card-image` - Image container with fixed dimensions
+   - `.bcf-content-card-image.page-type` - Special styling for page content type
+   - `.bcf-content-card-badge` - Type badge positioned over image
+   - `.bcf-content-card-content` - Text content container
+   - `.bcf-content-card-content.centered` - Vertically centered variant for pages
+   - `.bcf-content-card-title` - Card title with hover effect
+   - `.bcf-content-card-excerpt` - Card description text
+   - `.bcf-content-card-meta` - Metadata container (date, author, tags)
+   - `.bcf-content-tag-pill` - Individual tag pills within cards
+
+6. **Typography**
    - `.bcf-section-header` - Large section headings
    - `.bcf-section-description` - Section subtitle text
    - `.bcf-gradient-text` - Text with brand gradient effect
@@ -336,6 +357,31 @@ The site uses a comprehensive set of global CSS classes defined in `src/styles/g
   <h3 class="bcf-gradient-text">Featured Content</h3>
   <p>Card content here...</p>
 </div>
+
+<!-- Content Result Card (for search/tag pages) -->
+<article class="bcf-content-card">
+  <a href="/path/to/content" class="bcf-content-card-link group">
+    <div class="bcf-content-card-body">
+      <div class="bcf-content-card-image">
+        <img src="..." alt="..." class="w-full h-full object-cover">
+        <div class="bcf-content-card-badge">
+          <span class="px-2 py-1 bg-[#54C4B6] text-white text-xs font-medium rounded-full">Blog</span>
+        </div>
+      </div>
+      <div class="bcf-content-card-content">
+        <h3 class="bcf-content-card-title">Article Title</h3>
+        <p class="bcf-content-card-excerpt">Brief description of the content...</p>
+        <div class="bcf-content-card-meta">
+          <time>Aug 5, 2025</time>
+          <span>Jane Smith</span>
+          <div class="flex gap-1 flex-wrap">
+            <a href="/tags/topic" class="bcf-content-tag-pill">#topic</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+</article>
 ```
 
 **Best Practices:**
@@ -464,7 +510,7 @@ Each page should include 2-3 signature interactive elements that make it memorab
 - **Contact Page**: Morphing blobs, typewriter effect, 3D tilt cards
 - **Whitepapers Page**: Paper stack effects, live counters, download progress
 - **Partner Page**: Flip card animations, staggered reveals, floating icons
-- **Search Page**: Server-side rendered (non-prerendered), advanced filtering with autocomplete dropdowns
+- **Search Page**: Client-side search functionality, advanced filtering with autocomplete dropdowns
 
 ### Animation Guidelines
 
@@ -557,3 +603,4 @@ When creating hover effects for dynamically generated content (via JavaScript), 
 - All images should be placed in `/public/` directory
 - The site uses no runtime JavaScript framework - all interactivity is vanilla JS in `<script>` tags
 - Maintain the balance between innovation and usability - the site should feel fresh but remain accessible
+- Site favicon uses `/public/favicon.png` (not SVG) - referenced in Layout.astro
