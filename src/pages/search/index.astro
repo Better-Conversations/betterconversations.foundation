@@ -109,12 +109,19 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
-  <div class="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
-    <!-- Hero Section with Integrated Search -->
-    <div class="bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10 border-b border-gray-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-        <h1 class="text-3xl font-bold text-gray-900 mb-2">Search & Explore</h1>
-        <p class="text-gray-600 mb-8">Discover insights across our knowledge base</p>
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white py-16 lg:py-24">
+    <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/10 via-transparent to-[#A8D381]/10"></div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+          Search & <span class="text-[#54C4B6]">Explore</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
+          Discover insights across our knowledge base. Search blogs, whitepapers, topics, and resources.
+        </p>
+      </div>
         
         <!-- Main Search Bar -->
         <div class="bg-white rounded-2xl shadow-lg p-6">
@@ -241,8 +248,17 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
       </div>
     </div>
     
-    <!-- Results Section -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Wave separator -->
+    <div class="absolute bottom-0 left-0 right-0">
+      <svg class="w-full h-16 text-white" preserveAspectRatio="none" viewBox="0 0 1440 54" fill="currentColor">
+        <path d="M0,22L60,27.2C120,32,240,43,360,44.7C480,46,600,38,720,30.3C840,22,960,14,1080,16.3C1200,19,1320,32,1380,38.5L1440,45L1440,54L1380,54C1320,54,1200,54,1080,54C960,54,840,54,720,54C600,54,480,54,360,54C240,54,120,54,60,54L0,54Z"></path>
+      </svg>
+    </div>
+  </section>
+    
+  <!-- Results Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Results Header -->
       <div id="results-header" class="flex items-center justify-between mb-6" style="display: none;">
         <div>
@@ -277,7 +293,15 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
         <div id="initial-state" class="grid md:grid-cols-2 gap-8">
           <!-- Popular Topics -->
           <div class="bg-white rounded-lg border border-gray-200 p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Popular Topics</h3>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-semibold text-gray-900">Popular Topics</h3>
+              <a href="/tags" class="text-sm text-[#54C4B6] hover:text-[#54C4B6]/80 font-medium transition-colors inline-flex items-center gap-1">
+                Browse all topics
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </a>
+            </div>
             <div class="flex flex-wrap gap-2">
               {popularTags.slice(0, 12).map(tag => (
                 <button
@@ -293,7 +317,15 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
           
           <!-- Recent Content -->
           <div class="bg-white rounded-lg border border-gray-200 p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Recent Posts</h3>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-semibold text-gray-900">Recent Posts</h3>
+              <a href="/blog" class="text-sm text-[#54C4B6] hover:text-[#54C4B6]/80 font-medium transition-colors inline-flex items-center gap-1">
+                View all posts
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </a>
+            </div>
             <div class="space-y-3">
               {recentBlogs.map(post => (
                 <a href={`/blog/${post.slug}`} class="block group">
@@ -314,7 +346,7 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
   <style>
     /* Custom styles for search page */
@@ -399,6 +431,16 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
     
     // Function to initialize the search page
     function initializeSearchPage() {
+      // Clean up existing event handlers
+      if (globalClickHandler) {
+        document.removeEventListener('click', globalClickHandler);
+        globalClickHandler = null;
+      }
+      if (globalEscapeHandler) {
+        document.removeEventListener('keydown', globalEscapeHandler);
+        globalEscapeHandler = null;
+      }
+      
       // Get DOM elements
       searchInput = document.getElementById('search-input');
       contentTypeButton = document.getElementById('content-type-button');
@@ -666,7 +708,12 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
     }
     
     // Initialize on DOM ready
-    document.addEventListener('DOMContentLoaded', initializeSearchPage);
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeSearchPage);
+    } else {
+      // DOM is already loaded
+      initializeSearchPage();
+    }
     
     // Also initialize after Astro page transitions
     document.addEventListener('astro:after-swap', initializeSearchPage);
@@ -1076,7 +1123,10 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
       
       if (hasActiveSearch) {
         // Hide initial state, show results
-        if (initialState) initialState.style.display = 'none';
+        if (initialState) {
+          initialState.style.display = 'none';
+          initialState.classList.add('hidden');
+        }
         if (resultsHeader) resultsHeader.style.display = 'flex';
         if (resultsCount) resultsCount.textContent = results.length > 0 ? `${results.length} results found` : 'No results found';
         
@@ -1178,37 +1228,22 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
         }
       } else {
         // Show initial state
-        if (initialState) initialState.style.display = 'grid';
+        if (initialState) {
+          initialState.style.display = 'grid';
+          initialState.classList.remove('hidden'); // Ensure it's not hidden by any class
+        }
         if (resultsHeader) resultsHeader.style.display = 'none';
         searchResultsContainer.innerHTML = '';
+        
+        // Move initial state back into search results container if it was moved out
+        if (initialState && searchResultsContainer && !searchResultsContainer.contains(initialState)) {
+          searchResultsContainer.appendChild(initialState);
+        }
       }
     }
     
     // Make functions available globally
     window.removeAuthor = removeAuthor;
     window.removeTag = removeTag;
-    
-    // Click outside to close dropdowns
-    document.addEventListener('click', (e) => {
-      if (!authorInput?.contains(e.target) && !authorSuggestions?.contains(e.target)) {
-        if (hideAuthorSuggestions) {
-          hideAuthorSuggestions();
-        }
-      }
-      if (!tagInput?.contains(e.target) && !tagSuggestions?.contains(e.target)) {
-        if (hideTagSuggestions) {
-          hideTagSuggestions();
-        }
-      }
-      if (!contentTypeButton?.contains(e.target) && !contentTypeDropdown?.contains(e.target)) {
-        contentTypeDropdown?.classList.add('hidden');
-      }
-      if (!dateRangeButton?.contains(e.target) && !dateRangeDropdown?.contains(e.target)) {
-        dateRangeDropdown?.classList.add('hidden');
-      }
-      if (!sortByButton?.contains(e.target) && !sortByDropdown?.contains(e.target)) {
-        sortByDropdown?.classList.add('hidden');
-      }
-    });
   </script>
 </Layout>

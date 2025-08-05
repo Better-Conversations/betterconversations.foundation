@@ -9,7 +9,9 @@
       "WebFetch(domain:betterconversations.foundation)",
       "WebFetch(domain:marketing.betterconversations.foundation)",
       "Bash(curl:*)",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run preview:*)"
     ],
     "deny": []
   }
