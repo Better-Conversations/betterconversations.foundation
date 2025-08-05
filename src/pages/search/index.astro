@@ -357,20 +357,51 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
     
     let searchTimeout;
     
-    // Initialize on DOM ready
-    document.addEventListener('DOMContentLoaded', () => {
-      const searchInput = document.getElementById('search-input');
-      const contentTypeButton = document.getElementById('content-type-button');
-      const contentTypeDisplay = document.getElementById('content-type-display');
-      const contentTypeDropdown = document.getElementById('content-type-dropdown');
-      const authorInput = document.getElementById('author-filter');
-      const tagInput = document.getElementById('tag-input');
-      const dateRangeButton = document.getElementById('date-range-button');
-      const dateRangeDisplay = document.getElementById('date-range-display');
-      const dateRangeDropdown = document.getElementById('date-range-dropdown');
-      const sortByButton = document.getElementById('sort-by-button');
-      const sortByDisplay = document.getElementById('sort-by-display');
-      const sortByDropdown = document.getElementById('sort-by-dropdown');
+    // Define all DOM elements and functions in outer scope
+    let searchInput, contentTypeButton, contentTypeDisplay, contentTypeDropdown;
+    let authorInput, tagInput, dateRangeButton, dateRangeDisplay, dateRangeDropdown;
+    let sortByButton, sortByDisplay, sortByDropdown;
+    let authorSuggestions, tagSuggestions;
+    let authorSuggestionIndex = -1;
+    let tagSuggestionIndex = -1;
+    
+    // Store references to event handlers for cleanup
+    let globalEscapeHandler = null;
+    let globalClickHandler = null;
+    
+    // Define autocomplete functions early to avoid reference errors
+    let showAuthorSuggestions = function() {};
+    let hideAuthorSuggestions = function() {
+      if (authorSuggestions) {
+        authorSuggestions.classList.add('hidden');
+      }
+      authorSuggestionIndex = -1;
+    };
+    let showTagSuggestions = function() {};
+    let hideTagSuggestions = function() {
+      if (tagSuggestions) {
+        tagSuggestions.classList.add('hidden');
+      }
+      tagSuggestionIndex = -1;
+    };
+    
+    // Function to initialize the search page
+    function initializeSearchPage() {
+      // Get DOM elements
+      searchInput = document.getElementById('search-input');
+      contentTypeButton = document.getElementById('content-type-button');
+      contentTypeDisplay = document.getElementById('content-type-display');
+      contentTypeDropdown = document.getElementById('content-type-dropdown');
+      authorInput = document.getElementById('author-filter');
+      authorSuggestions = document.getElementById('author-suggestions');
+      tagInput = document.getElementById('tag-input');
+      tagSuggestions = document.getElementById('tag-suggestions');
+      dateRangeButton = document.getElementById('date-range-button');
+      dateRangeDisplay = document.getElementById('date-range-display');
+      dateRangeDropdown = document.getElementById('date-range-dropdown');
+      sortByButton = document.getElementById('sort-by-button');
+      sortByDisplay = document.getElementById('sort-by-display');
+      sortByDropdown = document.getElementById('sort-by-dropdown');
       
       // Set initial search input value
       if (searchInput && searchState.query) {
@@ -452,14 +483,22 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
         }
       });
       
+      // Remove old handlers if they exist
+      if (globalEscapeHandler) {
+        document.removeEventListener('keydown', globalEscapeHandler);
+      }
+      if (globalClickHandler) {
+        document.removeEventListener('click', globalClickHandler);
+      }
+      
       // Add global escape key handler
-      document.addEventListener('keydown', (e) => {
+      globalEscapeHandler = (e) => {
         if (e.key === 'Escape') {
           // Check if any dropdown is open
-          const authorSuggestions = document.getElementById('author-suggestions');
-          const tagSuggestions = document.getElementById('tag-suggestions');
+          const authorSuggestionsEl = document.getElementById('author-suggestions');
+          const tagSuggestionsEl = document.getElementById('tag-suggestions');
           
-          if (!authorSuggestions?.classList.contains('hidden') || !tagSuggestions?.classList.contains('hidden')) {
+          if (!authorSuggestionsEl?.classList.contains('hidden') || !tagSuggestionsEl?.classList.contains('hidden')) {
             // Just close dropdowns
             hideAuthorSuggestions();
             hideTagSuggestions();
@@ -468,52 +507,80 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
             clearAllFilters();
           }
         }
-      });
+      };
+      document.addEventListener('keydown', globalEscapeHandler);
+      
+      // Click outside to close dropdowns
+      globalClickHandler = (e) => {
+        // Close dropdowns if clicking outside
+        if (contentTypeDropdown && !contentTypeButton?.contains(e.target) && !contentTypeDropdown.contains(e.target)) {
+          contentTypeDropdown.classList.add('hidden');
+        }
+        if (dateRangeDropdown && !dateRangeButton?.contains(e.target) && !dateRangeDropdown.contains(e.target)) {
+          dateRangeDropdown.classList.add('hidden');
+        }
+        if (sortByDropdown && !sortByButton?.contains(e.target) && !sortByDropdown.contains(e.target)) {
+          sortByDropdown.classList.add('hidden');
+        }
+        if (authorSuggestions && !authorInput?.contains(e.target) && !authorSuggestions.contains(e.target)) {
+          hideAuthorSuggestions();
+        }
+        if (tagSuggestions && !tagInput?.contains(e.target) && !tagSuggestions.contains(e.target)) {
+          hideTagSuggestions();
+        }
+      };
+      document.addEventListener('click', globalClickHandler);
       
       // Content type dropdown functionality
-      contentTypeButton?.addEventListener('click', () => {
-        contentTypeDropdown?.classList.toggle('hidden');
-        dateRangeDropdown?.classList.add('hidden'); // Close other dropdown
-      });
+      if (contentTypeButton && contentTypeDropdown) {
+        contentTypeButton.addEventListener('click', () => {
+          contentTypeDropdown.classList.toggle('hidden');
+          if (dateRangeDropdown) dateRangeDropdown.classList.add('hidden'); // Close other dropdown
+        });
+      }
       
       document.querySelectorAll('.content-type-option').forEach(option => {
         option.addEventListener('click', () => {
           const value = option.getAttribute('data-value');
           searchState.contentType = value;
-          contentTypeDisplay.textContent = option.textContent;
-          contentTypeDropdown.classList.add('hidden');
+          if (contentTypeDisplay) contentTypeDisplay.textContent = option.textContent;
+          if (contentTypeDropdown) contentTypeDropdown.classList.add('hidden');
         });
       });
       
       // Date range dropdown functionality
-      dateRangeButton?.addEventListener('click', () => {
-        dateRangeDropdown?.classList.toggle('hidden');
-        contentTypeDropdown?.classList.add('hidden'); // Close other dropdown
-      });
+      if (dateRangeButton && dateRangeDropdown) {
+        dateRangeButton.addEventListener('click', () => {
+          dateRangeDropdown.classList.toggle('hidden');
+          if (contentTypeDropdown) contentTypeDropdown.classList.add('hidden'); // Close other dropdown
+        });
+      }
       
       document.querySelectorAll('.date-range-option').forEach(option => {
         option.addEventListener('click', () => {
           const value = option.getAttribute('data-value');
           searchState.dateRange = value;
-          dateRangeDisplay.textContent = option.textContent;
-          dateRangeDropdown.classList.add('hidden');
+          if (dateRangeDisplay) dateRangeDisplay.textContent = option.textContent;
+          if (dateRangeDropdown) dateRangeDropdown.classList.add('hidden');
         });
       });
       
       // Sort by dropdown functionality
-      sortByButton?.addEventListener('click', () => {
-        sortByDropdown?.classList.toggle('hidden');
-        // Close other dropdowns
-        contentTypeDropdown?.classList.add('hidden');
-        dateRangeDropdown?.classList.add('hidden');
-      });
+      if (sortByButton && sortByDropdown) {
+        sortByButton.addEventListener('click', () => {
+          sortByDropdown.classList.toggle('hidden');
+          // Close other dropdowns
+          if (contentTypeDropdown) contentTypeDropdown.classList.add('hidden');
+          if (dateRangeDropdown) dateRangeDropdown.classList.add('hidden');
+        });
+      }
       
       document.querySelectorAll('.sort-by-option').forEach(option => {
         option.addEventListener('click', () => {
           const value = option.getAttribute('data-value');
           searchState.sortBy = value;
-          sortByDisplay.textContent = option.textContent;
-          sortByDropdown.classList.add('hidden');
+          if (sortByDisplay) sortByDisplay.textContent = option.textContent;
+          if (sortByDropdown) sortByDropdown.classList.add('hidden');
           performSearch(); // Sort change triggers immediate search
         });
       });
@@ -584,14 +651,97 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
         const results = searchContent();
         displayResults(results);
       }
-    });
+    }
+    
+    // Initialize on DOM ready
+    document.addEventListener('DOMContentLoaded', initializeSearchPage);
+    
+    // Also initialize after Astro page transitions
+    document.addEventListener('astro:after-swap', initializeSearchPage);
+    
+    // Author autocomplete functions
+    function navigateAuthorSuggestions(direction) {
+      if (!authorSuggestions) return;
+      const suggestions = authorSuggestions.querySelectorAll('.author-suggestion');
+      if (!suggestions || suggestions.length === 0) return;
+      
+      if (authorSuggestionIndex >= 0) {
+        suggestions[authorSuggestionIndex].classList.remove('active');
+      }
+      
+      authorSuggestionIndex = Math.max(0, Math.min(suggestions.length - 1, authorSuggestionIndex + direction));
+      suggestions[authorSuggestionIndex].classList.add('active');
+    }
+    
+    function selectAuthor() {
+      if (!authorSuggestions || !authorInput) return;
+      const suggestions = authorSuggestions.querySelectorAll('.author-suggestion');
+      if (suggestions && authorSuggestionIndex >= 0 && authorSuggestionIndex < suggestions.length) {
+        const author = suggestions[authorSuggestionIndex].getAttribute('data-author');
+        if (author && !searchState.selectedAuthors.includes(author)) {
+          searchState.selectedAuthors.push(author);
+          updateActiveFilters();
+          authorInput.value = '';
+          hideAuthorSuggestions();
+        }
+      } else if (authorInput.value.trim()) {
+        // If no suggestion is selected but there's text, use the typed value
+        const author = authorInput.value.trim();
+        if (author && !searchState.selectedAuthors.includes(author)) {
+          searchState.selectedAuthors.push(author);
+          updateActiveFilters();
+          authorInput.value = '';
+          hideAuthorSuggestions();
+        }
+      }
+    }
+    
+    // Redefine showAuthorSuggestions with proper implementation
+    showAuthorSuggestions = function(searchTerm) {
+      if (!authorSuggestions) return;
+      
+      const matches = searchTerm 
+        ? allAuthorNames.filter(author => 
+            author.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+        : allAuthorNames;
+      
+      // Sort alphabetically
+      const sortedMatches = matches.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+      
+      // Limit to reasonable number for UI
+      const limitedMatches = sortedMatches.slice(0, 15);
+      
+      if (limitedMatches.length > 0) {
+        authorSuggestions.innerHTML = limitedMatches.map((author, index) => `
+          <div class="author-suggestion px-3 py-2.5 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100 last:border-b-0 ${index === 0 ? 'active' : ''}" data-author="${author}">
+            ${author}
+          </div>
+        `).join('');
+        authorSuggestions.classList.remove('hidden');
+        authorSuggestionIndex = 0;
+        
+        // Add click handlers
+        authorSuggestions.querySelectorAll('.author-suggestion').forEach(suggestion => {
+          suggestion.addEventListener('click', () => {
+            const author = suggestion.getAttribute('data-author');
+            if (author && !searchState.selectedAuthors.includes(author)) {
+              searchState.selectedAuthors.push(author);
+              updateActiveFilters();
+              if (authorInput) authorInput.value = '';
+              hideAuthorSuggestions();
+            }
+          });
+        });
+      } else {
+        hideAuthorSuggestions();
+      }
+    }
     
     function setupAuthorAutocomplete() {
-      const authorInput = document.getElementById('author-filter');
-      const authorSuggestions = document.getElementById('author-suggestions');
-      let authorSuggestionIndex = -1;
+      if (!authorInput) return;
       
-      authorInput?.addEventListener('input', (e) => {
+      authorInput.addEventListener('input', (e) => {
         const value = e.target.value.trim();
         if (value.length > 0) {
           showAuthorSuggestions(value);
@@ -601,12 +751,12 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
       });
       
       // Show all suggestions on focus
-      authorInput?.addEventListener('focus', (e) => {
+      authorInput.addEventListener('focus', (e) => {
         const value = e.target.value.trim();
         showAuthorSuggestions(value || '');
       });
       
-      authorInput?.addEventListener('keydown', (e) => {
+      authorInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
           e.preventDefault();
           selectAuthor();
@@ -620,96 +770,89 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
           hideAuthorSuggestions();
         }
       });
+    }
+    
+    // Tag autocomplete functions
+    function navigateTagSuggestions(direction) {
+      if (!tagSuggestions) return;
+      const suggestions = tagSuggestions.querySelectorAll('.tag-suggestion');
+      if (!suggestions || suggestions.length === 0) return;
       
-      function showAuthorSuggestions(searchTerm) {
-        const matches = searchTerm 
-          ? allAuthorNames.filter(author => 
-              author.toLowerCase().includes(searchTerm.toLowerCase())
-            )
-          : allAuthorNames;
+      if (tagSuggestionIndex >= 0) {
+        suggestions[tagSuggestionIndex].classList.remove('active');
+      }
+      
+      tagSuggestionIndex = Math.max(0, Math.min(suggestions.length - 1, tagSuggestionIndex + direction));
+      suggestions[tagSuggestionIndex].classList.add('active');
+    }
+    
+    function selectTag() {
+      if (!tagSuggestions || !tagInput) return;
+      const suggestions = tagSuggestions.querySelectorAll('.tag-suggestion');
+      if (suggestions && tagSuggestionIndex >= 0) {
+        const tag = suggestions[tagSuggestionIndex].getAttribute('data-tag');
+        if (tag && !searchState.selectedTags.includes(tag)) {
+          searchState.selectedTags.push(tag);
+          updateActiveFilters();
+          tagInput.value = '';
+          hideTagSuggestions();
+        }
+      }
+    }
+    
+    // Redefine showTagSuggestions with proper implementation
+    showTagSuggestions = function(searchTerm) {
+      if (!tagSuggestions) return;
+      
+      const matches = searchTerm
+        ? allTagNames.filter(tag => 
+            tag.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+        : allTagNames;
+      
+      // Sort alphabetically
+      const sortedMatches = matches.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+      
+      // Limit to reasonable number for UI
+      const limitedMatches = sortedMatches.slice(0, 20);
+      
+      if (limitedMatches.length > 0) {
+        let html = limitedMatches.map((tag, index) => `
+          <div class="tag-suggestion px-3 py-2.5 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100 last:border-b-0 ${index === 0 ? 'active' : ''}" data-tag="${tag}">
+            <span class="text-gray-400">#</span>${tag}
+          </div>
+        `).join('');
         
-        // Sort alphabetically
-        const sortedMatches = matches.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+        // Add indicator if there are more results
+        if (sortedMatches.length > 20) {
+          html += `<div class="px-3 py-2 text-sm text-gray-500 italic">Type to search ${sortedMatches.length - 20} more...</div>`;
+        }
         
-        // Limit to reasonable number for UI
-        const limitedMatches = sortedMatches.slice(0, 15);
+        tagSuggestions.innerHTML = html;
+        tagSuggestions.classList.remove('hidden');
+        tagSuggestionIndex = 0;
         
-        if (limitedMatches.length > 0) {
-          authorSuggestions.innerHTML = limitedMatches.map((author, index) => `
-            <div class="author-suggestion px-3 py-2.5 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100 last:border-b-0 ${index === 0 ? 'active' : ''}" data-author="${author}">
-              ${author}
-            </div>
-          `).join('');
-          authorSuggestions.classList.remove('hidden');
-          authorSuggestionIndex = 0;
-          
-          // Add click handlers
-          authorSuggestions.querySelectorAll('.author-suggestion').forEach(suggestion => {
-            suggestion.addEventListener('click', () => {
-              const author = suggestion.getAttribute('data-author');
-              if (author && !searchState.selectedAuthors.includes(author)) {
-                searchState.selectedAuthors.push(author);
-                updateActiveFilters();
-                authorInput.value = '';
-                hideAuthorSuggestions();
-              }
-            });
+        // Add click handlers
+        tagSuggestions.querySelectorAll('.tag-suggestion').forEach(suggestion => {
+          suggestion.addEventListener('click', () => {
+            const tag = suggestion.getAttribute('data-tag');
+            if (tag && !searchState.selectedTags.includes(tag)) {
+              searchState.selectedTags.push(tag);
+              updateActiveFilters();
+              if (tagInput) tagInput.value = '';
+              hideTagSuggestions();
+            }
           });
-        } else {
-          hideAuthorSuggestions();
-        }
+        });
+      } else {
+        hideTagSuggestions();
       }
-      
-      function hideAuthorSuggestions() {
-        authorSuggestions?.classList.add('hidden');
-        authorSuggestionIndex = -1;
-      }
-      
-      function navigateAuthorSuggestions(direction) {
-        const suggestions = authorSuggestions?.querySelectorAll('.author-suggestion');
-        if (!suggestions || suggestions.length === 0) return;
-        
-        if (authorSuggestionIndex >= 0) {
-          suggestions[authorSuggestionIndex].classList.remove('active');
-        }
-        
-        authorSuggestionIndex = Math.max(0, Math.min(suggestions.length - 1, authorSuggestionIndex + direction));
-        suggestions[authorSuggestionIndex].classList.add('active');
-      }
-      
-      function selectAuthor() {
-        const suggestions = authorSuggestions?.querySelectorAll('.author-suggestion');
-        if (suggestions && authorSuggestionIndex >= 0 && authorSuggestionIndex < suggestions.length) {
-          const author = suggestions[authorSuggestionIndex].getAttribute('data-author');
-          if (author && !searchState.selectedAuthors.includes(author)) {
-            searchState.selectedAuthors.push(author);
-            updateActiveFilters();
-            authorInput.value = '';
-            hideAuthorSuggestions();
-          }
-        } else if (authorInput.value.trim()) {
-          // If no suggestion is selected but there's text, use the typed value
-          const author = authorInput.value.trim();
-          if (author && !searchState.selectedAuthors.includes(author)) {
-            searchState.selectedAuthors.push(author);
-            updateActiveFilters();
-            authorInput.value = '';
-            hideAuthorSuggestions();
-          }
-        }
-      }
-      
-      window.showAuthorSuggestions = showAuthorSuggestions;
-      window.hideAuthorSuggestions = hideAuthorSuggestions;
-      window.navigateAuthorSuggestions = navigateAuthorSuggestions;
     }
     
     function setupTagAutocomplete() {
-      const tagInput = document.getElementById('tag-input');
-      const tagSuggestions = document.getElementById('tag-suggestions');
-      let tagSuggestionIndex = -1;
+      if (!tagInput) return;
       
-      tagInput?.addEventListener('input', (e) => {
+      tagInput.addEventListener('input', (e) => {
         const value = e.target.value.trim();
         if (value.length > 0) {
           showTagSuggestions(value);
@@ -719,12 +862,12 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
       });
       
       // Show all suggestions on focus
-      tagInput?.addEventListener('focus', (e) => {
+      tagInput.addEventListener('focus', (e) => {
         const value = e.target.value.trim();
         showTagSuggestions(value || '');
       });
       
-      tagInput?.addEventListener('keydown', (e) => {
+      tagInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
           e.preventDefault();
           selectTag();
@@ -738,86 +881,6 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
           hideTagSuggestions();
         }
       });
-      
-      function showTagSuggestions(searchTerm) {
-        const matches = searchTerm
-          ? allTagNames.filter(tag => 
-              tag.toLowerCase().includes(searchTerm.toLowerCase())
-            )
-          : allTagNames;
-        
-        // Sort alphabetically
-        const sortedMatches = matches.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
-        
-        // Limit to reasonable number for UI
-        const limitedMatches = sortedMatches.slice(0, 20);
-        
-        if (limitedMatches.length > 0) {
-          let html = limitedMatches.map((tag, index) => `
-            <div class="tag-suggestion px-3 py-2.5 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100 last:border-b-0 ${index === 0 ? 'active' : ''}" data-tag="${tag}">
-              <span class="text-gray-400">#</span>${tag}
-            </div>
-          `).join('');
-          
-          // Add indicator if there are more results
-          if (sortedMatches.length > 20) {
-            html += `<div class="px-3 py-2 text-sm text-gray-500 italic">Type to search ${sortedMatches.length - 20} more...</div>`;
-          }
-          
-          tagSuggestions.innerHTML = html;
-          tagSuggestions.classList.remove('hidden');
-          tagSuggestionIndex = 0;
-          
-          // Add click handlers
-          tagSuggestions.querySelectorAll('.tag-suggestion').forEach(suggestion => {
-            suggestion.addEventListener('click', () => {
-              const tag = suggestion.getAttribute('data-tag');
-              if (tag && !searchState.selectedTags.includes(tag)) {
-                searchState.selectedTags.push(tag);
-                updateActiveFilters();
-                tagInput.value = '';
-                hideTagSuggestions();
-              }
-            });
-          });
-        } else {
-          hideTagSuggestions();
-        }
-      }
-      
-      function hideTagSuggestions() {
-        tagSuggestions?.classList.add('hidden');
-        tagSuggestionIndex = -1;
-      }
-      
-      function navigateTagSuggestions(direction) {
-        const suggestions = tagSuggestions?.querySelectorAll('.tag-suggestion');
-        if (!suggestions || suggestions.length === 0) return;
-        
-        if (tagSuggestionIndex >= 0) {
-          suggestions[tagSuggestionIndex].classList.remove('active');
-        }
-        
-        tagSuggestionIndex = Math.max(0, Math.min(suggestions.length - 1, tagSuggestionIndex + direction));
-        suggestions[tagSuggestionIndex].classList.add('active');
-      }
-      
-      function selectTag() {
-        const suggestions = tagSuggestions?.querySelectorAll('.tag-suggestion');
-        if (suggestions && tagSuggestionIndex >= 0) {
-          const tag = suggestions[tagSuggestionIndex].getAttribute('data-tag');
-          if (tag && !searchState.selectedTags.includes(tag)) {
-            searchState.selectedTags.push(tag);
-            updateActiveFilters();
-            tagInput.value = '';
-            hideTagSuggestions();
-          }
-        }
-      }
-      
-      window.showTagSuggestions = showTagSuggestions;
-      window.hideTagSuggestions = hideTagSuggestions;
-      window.navigateTagSuggestions = navigateTagSuggestions;
     }
     
     function updateActiveFilters() {
@@ -866,6 +929,10 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
       searchState.selectedTags = searchState.selectedTags.filter(t => t !== tag);
       updateActiveFilters();
     }
+    
+    // Make functions globally accessible for inline onclick handlers
+    window.removeAuthor = removeAuthor;
+    window.removeTag = removeTag;
     
     function performSearch() {
       const params = new URLSearchParams();
@@ -1078,22 +1145,15 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
     
     // Click outside to close dropdowns
     document.addEventListener('click', (e) => {
-      const authorInput = document.getElementById('author-filter');
-      const authorSuggestions = document.getElementById('author-suggestions');
-      const tagInput = document.getElementById('tag-input');
-      const tagSuggestions = document.getElementById('tag-suggestions');
-      const contentTypeButton = document.getElementById('content-type-button');
-      const contentTypeDropdown = document.getElementById('content-type-dropdown');
-      const dateRangeButton = document.getElementById('date-range-button');
-      const dateRangeDropdown = document.getElementById('date-range-dropdown');
-      const sortByButton = document.getElementById('sort-by-button');
-      const sortByDropdown = document.getElementById('sort-by-dropdown');
-      
       if (!authorInput?.contains(e.target) && !authorSuggestions?.contains(e.target)) {
-        hideAuthorSuggestions();
+        if (hideAuthorSuggestions) {
+          hideAuthorSuggestions();
+        }
       }
       if (!tagInput?.contains(e.target) && !tagSuggestions?.contains(e.target)) {
-        hideTagSuggestions();
+        if (hideTagSuggestions) {
+          hideTagSuggestions();
+        }
       }
       if (!contentTypeButton?.contains(e.target) && !contentTypeDropdown?.contains(e.target)) {
         contentTypeDropdown?.classList.add('hidden');
