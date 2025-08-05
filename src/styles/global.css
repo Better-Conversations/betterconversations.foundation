@@ -106,4 +106,61 @@
   .bcf-gradient-text {
     @apply bg-gradient-to-r from-[#54C4B6] to-[#A8D381] bg-clip-text text-transparent;
   }
+
+  /* Content Result Cards */
+  .bcf-content-card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden;
+    @apply hover:shadow-lg hover:border-[#54C4B6]/50;
+    @apply transition-all duration-300;
+  }
+  
+  .bcf-content-card-link {
+    @apply block;
+  }
+  
+  .bcf-content-card-body {
+    @apply flex;
+  }
+  
+  .bcf-content-card-image {
+    @apply w-48 h-36 relative bg-white flex-shrink-0 border-r border-gray-200;
+  }
+  
+  .bcf-content-card-image img {
+    @apply w-full h-full object-cover;
+  }
+  
+  .bcf-content-card-image.page-type img {
+    @apply object-contain p-8;
+  }
+  
+  .bcf-content-card-badge {
+    @apply absolute top-2 left-2;
+  }
+  
+  .bcf-content-card-content {
+    @apply flex-1 p-4;
+  }
+  
+  .bcf-content-card-content.centered {
+    @apply flex flex-col justify-center;
+  }
+  
+  .bcf-content-card-title {
+    @apply text-lg font-bold text-gray-900 mb-1 line-clamp-1;
+    @apply group-hover:text-[#54C4B6] transition-colors;
+  }
+  
+  .bcf-content-card-excerpt {
+    @apply text-gray-600 text-sm mb-2 line-clamp-2;
+  }
+  
+  .bcf-content-card-meta {
+    @apply flex flex-wrap items-center gap-3 text-sm text-gray-500;
+  }
+  
+  .bcf-content-tag-pill {
+    @apply text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full;
+    @apply hover:bg-[#54C4B6] hover:text-white transition-colors;
+  }
 }
