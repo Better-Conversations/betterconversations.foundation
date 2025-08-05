@@ -185,7 +185,7 @@ const searchData: SearchData = {
 			<slot />
 		</main>
 		{!isShowcasePage && <Footer />}
-		<Search searchData={searchData} />
+		<Search searchData={searchData} loadDataOnDemand={false} />
 	</body>
 </html>
 

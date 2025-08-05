@@ -5,22 +5,11 @@ import { getAllTags, getPopularTags } from '../../utils/tags';
 import { getAuthorNames } from '../../utils/authors';
 import { pageMetadata } from '../../data/pageMetadata';
 
-// Disable prerendering for this search page
-export const prerender = false;
+// Enable static generation - search will be handled client-side
+// export const prerender = false; // Removed to enable static generation
 
-// Get search query from URL
-const url = new URL(Astro.request.url);
-const query = url.searchParams.get('q') || '';
-const filter = url.searchParams.get('filter') || 'all';
-const dateRange = url.searchParams.get('dateRange') || '';
-const sortBy = url.searchParams.get('sort') || 'relevance';
-const authorFilter = url.searchParams.get('author') || '';
-const tagFilter = url.searchParams.get('tags') || '';
-
-// Parse multiple filters
-const filters = filter.split(',').filter(f => f);
-const selectedTags = tagFilter.split(',').filter(t => t);
-const selectedAuthors = authorFilter.split(',').filter(a => a);
+// Search parameters will be handled client-side
+// We'll embed all content data in the page for client-side filtering
 
 // Get popular tags for display
 const popularTags = await getPopularTags(10);
@@ -47,134 +36,61 @@ interface SearchResult {
   count?: number;
 }
 
+// Prepare all content data for client-side search
+const allContent: SearchResult[] = [
+  // Blogs
+  ...blogs.map(post => ({
+    type: 'blog' as const,
+    title: post.data.title,
+    excerpt: post.data.excerpt,
+    slug: `/blog/${post.slug}`,
+    tags: post.data.tags,
+    author: post.data.author,
+    date: post.data.date,
+    category: post.data.category
+  })),
+  // Whitepapers
+  ...whitepapers.map(paper => ({
+    type: 'whitepaper' as const,
+    title: paper.data.title,
+    excerpt: paper.data.excerpt,
+    slug: `/whitepapers/${paper.slug}`,
+    tags: paper.data.tags,
+    authors: paper.data.authors,
+    date: paper.data.date,
+    category: paper.data.category
+  })),
+  // Static pages from pageMetadata
+  ...Object.entries(pageMetadata)
+    .filter(([path, meta]) => 
+      !path.includes('/blog/') && 
+      !path.includes('/whitepapers/') && 
+      !path.includes('/tags/') &&
+      path !== '/search/' &&
+      meta.title // Only include pages with titles
+    )
+    .map(([path, meta]) => ({
+      type: 'page' as const,
+      title: meta.title || '',
+      excerpt: meta.description || '',
+      slug: path,
+      tags: meta.tags || [],
+      category: meta.category || 'Page'
+    })),
+  // Tags
+  ...tags.map(tag => ({
+    type: 'tag' as const,
+    title: tag.name,
+    excerpt: `View all content tagged with ${tag.name}`,
+    slug: `/tags/${tag.name}`,
+    count: tag.count
+  }))
+];
+
 // Get recent blog posts for the initial state
 const recentBlogs = blogs
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
-
-// Perform search if query exists OR if we have filters
-let results: SearchResult[] = [];
-const hasAdvancedFilters = selectedTags.length > 0 || selectedAuthors.length > 0 || dateRange;
-
-if (query || (filter && filter !== 'all') || hasAdvancedFilters) {
-  const searchTerm = query.toLowerCase();
-  
-  // Search blogs
-  if (filters.length === 0 || filters.includes('all') || filters.includes('blog')) {
-    const blogResults = blogs
-      .filter(post =>
-        (!query || 
-         post.data.title.toLowerCase().includes(searchTerm) ||
-         post.data.excerpt.toLowerCase().includes(searchTerm) ||
-         post.data.tags.some(tag => tag.toLowerCase().includes(searchTerm)))
-      )
-      .map(post => ({
-        type: 'blog' as const,
-        title: post.data.title,
-        excerpt: post.data.excerpt,
-        slug: `/blog/${post.slug}`,
-        tags: post.data.tags,
-        author: post.data.author,
-        date: post.data.date,
-        category: post.data.category
-      }));
-    results.push(...blogResults);
-  }
-  
-  // Search whitepapers
-  if (filters.length === 0 || filters.includes('all') || filters.includes('whitepaper')) {
-    const whitepaperResults = whitepapers
-      .filter(paper =>
-        (!query ||
-         paper.data.title.toLowerCase().includes(searchTerm) ||
-         paper.data.excerpt.toLowerCase().includes(searchTerm) ||
-         paper.data.tags.some(tag => tag.toLowerCase().includes(searchTerm)))
-      )
-      .map(paper => ({
-        type: 'whitepaper' as const,
-        title: paper.data.title,
-        excerpt: paper.data.excerpt,
-        slug: `/whitepapers/${paper.slug}`,
-        tags: paper.data.tags,
-        authors: paper.data.authors,
-        date: paper.data.date,
-        category: paper.data.category
-      }));
-    results.push(...whitepaperResults);
-  }
-  
-  // Apply advanced filters
-  if (authorFilter) {
-    results = results.filter(result => {
-      if (result.type === 'blog' && result.author) {
-        return selectedAuthors.some(author => 
-          result.author?.toLowerCase().includes(author.toLowerCase())
-        );
-      }
-      if (result.type === 'whitepaper' && result.authors) {
-        return selectedAuthors.some(selectedAuthor => 
-          result.authors?.some(author => 
-            author.toLowerCase().includes(selectedAuthor.toLowerCase())
-          )
-        );
-      }
-      return true;
-    });
-  }
-  
-  // Filter by selected tags
-  if (selectedTags.length > 0) {
-    results = results.filter(result => {
-      if (result.tags) {
-        return selectedTags.some(tag => result.tags?.includes(tag));
-      }
-      return false;
-    });
-  }
-  
-  // Apply date range filter
-  if (dateRange && (results.some(r => r.date))) {
-    const now = new Date();
-    const cutoffDate = new Date();
-    
-    switch(dateRange) {
-      case 'week':
-        cutoffDate.setDate(now.getDate() - 7);
-        break;
-      case 'month':
-        cutoffDate.setMonth(now.getMonth() - 1);
-        break;
-      case 'quarter':
-        cutoffDate.setMonth(now.getMonth() - 3);
-        break;
-      case 'year':
-        cutoffDate.setFullYear(now.getFullYear() - 1);
-        break;
-    }
-    
-    results = results.filter(result => {
-      if (result.date) {
-        return new Date(result.date) >= cutoffDate;
-      }
-      return true;
-    });
-  }
-}
-
-// Sort results
-if (sortBy === 'date-desc') {
-  results.sort((a, b) => {
-    if (!a.date || !b.date) return 0;
-    return new Date(b.date).getTime() - new Date(a.date).getTime();
-  });
-} else if (sortBy === 'date-asc') {
-  results.sort((a, b) => {
-    if (!a.date || !b.date) return 0;
-    return new Date(a.date).getTime() - new Date(b.date).getTime();
-  });
-} else if (sortBy === 'title') {
-  results.sort((a, b) => a.title.localeCompare(b.title));
-}
 
 const pageTitle = 'Search | Better Conversations Foundation';
 const pageDescription = 'Search our blogs, whitepapers, and resources.';
@@ -199,7 +115,7 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
                 type="text"
                 id="search-input"
                 name="q"
-                value={query}
+                value=""
                 placeholder="Search blogs, whitepapers, topics, and more..."
                 class="w-full text-lg outline-none placeholder-gray-400 pr-10"
                 autocomplete="off"
@@ -316,144 +232,74 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
     <!-- Results Section -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Results Header -->
-      <div id="results-header" class="flex items-center justify-between mb-6">
+      <div id="results-header" class="flex items-center justify-between mb-6" style="display: none;">
         <div>
-          {(query || hasAdvancedFilters) && (
-            <>
-              <h2 id="results-count" class="text-lg font-semibold text-gray-900">
-                {results.length > 0 ? `${results.length} results found` : 'No results found'}
-              </h2>
-              <p id="results-description" class="text-sm text-gray-600 mt-1">
-                Showing filtered results
-              </p>
-            </>
-          )}
+          <h2 id="results-count" class="text-lg font-semibold text-gray-900"></h2>
+          <p id="results-description" class="text-sm text-gray-600 mt-1">Showing filtered results</p>
         </div>
         
         <!-- Sort Options -->
-        {(query || hasAdvancedFilters) && (
-          <div class="flex items-center gap-2">
-            <label class="text-sm text-gray-600">Sort by:</label>
-            <div class="relative">
-              <div id="sort-by-button" class="px-3 py-1.5 pr-8 border border-gray-300 rounded-lg text-sm text-gray-600 bg-white focus:outline-none focus:ring-2 focus:ring-[#54C4B6] cursor-pointer flex items-center gap-2">
-                <span id="sort-by-display">Relevance</span>
-                <svg class="w-4 h-4 text-gray-400 absolute right-2 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </div>
-              <div id="sort-by-dropdown" class="absolute z-10 right-0 mt-1 w-40 bg-white rounded-lg shadow-lg border border-gray-200 hidden">
-                <div class="sort-by-option px-3 py-2 hover:bg-gray-50 cursor-pointer transition-colors text-sm border-b border-gray-100 last:border-b-0" data-value="relevance">Relevance</div>
-                <div class="sort-by-option px-3 py-2 hover:bg-gray-50 cursor-pointer transition-colors text-sm border-b border-gray-100 last:border-b-0" data-value="date-desc">Newest first</div>
-                <div class="sort-by-option px-3 py-2 hover:bg-gray-50 cursor-pointer transition-colors text-sm border-b border-gray-100 last:border-b-0" data-value="date-asc">Oldest first</div>
-                <div class="sort-by-option px-3 py-2 hover:bg-gray-50 cursor-pointer transition-colors text-sm border-b border-gray-100 last:border-b-0" data-value="title">Title (A-Z)</div>
-              </div>
+        <div class="flex items-center gap-2">
+          <label class="text-sm text-gray-600">Sort by:</label>
+          <div class="relative">
+            <div id="sort-by-button" class="px-3 py-1.5 pr-8 border border-gray-300 rounded-lg text-sm text-gray-600 bg-white focus:outline-none focus:ring-2 focus:ring-[#54C4B6] cursor-pointer flex items-center gap-2">
+              <span id="sort-by-display">Relevance</span>
+              <svg class="w-4 h-4 text-gray-400 absolute right-2 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+            <div id="sort-by-dropdown" class="absolute z-10 right-0 mt-1 w-40 bg-white rounded-lg shadow-lg border border-gray-200 hidden">
+              <div class="sort-by-option px-3 py-2 hover:bg-gray-50 cursor-pointer transition-colors text-sm border-b border-gray-100 last:border-b-0" data-value="relevance">Relevance</div>
+              <div class="sort-by-option px-3 py-2 hover:bg-gray-50 cursor-pointer transition-colors text-sm border-b border-gray-100 last:border-b-0" data-value="date-desc">Newest first</div>
+              <div class="sort-by-option px-3 py-2 hover:bg-gray-50 cursor-pointer transition-colors text-sm border-b border-gray-100 last:border-b-0" data-value="date-asc">Oldest first</div>
+              <div class="sort-by-option px-3 py-2 hover:bg-gray-50 cursor-pointer transition-colors text-sm border-b border-gray-100 last:border-b-0" data-value="title">Title (A-Z)</div>
             </div>
           </div>
-        )}
+        </div>
       </div>
       
       <!-- Results Grid -->
       <div id="search-results" class="grid gap-4">
-        {(query || hasAdvancedFilters) ? (
-          results.length > 0 ? (
-            results.map(result => (
-              <a
-                href={result.slug}
-                class="block bg-white rounded-lg border border-gray-200 p-6 hover:border-[#54C4B6] hover:shadow-md transition-all duration-200"
-              >
-                <div class="flex items-start justify-between gap-4">
-                  <div class="flex-1">
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">
-                      {result.type === 'tag' && <span class="text-[#54C4B6]">#</span>}
-                      {result.title}
-                    </h3>
-                    {result.excerpt && (
-                      <p class="text-gray-600 mb-3 line-clamp-2">{result.excerpt}</p>
-                    )}
-                    <div class="flex items-center gap-4 text-sm text-gray-500">
-                      {result.date && (
-                        <time>{new Date(result.date).toLocaleDateString('en-GB', { 
-                          year: 'numeric', 
-                          month: 'short', 
-                          day: 'numeric' 
-                        })}</time>
-                      )}
-                      {result.author && <span>{result.author}</span>}
-                      {result.authors && <span>{result.authors.join(', ')}</span>}
-                      {result.tags && result.tags.length > 0 && (
-                        <div class="flex gap-2">
-                          {result.tags.slice(0, 3).map(tag => (
-                            <span class="text-[#54C4B6]">#{tag}</span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <span class={`
-                    px-3 py-1 text-xs font-medium rounded-full
-                    ${result.type === 'blog' ? 'bg-[#54C4B6]/10 text-[#54C4B6]' : ''}
-                    ${result.type === 'whitepaper' ? 'bg-[#A8D381]/10 text-[#A8D381]' : ''}
-                    ${result.type === 'tag' ? 'bg-gray-100 text-gray-600' : ''}
-                    ${result.type === 'page' ? 'bg-orange-100 text-orange-600' : ''}
-                  `}>
-                    {result.type === 'blog' && 'Blog'}
-                    {result.type === 'whitepaper' && 'Whitepaper'}
-                    {result.type === 'tag' && 'Topic'}
-                    {result.type === 'page' && 'Page'}
-                  </span>
-                </div>
-              </a>
-            ))
-          ) : (
-            <div class="text-center py-12">
-              <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-              <p class="text-lg font-medium text-gray-900 mb-2">No results found</p>
-              <p class="text-sm text-gray-600">Try adjusting your search or filters</p>
-            </div>
-          )
-        ) : (
-          <!-- Initial State -->
-          <div class="grid md:grid-cols-2 gap-8">
-            <!-- Popular Topics -->
-            <div class="bg-white rounded-lg border border-gray-200 p-6">
-              <h3 class="text-lg font-semibold text-gray-900 mb-4">Popular Topics</h3>
-              <div class="flex flex-wrap gap-2">
-                {popularTags.slice(0, 12).map(tag => (
-                  <button
-                    data-tag={tag.name}
-                    class="tag-quick-filter inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-gradient-to-r from-[#54C4B6]/10 to-[#A8D381]/10 text-gray-700 hover:from-[#54C4B6] hover:to-[#A8D381] hover:text-white transition-all duration-300"
-                  >
-                    #{tag.name}
-                    <span class="ml-1.5 text-xs opacity-70">({tag.count})</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-            
-            <!-- Recent Content -->
-            <div class="bg-white rounded-lg border border-gray-200 p-6">
-              <h3 class="text-lg font-semibold text-gray-900 mb-4">Recent Posts</h3>
-              <div class="space-y-3">
-                {recentBlogs.map(post => (
-                  <a href={`/blog/${post.slug}`} class="block group">
-                    <h4 class="font-medium text-gray-900 group-hover:text-[#54C4B6] transition-colors">
-                      {post.data.title}
-                    </h4>
-                    <p class="text-sm text-gray-500 mt-1">
-                      {new Date(post.data.date).toLocaleDateString('en-GB', { 
-                        month: 'short', 
-                        day: 'numeric', 
-                        year: 'numeric' 
-                      })} • {post.data.author}
-                    </p>
-                  </a>
-                ))}
-              </div>
+        <!-- Search results will be rendered here by JavaScript -->
+        <!-- Initial State -->
+        <div id="initial-state" class="grid md:grid-cols-2 gap-8">
+          <!-- Popular Topics -->
+          <div class="bg-white rounded-lg border border-gray-200 p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Popular Topics</h3>
+            <div class="flex flex-wrap gap-2">
+              {popularTags.slice(0, 12).map(tag => (
+                <button
+                  data-tag={tag.name}
+                  class="tag-quick-filter inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-gradient-to-r from-[#54C4B6]/10 to-[#A8D381]/10 text-gray-700 hover:from-[#54C4B6] hover:to-[#A8D381] hover:text-white transition-all duration-300"
+                >
+                  #{tag.name}
+                  <span class="ml-1.5 text-xs opacity-70">({tag.count})</span>
+                </button>
+              ))}
             </div>
           </div>
-        )}
+          
+          <!-- Recent Content -->
+          <div class="bg-white rounded-lg border border-gray-200 p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Recent Posts</h3>
+            <div class="space-y-3">
+              {recentBlogs.map(post => (
+                <a href={`/blog/${post.slug}`} class="block group">
+                  <h4 class="font-medium text-gray-900 group-hover:text-[#54C4B6] transition-colors">
+                    {post.data.title}
+                  </h4>
+                  <p class="text-sm text-gray-500 mt-1">
+                    {new Date(post.data.date).toLocaleDateString('en-GB', { 
+                      month: 'short', 
+                      day: 'numeric', 
+                      year: 'numeric' 
+                    })} • {post.data.author}
+                  </p>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -491,23 +337,22 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
   </style>
 
   <script define:vars={{ 
+    allContent: allContent,
     allTagNames: tags.map(t => t.name), 
     allAuthorNames: authorNames,
-    initialQuery: query,
-    initialFilter: filter,
-    initialTags: selectedTags,
-    initialAuthors: selectedAuthors,
-    initialDateRange: dateRange,
-    initialSort: sortBy
-  }}>
+    popularTags: popularTags
+  }} is:inline>
+    // Get initial parameters from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    
     // State management
     let searchState = {
-      query: initialQuery || '',
-      contentType: initialFilter || 'all',
-      selectedTags: [...initialTags],
-      selectedAuthors: [...initialAuthors],
-      dateRange: initialDateRange || '',
-      sortBy: initialSort || 'relevance'
+      query: urlParams.get('q') || '',
+      contentType: urlParams.get('filter') || 'all',
+      selectedTags: (urlParams.get('tags') || '').split(',').filter(t => t),
+      selectedAuthors: (urlParams.get('author') || '').split(',').filter(a => a),
+      dateRange: urlParams.get('dateRange') || '',
+      sortBy: urlParams.get('sort') || 'relevance'
     };
     
     let searchTimeout;
@@ -526,6 +371,11 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
       const sortByButton = document.getElementById('sort-by-button');
       const sortByDisplay = document.getElementById('sort-by-display');
       const sortByDropdown = document.getElementById('sort-by-dropdown');
+      
+      // Set initial search input value
+      if (searchInput && searchState.query) {
+        searchInput.value = searchState.query;
+      }
       
       // Set initial values for custom dropdowns
       const contentTypeLabels = {
@@ -718,9 +568,22 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
           if (tag && !searchState.selectedTags.includes(tag)) {
             searchState.selectedTags.push(tag);
             updateActiveFilters();
+            performSearch();
           }
         });
       });
+      
+      // Perform initial search if URL has parameters
+      const hasActiveSearch = searchState.query || 
+        searchState.contentType !== 'all' || 
+        searchState.selectedTags.length > 0 || 
+        searchState.selectedAuthors.length > 0 || 
+        searchState.dateRange;
+      
+      if (hasActiveSearch) {
+        const results = searchContent();
+        displayResults(results);
+      }
     });
     
     function setupAuthorAutocomplete() {
@@ -1018,9 +881,195 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
       const newUrl = params.toString() ? `/search?${params.toString()}` : '/search';
       window.history.pushState({}, '', newUrl);
       
-      // In a real implementation, this would make an AJAX request
-      // For now, we'll reload the page
-      window.location.href = newUrl;
+      // Perform client-side search
+      const results = searchContent();
+      displayResults(results);
+    }
+    
+    function searchContent() {
+      let results = [...allContent];
+      const query = searchState.query.toLowerCase();
+      const filters = searchState.contentType.split(',').filter(f => f);
+      
+      // Filter by search query
+      if (query) {
+        results = results.filter(item => {
+          return (
+            item.title.toLowerCase().includes(query) ||
+            (item.excerpt && item.excerpt.toLowerCase().includes(query)) ||
+            (item.tags && item.tags.some(tag => tag.toLowerCase().includes(query)))
+          );
+        });
+      }
+      
+      // Filter by content type
+      if (filters.length > 0 && !filters.includes('all')) {
+        results = results.filter(item => filters.includes(item.type));
+      }
+      
+      // Filter by authors
+      if (searchState.selectedAuthors.length > 0) {
+        results = results.filter(item => {
+          if (item.author) {
+            return searchState.selectedAuthors.some(author => 
+              item.author.toLowerCase().includes(author.toLowerCase())
+            );
+          }
+          if (item.authors) {
+            return searchState.selectedAuthors.some(selectedAuthor => 
+              item.authors.some(author => 
+                author.toLowerCase().includes(selectedAuthor.toLowerCase())
+              )
+            );
+          }
+          return false;
+        });
+      }
+      
+      // Filter by tags
+      if (searchState.selectedTags.length > 0) {
+        results = results.filter(item => {
+          if (item.tags) {
+            return searchState.selectedTags.some(tag => item.tags.includes(tag));
+          }
+          return false;
+        });
+      }
+      
+      // Filter by date range
+      if (searchState.dateRange && results.some(r => r.date)) {
+        const now = new Date();
+        const cutoffDate = new Date();
+        
+        switch(searchState.dateRange) {
+          case 'week':
+            cutoffDate.setDate(now.getDate() - 7);
+            break;
+          case 'month':
+            cutoffDate.setMonth(now.getMonth() - 1);
+            break;
+          case 'quarter':
+            cutoffDate.setMonth(now.getMonth() - 3);
+            break;
+          case 'year':
+            cutoffDate.setFullYear(now.getFullYear() - 1);
+            break;
+        }
+        
+        results = results.filter(item => {
+          if (item.date) {
+            return new Date(item.date) >= cutoffDate;
+          }
+          return true;
+        });
+      }
+      
+      // Sort results
+      if (searchState.sortBy === 'date-desc') {
+        results.sort((a, b) => {
+          if (!a.date || !b.date) return 0;
+          return new Date(b.date).getTime() - new Date(a.date).getTime();
+        });
+      } else if (searchState.sortBy === 'date-asc') {
+        results.sort((a, b) => {
+          if (!a.date || !b.date) return 0;
+          return new Date(a.date).getTime() - new Date(b.date).getTime();
+        });
+      } else if (searchState.sortBy === 'title') {
+        results.sort((a, b) => a.title.localeCompare(b.title));
+      }
+      
+      return results;
+    }
+    
+    function displayResults(results) {
+      const searchResultsContainer = document.getElementById('search-results');
+      const resultsHeader = document.getElementById('results-header');
+      const resultsCount = document.getElementById('results-count');
+      const initialState = document.getElementById('initial-state');
+      
+      // Check if we have any active search/filters
+      const hasActiveSearch = searchState.query || 
+        searchState.contentType !== 'all' || 
+        searchState.selectedTags.length > 0 || 
+        searchState.selectedAuthors.length > 0 || 
+        searchState.dateRange;
+      
+      if (hasActiveSearch) {
+        // Hide initial state, show results
+        if (initialState) initialState.style.display = 'none';
+        if (resultsHeader) resultsHeader.style.display = 'flex';
+        if (resultsCount) resultsCount.textContent = results.length > 0 ? `${results.length} results found` : 'No results found';
+        
+        if (results.length > 0) {
+          searchResultsContainer.innerHTML = results.map(result => {
+            const typeColors = {
+              'blog': 'bg-[#54C4B6]/10 text-[#54C4B6]',
+              'whitepaper': 'bg-[#A8D381]/10 text-[#A8D381]',
+              'tag': 'bg-gray-100 text-gray-600',
+              'page': 'bg-orange-100 text-orange-600'
+            };
+            
+            const typeLabels = {
+              'blog': 'Blog',
+              'whitepaper': 'Whitepaper',
+              'tag': 'Topic',
+              'page': 'Page'
+            };
+            
+            return `
+              <a href="${result.slug}" 
+                 class="block bg-white rounded-lg border border-gray-200 p-6 hover:border-[#54C4B6] hover:shadow-md transition-all duration-200"
+                 onmouseover="this.style.borderColor='#54C4B6'; this.style.boxShadow='0 4px 6px -1px rgb(0 0 0 / 0.1)';"
+                 onmouseout="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none';">
+                <div class="flex items-start justify-between gap-4">
+                  <div class="flex-1">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                      ${result.type === 'tag' ? '<span class="text-[#54C4B6]">#</span>' : ''}
+                      ${result.title}
+                    </h3>
+                    ${result.excerpt ? `<p class="text-gray-600 mb-3 line-clamp-2">${result.excerpt}</p>` : ''}
+                    <div class="flex items-center gap-4 text-sm text-gray-500">
+                      ${result.date ? `<time>${new Date(result.date).toLocaleDateString('en-GB', { 
+                        year: 'numeric', 
+                        month: 'short', 
+                        day: 'numeric' 
+                      })}</time>` : ''}
+                      ${result.author ? `<span>${result.author}</span>` : ''}
+                      ${result.authors ? `<span>${result.authors.join(', ')}</span>` : ''}
+                      ${result.tags && result.tags.length > 0 ? `
+                        <div class="flex gap-2">
+                          ${result.tags.slice(0, 3).map(tag => 
+                            `<span class="text-[#54C4B6]">#${tag}</span>`
+                          ).join('')}
+                        </div>
+                      ` : ''}
+                    </div>
+                  </div>
+                  <span class="px-3 py-1 text-xs font-medium rounded-full ${typeColors[result.type] || ''}">
+                    ${typeLabels[result.type] || result.type}
+                  </span>
+                </div>
+              </a>
+            `;
+          }).join('');
+        } else {
+          searchResultsContainer.innerHTML = `
+            <div class="text-center py-12">
+              <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <p class="text-lg font-medium text-gray-900 mb-2">No results found</p>
+              <p class="text-sm text-gray-600">Try adjusting your search or filters</p>
+            </div>
+          `;
+        }
+      } else {
+        // Show initial state
+        if (initialState) initialState.style.display = 'grid';
+        if (resultsHeader) resultsHeader.style.display = 'none';
+        searchResultsContainer.innerHTML = '';
+      }
     }
     
     // Make functions available globally
