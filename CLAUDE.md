@@ -5,6 +5,89 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 # Important Notes
 - This project is written using UK English and spelling should be done in accordance with that.
 
+## TypeScript Error Handling
+
+When making changes to TypeScript or Astro files, ALWAYS run the following command after modifications to check for TypeScript errors:
+
+```bash
+npx astro check
+```
+
+If TypeScript errors are found:
+1. Run `npx astro check` to get a full list of errors
+2. **IMPORTANT: Only fix errors in files you have modified** - do not attempt to fix all project errors
+3. Address each error systematically with proper understanding of context
+4. For Astro components, common fixes include:
+   - Using `define:vars` with `is:inline` for passing data from Astro to script tags (JavaScript only)
+   - Adding proper type annotations for function parameters (in .ts files or regular script tags)
+   - Casting DOM elements (e.g., `as HTMLElement`) when accessing properties (not in define:vars scripts)
+   - Declaring global interfaces for window properties (in .ts files or regular script tags)
+5. Run `npx astro check` again to verify your changes didn't introduce new errors
+
+### Avoid Over-Automation
+
+**DO NOT** create scripts to automatically fix TypeScript errors across the entire codebase. This can:
+- Hide real type safety issues with incorrect assertions
+- Make debugging harder with bulk changes
+- Remove important context from error fixes
+- Potentially break working code with wrong assumptions
+
+Instead, fix errors manually with proper understanding of each case. Pre-existing errors in unchanged files should be left for the project maintainers to address.
+
+### Common TypeScript Patterns in Astro
+
+```typescript
+// Global type declarations in script tags
+declare global {
+  interface Window {
+    Alpine: any;
+    openSearchModal?: () => void;
+  }
+}
+
+// Type assertions for DOM elements
+const element = document.querySelector('.class') as HTMLElement;
+
+// Function parameter types
+function handleClick(event: MouseEvent) {
+  // ...
+}
+
+// Using define:vars (always add is:inline)
+<script define:vars={{ data: myData }} is:inline>
+  // IMPORTANT: Cannot use TypeScript syntax here - only JavaScript
+  const typedData = data; // No type assertions allowed
+</script>
+```
+
+### Important: Script Tag Requirements
+
+When using `define:vars` in Astro:
+
+1. **ALWAYS add the `is:inline` directive** to avoid TypeScript warnings
+2. **Use only JavaScript syntax** - no TypeScript features (type annotations, assertions, interfaces)
+3. **Cannot import modules** - the script is inlined directly into HTML
+
+```astro
+<!-- Correct -->
+<script define:vars={{ myVar }} is:inline>
+  // Plain JavaScript only
+  const element = document.querySelector('.class');
+  if (element) {
+    element.style.display = 'none';
+  }
+</script>
+
+<!-- Incorrect - TypeScript syntax not allowed -->
+<script define:vars={{ myVar }} is:inline>
+  const element = document.querySelector('.class') as HTMLElement; // ❌ Type assertion
+  interface MyType { ... } // ❌ Interface declaration
+  function fn(param: string) { } // ❌ Type annotation
+</script>
+```
+
+**Alternative for TypeScript**: If you need TypeScript features, use a regular `<script>` tag without `define:vars` and pass data through other means (data attributes, global variables, etc.).
+
 ## Project Overview
 
 This is the Better Conversations Foundation (BCF) website built with Astro. The site promotes BCF's mission of improving professional and personal communication through Clean Language methodology and Emergent Knowledge techniques.
@@ -159,6 +242,69 @@ const { prop } = Astro.props;
 1. Tailwind utilities for most styling
 2. Scoped `<style>` blocks in components for animations/complex CSS
 3. Global styles in `src/styles/global.css` (only Tailwind directives)
+
+### JavaScript Framework: Alpine.js
+
+**Note**: While the site originally used vanilla JavaScript, Alpine.js has been intentionally adopted for specific interactive components to reduce code complexity while maintaining progressive enhancement principles.
+
+1. **Current Usage**:
+   - Search modal functionality (`src/components/Search.astro`)
+   - Blog filtering and sorting (`src/pages/blog/index.astro`)
+   - Tag filtering (`src/pages/tags/index.astro`)
+
+2. **Implementation Architecture**:
+   - **Global Initialization**: Alpine is initialized once in `src/scripts/alpine-init.ts` and imported in `Layout.astro`
+   - **Bundle Size**: Alpine.js adds ~44KB minified to the bundle
+   - **Progressive Enhancement**: All content is server-rendered first, Alpine enhances when loaded
+   - **Event System**: Custom `alpine:initialized` event dispatched when Alpine is ready
+
+3. **Progressive Enhancement Pattern**:
+   ```astro
+   <!-- Server-side rendered content (always visible) -->
+   <div class="blog-content-ssr">
+     <!-- Full content rendered here -->
+   </div>
+   
+   <!-- Alpine-enhanced version (hidden until JS loads) -->
+   <div x-data="componentName()" x-cloak style="display: none;">
+     <!-- Enhanced interactive version -->
+   </div>
+   ```
+
+4. **Best Practices**:
+   - **Always provide SSR fallback**: Content must be accessible without JavaScript
+   - **Use `x-cloak`**: Hide Alpine elements until loaded to prevent FOUC
+   - **Graceful degradation**: Forms submit to server endpoints, links use URL parameters
+   - **Data passing**: Use `define:vars` for passing Astro data to client scripts
+   - **Single initialization**: Never import Alpine in individual components
+   - **Event coordination**: Use `alpine:initialized` event to coordinate with other scripts
+
+5. **Performance Considerations**:
+   - Content is immediately visible (improves FCP/LCP)
+   - No layout shift from hidden content (better CLS)
+   - JavaScript enhances but doesn't block content
+   - Total custom JS overhead: < 2KB
+
+6. **Example Implementation** (Blog filtering):
+   ```javascript
+   // Progressive enhancement switch
+   document.addEventListener('alpine:initialized', () => {
+     const ssrContent = document.querySelector('.blog-content-ssr');
+     const alpineContent = document.querySelector('[x-data="blogFilters()"]');
+     
+     if (ssrContent && alpineContent) {
+       ssrContent.style.display = 'none';
+       alpineContent.style.display = 'block';
+     }
+   });
+   ```
+
+7. **Astro View Transitions Compatibility**:
+   - Alpine components must be re-initialized after page transitions
+   - Event listeners need to be re-attached after DOM swaps
+   - Use `astro:after-swap` event to handle re-initialization
+   - The global Alpine initialization (`alpine-init.ts`) handles this automatically
+   - Components should clean up event listeners to prevent memory leaks
 
 ## Design Philosophy
 
