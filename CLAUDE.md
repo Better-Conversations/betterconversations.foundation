@@ -136,6 +136,7 @@ npm run preview      # Preview production build locally
    - Consistent gradient patterns: `from-[#54C4B6] to-[#A8D381]`
    - Wave separator SVG pattern used between sections
    - Responsive breakpoints: mobile-first with sm/md/lg/xl
+   - **IMPORTANT**: Use global CSS classes (`.bcf-*`) for common components to ensure consistency
 
 4. **Special Features**:
    - **Footer behavior**: Sticky minimal footer that expands when scrolled to bottom
@@ -179,6 +180,31 @@ When moving files between directories, update import paths:
    - For thoughtful, conceptual content, lean towards the lower end (200 wpm)
    - Update the hardcoded value in the blog template at `src/pages/blog/[slug].astro`
    - Consider adding reading time to the blog schema for future automation
+
+### Search Page Architecture
+
+1. **Server-Side Rendering**:
+   - Search page has `export const prerender = false` (SSR, not static)
+   - Enables real-time search with URL parameters
+   - Maintains search state across page reloads
+
+2. **Advanced Filtering**:
+   - Content type filter (blogs, whitepapers, pages, topics)
+   - Author autocomplete with alphabetical sorting
+   - Tag/topic autocomplete showing up to 20 tags
+   - Date range filtering (week, month, quarter, year)
+   - Sort options (relevance, date, title)
+
+3. **UI Components**:
+   - Uses global CSS classes (`.bcf-dropdown-*`) for consistent styling
+   - Custom dropdowns replacing native selects
+   - Keyboard navigation support (arrow keys, Enter, Escape)
+   - Shows popular topics and recent posts when no search is active
+
+4. **State Management**:
+   - URL parameters preserve search state
+   - Page reload performs server-side search
+   - Filters are visually displayed as removable pills
 
 ### Image Management System
 
@@ -237,11 +263,87 @@ const { prop } = Astro.props;
 <!-- HTML template here -->
 ```
 
+#### Navbar Dynamic Behavior
+
+The site's navbar has a dynamic sizing effect based on scroll position:
+- **At the top of the page (scrollY === 0)**: Navbar expands to 96px height with larger logo
+- **When scrolled**: Navbar compresses to 80px height with smaller logo
+- This creates a "pop out" effect when users are at the top of any page
+- **Important**: Main content padding must accommodate the expanded navbar height
+
 ### Styling Approach
 
 1. Tailwind utilities for most styling
-2. Scoped `<style>` blocks in components for animations/complex CSS
-3. Global styles in `src/styles/global.css` (only Tailwind directives)
+2. Global component classes in `src/styles/global.css` for consistency
+3. Scoped `<style>` blocks in components for animations/complex CSS
+
+#### Global CSS Classes
+
+The site uses a comprehensive set of global CSS classes defined in `src/styles/global.css` to ensure consistent styling across all pages. These classes use Tailwind's `@apply` directive to bundle utilities together.
+
+**Available Global Classes:**
+
+1. **Dropdown Components**
+   - `.bcf-dropdown-button` - Styled dropdown trigger with hover effects
+   - `.bcf-dropdown-icon` - Dropdown arrow icon styling
+   - `.bcf-dropdown-container` - Dropdown menu container with shadow
+   - `.bcf-dropdown-option` - Individual dropdown menu items
+   - `.bcf-dropdown-option.active` - Active/selected state
+
+2. **Form Elements**
+   - `.bcf-input` - Consistent input field styling (42px height, borders, focus ring)
+   - `.bcf-label` - Form labels with proper spacing
+
+3. **Buttons**
+   - `.bcf-button-primary` - Primary teal buttons with hover effects
+   - `.bcf-button-secondary` - Secondary gray buttons
+
+4. **Content Components**
+   - `.bcf-filter-pill` - Active filter badges with gradient background
+   - `.bcf-tag` - Tag badges with hover gradient effect
+   - `.bcf-card` - Card containers with hover lift effect
+   - `.bcf-search-result` - Search result cards with border hover
+
+5. **Typography**
+   - `.bcf-section-header` - Large section headings
+   - `.bcf-section-description` - Section subtitle text
+   - `.bcf-gradient-text` - Text with brand gradient effect
+
+**Usage Example:**
+```html
+<!-- Dropdown -->
+<div class="relative">
+  <button class="bcf-dropdown-button">
+    <span>Select option</span>
+    <svg class="bcf-dropdown-icon">...</svg>
+  </button>
+  <div class="bcf-dropdown-container hidden">
+    <div class="bcf-dropdown-option">Option 1</div>
+    <div class="bcf-dropdown-option active">Option 2</div>
+  </div>
+</div>
+
+<!-- Form -->
+<label class="bcf-label">Name</label>
+<input type="text" class="bcf-input" placeholder="Enter name">
+
+<!-- Buttons -->
+<button class="bcf-button-primary">Submit</button>
+<button class="bcf-button-secondary">Cancel</button>
+
+<!-- Cards -->
+<div class="bcf-card">
+  <h3 class="bcf-gradient-text">Featured Content</h3>
+  <p>Card content here...</p>
+</div>
+```
+
+**Best Practices:**
+1. Always use global classes for common UI patterns instead of recreating styles
+2. The `bcf-` prefix helps distinguish custom classes from Tailwind utilities
+3. These classes automatically include hover states, focus rings, and transitions
+4. For one-off styling, use Tailwind utilities directly
+5. For complex animations or unique components, use scoped `<style>` blocks
 
 ### JavaScript Framework: Alpine.js
 
@@ -362,6 +464,7 @@ Each page should include 2-3 signature interactive elements that make it memorab
 - **Contact Page**: Morphing blobs, typewriter effect, 3D tilt cards
 - **Whitepapers Page**: Paper stack effects, live counters, download progress
 - **Partner Page**: Flip card animations, staggered reveals, floating icons
+- **Search Page**: Server-side rendered (non-prerendered), advanced filtering with autocomplete dropdowns
 
 ### Animation Guidelines
 

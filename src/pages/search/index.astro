@@ -4,7 +4,6 @@ import { getCollection } from 'astro:content';
 import { getAllTags, getPopularTags } from '../../utils/tags';
 import { getAuthorNames } from '../../utils/authors';
 import { pageMetadata } from '../../data/pageMetadata';
-import { generateMetaProperties } from '../../utils/metadata';
 
 // Disable prerendering for this search page
 export const prerender = false;
@@ -17,7 +16,6 @@ const dateRange = url.searchParams.get('dateRange') || '';
 const sortBy = url.searchParams.get('sort') || 'relevance';
 const authorFilter = url.searchParams.get('author') || '';
 const tagFilter = url.searchParams.get('tags') || '';
-const showFiltered = url.searchParams.get('showFiltered') === 'true';
 
 // Parse multiple filters
 const filters = filter.split(',').filter(f => f);
@@ -54,21 +52,21 @@ const recentBlogs = blogs
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
-// Perform search if query exists OR if we have filters OR if showFiltered is true
+// Perform search if query exists OR if we have filters
 let results: SearchResult[] = [];
 const hasAdvancedFilters = selectedTags.length > 0 || selectedAuthors.length > 0 || dateRange;
 
-if (query || (filter && filter !== 'all') || showFiltered || hasAdvancedFilters) {
+if (query || (filter && filter !== 'all') || hasAdvancedFilters) {
   const searchTerm = query.toLowerCase();
   
   // Search blogs
   if (filters.length === 0 || filters.includes('all') || filters.includes('blog')) {
     const blogResults = blogs
       .filter(post =>
-        !query || // Show all if no query
-        post.data.title.toLowerCase().includes(searchTerm) ||
-        post.data.excerpt.toLowerCase().includes(searchTerm) ||
-        post.data.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+        (!query || 
+         post.data.title.toLowerCase().includes(searchTerm) ||
+         post.data.excerpt.toLowerCase().includes(searchTerm) ||
+         post.data.tags.some(tag => tag.toLowerCase().includes(searchTerm)))
       )
       .map(post => ({
         type: 'blog' as const,
@@ -87,10 +85,10 @@ if (query || (filter && filter !== 'all') || showFiltered || hasAdvancedFilters)
   if (filters.length === 0 || filters.includes('all') || filters.includes('whitepaper')) {
     const whitepaperResults = whitepapers
       .filter(paper =>
-        !query || // Show all if no query
-        paper.data.title.toLowerCase().includes(searchTerm) ||
-        paper.data.excerpt.toLowerCase().includes(searchTerm) ||
-        paper.data.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+        (!query ||
+         paper.data.title.toLowerCase().includes(searchTerm) ||
+         paper.data.excerpt.toLowerCase().includes(searchTerm) ||
+         paper.data.tags.some(tag => tag.toLowerCase().includes(searchTerm)))
       )
       .map(paper => ({
         type: 'whitepaper' as const,
@@ -105,47 +103,20 @@ if (query || (filter && filter !== 'all') || showFiltered || hasAdvancedFilters)
     results.push(...whitepaperResults);
   }
   
-  // Search pages
-  if (filters.length === 0 || filters.includes('all') || filters.includes('page')) {
-    const pageResults = Object.entries(pageMetadata)
-      .filter(([path, page]) =>
-        !query || // Show all if no query
-        page.title.toLowerCase().includes(searchTerm) ||
-        page.excerpt.toLowerCase().includes(searchTerm) ||
-        page.tags.some(tag => tag.toLowerCase().includes(searchTerm))
-      )
-      .map(([path, page]) => ({
-        type: 'page' as const,
-        title: page.title,
-        excerpt: page.excerpt,
-        slug: path,
-        tags: page.tags,
-        category: page.category
-      }));
-    results.push(...pageResults);
-  }
-  
-  // Search tags
-  if (filters.length === 0 || filters.includes('all') || filters.includes('tag')) {
-    const tagResults = tags
-      .filter(tag => !query || tag.name.toLowerCase().includes(searchTerm))
-      .map(tag => ({
-        type: 'tag' as const,
-        title: tag.name,
-        count: tag.count,
-        slug: `/tags/${tag.name.toLowerCase().replace(/\s+/g, '-')}`
-      }));
-    results.push(...tagResults);
-  }
-  
   // Apply advanced filters
   if (authorFilter) {
     results = results.filter(result => {
       if (result.type === 'blog' && result.author) {
-        return result.author.toLowerCase().includes(authorFilter.toLowerCase());
+        return selectedAuthors.some(author => 
+          result.author?.toLowerCase().includes(author.toLowerCase())
+        );
       }
       if (result.type === 'whitepaper' && result.authors) {
-        return result.authors.some(author => author.toLowerCase().includes(authorFilter.toLowerCase()));
+        return selectedAuthors.some(selectedAuthor => 
+          result.authors?.some(author => 
+            author.toLowerCase().includes(selectedAuthor.toLowerCase())
+          )
+        );
       }
       return true;
     });
@@ -190,7 +161,7 @@ if (query || (filter && filter !== 'all') || showFiltered || hasAdvancedFilters)
   }
 }
 
-// Sort results based on selected option
+// Sort results
 if (sortBy === 'date-desc') {
   results.sort((a, b) => {
     if (!a.date || !b.date) return 0;
@@ -203,411 +174,237 @@ if (sortBy === 'date-desc') {
   });
 } else if (sortBy === 'title') {
   results.sort((a, b) => a.title.localeCompare(b.title));
-} else {
-  // Default relevance sort
-  results.sort((a, b) => {
-    const aInTitle = a.title.toLowerCase().includes(query.toLowerCase());
-    const bInTitle = b.title.toLowerCase().includes(query.toLowerCase());
-    
-    if (aInTitle && !bInTitle) return -1;
-    if (!aInTitle && bInTitle) return 1;
-    
-    // For items with dates, sort by date
-    if ('date' in a && 'date' in b && a.date && b.date) {
-      return b.date.getTime() - a.date.getTime();
-    }
-    
-    return 0;
-  });
 }
 
-// Generate enhanced metadata for the search page
-const searchMetadata = generateMetaProperties('/search', {
-  title: query ? `Search results for "${query}"` : 'Search - Better Conversations Foundation',
-  description: query ? 
-    `Search results for "${query}" across the Foundation's resources, blogs, and whitepapers.` :
-    'Search the Foundation\'s complete library of resources, blogs, and whitepapers.'
-});
+const pageTitle = 'Search | Better Conversations Foundation';
+const pageDescription = 'Search our blogs, whitepapers, and resources.';
 ---
 
-<Layout 
-  title={searchMetadata.title}
-  description={searchMetadata.description}
-  keywords={searchMetadata.keywords}
-  schemaType="CollectionPage"
->
-  <style>
-    /* Match modal search styles */
-    .search-container {
-      max-width: 56rem; /* 896px - matches max-w-4xl */
-      margin: 0 auto;
-    }
-    
-    /* Filter button styles to match modal */
-    .search-filter {
-      background-color: #f9fafb;
-      color: #6b7280;
-      border: 1px solid #e5e7eb;
-      transition: all 0.2s ease;
-    }
-    
-    .search-filter:hover {
-      background-color: #f3f4f6;
-      border-color: #d1d5db;
-      transform: translateY(-1px);
-      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-    }
-    
-    .search-filter.active {
-      background: linear-gradient(to right, #54C4B6, #A8D381);
-      color: white;
-      border-color: transparent;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    }
-    
-    /* Selected tag styles */
-    .selected-tag {
-      @apply inline-flex items-center px-3 py-1 text-sm rounded-full bg-gradient-to-r from-[#54C4B6] to-[#A8D381] text-white;
-    }
-    
-    .selected-tag button {
-      @apply ml-2 hover:text-white/80;
-    }
-    
-    /* Tag suggestion styles */
-    .tag-suggestion {
-      @apply px-3 py-2.5 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100 last:border-b-0;
-    }
-    
-    .tag-suggestion:hover {
-      @apply bg-gradient-to-r from-[#54C4B6]/5 to-[#A8D381]/5;
-    }
-    
-    .tag-suggestion.active {
-      @apply bg-gradient-to-r from-[#54C4B6]/10 to-[#A8D381]/10;
-    }
-    
-    /* Author suggestion styles */
-    .author-suggestion:hover {
-      @apply bg-gradient-to-r from-[#54C4B6]/5 to-[#A8D381]/5;
-    }
-    
-    .author-suggestion.active {
-      @apply bg-gradient-to-r from-[#54C4B6]/10 to-[#A8D381]/10;
-    }
-    
-    /* Advanced options animation */
-    #advanced-options {
-      transition: all 0.3s ease-in-out;
-    }
-    
-    /* Result item styles to match modal */
-    .search-result-item {
-      display: block;
-      padding: 1rem;
-      margin-bottom: 0.5rem;
-      border-radius: 0.5rem;
-      border: 1px solid #e5e7eb;
-      background-color: white;
-      transition: all 0.2s;
-    }
-    
-    .search-result-item:hover {
-      background-color: #f0fdf4;
-      border-color: #54C4B6;
-      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-    }
-    
-    .search-result-item.active {
-      background-color: #e0f7fa !important;
-      border-color: #54C4B6 !important;
-      box-shadow: 0 0 0 2px rgba(84, 196, 182, 0.2) !important;
-    }
-    
-    /* Type badges to match modal */
-    .result-type-badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 0.125rem 0.5rem;
-      font-size: 0.75rem;
-      font-weight: 500;
-      border-radius: 9999px;
-    }
-    
-    .result-type-blog {
-      background-color: rgba(84, 196, 182, 0.1);
-      color: #54C4B6;
-    }
-    
-    .result-type-whitepaper {
-      background-color: rgba(168, 211, 129, 0.1);
-      color: #A8D381;
-    }
-    
-    .result-type-tag {
-      background-color: #f3f4f6;
-      color: #4b5563;
-    }
-    
-    .result-type-page {
-      background-color: rgba(249, 115, 22, 0.1);
-      color: #ea580c;
-    }
-    
-    .line-clamp-2 {
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-    }
-    
-    /* Loading animation */
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    
-    .animate-spin {
-      animation: spin 1s linear infinite;
-    }
-    
-    /* Rotation for advanced toggle */
-    .rotate-180 {
-      transform: rotate(180deg);
-    }
-  </style>
-
-  <div class="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-    <!-- Search Header -->
-    <div class="pt-24 pb-6 border-b border-gray-200 bg-white">
-      <div class="search-container px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center gap-4 relative">
-          <!-- Search suggestions dropdown -->
-          <div id="search-suggestions" class="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg hidden z-50 max-h-96 overflow-y-auto"></div>
-          <svg class="w-6 h-6 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-          </svg>
-          <form method="get" action="/search" class="flex-1 flex items-center gap-4">
+<Layout title={pageTitle} description={pageDescription}>
+  <div class="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
+    <!-- Hero Section with Integrated Search -->
+    <div class="bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10 border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Search & Explore</h1>
+        <p class="text-gray-600 mb-8">Discover insights across our knowledge base</p>
+        
+        <!-- Main Search Bar -->
+        <div class="bg-white rounded-2xl shadow-lg p-6">
+          <div class="flex items-center gap-4 mb-6">
+            <svg class="w-6 h-6 text-[#54C4B6] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
             <div class="flex-1 relative">
               <input
                 type="text"
-                name="q"
                 id="search-input"
+                name="q"
                 value={query}
-                placeholder="Search blogs, whitepapers, and topics..."
-                class="w-full text-lg bg-transparent outline-none placeholder-gray-400 text-gray-900 font-medium pr-8"
+                placeholder="Search blogs, whitepapers, topics, and more..."
+                class="w-full text-lg outline-none placeholder-gray-400 pr-10"
                 autocomplete="off"
-                autofocus
-              />
-              <!-- Clear button -->
-              {query && (
-                <button
-                  type="button"
-                  id="clear-search"
-                  class="absolute right-0 top-1/2 -translate-y-1/2 p-2 text-gray-400 hover:text-gray-600 transition-colors"
-                  aria-label="Clear search"
-                >
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                  </svg>
-                </button>
-              )}
+              >
+              <button
+                id="clear-search"
+                type="button"
+                class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors hidden"
+                aria-label="Clear search"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
             </div>
-            <input type="hidden" name="filter" value={filter} id="filter-input" />
-            <!-- Keyboard shortcut hint -->
-            <div class="hidden sm:flex items-center gap-2 text-sm text-gray-400">
-              <kbd class="px-2 py-1 bg-gray-100 border border-gray-300 rounded text-xs font-mono">Esc</kbd>
-              <span>to clear</span>
-            </div>
-          </form>
-        </div>
-        
-        <!-- Filters -->
-        <div class="flex flex-wrap items-center gap-4 mt-6">
-          <div class="flex flex-wrap gap-2">
-            <button class="search-filter px-3 py-1 text-sm rounded-full transition-colors" data-type="all">
-              All
-            </button>
-            <button class="search-filter px-3 py-1 text-sm rounded-full transition-colors" data-type="blog">
-              Blogs
-            </button>
-            <button class="search-filter px-3 py-1 text-sm rounded-full transition-colors" data-type="whitepaper">
-              Whitepapers
-            </button>
-            <button class="search-filter px-3 py-1 text-sm rounded-full transition-colors" data-type="page">
-              Pages
-            </button>
-            <button class="search-filter px-3 py-1 text-sm rounded-full transition-colors" data-type="tag">
-              Topics
-            </button>
           </div>
           
-          <!-- Advanced Options Toggle -->
-          <button id="advanced-toggle" class="text-sm text-[#54C4B6] hover:text-[#54C4B6]/80 font-medium flex items-center gap-1">
-            <svg class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-            </svg>
-            Advanced Options
-          </button>
-        </div>
-        
-        <!-- Advanced Search Options (Hidden by default) -->
-        <div id="advanced-options" class="hidden mt-6 p-4 bg-gray-50 rounded-lg">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Date Range -->
-            <div class="relative">
-              <label class="block text-sm font-medium text-gray-700 mb-2">Date Range</label>
+          <!-- Filter Options -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Content Type -->
+            <div>
+              <label class="bcf-label">Content Type</label>
               <div class="relative">
-                <select id="date-range" class="w-full px-3 py-2 pr-8 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#54C4B6]">
-                  <option value="">Any time</option>
-                  <option value="week">Past week</option>
-                  <option value="month">Past month</option>
-                  <option value="quarter">Past 3 months</option>
-                  <option value="year">Past year</option>
-                </select>
-                <button type="button" class="clear-filter-btn absolute right-2 top-2.5 text-gray-400 hover:text-gray-600 hidden" data-filter="date-range">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                <div id="content-type-button" class="bcf-dropdown-button">
+                  <span id="content-type-display">All Types</span>
+                  <svg class="bcf-dropdown-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                   </svg>
-                </button>
+                </div>
+                <div id="content-type-dropdown" class="bcf-dropdown-container hidden">
+                  <div class="content-type-option bcf-dropdown-option" data-value="all">All Types</div>
+                  <div class="content-type-option bcf-dropdown-option" data-value="blog">Blogs</div>
+                  <div class="content-type-option bcf-dropdown-option" data-value="whitepaper">Whitepapers</div>
+                  <div class="content-type-option bcf-dropdown-option" data-value="page">Pages</div>
+                  <div class="content-type-option bcf-dropdown-option" data-value="tag">Topics</div>
+                </div>
               </div>
             </div>
             
-            <!-- Sort By -->
-            <div class="relative">
-              <label class="block text-sm font-medium text-gray-700 mb-2">Sort By</label>
-              <div class="relative">
-                <select id="sort-by" class="w-full px-3 py-2 pr-8 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#54C4B6]">
-                  <option value="relevance">Relevance</option>
-                  <option value="date-desc">Newest first</option>
-                  <option value="date-asc">Oldest first</option>
-                  <option value="title">Title (A-Z)</option>
-                </select>
-                <button type="button" class="clear-filter-btn absolute right-2 top-2.5 text-gray-400 hover:text-gray-600 hidden" data-filter="sort-by">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
-            
-            <!-- Author Filter -->
-            <div class="relative">
+            <!-- Author -->
+            <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Author</label>
               <div class="relative">
-                <input type="text" id="author-filter" placeholder="Type author name and press Enter..." class="w-full px-3 py-2 pr-8 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#54C4B6]">
-                <button type="button" class="clear-filter-btn absolute right-2 top-2.5 text-gray-400 hover:text-gray-600 hidden" data-filter="author-filter">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                  </svg>
-                </button>
+                <input
+                  type="text"
+                  id="author-filter"
+                  placeholder="Type author name..."
+                  class="w-full h-[42px] px-3 py-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#54C4B6]"
+                >
                 <div id="author-suggestions" class="absolute z-10 w-full mt-1 bg-white rounded-lg shadow-lg border border-gray-200 max-h-48 overflow-y-auto hidden"></div>
               </div>
             </div>
             
-            <!-- Tag Filter -->
-            <div class="relative">
-              <label class="block text-sm font-medium text-gray-700 mb-2">Filter by Tags</label>
+            <!-- Tags -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Topics</label>
               <div class="relative">
                 <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">#</span>
-                <input 
-                  type="text" 
-                  id="tag-input" 
-                  placeholder="Type tag and press Enter..." 
-                  class="w-full pl-6 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#54C4B6]"
-                  autocomplete="off"
+                <input
+                  type="text"
+                  id="tag-input"
+                  placeholder="Type topic..."
+                  class="w-full h-[42px] pl-6 pr-3 py-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#54C4B6]"
                 >
-                <!-- Tag autocomplete dropdown -->
-                <div id="tag-suggestions" class="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg hidden z-50 max-h-48 overflow-y-auto"></div>
+                <div id="tag-suggestions" class="absolute z-10 w-full mt-1 bg-white rounded-lg shadow-lg border border-gray-200 max-h-48 overflow-y-auto hidden"></div>
               </div>
-              <!-- Selected tags (moved outside to span full width) -->
+            </div>
+            
+            <!-- Date Range -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Date Range</label>
+              <div class="relative">
+                <div id="date-range-button" class="w-full h-[42px] px-3 py-2 text-gray-600 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#54C4B6] cursor-pointer flex items-center justify-between">
+                  <span id="date-range-display">Any time</span>
+                  <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </div>
+                <div id="date-range-dropdown" class="absolute z-10 w-full mt-1 bg-white rounded-lg shadow-lg border border-gray-200 hidden">
+                  <div class="date-range-option px-3 py-2.5 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100 last:border-b-0" data-value="">Any time</div>
+                  <div class="date-range-option px-3 py-2.5 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100 last:border-b-0" data-value="week">Past week</div>
+                  <div class="date-range-option px-3 py-2.5 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100 last:border-b-0" data-value="month">Past month</div>
+                  <div class="date-range-option px-3 py-2.5 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100 last:border-b-0" data-value="quarter">Past 3 months</div>
+                  <div class="date-range-option px-3 py-2.5 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100 last:border-b-0" data-value="year">Past year</div>
+                </div>
+              </div>
             </div>
           </div>
           
-          <!-- Selected filters shown below the grid -->
-          <div class="space-y-2 mt-4">
-            <!-- Selected authors -->
-            <div id="selected-authors" class="flex flex-wrap gap-2"></div>
-            <!-- Selected tags -->
-            <div id="selected-tags" class="flex flex-wrap gap-2"></div>
+          <!-- Active Filters Display -->
+          <div id="active-filters" class="flex flex-wrap gap-2 mt-4 min-h-[32px]">
+            <!-- Active filters will be displayed here -->
           </div>
           
-          <div class="mt-4 flex justify-end gap-2">
-            <button id="clear-advanced" class="px-4 py-2 text-sm text-gray-600 hover:text-gray-800">Clear All</button>
-            <button id="apply-advanced" class="px-4 py-2 text-sm bg-[#54C4B6] text-white rounded-lg hover:bg-[#54C4B6]/90 transition-colors">Apply Filters</button>
+          <!-- Apply and Clear Buttons -->
+          <div class="flex justify-end gap-3 mt-4">
+            <button
+              id="clear-filters"
+              class="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+            >
+              Clear All
+            </button>
+            <button
+              id="apply-filters"
+              class="px-4 py-2 text-sm font-medium text-white bg-[#54C4B6] rounded-lg hover:bg-[#54C4B6]/90 hover:shadow-md transition-all"
+            >
+              Apply Filters
+            </button>
           </div>
         </div>
       </div>
     </div>
     
-    <!-- Search Results -->
-    <div class="max-h-[calc(100vh-280px)] overflow-y-auto">
-      <div class="search-container px-4 sm:px-6 lg:px-8 py-6">
-        {(query || (filter && filter !== 'all') || showFiltered || hasAdvancedFilters) ? (
-          results.length > 0 ? (
-            <div class="search-results-container">
-              {results.map((result, index) => {
-                let typeClass = '';
-                let typeName = '';
-                
-                switch (result.type) {
-                  case 'blog':
-                    typeClass = 'result-type-blog';
-                    typeName = 'Blog';
-                    break;
-                  case 'whitepaper':
-                    typeClass = 'result-type-whitepaper';
-                    typeName = 'Whitepaper';
-                    break;
-                  case 'tag':
-                    typeClass = 'result-type-tag';
-                    typeName = 'Topic';
-                    break;
-                  case 'page':
-                    typeClass = 'result-type-page';
-                    typeName = 'Page';
-                    break;
-                }
-                
-                return result.type === 'tag' ? (
-                  <a href={result.slug} 
-                     class="search-result-item" 
-                     data-index={index}>
-                    <div class="flex items-center justify-between gap-4">
-                      <div>
-                        <h3 class="font-semibold text-gray-900 text-lg mb-1 transition-colors">
-                          <span class="text-[#54C4B6]">#</span>{result.title}
-                        </h3>
-                        <p class="text-sm text-gray-600">{result.count} {result.count === 1 ? 'item' : 'items'}</p>
-                      </div>
-                      <span class={`result-type-badge ${typeClass}`}>{typeName}</span>
-                    </div>
-                  </a>
-                ) : (
-                  <a href={result.slug} 
-                     class="search-result-item" 
-                     data-index={index}>
-                    <div class="flex items-start justify-between gap-4">
-                      <div class="flex-1 min-w-0">
-                        <h3 class="font-semibold text-gray-900 text-lg mb-1 truncate transition-colors">{result.title}</h3>
-                        <p class="text-sm text-gray-600 line-clamp-2 mb-2">{result.excerpt}</p>
-                        <div class="flex items-center gap-2 text-xs text-gray-500">
-                          {result.date && <time>{new Date(result.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'short' })}</time>}
-                          {result.tags && result.tags.length > 0 && (
-                            <>
-                              <span class="text-gray-400">•</span>
-                              <span>{result.tags.slice(0, 2).join(', ')}</span>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                      <span class={`result-type-badge ${typeClass} flex-shrink-0`}>{typeName}</span>
-                    </div>
-                  </a>
-                );
-              })}
+    <!-- Results Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <!-- Results Header -->
+      <div id="results-header" class="flex items-center justify-between mb-6">
+        <div>
+          {(query || hasAdvancedFilters) && (
+            <>
+              <h2 id="results-count" class="text-lg font-semibold text-gray-900">
+                {results.length > 0 ? `${results.length} results found` : 'No results found'}
+              </h2>
+              <p id="results-description" class="text-sm text-gray-600 mt-1">
+                Showing filtered results
+              </p>
+            </>
+          )}
+        </div>
+        
+        <!-- Sort Options -->
+        {(query || hasAdvancedFilters) && (
+          <div class="flex items-center gap-2">
+            <label class="text-sm text-gray-600">Sort by:</label>
+            <div class="relative">
+              <div id="sort-by-button" class="px-3 py-1.5 pr-8 border border-gray-300 rounded-lg text-sm text-gray-600 bg-white focus:outline-none focus:ring-2 focus:ring-[#54C4B6] cursor-pointer flex items-center gap-2">
+                <span id="sort-by-display">Relevance</span>
+                <svg class="w-4 h-4 text-gray-400 absolute right-2 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </div>
+              <div id="sort-by-dropdown" class="absolute z-10 right-0 mt-1 w-40 bg-white rounded-lg shadow-lg border border-gray-200 hidden">
+                <div class="sort-by-option px-3 py-2 hover:bg-gray-50 cursor-pointer transition-colors text-sm border-b border-gray-100 last:border-b-0" data-value="relevance">Relevance</div>
+                <div class="sort-by-option px-3 py-2 hover:bg-gray-50 cursor-pointer transition-colors text-sm border-b border-gray-100 last:border-b-0" data-value="date-desc">Newest first</div>
+                <div class="sort-by-option px-3 py-2 hover:bg-gray-50 cursor-pointer transition-colors text-sm border-b border-gray-100 last:border-b-0" data-value="date-asc">Oldest first</div>
+                <div class="sort-by-option px-3 py-2 hover:bg-gray-50 cursor-pointer transition-colors text-sm border-b border-gray-100 last:border-b-0" data-value="title">Title (A-Z)</div>
+              </div>
             </div>
+          </div>
+        )}
+      </div>
+      
+      <!-- Results Grid -->
+      <div id="search-results" class="grid gap-4">
+        {(query || hasAdvancedFilters) ? (
+          results.length > 0 ? (
+            results.map(result => (
+              <a
+                href={result.slug}
+                class="block bg-white rounded-lg border border-gray-200 p-6 hover:border-[#54C4B6] hover:shadow-md transition-all duration-200"
+              >
+                <div class="flex items-start justify-between gap-4">
+                  <div class="flex-1">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                      {result.type === 'tag' && <span class="text-[#54C4B6]">#</span>}
+                      {result.title}
+                    </h3>
+                    {result.excerpt && (
+                      <p class="text-gray-600 mb-3 line-clamp-2">{result.excerpt}</p>
+                    )}
+                    <div class="flex items-center gap-4 text-sm text-gray-500">
+                      {result.date && (
+                        <time>{new Date(result.date).toLocaleDateString('en-GB', { 
+                          year: 'numeric', 
+                          month: 'short', 
+                          day: 'numeric' 
+                        })}</time>
+                      )}
+                      {result.author && <span>{result.author}</span>}
+                      {result.authors && <span>{result.authors.join(', ')}</span>}
+                      {result.tags && result.tags.length > 0 && (
+                        <div class="flex gap-2">
+                          {result.tags.slice(0, 3).map(tag => (
+                            <span class="text-[#54C4B6]">#{tag}</span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <span class={`
+                    px-3 py-1 text-xs font-medium rounded-full
+                    ${result.type === 'blog' ? 'bg-[#54C4B6]/10 text-[#54C4B6]' : ''}
+                    ${result.type === 'whitepaper' ? 'bg-[#A8D381]/10 text-[#A8D381]' : ''}
+                    ${result.type === 'tag' ? 'bg-gray-100 text-gray-600' : ''}
+                    ${result.type === 'page' ? 'bg-orange-100 text-orange-600' : ''}
+                  `}>
+                    {result.type === 'blog' && 'Blog'}
+                    {result.type === 'whitepaper' && 'Whitepaper'}
+                    {result.type === 'tag' && 'Topic'}
+                    {result.type === 'page' && 'Page'}
+                  </span>
+                </div>
+              </a>
+            ))
           ) : (
-            <!-- No results -->
             <div class="text-center py-12">
               <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -617,757 +414,647 @@ const searchMetadata = generateMetaProperties('/search', {
             </div>
           )
         ) : (
-          <!-- Initial state with popular topics -->
-          <div class="max-w-4xl mx-auto">
-            <!-- Recent searches -->
-            <div id="recent-searches" class="mb-8 hidden">
-              <div class="flex items-center gap-3 mb-4">
-                <h2 class="text-lg font-semibold text-gray-900">Recent Searches</h2>
-                <button 
-                  id="clear-history" 
-                  class="px-3 py-1 text-sm font-medium text-gray-600 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 hover:text-gray-900 transition-colors"
-                >
-                  Clear All
-                </button>
-              </div>
-              <div id="recent-searches-list" class="flex flex-wrap gap-2"></div>
-            </div>
-            
-            <div class="mb-8">
-              <h2 class="text-lg font-semibold text-gray-900 mb-4">Popular Topics</h2>
+          <!-- Initial State -->
+          <div class="grid md:grid-cols-2 gap-8">
+            <!-- Popular Topics -->
+            <div class="bg-white rounded-lg border border-gray-200 p-6">
+              <h3 class="text-lg font-semibold text-gray-900 mb-4">Popular Topics</h3>
               <div class="flex flex-wrap gap-2">
-                {popularTags.map(tag => (
-                  <a 
-                    href={`/tags/${tag.name.toLowerCase().replace(/\s+/g, '-')}`} 
-                    class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-[#54C4B6]/10 to-[#A8D381]/10 text-gray-700 hover:from-[#54C4B6] hover:to-[#A8D381] hover:text-white transition-all duration-300 hover:shadow-md"
+                {popularTags.slice(0, 12).map(tag => (
+                  <button
+                    data-tag={tag.name}
+                    class="tag-quick-filter inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-gradient-to-r from-[#54C4B6]/10 to-[#A8D381]/10 text-gray-700 hover:from-[#54C4B6] hover:to-[#A8D381] hover:text-white transition-all duration-300"
                   >
                     #{tag.name}
                     <span class="ml-1.5 text-xs opacity-70">({tag.count})</span>
-                  </a>
+                  </button>
                 ))}
               </div>
             </div>
             
-            <div class="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-3">Recent Blog Posts</h3>
-                <div class="space-y-3">
-                  {recentBlogs.map(post => (
-                    <a href={`/blog/${post.slug}`} class="block group">
-                      <h4 class="font-medium text-gray-900 group-hover:text-[#54C4B6] transition-colors">
-                        {post.data.title}
-                      </h4>
-                      <p class="text-sm text-gray-500 mt-1">
-                        {new Date(post.data.date).toLocaleDateString('en-GB', { month: 'short', day: 'numeric', year: 'numeric' })}
-                      </p>
-                    </a>
-                  ))}
-                  <a href="/blog" class="block text-[#54C4B6] hover:text-[#54C4B6]/80 transition-colors mt-4">
-                    View all blog posts →
+            <!-- Recent Content -->
+            <div class="bg-white rounded-lg border border-gray-200 p-6">
+              <h3 class="text-lg font-semibold text-gray-900 mb-4">Recent Posts</h3>
+              <div class="space-y-3">
+                {recentBlogs.map(post => (
+                  <a href={`/blog/${post.slug}`} class="block group">
+                    <h4 class="font-medium text-gray-900 group-hover:text-[#54C4B6] transition-colors">
+                      {post.data.title}
+                    </h4>
+                    <p class="text-sm text-gray-500 mt-1">
+                      {new Date(post.data.date).toLocaleDateString('en-GB', { 
+                        month: 'short', 
+                        day: 'numeric', 
+                        year: 'numeric' 
+                      })} • {post.data.author}
+                    </p>
                   </a>
-                </div>
-              </div>
-              
-              <div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-3">Browse by Type</h3>
-                <div class="space-y-2">
-                  <a href="/search?filter=blog" class="block text-gray-600 hover:text-[#54C4B6] transition-colors">
-                    Blog Articles
-                  </a>
-                  <a href="/search?filter=whitepaper" class="block text-gray-600 hover:text-[#54C4B6] transition-colors">
-                    Whitepapers & Research
-                  </a>
-                  <a href="/search?filter=page" class="block text-gray-600 hover:text-[#54C4B6] transition-colors">
-                    Foundation Pages
-                  </a>
-                  <a href="/tags" class="block text-[#54C4B6] font-medium hover:text-[#54C4B6]/80 transition-colors">
-                    Browse All Topics →
-                  </a>
-                </div>
+                ))}
               </div>
             </div>
           </div>
         )}
       </div>
     </div>
-    
-    <!-- Footer with keyboard shortcuts - only show when there are results -->
-    {(query || (filter && filter !== 'all') || showFiltered || hasAdvancedFilters) && results.length > 0 && (
-      <div class="p-4 sm:px-6 border-t border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100/50">
-        <div class="search-container flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-gray-500">
-          <div class="flex items-center gap-3 text-xs sm:text-sm">
-            <span class="flex items-center gap-1.5">
-              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-mono shadow-sm">↑</kbd>
-              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-mono shadow-sm">↓</kbd>
-              <span class="hidden sm:inline">Navigate</span>
-            </span>
-            <span class="text-gray-400">•</span>
-            <span class="flex items-center gap-1.5">
-              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-mono shadow-sm">Enter</kbd>
-              <span class="hidden sm:inline">Select</span>
-            </span>
-          </div>
-          <div class="search-result-count">
-            <span class="font-medium">{results.length}</span> {results.length === 1 ? 'result' : 'results'}
-          </div>
-        </div>
-      </div>
-    )}
   </div>
 
-  <script define:vars={{ allTagNames: tags.map(t => t.name), allAuthorNames: authorNames }}>
-    // Global variables
-    let selectedIndex = -1;
-    let selectedFilters = [];
-    let selectedTags = [];
-    let selectedAuthors = [];
-    let suggestionIndex = -1;
+  <style>
+    /* Custom styles for search page */
+    .line-clamp-2 {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+    
+    .active-filter {
+      @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm bg-gradient-to-r from-[#54C4B6] to-[#A8D381] text-white;
+    }
+    
+    .active-filter button {
+      @apply ml-1 hover:text-white/80 transition-colors;
+    }
+    
+    /* Removed duplicate styling since we're adding classes inline */
+    .author-suggestion:hover,
+    .tag-suggestion:hover {
+      @apply bg-gradient-to-r from-[#54C4B6]/5 to-[#A8D381]/5;
+    }
+    
+    .author-suggestion.active,
+    .tag-suggestion.active {
+      @apply bg-gradient-to-r from-[#54C4B6]/10 to-[#A8D381]/10;
+    }
+    
+    /* Flashing cursor animation */
+    
+  </style>
+
+  <script define:vars={{ 
+    allTagNames: tags.map(t => t.name), 
+    allAuthorNames: authorNames,
+    initialQuery: query,
+    initialFilter: filter,
+    initialTags: selectedTags,
+    initialAuthors: selectedAuthors,
+    initialDateRange: dateRange,
+    initialSort: sortBy
+  }}>
+    // State management
+    let searchState = {
+      query: initialQuery || '',
+      contentType: initialFilter || 'all',
+      selectedTags: [...initialTags],
+      selectedAuthors: [...initialAuthors],
+      dateRange: initialDateRange || '',
+      sortBy: initialSort || 'relevance'
+    };
+    
     let searchTimeout;
     
-    // Wait for DOM to be ready
+    // Initialize on DOM ready
     document.addEventListener('DOMContentLoaded', () => {
-      // Initialize elements
       const searchInput = document.getElementById('search-input');
-      const filterInput = document.getElementById('filter-input');
-      const filterButtons = document.querySelectorAll('.search-filter');
-      const advancedToggle = document.getElementById('advanced-toggle');
-      const advancedOptions = document.getElementById('advanced-options');
+      const contentTypeButton = document.getElementById('content-type-button');
+      const contentTypeDisplay = document.getElementById('content-type-display');
+      const contentTypeDropdown = document.getElementById('content-type-dropdown');
+      const authorInput = document.getElementById('author-filter');
+      const tagInput = document.getElementById('tag-input');
+      const dateRangeButton = document.getElementById('date-range-button');
+      const dateRangeDisplay = document.getElementById('date-range-display');
+      const dateRangeDropdown = document.getElementById('date-range-dropdown');
+      const sortByButton = document.getElementById('sort-by-button');
+      const sortByDisplay = document.getElementById('sort-by-display');
+      const sortByDropdown = document.getElementById('sort-by-dropdown');
       
-      // Initialize filters from URL
-      const urlFilters = filterInput?.value.split(',').filter(f => f) || [];
-      if (urlFilters.length > 0 && urlFilters[0] !== 'all') {
-        selectedFilters = urlFilters;
+      // Set initial values for custom dropdowns
+      const contentTypeLabels = {
+        'all': 'All Types',
+        'blog': 'Blogs',
+        'whitepaper': 'Whitepapers',
+        'page': 'Pages',
+        'tag': 'Topics'
+      };
+      
+      const dateRangeLabels = {
+        '': 'Any time',
+        'week': 'Past week',
+        'month': 'Past month',
+        'quarter': 'Past 3 months',
+        'year': 'Past year'
+      };
+      
+      const sortByLabels = {
+        'relevance': 'Relevance',
+        'date-desc': 'Newest first',
+        'date-asc': 'Oldest first',
+        'title': 'Title (A-Z)'
+      };
+      
+      if (contentTypeDisplay) contentTypeDisplay.textContent = contentTypeLabels[searchState.contentType] || 'All Types';
+      if (dateRangeDisplay) dateRangeDisplay.textContent = dateRangeLabels[searchState.dateRange] || 'Any time';
+      if (sortByDisplay) sortByDisplay.textContent = sortByLabels[searchState.sortBy] || 'Relevance';
+      
+      // Display initial active filters
+      updateActiveFilters();
+      
+      // Focus search input on page load
+      if (searchInput && !searchInput.value) {
+        searchInput.focus();
       }
       
-      // Advanced options toggle
-      if (advancedToggle && advancedOptions) {
-        advancedToggle.addEventListener('click', (e) => {
+      // Search input
+      searchInput?.addEventListener('input', (e) => {
+        searchState.query = e.target.value;
+        updateClearButton();
+        // Don't auto-search on input, wait for Apply button
+      });
+      
+      
+      // Clear search button
+      const clearSearchBtn = document.getElementById('clear-search');
+      clearSearchBtn?.addEventListener('click', () => {
+        searchInput.value = '';
+        searchState.query = '';
+        updateClearButton();
+        searchInput.focus();
+      });
+      
+      // Update clear button visibility
+      function updateClearButton() {
+        if (searchInput?.value) {
+          clearSearchBtn?.classList.remove('hidden');
+        } else {
+          clearSearchBtn?.classList.add('hidden');
+        }
+      }
+      
+      // Initial clear button state
+      updateClearButton();
+      
+      // Allow Enter key in search input to trigger search, Escape to clear
+      searchInput?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          performSearch();
+        } else if (e.key === 'Escape') {
+          // Clear search and all filters
+          clearAllFilters();
+        }
+      });
+      
+      // Add global escape key handler
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          // Check if any dropdown is open
+          const authorSuggestions = document.getElementById('author-suggestions');
+          const tagSuggestions = document.getElementById('tag-suggestions');
+          
+          if (!authorSuggestions?.classList.contains('hidden') || !tagSuggestions?.classList.contains('hidden')) {
+            // Just close dropdowns
+            hideAuthorSuggestions();
+            hideTagSuggestions();
+          } else if (searchState.query || searchState.selectedTags.length > 0 || searchState.selectedAuthors.length > 0 || searchState.dateRange || searchState.contentType !== 'all') {
+            // Clear all filters and search
+            clearAllFilters();
+          }
+        }
+      });
+      
+      // Content type dropdown functionality
+      contentTypeButton?.addEventListener('click', () => {
+        contentTypeDropdown?.classList.toggle('hidden');
+        dateRangeDropdown?.classList.add('hidden'); // Close other dropdown
+      });
+      
+      document.querySelectorAll('.content-type-option').forEach(option => {
+        option.addEventListener('click', () => {
+          const value = option.getAttribute('data-value');
+          searchState.contentType = value;
+          contentTypeDisplay.textContent = option.textContent;
+          contentTypeDropdown.classList.add('hidden');
+        });
+      });
+      
+      // Date range dropdown functionality
+      dateRangeButton?.addEventListener('click', () => {
+        dateRangeDropdown?.classList.toggle('hidden');
+        contentTypeDropdown?.classList.add('hidden'); // Close other dropdown
+      });
+      
+      document.querySelectorAll('.date-range-option').forEach(option => {
+        option.addEventListener('click', () => {
+          const value = option.getAttribute('data-value');
+          searchState.dateRange = value;
+          dateRangeDisplay.textContent = option.textContent;
+          dateRangeDropdown.classList.add('hidden');
+        });
+      });
+      
+      // Sort by dropdown functionality
+      sortByButton?.addEventListener('click', () => {
+        sortByDropdown?.classList.toggle('hidden');
+        // Close other dropdowns
+        contentTypeDropdown?.classList.add('hidden');
+        dateRangeDropdown?.classList.add('hidden');
+      });
+      
+      document.querySelectorAll('.sort-by-option').forEach(option => {
+        option.addEventListener('click', () => {
+          const value = option.getAttribute('data-value');
+          searchState.sortBy = value;
+          sortByDisplay.textContent = option.textContent;
+          sortByDropdown.classList.add('hidden');
+          performSearch(); // Sort change triggers immediate search
+        });
+      });
+      
+      // Apply button
+      document.getElementById('apply-filters')?.addEventListener('click', () => {
+        performSearch();
+      });
+      
+      // Clear button
+      document.getElementById('clear-filters')?.addEventListener('click', clearAllFilters);
+      
+      function clearAllFilters() {
+        // Clear all filters
+        searchState.query = '';
+        searchState.contentType = 'all';
+        searchState.selectedTags = [];
+        searchState.selectedAuthors = [];
+        searchState.dateRange = '';
+        searchState.sortBy = 'relevance';
+        
+        // Update UI
+        const searchInput = document.getElementById('search-input');
+        const contentTypeDisplay = document.getElementById('content-type-display');
+        const dateRangeDisplay = document.getElementById('date-range-display');
+        const sortByDisplay = document.getElementById('sort-by-display');
+        const authorInput = document.getElementById('author-filter');
+        const tagInput = document.getElementById('tag-input');
+        
+        if (searchInput) searchInput.value = '';
+        if (contentTypeDisplay) contentTypeDisplay.textContent = 'All Types';
+        if (dateRangeDisplay) dateRangeDisplay.textContent = 'Any time';
+        if (sortByDisplay) sortByDisplay.textContent = 'Relevance';
+        if (authorInput) authorInput.value = '';
+        if (tagInput) tagInput.value = '';
+        
+        updateActiveFilters();
+        updateClearButton();
+        performSearch();
+      }
+      
+      // Author autocomplete
+      setupAuthorAutocomplete();
+      
+      // Tag autocomplete
+      setupTagAutocomplete();
+      
+      // Quick filter buttons
+      document.querySelectorAll('.tag-quick-filter').forEach(button => {
+        button.addEventListener('click', () => {
+          const tag = button.getAttribute('data-tag');
+          if (tag && !searchState.selectedTags.includes(tag)) {
+            searchState.selectedTags.push(tag);
+            updateActiveFilters();
+          }
+        });
+      });
+    });
+    
+    function setupAuthorAutocomplete() {
+      const authorInput = document.getElementById('author-filter');
+      const authorSuggestions = document.getElementById('author-suggestions');
+      let authorSuggestionIndex = -1;
+      
+      authorInput?.addEventListener('input', (e) => {
+        const value = e.target.value.trim();
+        if (value.length > 0) {
+          showAuthorSuggestions(value);
+        } else {
+          hideAuthorSuggestions();
+        }
+      });
+      
+      // Show all suggestions on focus
+      authorInput?.addEventListener('focus', (e) => {
+        const value = e.target.value.trim();
+        showAuthorSuggestions(value || '');
+      });
+      
+      authorInput?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
           e.preventDefault();
-          advancedOptions.classList.toggle('hidden');
-          const icon = advancedToggle.querySelector('svg');
-          if (icon) {
-            icon.classList.toggle('rotate-180');
-          }
-        });
-      }
-      
-      // Update filter button states
-      function updateFilterButtons() {
-        filterButtons.forEach(button => {
-          const filterType = button.getAttribute('data-type') || '';
-          if (filterType === 'all' && selectedFilters.length === 0) {
-            button.classList.add('active');
-          } else if (selectedFilters.includes(filterType)) {
-            button.classList.add('active');
-          } else {
-            button.classList.remove('active');
-          }
-        });
-      }
-      
-      // Initialize button states
-      updateFilterButtons();
-      
-      // Filter button clicks (now supports multi-select)
-    filterButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const filterType = button.getAttribute('data-type') || 'all';
-        
-        if (filterType === 'all') {
-          // Clear all filters
-          selectedFilters = [];
-        } else {
-          // Toggle individual filter
-          const index = selectedFilters.indexOf(filterType);
-          if (index > -1) {
-            selectedFilters.splice(index, 1);
-          } else {
-            selectedFilters.push(filterType);
-          }
-        }
-        
-        // Update filter input
-        filterInput.value = selectedFilters.length > 0 ? selectedFilters.join(',') : 'all';
-        
-        // Update button states
-        updateFilterButtons();
-        
-        // Submit form if there's a search query
-        if (searchInput.value) {
-          searchInput.form?.submit();
+          selectAuthor();
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          navigateAuthorSuggestions(1);
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          navigateAuthorSuggestions(-1);
+        } else if (e.key === 'Escape') {
+          hideAuthorSuggestions();
         }
       });
-    });
-    
-    // Tag autocomplete functionality
-    const tagInput = document.getElementById('tag-input');
-    const tagSuggestions = document.getElementById('tag-suggestions');
-    const selectedTagsContainer = document.getElementById('selected-tags');
-    
-    // Author filter functionality
-    const authorFilterInput = document.getElementById('author-filter');
-    const authorSuggestions = document.getElementById('author-suggestions');
-    const selectedAuthorsContainer = document.getElementById('selected-authors');
-    
-    // Initialize selected tags and authors from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlTags = urlParams.get('tags');
-    if (urlTags) {
-      selectedTags = urlTags.split(',').filter(t => t);
-      displaySelectedTags();
-    }
-    
-    const urlAuthor = urlParams.get('author');
-    if (urlAuthor) {
-      selectedAuthors = urlAuthor.split(',').filter(a => a);
-      displaySelectedAuthors();
-    }
-    
-    // Tag input functionality
-    tagInput?.addEventListener('input', (e) => {
-      const value = e.target.value.toLowerCase();
-      if (value.length > 0) {
-        const matches = allTagNames.filter(tag => 
-          tag.toLowerCase().includes(value) && !selectedTags.includes(tag)
-        );
-        showTagSuggestions(matches);
-      } else {
-        hideTagSuggestions();
-      }
-    });
-    
-    // Keyboard navigation for suggestions
-    tagInput?.addEventListener('keydown', (e) => {
-      const suggestions = tagSuggestions?.querySelectorAll('.tag-suggestion');
-      if (!suggestions || suggestions.length === 0) return;
       
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        suggestionIndex = Math.min(suggestionIndex + 1, suggestions.length - 1);
-        updateActiveSuggestion(suggestions);
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        suggestionIndex = Math.max(suggestionIndex - 1, 0);
-        updateActiveSuggestion(suggestions);
-      } else if (e.key === 'Enter') {
-        e.preventDefault();
-        if (suggestionIndex >= 0) {
-          const activeTag = suggestions[suggestionIndex].textContent?.replace('#', '').trim();
-          if (activeTag) addTag(activeTag);
-        }
-      } else if (e.key === 'Escape') {
-        hideTagSuggestions();
-      }
-    });
-    
-    function showTagSuggestions(matches) {
-      if (!tagSuggestions) return;
-      
-      if (matches.length > 0) {
-        tagSuggestions.innerHTML = matches.map((tag, index) => `
-          <div class="tag-suggestion relative ${index === 0 ? 'active' : ''}" data-tag="${tag}">
-            <span class="absolute left-3 text-gray-400">#</span>
-            <span class="pl-6">${tag}</span>
-          </div>
-        `).join('');
+      function showAuthorSuggestions(searchTerm) {
+        const matches = searchTerm 
+          ? allAuthorNames.filter(author => 
+              author.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+          : allAuthorNames;
         
-        tagSuggestions.classList.remove('hidden');
-        suggestionIndex = 0;
+        // Sort alphabetically
+        const sortedMatches = matches.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
         
-        // Add click handlers
-        tagSuggestions.querySelectorAll('.tag-suggestion').forEach(suggestion => {
-          suggestion.addEventListener('click', () => {
-            const tag = suggestion.getAttribute('data-tag');
-            if (tag) addTag(tag);
+        // Limit to reasonable number for UI
+        const limitedMatches = sortedMatches.slice(0, 15);
+        
+        if (limitedMatches.length > 0) {
+          authorSuggestions.innerHTML = limitedMatches.map((author, index) => `
+            <div class="author-suggestion px-3 py-2.5 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100 last:border-b-0 ${index === 0 ? 'active' : ''}" data-author="${author}">
+              ${author}
+            </div>
+          `).join('');
+          authorSuggestions.classList.remove('hidden');
+          authorSuggestionIndex = 0;
+          
+          // Add click handlers
+          authorSuggestions.querySelectorAll('.author-suggestion').forEach(suggestion => {
+            suggestion.addEventListener('click', () => {
+              const author = suggestion.getAttribute('data-author');
+              if (author && !searchState.selectedAuthors.includes(author)) {
+                searchState.selectedAuthors.push(author);
+                updateActiveFilters();
+                authorInput.value = '';
+                hideAuthorSuggestions();
+              }
+            });
           });
-        });
-      } else {
-        hideTagSuggestions();
-      }
-    }
-    
-    function hideTagSuggestions() {
-      if (tagSuggestions) {
-        tagSuggestions.classList.add('hidden');
-        suggestionIndex = -1;
-      }
-    }
-    
-    function updateActiveSuggestion(suggestions) {
-      suggestions.forEach((s, i) => {
-        if (i === suggestionIndex) {
-          s.classList.add('active');
         } else {
-          s.classList.remove('active');
+          hideAuthorSuggestions();
         }
-      });
-    }
-    
-    function addTag(tag) {
-      if (!selectedTags.includes(tag)) {
-        selectedTags.push(tag);
-        displaySelectedTags();
-        tagInput.value = '';
-        hideTagSuggestions();
       }
-    }
-    
-    function removeTag(tag) {
-      selectedTags = selectedTags.filter(t => t !== tag);
-      displaySelectedTags();
-    }
-    
-    function displaySelectedTags() {
-      if (!selectedTagsContainer) return;
       
-      selectedTagsContainer.innerHTML = selectedTags.map(tag => `
-        <span class="selected-tag">
-          #${tag}
-          <button type="button" onclick="removeTag('${tag}')" class="remove-tag-btn">
-            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-        </span>
-      `).join('');
-    }
-    
-    // Make removeTag available globally
-    window.removeTag = removeTag;
-    
-    // Author filter handling
-    let authorSuggestionIndex = -1;
-    
-    authorFilterInput?.addEventListener('input', (e) => {
-      const value = e.target.value.trim();
-      if (value.length > 0) {
-        showAuthorSuggestions(value);
-      } else {
-        hideAuthorSuggestions();
+      function hideAuthorSuggestions() {
+        authorSuggestions?.classList.add('hidden');
+        authorSuggestionIndex = -1;
       }
-    });
-    
-    authorFilterInput?.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
+      
+      function navigateAuthorSuggestions(direction) {
+        const suggestions = authorSuggestions?.querySelectorAll('.author-suggestion');
+        if (!suggestions || suggestions.length === 0) return;
         
-        // If a suggestion is selected, use it
+        if (authorSuggestionIndex >= 0) {
+          suggestions[authorSuggestionIndex].classList.remove('active');
+        }
+        
+        authorSuggestionIndex = Math.max(0, Math.min(suggestions.length - 1, authorSuggestionIndex + direction));
+        suggestions[authorSuggestionIndex].classList.add('active');
+      }
+      
+      function selectAuthor() {
         const suggestions = authorSuggestions?.querySelectorAll('.author-suggestion');
         if (suggestions && authorSuggestionIndex >= 0 && authorSuggestionIndex < suggestions.length) {
-          const selectedAuthor = suggestions[authorSuggestionIndex].getAttribute('data-author');
-          if (selectedAuthor && !selectedAuthors.includes(selectedAuthor)) {
-            selectedAuthors.push(selectedAuthor);
-            displaySelectedAuthors();
-            authorFilterInput.value = '';
+          const author = suggestions[authorSuggestionIndex].getAttribute('data-author');
+          if (author && !searchState.selectedAuthors.includes(author)) {
+            searchState.selectedAuthors.push(author);
+            updateActiveFilters();
+            authorInput.value = '';
             hideAuthorSuggestions();
           }
-        } else {
-          // Otherwise use the typed value
-          const authorName = authorFilterInput.value.trim();
-          if (authorName && !selectedAuthors.includes(authorName)) {
-            selectedAuthors.push(authorName);
-            displaySelectedAuthors();
-            authorFilterInput.value = '';
+        } else if (authorInput.value.trim()) {
+          // If no suggestion is selected but there's text, use the typed value
+          const author = authorInput.value.trim();
+          if (author && !searchState.selectedAuthors.includes(author)) {
+            searchState.selectedAuthors.push(author);
+            updateActiveFilters();
+            authorInput.value = '';
             hideAuthorSuggestions();
           }
         }
-      } else if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        navigateAuthorSuggestions(1);
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        navigateAuthorSuggestions(-1);
-      } else if (e.key === 'Escape') {
-        hideAuthorSuggestions();
       }
-    });
-    
-    function showAuthorSuggestions(searchTerm) {
-      const matches = allAuthorNames.filter(author => 
-        author.toLowerCase().includes(searchTerm.toLowerCase())
-      ).slice(0, 10);
       
-      if (matches.length > 0) {
-        authorSuggestions.innerHTML = matches.map((author, index) => `
-          <div class="author-suggestion px-3 py-2.5 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100 last:border-b-0 ${index === 0 ? 'active' : ''}" data-author="${author}">
-            ${author}
-          </div>
-        `).join('');
-        authorSuggestions.classList.remove('hidden');
-        authorSuggestionIndex = 0;
+      window.showAuthorSuggestions = showAuthorSuggestions;
+      window.hideAuthorSuggestions = hideAuthorSuggestions;
+      window.navigateAuthorSuggestions = navigateAuthorSuggestions;
+    }
+    
+    function setupTagAutocomplete() {
+      const tagInput = document.getElementById('tag-input');
+      const tagSuggestions = document.getElementById('tag-suggestions');
+      let tagSuggestionIndex = -1;
+      
+      tagInput?.addEventListener('input', (e) => {
+        const value = e.target.value.trim();
+        if (value.length > 0) {
+          showTagSuggestions(value);
+        } else {
+          hideTagSuggestions();
+        }
+      });
+      
+      // Show all suggestions on focus
+      tagInput?.addEventListener('focus', (e) => {
+        const value = e.target.value.trim();
+        showTagSuggestions(value || '');
+      });
+      
+      tagInput?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          selectTag();
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          navigateTagSuggestions(1);
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          navigateTagSuggestions(-1);
+        } else if (e.key === 'Escape') {
+          hideTagSuggestions();
+        }
+      });
+      
+      function showTagSuggestions(searchTerm) {
+        const matches = searchTerm
+          ? allTagNames.filter(tag => 
+              tag.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+          : allTagNames;
         
-        // Add click handlers
-        authorSuggestions.querySelectorAll('.author-suggestion').forEach(suggestion => {
-          suggestion.addEventListener('click', () => {
-            const author = suggestion.getAttribute('data-author');
-            if (author && !selectedAuthors.includes(author)) {
-              selectedAuthors.push(author);
-              displaySelectedAuthors();
-              authorFilterInput.value = '';
-              hideAuthorSuggestions();
-            }
+        // Sort alphabetically
+        const sortedMatches = matches.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+        
+        // Limit to reasonable number for UI
+        const limitedMatches = sortedMatches.slice(0, 20);
+        
+        if (limitedMatches.length > 0) {
+          let html = limitedMatches.map((tag, index) => `
+            <div class="tag-suggestion px-3 py-2.5 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100 last:border-b-0 ${index === 0 ? 'active' : ''}" data-tag="${tag}">
+              <span class="text-gray-400">#</span>${tag}
+            </div>
+          `).join('');
+          
+          // Add indicator if there are more results
+          if (sortedMatches.length > 20) {
+            html += `<div class="px-3 py-2 text-sm text-gray-500 italic">Type to search ${sortedMatches.length - 20} more...</div>`;
+          }
+          
+          tagSuggestions.innerHTML = html;
+          tagSuggestions.classList.remove('hidden');
+          tagSuggestionIndex = 0;
+          
+          // Add click handlers
+          tagSuggestions.querySelectorAll('.tag-suggestion').forEach(suggestion => {
+            suggestion.addEventListener('click', () => {
+              const tag = suggestion.getAttribute('data-tag');
+              if (tag && !searchState.selectedTags.includes(tag)) {
+                searchState.selectedTags.push(tag);
+                updateActiveFilters();
+                tagInput.value = '';
+                hideTagSuggestions();
+              }
+            });
           });
-        });
-      } else {
-        hideAuthorSuggestions();
-      }
-    }
-    
-    function hideAuthorSuggestions() {
-      authorSuggestions?.classList.add('hidden');
-      authorSuggestionIndex = -1;
-    }
-    
-    function navigateAuthorSuggestions(direction) {
-      const suggestions = authorSuggestions?.querySelectorAll('.author-suggestion');
-      if (!suggestions || suggestions.length === 0) return;
-      
-      // Remove active class from current selection
-      if (authorSuggestionIndex >= 0 && authorSuggestionIndex < suggestions.length) {
-        suggestions[authorSuggestionIndex].classList.remove('active', 'bg-gradient-to-r', 'from-[#54C4B6]/10', 'to-[#A8D381]/10');
+        } else {
+          hideTagSuggestions();
+        }
       }
       
-      // Update index
-      authorSuggestionIndex = Math.max(0, Math.min(suggestions.length - 1, authorSuggestionIndex + direction));
+      function hideTagSuggestions() {
+        tagSuggestions?.classList.add('hidden');
+        tagSuggestionIndex = -1;
+      }
       
-      // Add active class to new selection
-      suggestions[authorSuggestionIndex].classList.add('active', 'bg-gradient-to-r', 'from-[#54C4B6]/10', 'to-[#A8D381]/10');
+      function navigateTagSuggestions(direction) {
+        const suggestions = tagSuggestions?.querySelectorAll('.tag-suggestion');
+        if (!suggestions || suggestions.length === 0) return;
+        
+        if (tagSuggestionIndex >= 0) {
+          suggestions[tagSuggestionIndex].classList.remove('active');
+        }
+        
+        tagSuggestionIndex = Math.max(0, Math.min(suggestions.length - 1, tagSuggestionIndex + direction));
+        suggestions[tagSuggestionIndex].classList.add('active');
+      }
       
-      // Scroll into view if needed
-      suggestions[authorSuggestionIndex].scrollIntoView({ block: 'nearest' });
+      function selectTag() {
+        const suggestions = tagSuggestions?.querySelectorAll('.tag-suggestion');
+        if (suggestions && tagSuggestionIndex >= 0) {
+          const tag = suggestions[tagSuggestionIndex].getAttribute('data-tag');
+          if (tag && !searchState.selectedTags.includes(tag)) {
+            searchState.selectedTags.push(tag);
+            updateActiveFilters();
+            tagInput.value = '';
+            hideTagSuggestions();
+          }
+        }
+      }
+      
+      window.showTagSuggestions = showTagSuggestions;
+      window.hideTagSuggestions = hideTagSuggestions;
+      window.navigateTagSuggestions = navigateTagSuggestions;
     }
     
-    function displaySelectedAuthors() {
-      if (!selectedAuthorsContainer) return;
+    function updateActiveFilters() {
+      const container = document.getElementById('active-filters');
+      if (!container) return;
       
-      selectedAuthorsContainer.innerHTML = selectedAuthors.map(author => `
-        <span class="selected-tag">
-          ${author}
-          <button type="button" onclick="removeAuthor('${author.replace(/'/g, "\\'")}')" class="remove-tag-btn">
-            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-        </span>
-      `).join('');
+      const filters = [];
+      
+      // Add author filters
+      searchState.selectedAuthors.forEach(author => {
+        filters.push(`
+          <span class="active-filter">
+            ${author}
+            <button onclick="removeAuthor('${author.replace(/'/g, "\\'")}')" class="ml-1">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </span>
+        `);
+      });
+      
+      // Add tag filters
+      searchState.selectedTags.forEach(tag => {
+        filters.push(`
+          <span class="active-filter">
+            #${tag}
+            <button onclick="removeTag('${tag.replace(/'/g, "\\'")}')" class="ml-1">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </span>
+        `);
+      });
+      
+      container.innerHTML = filters.join('');
     }
     
     function removeAuthor(author) {
-      selectedAuthors = selectedAuthors.filter(a => a !== author);
-      displaySelectedAuthors();
+      searchState.selectedAuthors = searchState.selectedAuthors.filter(a => a !== author);
+      updateActiveFilters();
     }
     
-    // Make removeAuthor available globally
-    window.removeAuthor = removeAuthor;
+    function removeTag(tag) {
+      searchState.selectedTags = searchState.selectedTags.filter(t => t !== tag);
+      updateActiveFilters();
+    }
     
-    // Click outside to close suggestions
+    function performSearch() {
+      const params = new URLSearchParams();
+      
+      if (searchState.query) params.set('q', searchState.query);
+      if (searchState.contentType !== 'all') params.set('filter', searchState.contentType);
+      if (searchState.selectedAuthors.length > 0) params.set('author', searchState.selectedAuthors.join(','));
+      if (searchState.selectedTags.length > 0) params.set('tags', searchState.selectedTags.join(','));
+      if (searchState.dateRange) params.set('dateRange', searchState.dateRange);
+      if (searchState.sortBy !== 'relevance') params.set('sort', searchState.sortBy);
+      
+      // Update URL without page reload
+      const newUrl = params.toString() ? `/search?${params.toString()}` : '/search';
+      window.history.pushState({}, '', newUrl);
+      
+      // In a real implementation, this would make an AJAX request
+      // For now, we'll reload the page
+      window.location.href = newUrl;
+    }
+    
+    // Make functions available globally
+    window.removeAuthor = removeAuthor;
+    window.removeTag = removeTag;
+    
+    // Click outside to close dropdowns
     document.addEventListener('click', (e) => {
+      const authorInput = document.getElementById('author-filter');
+      const authorSuggestions = document.getElementById('author-suggestions');
+      const tagInput = document.getElementById('tag-input');
+      const tagSuggestions = document.getElementById('tag-suggestions');
+      const contentTypeButton = document.getElementById('content-type-button');
+      const contentTypeDropdown = document.getElementById('content-type-dropdown');
+      const dateRangeButton = document.getElementById('date-range-button');
+      const dateRangeDropdown = document.getElementById('date-range-dropdown');
+      const sortByButton = document.getElementById('sort-by-button');
+      const sortByDropdown = document.getElementById('sort-by-dropdown');
+      
+      if (!authorInput?.contains(e.target) && !authorSuggestions?.contains(e.target)) {
+        hideAuthorSuggestions();
+      }
       if (!tagInput?.contains(e.target) && !tagSuggestions?.contains(e.target)) {
         hideTagSuggestions();
       }
-      if (!authorFilterInput?.contains(e.target) && !authorSuggestions?.contains(e.target)) {
-        hideAuthorSuggestions();
+      if (!contentTypeButton?.contains(e.target) && !contentTypeDropdown?.contains(e.target)) {
+        contentTypeDropdown?.classList.add('hidden');
+      }
+      if (!dateRangeButton?.contains(e.target) && !dateRangeDropdown?.contains(e.target)) {
+        dateRangeDropdown?.classList.add('hidden');
+      }
+      if (!sortByButton?.contains(e.target) && !sortByDropdown?.contains(e.target)) {
+        sortByDropdown?.classList.add('hidden');
       }
     });
-    
-    // Apply advanced filters
-    document.getElementById('apply-advanced')?.addEventListener('click', () => {
-      // Collect all advanced filter values
-      const dateRange = document.getElementById('date-range')?.value;
-      const sortBy = document.getElementById('sort-by')?.value;
-      
-      // Build advanced query params
-      const params = new URLSearchParams();
-      
-      // Keep the search query if it exists
-      const currentQuery = searchInput?.value || '';
-      if (currentQuery) {
-        params.set('q', currentQuery);
-      }
-      
-      // Keep the filter type if it exists and isn't 'all'
-      if (selectedFilters.length > 0) {
-        params.set('filter', selectedFilters.join(','));
-      }
-      
-      // Add advanced filters
-      if (dateRange) params.set('dateRange', dateRange);
-      if (sortBy) params.set('sort', sortBy);
-      if (selectedAuthors.length > 0) params.set('author', selectedAuthors.join(','));
-      if (selectedTags.length > 0) params.set('tags', selectedTags.join(','));
-      
-      // If we have any filters but no query, we still want to show results
-      // So we'll use a special marker that the server-side code can recognize
-      if (!currentQuery && (selectedAuthors.length > 0 || selectedTags.length > 0 || dateRange)) {
-        params.set('showFiltered', 'true');
-      }
-      
-      // Navigate with new params
-      window.location.href = `/search?${params.toString()}`;
-    });
-    
-    // Clear advanced filters
-    document.getElementById('clear-advanced')?.addEventListener('click', () => {
-      document.getElementById('date-range').value = '';
-      document.getElementById('sort-by').value = 'relevance';
-      document.getElementById('author-filter').value = '';
-      selectedTags = [];
-      selectedAuthors = [];
-      displaySelectedTags();
-      displaySelectedAuthors();
-      updateClearButtons();
-    });
-    
-    // Individual clear button functionality
-    const clearButtons = document.querySelectorAll('.clear-filter-btn');
-    
-    function updateClearButtons() {
-      const dateRange = document.getElementById('date-range');
-      const sortBy = document.getElementById('sort-by');
-      const authorFilter = document.getElementById('author-filter');
-      
-      clearButtons.forEach(btn => {
-        const filter = btn.getAttribute('data-filter');
-        let hasValue = false;
-        
-        if (filter === 'date-range' && dateRange?.value) {
-          hasValue = true;
-        } else if (filter === 'sort-by' && sortBy?.value && sortBy.value !== 'relevance') {
-          hasValue = true;
-        } else if (filter === 'author-filter' && authorFilter?.value) {
-          hasValue = true;
-        }
-        
-        if (hasValue) {
-          btn.classList.remove('hidden');
-        } else {
-          btn.classList.add('hidden');
-        }
-      });
-    }
-    
-    // Add change listeners to show/hide clear buttons
-    document.getElementById('date-range')?.addEventListener('change', updateClearButtons);
-    document.getElementById('sort-by')?.addEventListener('change', updateClearButtons);
-    document.getElementById('author-filter')?.addEventListener('input', updateClearButtons);
-    
-    // Clear button click handlers
-    clearButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const filter = btn.getAttribute('data-filter');
-        
-        if (filter === 'date-range') {
-          document.getElementById('date-range').value = '';
-        } else if (filter === 'sort-by') {
-          document.getElementById('sort-by').value = 'relevance';
-        } else if (filter === 'author-filter') {
-          document.getElementById('author-filter').value = '';
-        }
-        
-        updateClearButtons();
-      });
-    });
-    
-    // Initialize clear buttons
-    updateClearButtons();
-    
-    // Clear search button functionality
-    const clearSearchBtn = document.getElementById('clear-search');
-    if (clearSearchBtn) {
-      clearSearchBtn.addEventListener('click', () => {
-        searchInput.value = '';
-        searchInput.focus();
-        clearSearchBtn.classList.add('hidden');
-        // Navigate to search page without query
-        window.location.href = '/search';
-      });
-      
-      // Show/hide clear button based on input
-      searchInput?.addEventListener('input', () => {
-        if (searchInput.value.trim()) {
-          clearSearchBtn.classList.remove('hidden');
-        } else {
-          clearSearchBtn.classList.add('hidden');
-        }
-      });
-    }
-    
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-      const results = document.querySelectorAll('.search-result-item');
-      
-      // Escape key to clear search
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        if (searchInput && searchInput.value) {
-          searchInput.value = '';
-          searchInput.focus();
-          if (clearSearchBtn) {
-            clearSearchBtn.classList.add('hidden');
-          }
-          // Navigate to search page without query
-          window.location.href = '/search';
-        }
-        // Also hide any open dropdowns
-        hideSearchSuggestions();
-        hideTagSuggestions();
-        return;
-      }
-      
-      if (results.length > 0) {
-        if (e.key === 'ArrowDown') {
-          e.preventDefault();
-          selectedIndex = Math.min(selectedIndex + 1, results.length - 1);
-          updateSelectedResult();
-        } else if (e.key === 'ArrowUp') {
-          e.preventDefault();
-          selectedIndex = Math.max(selectedIndex - 1, -1);
-          updateSelectedResult();
-        } else if (e.key === 'Enter' && selectedIndex >= 0) {
-          e.preventDefault();
-          const selectedLink = results[selectedIndex];
-          if (selectedLink) {
-            window.location.href = selectedLink.href;
-          }
-        }
-      }
-      
-      // Removed Cmd/Ctrl + K handler - not needed on search page
-    });
-    
-    // Update selected result visual state
-    function updateSelectedResult() {
-      const results = document.querySelectorAll('.search-result-item');
-      results.forEach((item, index) => {
-        if (index === selectedIndex) {
-          item.classList.add('active');
-          item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-        } else {
-          item.classList.remove('active');
-        }
-      });
-    }
-    
-    // Auto-submit on input after delay
-    searchInput?.addEventListener('input', () => {
-      clearTimeout(searchTimeout);
-      const value = searchInput.value.trim();
-      
-      if (value.length > 2) {
-        // Show suggestions
-        showSearchSuggestions(value);
-        
-        searchTimeout = window.setTimeout(() => {
-          searchInput.form?.submit();
-        }, 500);
-      } else {
-        hideSearchSuggestions();
-      }
-    });
-    
-    // Search history management
-    const SEARCH_HISTORY_KEY = 'bcf-search-history';
-    const MAX_HISTORY_ITEMS = 5;
-    
-    function getSearchHistory() {
-      const history = localStorage.getItem(SEARCH_HISTORY_KEY);
-      return history ? JSON.parse(history) : [];
-    }
-    
-    function addToSearchHistory(query) {
-      if (!query.trim()) return;
-      
-      let history = getSearchHistory();
-      // Remove duplicates and add to beginning
-      history = [query, ...history.filter(item => item !== query)].slice(0, MAX_HISTORY_ITEMS);
-      localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(history));
-    }
-    
-    function displaySearchHistory() {
-      const history = getSearchHistory();
-      const container = document.getElementById('recent-searches');
-      const list = document.getElementById('recent-searches-list');
-      
-      if (history.length > 0 && container && list) {
-        container.classList.remove('hidden');
-        list.innerHTML = history.map(query => `
-          <a href="/search?q=${encodeURIComponent(query)}" 
-             class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-gradient-to-r from-[#54C4B6]/10 to-[#A8D381]/10 text-gray-700 hover:from-[#54C4B6] hover:to-[#A8D381] hover:text-white transition-all duration-300">
-            ${query}
-          </a>
-        `).join('');
-      }
-    }
-    
-    // Clear history button
-    document.getElementById('clear-history')?.addEventListener('click', () => {
-      localStorage.removeItem(SEARCH_HISTORY_KEY);
-      const container = document.getElementById('recent-searches');
-      if (container) {
-        container.classList.add('hidden');
-      }
-    });
-    
-    // Search suggestions
-    function showSearchSuggestions(query) {
-      const suggestions = document.getElementById('search-suggestions');
-      if (!suggestions) return;
-      
-      // Get matching content (simplified - in production, this would be an API call)
-      const allContent = [
-        'Communication Skills',
-        'Facilitation Techniques',
-        'Leadership Development',
-        'Coaching Methodology',
-        'Emergent Knowledge',
-        'Clean Language',
-        'Team Dynamics',
-        'Psychological Safety'
-      ];
-      
-      const matches = allContent.filter(item => 
-        item.toLowerCase().includes(query.toLowerCase())
-      );
-      
-      if (matches.length > 0) {
-        suggestions.innerHTML = matches.map(match => `
-          <a href="/search?q=${encodeURIComponent(match)}" 
-             class="block px-4 py-2 hover:bg-gray-50 transition-colors">
-            <span class="text-gray-900">${highlightMatch(match, query)}</span>
-          </a>
-        `).join('');
-        suggestions.classList.remove('hidden');
-      } else {
-        hideSearchSuggestions();
-      }
-    }
-    
-    function hideSearchSuggestions() {
-      const suggestions = document.getElementById('search-suggestions');
-      if (suggestions) {
-        suggestions.classList.add('hidden');
-      }
-    }
-    
-    function highlightMatch(text, query) {
-      const regex = new RegExp(`(${query})`, 'gi');
-      return text.replace(regex, '<strong class="text-[#54C4B6]">$1</strong>');
-    }
-    
-    // Hide suggestions when clicking outside
-    document.addEventListener('click', (e) => {
-      const searchContainer = document.querySelector('.search-container');
-      if (!searchContainer?.contains(e.target)) {
-        hideSearchSuggestions();
-      }
-    });
-    
-      // Initialize
-      if (searchInput?.value) {
-        addToSearchHistory(searchInput.value);
-      } else {
-        displaySearchHistory();
-      }
-    }); // End of DOMContentLoaded
   </script>
 </Layout>
