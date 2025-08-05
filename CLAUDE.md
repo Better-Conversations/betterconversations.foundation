@@ -219,7 +219,7 @@ The site uses an automatic image import system that eliminates the need for manu
    - Place hero images in `/src/assets/images/blog/`
    - Naming convention: `[blog-slug]-hero.{png,jpg,jpeg,webp}`
    - Example: `my-awesome-post-hero.png` for blog post with slug `my-awesome-post`
-   - Special case: `modelling-sales` blog post uses `clean-in-sales-hero.png`
+   - Special cases: none and try not to create new ones
    - Access via: `getBlogImage(slug)` returns optimized `ImageMetadata` or `null`
 
 3. **Author Images** (`src/data/authorImages.ts`):

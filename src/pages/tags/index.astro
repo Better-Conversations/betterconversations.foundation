@@ -4,7 +4,7 @@ import TagButton from '../../components/TagButton.astro';
 import { getAllTags, getPopularTags } from '../../utils/tags';
 
 const allTags = await getAllTags();
-const popularTags = await getPopularTags(15);
+const popularTags = await getPopularTags(10);
 
 // Group tags by first letter for alphabetical display
 const tagsByLetter = allTags.reduce((acc, tag) => {
@@ -141,19 +141,19 @@ function getTagSize(count: number): string {
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
         <div class="stat-card bg-white rounded-xl shadow-sm border border-gray-100 p-6 text-center" style="animation-delay: 0.1s;">
           <div class="text-3xl font-bold text-[#54C4B6] mb-2">{allTags.length}</div>
-          <div class="text-gray-600">Total Topics</div>
+          <div class="text-lg text-gray-600">Total Topics</div>
         </div>
         <div class="stat-card bg-white rounded-xl shadow-sm border border-gray-100 p-6 text-center" style="animation-delay: 0.2s;">
           <div class="text-3xl font-bold text-[#A8D381] mb-2">
             {allTags.reduce((sum, tag) => sum + tag.sources.blog, 0)}
           </div>
-          <div class="text-gray-600">Blog Articles</div>
+          <div class="text-lg text-gray-600">Blog Articles</div>
         </div>
         <div class="stat-card bg-white rounded-xl shadow-sm border border-gray-100 p-6 text-center" style="animation-delay: 0.3s;">
           <div class="text-3xl font-bold text-[#54C4B6] mb-2">
             {allTags.reduce((sum, tag) => sum + tag.sources.whitepapers, 0)}
           </div>
-          <div class="text-gray-600">Whitepapers</div>
+          <div class="text-lg text-gray-600">Whitepapers</div>
         </div>
       </div>
     </div>
