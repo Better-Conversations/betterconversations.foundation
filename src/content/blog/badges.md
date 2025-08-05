@@ -5,7 +5,7 @@ date: 2024-10-07T00:00:00.000Z
 author: Simon Coles
 tags: [foundation, credentials]
 category: Better Conversations
-image: "/images/blog/badges-linkedin-example.png"
+image: "/images/blog/badges-linkedin-hero.png"
 readingTime: 1
 ---
 
@@ -22,4 +22,4 @@ in the [community](https://community.betterconversations.foundation/t/credential
 
 Here's an example [from Chandima's LinkedIn](https://www.linkedin.com/in/chandimadutton/):
 
-![Badge Image](/images/blog/badges-linkedin-example.png)
+![Badge Image](../../assets/images/blog/badges-linkedin-example.png)

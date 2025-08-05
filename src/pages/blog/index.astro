@@ -89,8 +89,8 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
     </div>
   </section>
 
-  <!-- Main Blog Section with Alpine.js -->
-  <div x-data="blogFilters()" x-init="initFromURL()">
+  <!-- Server-side rendered content (shows before Alpine loads) -->
+  <div class="blog-content-ssr">
     <!-- Spotlight Section -->
     <section class="py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -107,8 +107,201 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
                     height={400}
                     class="w-full h-full object-cover" 
                   />
-                ) : post.image && (
+                ) : post.image ? (
                   <img src={post.image} alt={post.title} class="w-full h-full object-cover" />
+                ) : (
+                  <div class="w-full h-full bg-gradient-to-br from-[#54C4B6]/20 to-[#A8D381]/20 flex items-center justify-center">
+                    <svg class="w-24 h-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path>
+                    </svg>
+                  </div>
+                )}
+              </div>
+              <div class="p-8 flex flex-col h-full">
+                  <div class="flex items-center gap-3 text-sm text-gray-500 mb-3">
+                    <span class="bg-[#54C4B6] text-white px-3 py-1 rounded-full text-xs font-medium">Featured</span>
+                    <span>{post.category}</span>
+                  </div>
+                  <h3 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#54C4B6] transition-colors">
+                    <a href={`/blog/${post.slug}`}>{post.title}</a>
+                  </h3>
+                  <p class="text-gray-600 mb-4 flex-grow">{post.excerpt}</p>
+                  <div class="mt-auto">
+                    <div class="flex items-center gap-3 mb-4">
+                      <Image 
+                        src={getAuthorImage(post.author)} 
+                        alt={post.author} 
+                        width={40}
+                        height={40}
+                        class="w-10 h-10 rounded-full object-cover"
+                      />
+                      <div>
+                        <p class="text-sm font-medium text-gray-900">{post.author}</p>
+                        <p class="text-xs text-gray-500">{post.readingTime} min read</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                      <span class="text-sm text-gray-500">{post.publishedAt}</span>
+                      {post.tags?.length > 0 && (
+                        <div class="flex gap-2 flex-wrap">
+                          {post.tags.slice(0, 2).map((tag) => (
+                            <a 
+                              href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                              class="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full hover:bg-[#54C4B6] hover:text-white transition-colors"
+                            >
+                              #{tag}
+                            </a>
+                          ))}
+                          {post.tags.length > 2 && (
+                            <span class="text-xs text-gray-400">+{post.tags.length - 2}</span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Blog Grid with Sidebar -->
+    <section id="latest" class="py-16 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="lg:grid lg:grid-cols-4 lg:gap-8">
+          <!-- Sidebar -->
+          <aside class="mb-8 lg:mb-0">
+            <div class="sticky top-20">
+              <h3 class="text-lg font-semibold text-gray-900 mb-4">Categories</h3>
+              <nav class="space-y-1">
+                {categories.map((category) => (
+                  <a
+                    href={category === 'All' ? '/blog' : `/blog?category=${encodeURIComponent(category)}`}
+                    class="group flex items-center justify-between w-full px-3 py-2 text-sm font-medium rounded-md hover:text-[#54C4B6] hover:bg-white transition-colors text-left"
+                  >
+                    <span>{category}</span>
+                    <span class="text-xs text-gray-400 group-hover:text-[#54C4B6]">
+                      {category === 'All' ? regularPosts.length : regularPosts.filter(p => p.category === category).length}
+                    </span>
+                  </a>
+                ))}
+              </nav>
+
+              <div class="mt-8 p-6 bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10 rounded-lg overflow-hidden">
+                <h4 class="font-semibold text-gray-900 mb-2">Newsletter</h4>
+                <p class="text-sm text-gray-600 mb-4">Get the latest insights delivered to your inbox.</p>
+                <form action="/newsletter/subscribe" method="POST">
+                  <input type="email" name="email" placeholder="Your email" class="w-full px-3 py-2 mb-3 text-sm border border-gray-200 rounded-md focus:ring-[#54C4B6] focus:border-[#54C4B6]" required />
+                  <button type="submit" class="w-full px-4 py-2 bg-[#54C4B6] text-white rounded-md hover:bg-[#54C4B6]/90 transition-colors text-sm font-medium">
+                    Subscribe
+                  </button>
+                </form>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Blog Posts Grid -->
+          <div class="lg:col-span-3">
+            <div class="flex items-center justify-between mb-8">
+              <h2 class="text-2xl font-bold text-gray-900">Latest Articles</h2>
+            </div>
+
+            <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+              {regularPosts.map((post) => (
+                <article class="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-300 flex flex-col">
+                  <div class="h-48 bg-gray-200 flex-shrink-0">
+                    {post.optimizedImage ? (
+                      <Image 
+                        src={post.optimizedImage} 
+                        alt={post.title} 
+                        width={400}
+                        height={192}
+                        class="w-full h-full object-cover" 
+                      />
+                    ) : post.image ? (
+                      <img src={post.image} alt={post.title} class="w-full h-full object-cover" />
+                    ) : (
+                      <div class="w-full h-full bg-gradient-to-br from-[#54C4B6]/20 to-[#A8D381]/20 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path>
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+                  <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-center gap-3 text-xs text-gray-500 mb-2">
+                      <a 
+                        href={`/blog?category=${encodeURIComponent(post.category)}`}
+                        class="bg-black/60 backdrop-blur-sm px-3 py-1 border-l-2 border-[#54C4B6] text-center hover:bg-black/80 transition-colors text-white"
+                      >
+                        {post.category}
+                      </a>
+                      <a 
+                        href={`/blog?author=${encodeURIComponent(post.author)}`}
+                        class="hover:text-[#54C4B6] transition-colors"
+                      >
+                        {post.author}
+                      </a>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2 group-hover:text-[#54C4B6] transition-colors">
+                      <a href={`/blog/${post.slug}`}>{post.title}</a>
+                    </h3>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">{post.excerpt}</p>
+                    <div class="flex items-center justify-between mt-auto">
+                      <time class="text-xs text-gray-500">{post.publishedAt}</time>
+                      {post.tags?.length > 0 && (
+                        <div class="flex gap-2 flex-wrap">
+                          {post.tags.slice(0, 2).map((tag) => (
+                            <a 
+                              href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                              class="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full hover:bg-[#54C4B6] hover:text-white transition-colors"
+                            >
+                              #{tag}
+                            </a>
+                          ))}
+                          {post.tags.length > 2 && (
+                            <span class="text-xs text-gray-400">+{post.tags.length - 2}</span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Alpine.js enhanced version (progressive enhancement) -->
+  <div x-data="blogFilters()" x-init="initFromURL()" x-cloak style="display: none;">
+    <!-- Spotlight Section -->
+    <section class="py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8">Featured Articles</h2>
+        <div class="grid gap-8 lg:grid-cols-2">
+          {spotlightPosts.map((post) => (
+            <article class="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
+              <div class="h-64 bg-gray-200 flex-shrink-0">
+                {post.optimizedImage ? (
+                  <Image 
+                    src={post.optimizedImage} 
+                    alt={post.title} 
+                    width={800}
+                    height={400}
+                    class="w-full h-full object-cover" 
+                  />
+                ) : post.image ? (
+                  <img src={post.image} alt={post.title} class="w-full h-full object-cover" />
+                ) : (
+                  <div class="w-full h-full bg-gradient-to-br from-[#54C4B6]/20 to-[#A8D381]/20 flex items-center justify-center">
+                    <svg class="w-24 h-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path>
+                    </svg>
+                  </div>
                 )}
               </div>
               <div class="p-8 flex flex-col h-full">
@@ -246,7 +439,12 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
                   class="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-300 flex flex-col"
                 >
                   <div class="h-48 bg-gray-200 flex-shrink-0">
-                    <img :src="post.image" :alt="post.title" class="w-full h-full object-cover" />
+                    <img x-show="post.image" :src="post.image" :alt="post.title" class="w-full h-full object-cover" />
+                    <div x-show="!post.image" class="w-full h-full bg-gradient-to-br from-[#54C4B6]/20 to-[#A8D381]/20 flex items-center justify-center">
+                      <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path>
+                      </svg>
+                    </div>
                   </div>
                   <div class="p-6 flex flex-col flex-grow">
                     <div class="flex items-center gap-3 text-xs text-gray-500 mb-2">
@@ -294,26 +492,25 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
     </section>
   </div>
 
-  <script>
-    import Alpine from 'alpinejs';
-    
-    // Extend window interface for Alpine
-    declare global {
-      interface Window {
-        Alpine: typeof Alpine;
-      }
-    }
-    
-    // Initialize Alpine if not already initialized
-    if (!window.Alpine) {
-      window.Alpine = Alpine;
-      Alpine.start();
-    }
-  </script>
 
-  <script define:vars={{ regularPostsData: regularPosts, categoriesData: categories }}>
+  <script define:vars={{ regularPosts, categories }} is:inline>
+    // Pass data through global variables for Alpine
+    const regularPostsData = regularPosts;
+    const categoriesData = categories;
+    
+    // Progressive enhancement: Hide SSR content and show Alpine content when JS loads
+    document.addEventListener('alpine:initialized', () => {
+      const ssrContent = document.querySelector('.blog-content-ssr');
+      const alpineContent = document.querySelector('[x-data="blogFilters()"]');
+      
+      if (ssrContent && alpineContent) {
+        ssrContent.style.display = 'none';
+        alpineContent.style.display = 'block';
+      }
+    });
+    
     document.addEventListener('alpine:init', () => {
-      Alpine.data('blogFilters', () => ({
+      window.Alpine.data('blogFilters', () => ({
         posts: regularPostsData,
         categories: categoriesData,
         filters: {
@@ -406,9 +603,3 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
   </script>
 </Layout>
 
-<style>
-  /* Hide elements until Alpine loads */
-  [x-cloak] { 
-    display: none !important; 
-  }
-</style>

@@ -81,7 +81,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['about', 'mission', 'foundation', 'history', 'values'],
     category: 'About',
     description: 'Discover the Better Conversations Foundation\'s mission and values',
-    lastmod: '2025-07-14',
+    lastmod: '2025-08-04',
     priority: 0.7,
     changefreq: 'weekly'
   },
@@ -257,7 +257,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['blog', 'articles', 'news', 'insights', 'updates'],
     category: 'Resources',
     description: 'Read the latest articles and insights from the BCF community',
-    lastmod: '2025-07-22',
+    lastmod: '2025-08-05',
     priority: 0.8,
     changefreq: 'daily'
   },
@@ -277,7 +277,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['search', 'find', 'discover', 'explore'],
     category: 'utility',
     description: 'Search the Foundation\'s complete library of resources, blogs, and whitepapers',
-    lastmod: '2025-08-04',
+    lastmod: '2025-08-05',
     priority: 0.5,
     changefreq: 'monthly'
   },

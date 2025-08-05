@@ -169,7 +169,7 @@ const navItems = [
         <div class="mobile-nav-item">
           <a 
             href={item.href} 
-            class="text-gray-700 hover:text-gray-900 block px-3 py-2 rounded-md text-lg font-medium flex justify-between items-center"
+            class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-lg font-medium flex justify-between items-center"
             data-dropdown={item.dropdown ? 'true' : 'false'}
           >
             {item.name}
@@ -317,12 +317,63 @@ const navItems = [
   // Update on page navigation (for Astro's client-side routing)
   document.addEventListener('astro:after-swap', updateNavbar);
   
-  // Search button handlers
-  document.getElementById('search-button')?.addEventListener('click', () => {
-    if (window.openSearchModal) window.openSearchModal();
-  });
+  // Search button handlers - wait for Alpine to be ready
+  const setupSearchButtons = () => {
+    const searchButton = document.getElementById('search-button');
+    const searchButtonMobile = document.getElementById('search-button-mobile');
+    
+    // Remove any existing listeners first
+    searchButton?.replaceWith(searchButton.cloneNode(true));
+    searchButtonMobile?.replaceWith(searchButtonMobile.cloneNode(true));
+    
+    // Get fresh references
+    const newSearchButton = document.getElementById('search-button');
+    const newSearchButtonMobile = document.getElementById('search-button-mobile');
+    
+    const openSearch = (e) => {
+      e?.preventDefault();
+      
+      // Method 1: Try global function first (most reliable)
+      if (window.openSearchModal) {
+        window.openSearchModal();
+        return;
+      }
+      
+      // Method 2: Direct Alpine component access by ID
+      const searchModal = document.getElementById('search-modal-container') as any;
+      if (searchModal && searchModal.__x) {
+        searchModal.__x.$data.open = true;
+        return;
+      }
+      
+      // Method 3: Try any Alpine search modal component
+      const anySearchModal = document.querySelector('[x-data*="searchModal"]') as any;
+      if (anySearchModal && anySearchModal.__x) {
+        anySearchModal.__x.$data.open = true;
+        return;
+      }
+      
+      // Method 4: Dispatch custom event
+      window.dispatchEvent(new CustomEvent('open-search-modal'));
+    };
+    
+    newSearchButton?.addEventListener('click', openSearch);
+    newSearchButtonMobile?.addEventListener('click', openSearch);
+  };
   
-  document.getElementById('search-button-mobile')?.addEventListener('click', () => {
-    if (window.openSearchModal) window.openSearchModal();
+  // Set up buttons after DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupSearchButtons);
+  } else {
+    setupSearchButtons();
+  }
+  
+  // Re-setup after Alpine initializes
+  document.addEventListener('alpine:initialized', setupSearchButtons);
+  
+  // Re-setup after page transitions
+  document.addEventListener('astro:after-swap', () => {
+    // Small delay to ensure Alpine has processed the new DOM
+    setTimeout(setupSearchButtons, 100);
   });
 </script>

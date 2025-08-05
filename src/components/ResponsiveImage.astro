@@ -147,7 +147,7 @@ const imageId = `img-${Math.random().toString(36).substring(7)}`;
   }
 </style>
 
-<script define:vars={{ imageId }}>
+<script define:vars={{ imageId }} is:inline>
   document.addEventListener('DOMContentLoaded', () => {
     const image = document.getElementById(imageId);
     const lightbox = document.getElementById(`lightbox-${imageId}`);

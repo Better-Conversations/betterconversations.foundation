@@ -7,6 +7,7 @@ import { getCollection } from 'astro:content';
 import { getAllTags } from '../utils/tags';
 import { pageMetadata } from '../data/pageMetadata';
 import { generateMetaProperties, generateStructuredData, generateCanonicalURL, type SchemaType } from '../utils/metadata';
+import type { SearchData } from '../types/search';
 import '../styles/global.css';
 
 export interface Props {
@@ -54,9 +55,9 @@ const [blogs, whitepapers, tags] = await Promise.all([
   getAllTags()
 ]);
 
-const searchData = {
+const searchData: SearchData = {
   blogs: blogs.map(post => ({
-    type: 'blog',
+    type: 'blog' as const,
     title: post.data.title,
     excerpt: post.data.excerpt,
     slug: `/blog/${post.slug}`,
@@ -65,7 +66,7 @@ const searchData = {
     date: post.data.date
   })),
   whitepapers: whitepapers.map(paper => ({
-    type: 'whitepaper',
+    type: 'whitepaper' as const,
     title: paper.data.title,
     excerpt: paper.data.excerpt,
     slug: `/whitepapers/${paper.slug}`,
@@ -74,7 +75,7 @@ const searchData = {
     date: paper.data.date
   })),
   pages: Object.entries(pageMetadata).map(([path, page]) => ({
-    type: 'page',
+    type: 'page' as const,
     title: page.title,
     excerpt: page.excerpt,
     slug: path,
@@ -82,7 +83,7 @@ const searchData = {
     category: page.category
   })),
   tags: tags.map(tag => ({
-    type: 'tag',
+    type: 'tag' as const,
     title: tag.name,
     count: tag.count,
     slug: `/tags/${tag.name.toLowerCase().replace(/\s+/g, '-')}`
@@ -129,6 +130,54 @@ const searchData = {
 		
 		<!-- Structured Data -->
 		<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+		
+		<!-- Alpine.js Global Initialization -->
+		<script>
+			import Alpine from 'alpinejs';
+			
+			// Initialize Alpine globally
+			if (typeof window !== 'undefined') {
+				// Only set Alpine if not already set
+				if (!window.Alpine) {
+					window.Alpine = Alpine;
+					// Dispatch alpine:init event for components to register
+					window.dispatchEvent(new CustomEvent('alpine:init'));
+				}
+				
+				// Function to initialize Alpine
+				const initAlpine = () => {
+					// Only start Alpine if it hasn't been started
+					if (!Alpine.version) {
+						Alpine.start();
+					}
+					// Dispatch custom event when Alpine is initialized
+					window.dispatchEvent(new CustomEvent('alpine:initialized'));
+				};
+				
+				// Initialize on first load
+				if (document.readyState === 'loading') {
+					document.addEventListener('DOMContentLoaded', initAlpine);
+				} else {
+					// DOM is already loaded
+					initAlpine();
+				}
+				
+				// Re-initialize Alpine components after Astro page transitions
+				document.addEventListener('astro:after-swap', () => {
+					// Alpine needs to re-initialize components after DOM swap
+					Alpine.initTree(document.body);
+					// Dispatch event again for any listeners
+					window.dispatchEvent(new CustomEvent('alpine:initialized'));
+				});
+			}
+		</script>
+		
+		<style>
+			/* Hide Alpine elements until loaded */
+			[x-cloak] { 
+				display: none !important; 
+			}
+		</style>
 	</head>
 	<body class={isShowcasePage ? "h-full overflow-hidden" : "h-full"}>
 		<Navbar />

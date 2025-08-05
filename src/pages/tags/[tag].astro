@@ -91,34 +91,34 @@ const images = import.meta.glob('../../assets/images/blog/*', { eager: true });
         <div class="flex justify-center gap-6 md:gap-8 text-center mb-8 flex-wrap">
           <div>
             <div class="text-3xl font-bold text-[#54C4B6]">{taggedContent.length}</div>
-            <div class="text-sm text-gray-600">Total Items</div>
+            <div class="text-lg text-gray-600">Total Items</div>
           </div>
           <div>
             <div class="text-3xl font-bold text-[#A8D381]">{blogPosts.length}</div>
-            <div class="text-sm text-gray-600">Blog Posts</div>
+            <div class="text-lg text-gray-600">Blog Posts</div>
           </div>
           <div>
             <div class="text-3xl font-bold text-[#54C4B6]">{whitepapers.length}</div>
-            <div class="text-sm text-gray-600">Whitepapers</div>
+            <div class="text-lg text-gray-600">Whitepapers</div>
           </div>
           <div>
             <div class="text-3xl font-bold text-orange-600">{pages.length}</div>
-            <div class="text-sm text-gray-600">Pages</div>
+            <div class="text-lg text-gray-600">Pages</div>
           </div>
         </div>
         
         <!-- Related Tags -->
         {relatedTags.length > 0 && (
           <div class="mt-8">
-            <p class="text-sm text-gray-600 mb-3">Related topics:</p>
-            <div class="flex flex-wrap justify-center gap-2">
+            <p class="text-lg text-gray-600 mb-2">Related topics:</p>
+            <div class="flex flex-wrap justify-center gap-1 px-8 md:px-16 lg:px-24">
               {relatedTags.map((relatedTag, index) => (
                 <a
                   href={`/tags/${normalizeTag(relatedTag)}`}
                   class="related-tag"
                   style={`animation-delay: ${index * 0.1}s;`}
                 >
-                  <TagButton tag={relatedTag} size="xs" />
+                  <TagButton tag={relatedTag} size="sm" />
                 </a>
               ))}
             </div>
@@ -189,7 +189,7 @@ const images = import.meta.glob('../../assets/images/blog/*', { eager: true });
                           <span>•</span>
                           <span>{post.readingTime ? `${post.readingTime} min` : '5 min'}</span>
                         </div>
-                        <time>{post.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' })}</time>
+                        <time>{post.date ? post.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' }) : 'No date'}</time>
                       </div>
                     </div>
                   </a>
@@ -246,7 +246,7 @@ const images = import.meta.glob('../../assets/images/blog/*', { eager: true });
                           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                           </svg>
-                          <time>{paper.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long' })}</time>
+                          <time>{paper.date ? paper.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long' }) : 'No date'}</time>
                         </div>
                       </div>
                     </div>

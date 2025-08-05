@@ -11,7 +11,7 @@ const { searchData, loadDataOnDemand = true } = Astro.props;
 ---
 
 <!-- Progressive Enhancement Container -->
-<div class="search-container" x-data="searchModal()" x-init="init()">
+<div id="search-modal-container" x-data="searchModal()" x-init="init()" style="position: relative; z-index: 9999;">
   <!-- Fallback search form (works without JS) -->
   <form 
     action="/search" 
@@ -58,8 +58,6 @@ const { searchData, loadDataOnDemand = true } = Astro.props;
     x-show="open" 
     x-cloak
     @keydown.escape.window="open = false"
-    @keydown.cmd.k.window.prevent="open = true"
-    @keydown.ctrl.k.window.prevent="open = true"
     class="fixed inset-0 z-[100]"
     role="dialog"
     aria-modal="true"
@@ -258,27 +256,22 @@ const { searchData, loadDataOnDemand = true } = Astro.props;
 </style>
 
 <script>
-  import Alpine from 'alpinejs';
-  
-  // Extend window interface for Alpine
+  // Extend window interface
   declare global {
     interface Window {
-      Alpine: typeof Alpine;
       openSearchModal?: () => void;
     }
   }
-  
-  // Initialize Alpine if not already initialized
-  if (!window.Alpine) {
-    window.Alpine = Alpine;
-    Alpine.start();
-  }
 </script>
 
-<script define:vars={{ searchDataProp: searchData, loadDataOnDemand }}>
+<script define:vars={{ searchData, loadDataOnDemand }} is:inline>
+  // Pass data through a global variable for Alpine
+  const searchDataProp = searchData || null;
+  
   // Define the search modal component
-  document.addEventListener('alpine:init', () => {
-    Alpine.data('searchModal', () => ({
+  function registerSearchModal() {
+    // Register the component definition
+    window.Alpine.data('searchModal', () => ({
       open: false,
       query: '',
       results: [],
@@ -307,9 +300,39 @@ const { searchData, loadDataOnDemand = true } = Astro.props;
           }
         });
         
-        // Make search globally available
-        window.openSearchModal = () => {
+        // Make search globally available with better resilience
+        const openModal = () => {
           this.open = true;
+        };
+        
+        // Set on window
+        window.openSearchModal = openModal;
+        
+        // Also store reference on the element itself
+        const container = document.getElementById('search-modal-container');
+        if (container) {
+          container.openSearchModal = openModal;
+        }
+        
+        // Listen for custom event
+        const openModalHandler = () => {
+          this.open = true;
+        };
+        window.addEventListener('open-search-modal', openModalHandler);
+        
+        // Register global keyboard shortcut
+        const keyboardHandler = (e) => {
+          if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+            e.preventDefault();
+            this.open = true;
+          }
+        };
+        document.addEventListener('keydown', keyboardHandler);
+        
+        // Clean up on destroy (for page transitions)
+        this.$cleanup = () => {
+          window.removeEventListener('open-search-modal', openModalHandler);
+          document.removeEventListener('keydown', keyboardHandler);
         };
       },
       
@@ -441,5 +464,28 @@ const { searchData, loadDataOnDemand = true } = Astro.props;
         return styles[type] || styles.tag;
       }
     }));
-  });
+    
+    // After registering, initialize any existing components
+    const searchContainer = document.getElementById('search-modal-container');
+    if (searchContainer && window.Alpine) {
+      // Initialize this specific element with Alpine
+      window.Alpine.initTree(searchContainer);
+    }
+  }
+  
+  // Register the component when Alpine is ready
+  if (window.Alpine) {
+    registerSearchModal();
+  } else {
+    document.addEventListener('alpine:init', registerSearchModal);
+    // Also check periodically in case we missed the event
+    const checkInterval = setInterval(() => {
+      if (window.Alpine) {
+        clearInterval(checkInterval);
+        registerSearchModal();
+      }
+    }, 100);
+    // Stop checking after 5 seconds
+    setTimeout(() => clearInterval(checkInterval), 5000);
+  }
 </script>

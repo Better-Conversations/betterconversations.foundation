@@ -74,6 +74,7 @@ All commands are run from the root of the project, from a terminal:
 - **Astro v5.11.0** - Static site generator with partial hydration
 - **Tailwind CSS v3.4.17** - Utility-first CSS framework
 - **TypeScript** - Type-safe JavaScript with strict configuration
+- **Alpine.js v3.14.9** - Lightweight framework for progressive enhancement
 
 ### Key Features
 - **Content Collections**: Blog posts managed through Astro's content collections with schema validation
@@ -81,6 +82,7 @@ All commands are run from the root of the project, from a terminal:
 - **Responsive Design**: Mobile-first approach with Tailwind CSS
 - **Interactive Elements**: Magnetic buttons, 3D tilt cards, typewriter effects
 - **SEO Optimized**: Clean URLs and proper meta tags
+- **Progressive Enhancement**: Server-rendered content enhanced with Alpine.js for interactivity
 
 ### Blog Architecture
 - **URL Structure**: 
@@ -216,6 +218,21 @@ import diagram from '../assets/images/blog/diagram.png';
 - Use UK English spelling throughout
 - Follow the colour palette and gradient patterns
 - Maintain the clean, modern aesthetic
+
+### JavaScript and Interactivity
+
+#### Alpine.js Implementation
+- **Progressive Enhancement**: All content must be accessible without JavaScript
+- **Global Initialization**: Alpine is initialized once in `src/scripts/alpine-init.ts`
+- **Current Usage**:
+  - Search modal with fallback form submission
+  - Blog filtering and sorting with URL parameter support
+  - Tag filtering functionality
+- **Best Practices**:
+  - Always use `x-cloak` to prevent FOUC
+  - Provide server-rendered content that Alpine enhances
+  - Never rely on JavaScript for core functionality
+  - Total JavaScript overhead: ~45KB (Alpine.js) + <2KB custom code
 
 ## 📚 Development Notes
 

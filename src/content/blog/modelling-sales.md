@@ -5,6 +5,7 @@ date: 2023-05-02T00:00:00.000Z
 author: Simon Coles
 tags: [sales, modelling, clean-language]
 category: Clean Language
+image: "/images/blog/modelling-sales-hero.png"
 imageCredit:
   photographer: "charlesdeluvio"
   photographerUrl: "https://unsplash.com/photos/human-hand-neon-signage-AT5vuPoi8vc"
