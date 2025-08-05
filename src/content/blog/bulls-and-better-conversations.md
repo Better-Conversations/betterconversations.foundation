@@ -5,7 +5,7 @@ date: 2024-10-22T00:00:00.000Z
 author: Chandima Dutton
 tags: [clean-language, complexity, better-conversations]
 category: Clean Language
-image: "/images/blog/bulls-and-better-conversations-hero.png"
+image: "/images/blog/bulls-and-better-conversations-picasso-series.jpg"
 imageCredit:
   photographer: "Jennifer Coffin-Grey"
   photographerUrl: "https://unsplash.com/@jennifergrey?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"

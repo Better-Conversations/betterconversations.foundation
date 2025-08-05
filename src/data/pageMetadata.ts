@@ -227,7 +227,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['resources', 'materials', 'library', 'content', 'tools'],
     category: 'Resources',
     description: 'Access BCF\'s comprehensive library of resources and skills',
-    lastmod: '2025-07-21',
+    lastmod: '2025-08-04',
     priority: 0.7,
     changefreq: 'weekly'
   },
@@ -287,7 +287,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['topics', 'categories', 'browse', 'explore', 'navigation'],
     category: 'Navigation',
     description: 'Explore BCF content organised by topics and themes',
-    lastmod: '2025-07-21',
+    lastmod: '2025-08-04',
     priority: 0.2,
     changefreq: 'weekly'
   },
