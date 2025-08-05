@@ -287,7 +287,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['topics', 'categories', 'browse', 'explore', 'navigation'],
     category: 'Navigation',
     description: 'Explore BCF content organised by topics and themes',
-    lastmod: '2025-08-04',
+    lastmod: '2025-08-05',
     priority: 0.2,
     changefreq: 'weekly'
   },
