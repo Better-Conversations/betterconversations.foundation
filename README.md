@@ -12,7 +12,7 @@ The official website for the Better Conversations Foundation (BCF), built with A
 │   │       ├── badges-linkedin-example.png
 │   │       └── bulls-and-better-conversations-picasso-series.jpg
 │   ├── Better-Conversations-Foundation-RGB.png
-│   └── favicon.svg
+│   └── favicon.png
 ├── src/
 │   ├── assets/                      # Optimized images (processed by Astro)
 │   │   └── images/
@@ -71,9 +71,10 @@ All commands are run from the root of the project, from a terminal:
 ## 🏗️ Architecture
 
 ### Framework Stack
-- **Astro v5.11.0** - Static site generator with partial hydration
-- **Tailwind CSS v3.4.17** - Utility-first CSS framework
+- **Astro v5.11.0** - Static site generator (fully static build, no SSR)
+- **Tailwind CSS v3.4.17** - Utility-first CSS framework  
 - **TypeScript** - Type-safe JavaScript with strict configuration
+- **Alpine.js v3.14.9** - Lightweight framework for progressive enhancement
 
 ### Key Features
 - **Content Collections**: Blog posts managed through Astro's content collections with schema validation
@@ -81,6 +82,8 @@ All commands are run from the root of the project, from a terminal:
 - **Responsive Design**: Mobile-first approach with Tailwind CSS
 - **Interactive Elements**: Magnetic buttons, 3D tilt cards, typewriter effects
 - **SEO Optimized**: Clean URLs and proper meta tags
+- **Progressive Enhancement**: Server-rendered content enhanced with Alpine.js for interactivity
+- **Client-Side Search**: Fast, interactive search with advanced filtering (no SSR required)
 
 ### Blog Architecture
 - **URL Structure**: 
@@ -95,6 +98,8 @@ All commands are run from the root of the project, from a terminal:
 - **Consistent Gradients**: `from-[#54C4B6] to-[#A8D381]` pattern throughout
 - **Wave Separators**: Custom SVG patterns between sections
 - **Interactive Elements**: Hover effects, transitions, and micro-interactions
+- **Global CSS Classes**: Unified component system with `.bcf-*` prefix for consistency
+- **Content Cards**: Standardized card design using `.bcf-content-card-*` classes
 
 ## 📝 Content Management
 
@@ -119,36 +124,87 @@ All commands are run from the root of the project, from a terminal:
 3. Write your content in markdown
 4. The post will automatically appear in the blog listing
 
-### Image File Management
+### Image Management
 
-#### Hero Images (Optimized)
-- **Location**: `/src/assets/images/blog/` directory
-- **Usage**: Referenced in blog frontmatter as `image: "/images/blog/hero-name.png"`
-- **Benefits**: 
-  - Automatic WebP conversion
-  - 90%+ file size reduction
-  - Multiple responsive sizes generated
-  - Lazy loading built-in
+#### Where to Place Images
 
-#### Inline Images (Not Optimized - Temporary)
-- **Location**: `/public/images/blog/` directory
-- **Usage**: Referenced in markdown content as `![alt text](/images/blog/inline-image.png)`
-- **Note**: These images are served as-is without optimization
-- **Future**: Will be optimized when upgrading to MDX (see todo.md)
+**In `/public/`** (served as-is, no optimization):
+- Favicons (`favicon.png`)
+- Open Graph/social media images (need static URLs)
+- External service images (RSS feeds, etc.)
+- Inline blog content images referenced in markdown
 
-#### Other Static Assets
-- **Location**: `/public/` root
-- **Usage**: Logos, favicons, and other non-blog images
+**In `/src/assets/`** (optimized by Astro):
+- Author photos → `/src/assets/images/authors/`
+- Blog hero images → `/src/assets/images/blog/`
+- Logo variations → `/src/assets/images/logos/`
+- All other component images
 
-### Hero Image Best Practices
-- **File Size**: Original files can be larger (1-5 MB) since Astro optimizes them
-  - **Automatic optimization**: Astro reduces file sizes by 90%+ during build
-  - **WebP conversion**: All images converted to WebP format automatically
-  - **Example**: 6.5 MB JPEG → 531 KB WebP (92% reduction)
-- **Dimensions**: 1920x1080px for desktop hero images (16:9 ratio)
-- **Format**: Upload as JPEG or PNG - Astro handles optimization
-- **Responsive**: Multiple image sizes generated automatically
-- **Credits**: Always include photographer attribution in frontmatter
+#### Content Type Image Strategy
+- **Blog Posts**: Hero images from `/src/assets/images/blog/` (auto-optimized)
+- **Whitepapers**: Default document icon (no custom images)
+- **Pages**: BCF symbol logo from `/src/assets/images/logos/bcf-symbol.png`
+- **Tag/Search Pages**: Consistent display with white backgrounds and borders
+
+#### Automatic Image Import System
+
+The site uses dynamic image imports for blog and author images, eliminating the need for manual imports.
+
+**Blog Images:**
+- Place hero images in `/src/assets/images/blog/`
+- Follow naming convention: `[blog-slug]-hero.{png,jpg,jpeg,webp}`
+- Example: For a blog post with slug `my-awesome-post`, name the image `my-awesome-post-hero.png`
+- Images are automatically imported and optimized via `src/data/blogImages.ts`
+
+**Author Images:**
+- Place author photos in `/src/assets/images/authors/`
+- Follow naming convention: `[firstname-lastname].{png,jpg,jpeg,webp}`
+- Example: For author "Jane Smith", name the image `jane-smith.jpg`
+- The system automatically converts filenames to proper names (e.g., `jane-smith.jpg` → "Jane Smith")
+- Include a `default.jpg` for authors without specific images
+
+#### Using Images
+
+**Blog hero images (automatic):**
+```astro
+---
+import { getBlogImage } from '../data/blogImages';
+import { Image } from 'astro:assets';
+
+const heroImage = getBlogImage(entry.slug);
+---
+{heroImage && (
+  <Image src={heroImage} alt={entry.data.title} width={1920} height={800} />
+)}
+```
+
+**Author images (automatic):**
+```astro
+---
+import { getAuthorImage } from '../data/authorImages';
+import { Image } from 'astro:assets';
+
+const authorImage = getAuthorImage(post.data.author);
+---
+<Image src={authorImage} alt={post.data.author} width={64} height={64} class="rounded-full" />
+```
+
+**In MDX files:**
+```mdx
+import { Image } from 'astro:assets';
+import diagram from '../assets/images/blog/diagram.png';
+
+<Image src={diagram} alt="Diagram" width={800} height={400} />
+```
+
+#### Image Guidelines
+- **Blog hero images**: 1200x630px (16:9 ratio)
+- **Author photos**: 400x400px (square)
+- **File formats**: `.jpg` for photos, `.png` for graphics with transparency, `.svg` for icons
+- **Naming conventions**:
+  - Blog heroes: `[slug]-hero.{ext}` (e.g., `my-blog-post-hero.jpg`)
+  - Authors: `[firstname-lastname].{ext}` (e.g., `john-doe.jpg`)
+  - Other images: Use descriptive kebab-case names
 
 ### Page Structure
 - Most pages use the `Layout.astro` wrapper
@@ -159,8 +215,17 @@ All commands are run from the root of the project, from a terminal:
 
 ### Tailwind Classes
 - Use utility classes for most styling
+- Global CSS classes with `.bcf-*` prefix for common components
 - Custom CSS in `<style>` blocks for animations and complex layouts
 - Maintain consistency with the design system
+
+### Global CSS Components
+The site uses a comprehensive global CSS system (`src/styles/global.css`) for consistency:
+- **Dropdowns**: `.bcf-dropdown-button`, `.bcf-dropdown-container`, etc.
+- **Forms**: `.bcf-input`, `.bcf-label`
+- **Buttons**: `.bcf-button-primary`, `.bcf-button-secondary`
+- **Content Cards**: `.bcf-content-card-*` classes for search/tag page results
+- **Typography**: `.bcf-section-header`, `.bcf-gradient-text`
 
 ### Responsive Design
 - Mobile-first approach using Tailwind breakpoints
@@ -171,6 +236,21 @@ All commands are run from the root of the project, from a terminal:
 - Use UK English spelling throughout
 - Follow the colour palette and gradient patterns
 - Maintain the clean, modern aesthetic
+
+### JavaScript and Interactivity
+
+#### Alpine.js Implementation
+- **Progressive Enhancement**: All content must be accessible without JavaScript
+- **Global Initialization**: Alpine is initialized once in `src/scripts/alpine-init.ts`
+- **Current Usage**:
+  - Search modal with fallback form submission
+  - Blog filtering and sorting with URL parameter support
+  - Tag filtering functionality
+- **Best Practices**:
+  - Always use `x-cloak` to prevent FOUC
+  - Provide server-rendered content that Alpine enhances
+  - Never rely on JavaScript for core functionality
+  - Total JavaScript overhead: ~45KB (Alpine.js) + <2KB custom code
 
 ## 📚 Development Notes
 
@@ -198,9 +278,10 @@ All commands are run from the root of the project, from a terminal:
 - `src/content/config.ts`: Content collection schemas
 
 ### Environment
-- Built for static deployment
+- Built for static deployment (fully static, no SSR)
 - No runtime database required
 - Content managed through markdown files
+- All search and filtering handled client-side
 
 ## 🤝 Contributing
 

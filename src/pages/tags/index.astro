@@ -4,7 +4,7 @@ import TagButton from '../../components/TagButton.astro';
 import { getAllTags, getPopularTags } from '../../utils/tags';
 
 const allTags = await getAllTags();
-const popularTags = await getPopularTags(15);
+const popularTags = await getPopularTags(10);
 
 // Group tags by first letter for alphabetical display
 const tagsByLetter = allTags.reduce((acc, tag) => {
@@ -18,20 +18,39 @@ const tagsByLetter = allTags.reduce((acc, tag) => {
 
 const sortedLetters = Object.keys(tagsByLetter).sort();
 
-// Calculate tag sizes for cloud (min 0.8rem, max 2rem)
+// Calculate tag sizes for cloud (min 0.75rem, max 1.5rem)
 const maxCount = Math.max(...allTags.map(t => t.count));
 const minCount = Math.min(...allTags.map(t => t.count));
 const sizeRange = maxCount - minCount || 1;
 
 function getTagSize(count: number): string {
   const normalized = (count - minCount) / sizeRange;
-  const size = 0.8 + (normalized * 1.2); // 0.8rem to 2rem
+  const size = 0.75 + (normalized * 0.75); // 0.75rem to 1.5rem
   return `${size}rem`;
 }
+
 ---
 
 <Layout title="Browse by Topic - Better Conversations Foundation">
   <style>
+    /* Tab styles */
+    .tab-button {
+      @apply px-3 py-2 text-sm font-medium text-gray-600 bg-transparent border-b-2 border-transparent hover:text-[#54C4B6] transition-colors;
+      margin-bottom: -2px; /* Align with border */
+    }
+    
+    .tab-button.active {
+      @apply text-[#54C4B6] border-[#54C4B6];
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
     /* Tag cloud animation */
     @keyframes float {
       0%, 100% { transform: translateY(0); }
@@ -45,17 +64,6 @@ function getTagSize(count: number): string {
     
     .tag-cloud-item:hover {
       animation: float 1s ease-in-out infinite;
-    }
-    
-    /* Alphabet navigation */
-    .alphabet-nav {
-      position: sticky;
-      top: 100px;
-      height: fit-content;
-    }
-    
-    .letter-section {
-      scroll-margin-top: 120px;
     }
     
     /* Stats animation */
@@ -74,6 +82,44 @@ function getTagSize(count: number): string {
         radial-gradient(circle at 20% 50%, rgba(84, 196, 182, 0.1) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, rgba(168, 211, 129, 0.1) 0%, transparent 50%),
         radial-gradient(circle at 40% 80%, rgba(84, 196, 182, 0.05) 0%, transparent 50%);
+    }
+    
+    
+    /* View toggle styles */
+    .view-toggle {
+      @apply text-gray-600 bg-transparent;
+    }
+    
+    .view-toggle.active {
+      @apply text-white bg-[#54C4B6] shadow-sm;
+    }
+    
+    /* Compact view styles */
+    .compact-view {
+      @apply flex flex-wrap gap-2;
+    }
+    
+    /* Initial state - hide compact view */
+    .compact-container {
+      display: none;
+    }
+    
+    .compact-container.show {
+      display: flex;
+    }
+    
+    .grid-container.hide {
+      display: none;
+    }
+    
+    .compact-item {
+      @apply inline-flex items-center px-4 py-2 rounded-full transition-all duration-300 text-sm font-medium;
+      @apply bg-[#54C4B6]/10 text-gray-700;
+      @apply hover:bg-[#54C4B6] hover:text-white;
+    }
+    
+    .compact-item:hover {
+      @apply shadow-md transform scale-105;
     }
   </style>
 
@@ -95,19 +141,19 @@ function getTagSize(count: number): string {
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
         <div class="stat-card bg-white rounded-xl shadow-sm border border-gray-100 p-6 text-center" style="animation-delay: 0.1s;">
           <div class="text-3xl font-bold text-[#54C4B6] mb-2">{allTags.length}</div>
-          <div class="text-gray-600">Total Topics</div>
+          <div class="text-lg text-gray-600">Topics</div>
         </div>
         <div class="stat-card bg-white rounded-xl shadow-sm border border-gray-100 p-6 text-center" style="animation-delay: 0.2s;">
           <div class="text-3xl font-bold text-[#A8D381] mb-2">
             {allTags.reduce((sum, tag) => sum + tag.sources.blog, 0)}
           </div>
-          <div class="text-gray-600">Blog Articles</div>
+          <div class="text-lg text-gray-600">Blog Articles</div>
         </div>
         <div class="stat-card bg-white rounded-xl shadow-sm border border-gray-100 p-6 text-center" style="animation-delay: 0.3s;">
           <div class="text-3xl font-bold text-[#54C4B6] mb-2">
             {allTags.reduce((sum, tag) => sum + tag.sources.whitepapers, 0)}
           </div>
-          <div class="text-gray-600">Whitepapers</div>
+          <div class="text-lg text-gray-600">Whitepapers</div>
         </div>
       </div>
     </div>
@@ -125,79 +171,143 @@ function getTagSize(count: number): string {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">Popular Topics</h2>
       
-      <div class="text-center space-x-3 space-y-3">
+      <div class="text-center space-x-2 space-y-2">
         {popularTags.map((tag, index) => (
           <a
             href={`/tags/${tag.name.toLowerCase().replace(/\s+/g, '-')}`}
-            class="tag-cloud-item inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-[#54C4B6]/10 to-[#A8D381]/10 hover:from-[#54C4B6] hover:to-[#A8D381] text-gray-700 hover:text-white transition-all duration-300 hover:shadow-lg"
+            class="tag-cloud-item inline-flex items-center px-3 py-1.5 rounded-full bg-gradient-to-r from-[#54C4B6]/10 to-[#A8D381]/10 text-gray-700 hover:from-[#54C4B6] hover:to-[#A8D381] hover:text-white transition-all duration-300 hover:shadow-lg"
             style={`font-size: ${getTagSize(tag.count)}; animation-delay: ${index * 0.05}s;`}
           >
             #{tag.name}
-            <span class="ml-2 text-xs opacity-70">({tag.count})</span>
+            <span class="ml-1.5 text-xs opacity-70">({tag.count})</span>
           </a>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- All Tags Alphabetical -->
+  <!-- All Tags Tabbed Interface -->
   <section class="py-16 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl font-bold text-gray-900 mb-8">All Topics A-Z</h2>
+      <div class="flex flex-col sm:flex-row items-center justify-between mb-8">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4 sm:mb-0">All Topics A-Z</h2>
+        
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+          <!-- Filter Input -->
+          <div class="relative flex-1 sm:flex-initial sm:w-64">
+            <input
+              type="text"
+              id="topic-filter"
+              placeholder="Filter topics..."
+              class="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#54C4B6] focus:border-transparent"
+            />
+            <svg class="absolute left-3 top-2.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <button
+              id="clear-filter"
+              class="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600 hidden"
+              aria-label="Clear filter"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+            <span id="filter-count" class="absolute right-10 top-2.5 text-sm text-gray-500 hidden"></span>
+          </div>
+          
+          <!-- View Toggle -->
+          <div class="flex items-center bg-gray-100 rounded-lg p-1">
+            <button
+              id="grid-view"
+              class="view-toggle active flex items-center px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200"
+              aria-label="Grid view"
+              title="Card view"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+              </svg>
+            </button>
+            <button
+              id="compact-view"
+              class="view-toggle flex items-center px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200"
+              aria-label="Compact view"
+              title="Tag view"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
       
-      <div class="lg:flex lg:gap-8">
-        <!-- Alphabet Navigation (Desktop) -->
-        <nav class="hidden lg:block alphabet-nav w-32">
-          <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-            <h3 class="text-sm font-medium text-gray-500 mb-3">Jump to</h3>
-            <div class="space-y-1">
-              {sortedLetters.map(letter => (
+      <!-- Tab Navigation -->
+      <div class="border-b border-gray-200 mb-8">
+        <nav class="tab-nav-container -mb-px flex flex-wrap gap-1" aria-label="Alphabetical tabs">
+          {sortedLetters.map((letter, index) => (
+            <button
+              class={`tab-button whitespace-nowrap ${index === 0 ? 'active' : ''}`}
+              data-tab={letter}
+              aria-controls={`tab-${letter}`}
+              aria-selected={index === 0 ? 'true' : 'false'}
+            >
+              {letter}
+            </button>
+          ))}
+        </nav>
+      </div>
+      
+      <!-- Tab Content -->
+      <div class="tab-panels">
+        {sortedLetters.map((letter, index) => (
+          <div
+            id={`tab-${letter}`}
+            class={`tab-content ${index === 0 ? 'active' : ''}`}
+            role="tabpanel"
+            aria-labelledby={`tab-button-${letter}`}
+          >
+            <!-- Grid View -->
+            <div class="grid-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {tagsByLetter[letter].map(tag => (
                 <a
-                  href={`#letter-${letter}`}
-                  class="block px-3 py-1 text-sm rounded hover:bg-[#54C4B6]/10 hover:text-[#54C4B6] transition-colors"
+                  href={`/tags/${tag.name.toLowerCase().replace(/\s+/g, '-')}`}
+                  class="tag-item group bg-white rounded-lg border border-gray-200 p-4 hover:border-[#54C4B6] hover:shadow-md transition-all duration-300"
                 >
-                  {letter}
+                  <div class="flex items-center justify-between">
+                    <h4 class="font-medium text-gray-900 group-hover:text-[#54C4B6] transition-colors">
+                      #{tag.name}
+                    </h4>
+                    <span class="text-sm text-gray-500">
+                      {tag.count} {tag.count === 1 ? 'item' : 'items'}
+                    </span>
+                  </div>
+                  <div class="mt-2 flex gap-4 text-xs text-gray-500">
+                    {tag.sources.blog > 0 && (
+                      <span>{tag.sources.blog} {tag.sources.blog === 1 ? 'blog' : 'blogs'}</span>
+                    )}
+                    {tag.sources.whitepapers > 0 && (
+                      <span>{tag.sources.whitepapers} {tag.sources.whitepapers === 1 ? 'whitepaper' : 'whitepapers'}</span>
+                    )}
+                  </div>
+                </a>
+              ))}
+            </div>
+            
+            <!-- Compact View -->
+            <div class="compact-container compact-view">
+              {tagsByLetter[letter].map(tag => (
+                <a
+                  href={`/tags/${tag.name.toLowerCase().replace(/\s+/g, '-')}`}
+                  class="tag-item compact-item"
+                >
+                  <span>#{tag.name}</span>
+                  <span class="opacity-70 ml-1">({tag.count})</span>
                 </a>
               ))}
             </div>
           </div>
-        </nav>
-        
-        <!-- Tags List -->
-        <div class="flex-1">
-          {sortedLetters.map(letter => (
-            <div id={`letter-${letter}`} class="letter-section mb-8">
-              <h3 class="text-lg font-bold text-gray-900 mb-4 pb-2 border-b border-gray-200">
-                {letter}
-              </h3>
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {tagsByLetter[letter].map(tag => (
-                  <a
-                    href={`/tags/${tag.name.toLowerCase().replace(/\s+/g, '-')}`}
-                    class="group bg-white rounded-lg border border-gray-200 p-4 hover:border-[#54C4B6] hover:shadow-md transition-all duration-300"
-                  >
-                    <div class="flex items-center justify-between">
-                      <h4 class="font-medium text-gray-900 group-hover:text-[#54C4B6] transition-colors">
-                        #{tag.name}
-                      </h4>
-                      <span class="text-sm text-gray-500">
-                        {tag.count} {tag.count === 1 ? 'item' : 'items'}
-                      </span>
-                    </div>
-                    <div class="mt-2 flex gap-4 text-xs text-gray-500">
-                      {tag.sources.blog > 0 && (
-                        <span>{tag.sources.blog} {tag.sources.blog === 1 ? 'blog' : 'blogs'}</span>
-                      )}
-                      {tag.sources.whitepapers > 0 && (
-                        <span>{tag.sources.whitepapers} {tag.sources.whitepapers === 1 ? 'whitepaper' : 'whitepapers'}</span>
-                      )}
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+        ))}
       </div>
     </div>
   </section>
@@ -222,21 +332,223 @@ function getTagSize(count: number): string {
   </section>
 
   <script>
-    // Smooth scroll for alphabet navigation
-    document.querySelectorAll('a[href^="#letter-"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
+    // View toggle functionality
+    const gridViewBtn = document.getElementById('grid-view');
+    const compactViewBtn = document.getElementById('compact-view');
+    const gridContainers = document.querySelectorAll('.grid-container');
+    const compactContainers = document.querySelectorAll('.compact-container');
+    
+    function switchToGridView() {
+      gridViewBtn?.classList.add('active');
+      compactViewBtn?.classList.remove('active');
+      gridContainers.forEach(container => container.classList.remove('hide'));
+      compactContainers.forEach(container => container.classList.remove('show'));
+    }
+    
+    function switchToCompactView() {
+      compactViewBtn?.classList.add('active');
+      gridViewBtn?.classList.remove('active');
+      gridContainers.forEach(container => container.classList.add('hide'));
+      compactContainers.forEach(container => container.classList.add('show'));
+    }
+    
+    gridViewBtn?.addEventListener('click', switchToGridView);
+    compactViewBtn?.addEventListener('click', switchToCompactView);
+    
+    // Tab functionality
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabPanels = document.querySelectorAll('.tab-content');
+    
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const targetTab = button.getAttribute('data-tab');
+        
+        // Update buttons
+        tabButtons.forEach(btn => {
+          btn.classList.remove('active');
+          btn.setAttribute('aria-selected', 'false');
+        });
+        button.classList.add('active');
+        button.setAttribute('aria-selected', 'true');
+        
+        // Update panels
+        tabPanels.forEach(panel => {
+          panel.classList.remove('active');
+        });
+        document.getElementById(`tab-${targetTab}`)?.classList.add('active');
       });
     });
     
-    // Open search modal (to be implemented)
+    // Topic filtering functionality
+    const topicFilter = document.getElementById('topic-filter') as HTMLInputElement;
+    const filterCount = document.getElementById('filter-count');
+    const clearButton = document.getElementById('clear-filter');
+    let activeTab = 'A'; // Track the active tab before filtering
+    
+    // Clear button functionality
+    if (clearButton && topicFilter) {
+      clearButton.addEventListener('click', () => {
+        topicFilter.value = '';
+        clearFilter();
+        topicFilter.focus();
+      });
+    }
+    
+    if (topicFilter) {
+      topicFilter.addEventListener('input', (e) => {
+        const filterValue = (e.target as HTMLInputElement).value.toLowerCase().trim();
+        
+        // Show/hide clear button based on input
+        if (clearButton) {
+          if (filterValue) {
+            clearButton.classList.remove('hidden');
+          } else {
+            clearButton.classList.add('hidden');
+          }
+        }
+        
+        if (!filterValue) {
+          // Reset to normal tab view
+          clearFilter();
+          return;
+        }
+        
+        // Store the currently active tab
+        const activeButton = document.querySelector('.tab-button.active');
+        if (activeButton) {
+          activeTab = activeButton.getAttribute('data-tab') || 'A';
+        }
+        
+        // Hide all tabs and show all panels for filtering
+        tabButtons.forEach(btn => {
+          btn.classList.remove('active');
+          (btn as HTMLElement).style.display = 'none';
+        });
+        
+        // Show all panels temporarily for filtering
+        tabPanels.forEach(panel => {
+          panel.classList.add('active');
+        });
+        
+        // Filter topics across all tabs
+        let matchCount = 0;
+        const allTopics = document.querySelectorAll('.tag-item');
+        
+        allTopics.forEach(topic => {
+          const topicText = topic.textContent?.toLowerCase() || '';
+          if (topicText.includes(filterValue)) {
+            (topic as HTMLElement).style.display = '';
+            matchCount++;
+          } else {
+            (topic as HTMLElement).style.display = 'none';
+          }
+        });
+        
+        // Update filter count
+        if (filterCount) {
+          filterCount.textContent = `${matchCount} found`;
+          filterCount.classList.remove('hidden');
+        }
+        
+        // Hide empty panels
+        tabPanels.forEach(panel => {
+          const visibleTopics = panel.querySelectorAll('.tag-item:not([style*="display: none"])');
+          if (visibleTopics.length === 0) {
+            panel.classList.remove('active');
+          }
+        });
+        
+        // Show "no results" message if needed
+        if (matchCount === 0) {
+          showNoResultsMessage();
+        } else {
+          hideNoResultsMessage();
+        }
+      });
+    }
+    
+    function clearFilter() {
+      // Reset all topics visibility
+      const allTopics = document.querySelectorAll('.tag-item');
+      allTopics.forEach(topic => {
+        (topic as HTMLElement).style.display = '';
+      });
+      
+      // Show all tab buttons
+      tabButtons.forEach(btn => {
+        (btn as HTMLElement).style.display = 'flex';
+      });
+      
+      // Reset to previously active tab
+      tabButtons.forEach(btn => {
+        if (btn.getAttribute('data-tab') === activeTab) {
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected', 'true');
+        } else {
+          btn.classList.remove('active');
+          btn.setAttribute('aria-selected', 'false');
+        }
+      });
+      
+      // Show only the active tab panel
+      tabPanels.forEach(panel => {
+        if (panel.id === `tab-${activeTab}`) {
+          panel.classList.add('active');
+        } else {
+          panel.classList.remove('active');
+        }
+      });
+      
+      // Hide filter count and clear button
+      if (filterCount) {
+        filterCount.classList.add('hidden');
+      }
+      if (clearButton) {
+        clearButton.classList.add('hidden');
+      }
+      
+      hideNoResultsMessage();
+    }
+    
+    function showNoResultsMessage() {
+      const existingMessage = document.getElementById('no-topics-message');
+      if (!existingMessage) {
+        const message = document.createElement('div');
+        message.id = 'no-topics-message';
+        message.className = 'text-center py-12 text-gray-500';
+        message.innerHTML = `
+          <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <p class="text-lg">No topics found matching your filter</p>
+        `;
+        document.querySelector('.tab-panels')?.appendChild(message);
+      }
+    }
+    
+    function hideNoResultsMessage() {
+      const message = document.getElementById('no-topics-message');
+      if (message) {
+        message.remove();
+      }
+    }
+    
+    // Clear filter on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && topicFilter && topicFilter.value) {
+        topicFilter.value = '';
+        clearFilter();
+      }
+    });
+    
+    // Open search modal
     document.getElementById('open-search')?.addEventListener('click', () => {
-      // This will trigger the search modal when implemented
-      console.log('Search modal will open here');
+      if (window.openSearchModal) {
+        window.openSearchModal();
+      } else {
+        // Fallback to search page
+        window.location.href = '/search';
+      }
     });
   </script>
 </Layout>

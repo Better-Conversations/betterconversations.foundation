@@ -1,65 +1,53 @@
 ---
-import { getCollection } from 'astro:content';
-import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
+import { formatDistanceToNow } from '../../utils/dateUtils';
+import { getAuthorImage } from '../../data/authorImages';
+import { getBlogImage } from '../../data/blogImages';
 
-// Import all blog images
-const images = import.meta.glob('../../assets/images/blog/*', { eager: true });
 
-// Get all blog posts from content collection and sort by date
-const allBlogPosts = await getCollection('blog');
+const allPosts = await getCollection('blog');
 
-// Sort posts by date (newest first) and convert to the format expected by the template
-const blogPosts = allBlogPosts
-  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
-  .map((post, index) => {
-    // Get optimized image
-    let optimizedImage = null;
-    if (post.data.image) {
-      const imagePath = post.data.image.replace('/images/blog/', '');
-      const imageKey = `../../assets/images/blog/${imagePath}`;
-      optimizedImage = images[imageKey] as any;
-    }
-    
-    return {
-      id: index + 1,
-      title: post.data.title,
-      excerpt: post.data.excerpt,
-      author: post.data.author,
-      date: post.data.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }),
-      category: post.data.category,
-      slug: post.slug,
-      readTime: `${post.data.readingTime || 5} min read`,
-      spotlight: post.data.spotlight || false,
-      image: post.data.image || "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop",
-      optimizedImage: optimizedImage,
-      tags: post.data.tags || []
-    };
-  });
+// Sort posts by date
+const blogPosts = await Promise.all(
+  allPosts
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+    .map(async (post) => {
+      const heroImage = getBlogImage(post.slug);
+      let optimizedImageUrl = post.data.image; // fallback to original
+      
+      if (heroImage) {
+        const optimized = await getImage({ src: heroImage, width: 800, height: 400 });
+        optimizedImageUrl = optimized.src;
+      }
+      
+      return {
+        ...post.data,
+        slug: post.slug,
+        readingTime: Math.ceil((post.body?.length || 0) / 1000),
+        publishedAt: formatDistanceToNow(post.data.date),
+        tags: post.data.tags || [],
+        optimizedImage: heroImage,
+        image: optimizedImageUrl
+      };
+    })
+);
 
-// Get unique categories from actual blog posts
-const uniqueCategories = [...new Set(blogPosts.map(post => post.category))].sort();
-const categories = ["All", ...uniqueCategories];
-
-// Determine featured posts based on spotlight logic
+// Get spotlight posts
 const spotlightPosts = blogPosts.filter(post => post.spotlight);
-let featuredPosts;
+const regularPosts = blogPosts.filter(post => !post.spotlight);
 
-if (spotlightPosts.length > 0 && spotlightPosts.length <= 2) {
-  // Use all spotlight posts if there are 1-2
-  featuredPosts = spotlightPosts;
-} else if (spotlightPosts.length > 2) {
-  // Use the 2 most recent spotlight posts (already sorted by date)
-  featuredPosts = spotlightPosts.slice(0, 2);
-} else {
-  // No spotlight posts, use 2 most recent posts
-  featuredPosts = blogPosts.slice(0, 2);
-}
-
-const regularPosts = blogPosts.filter(post => !featuredPosts.includes(post));
+// Get all unique categories and authors
+const categories = ["All", ...new Set(blogPosts.map(post => post.category).filter(Boolean))];
+const authors = [...new Set(blogPosts.map(post => post.author).filter(Boolean))];
+const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
 ---
 
-<Layout title="Blog - Better Conversations Foundation">
+<Layout 
+  title="Blog - Better Conversations Foundation" 
+  description="Insights and stories about Better Conversations."
+>
   <!-- Hero Section -->
   <section class="relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white py-24 lg:py-32">
     <!-- Enhanced gradient background -->
@@ -101,439 +89,517 @@ const regularPosts = blogPosts.filter(post => !featuredPosts.includes(post));
     </div>
   </section>
 
-  <!-- Featured Posts -->
-  <section class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Featured</h2>
-        <p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl mb-8">
-          Spotlight Articles
-        </p>
-      </div>
-      
-      <div class="grid gap-8 lg:grid-cols-2">
-        {featuredPosts.map((post) => (
-          <article class="group relative bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300 blog-post" data-category={post.category} data-author={post.author} data-tags={post.tags ? post.tags.join(',') : ''}>
-            <div class="aspect-w-16 aspect-h-9 bg-gray-200">
-              {post.optimizedImage ? (
-                <Image 
-                  src={post.optimizedImage.default}
-                  alt={post.title}
-                  width={800}
-                  height={400}
-                  class="w-full h-48 object-cover object-top"
-                  format="webp"
-                />
-              ) : (
-                <img src={post.image} alt={post.title} class="w-full h-48 object-cover object-top" />
-              )}
-            </div>
-            <div class="p-6">
-              <div class="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                <button class="bg-black/60 backdrop-blur-sm px-3 py-1 border-l-2 border-[#54C4B6] text-center cursor-pointer filter-category hover:bg-black/80 transition-colors" data-category={post.category}>
-                  <span class="text-white text-xs font-medium tracking-wide">{post.category}</span>
-                </button>
-                <span>{post.date}</span>
-                <span>{post.readTime}</span>
-              </div>
-              <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors mb-3">
-                <a href={post.slug ? `/blog/${post.slug}` : `#`} class="stretched-link">
-                  {post.title}
-                </a>
-              </h3>
-              <p class="text-gray-600 mb-4">{post.excerpt}</p>
-              <div class="flex items-center justify-between">
-                <div class="text-sm">
-                  <button class="text-gray-900 font-medium hover:text-[#54C4B6] hover:underline transition-colors cursor-pointer filter-author" data-author={post.author}>{post.author}</button>
-                </div>
-                {post.tags && post.tags.length > 0 && (
-                  <div class="flex gap-2 flex-wrap">
-                    {post.tags.slice(0, 2).map((tag) => (
-                      <button class="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full hover:bg-[#54C4B6] hover:text-white transition-colors cursor-pointer filter-tag" data-tag={tag}>
-                        #{tag}
-                      </button>
-                    ))}
-                    {post.tags.length > 2 && (
-                      <span class="text-xs text-gray-400">+{post.tags.length - 2}</span>
-                    )}
+  <!-- Server-side rendered content (shows before Alpine loads) -->
+  <div class="blog-content-ssr">
+    <!-- Spotlight Section -->
+    <section class="py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8">Featured Articles</h2>
+        <div class="grid gap-8 lg:grid-cols-2">
+          {spotlightPosts.map((post) => (
+            <article class="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
+              <div class="h-64 bg-gray-200 flex-shrink-0">
+                {post.optimizedImage ? (
+                  <Image 
+                    src={post.optimizedImage} 
+                    alt={post.title} 
+                    width={800}
+                    height={400}
+                    class="w-full h-full object-cover" 
+                  />
+                ) : post.image ? (
+                  <img src={post.image} alt={post.title} class="w-full h-full object-cover" />
+                ) : (
+                  <div class="w-full h-full bg-gradient-to-br from-[#54C4B6]/20 to-[#A8D381]/20 flex items-center justify-center">
+                    <svg class="w-24 h-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path>
+                    </svg>
                   </div>
                 )}
               </div>
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Main Blog Grid with Sidebar -->
-  <section id="latest" class="py-16 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="lg:grid lg:grid-cols-4 lg:gap-8">
-        <!-- Sidebar -->
-        <aside class="mb-8 lg:mb-0">
-          <div class="sticky top-20">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Categories</h3>
-            <nav class="space-y-1">
-              {categories.map((category) => (
-                <button
-                  class="group flex items-center justify-between w-full px-3 py-2 text-sm font-medium rounded-md hover:text-[#54C4B6] hover:bg-white transition-colors text-left filter-category"
-                  data-category={category === "All" ? "" : category}
-                >
-                  {category}
-                  <span class="text-xs text-gray-400 group-hover:text-[#54C4B6]">
-                    {category === "All" ? blogPosts.length : blogPosts.filter(p => p.category === category).length}
-                  </span>
-                </button>
-              ))}
-            </nav>
-
-            <div class="mt-8 p-6 bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10 rounded-lg overflow-hidden">
-              <h4 class="font-semibold text-gray-900 mb-2">Newsletter</h4>
-              <p class="text-sm text-gray-600 mb-4">Get the latest insights delivered to your inbox.</p>
-              <input type="email" placeholder="Your email" class="w-full px-3 py-2 mb-3 text-sm border border-gray-200 rounded-md focus:ring-[#54C4B6] focus:border-[#54C4B6]" />
-              <button class="w-full px-4 py-2 bg-[#54C4B6] text-white rounded-md hover:bg-[#54C4B6]/90 transition-colors text-sm font-medium">
-                Subscribe
-              </button>
-            </div>
-          </div>
-        </aside>
-
-        <!-- Blog Posts Grid -->
-        <div class="lg:col-span-3">
-          <div class="flex items-center justify-between mb-8">
-            <div class="flex items-center gap-4">
-              <h2 class="text-2xl font-bold text-gray-900">Latest Articles</h2>
-              <!-- Active Filters Display -->
-              <div id="active-filters" class="hidden gap-2 flex-wrap">
-                <button id="clear-all-filters" class="inline-flex items-center gap-1 px-3 py-1 text-xs font-medium text-[#54C4B6] border border-[#54C4B6] rounded-full hover:bg-[#54C4B6] hover:text-white transition-colors">
-                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                  </svg>
-                  Clear Filters
-                </button>
-                <span id="category-filter-display" class="hidden px-3 py-1 text-xs font-medium bg-[#54C4B6] text-white rounded-full"></span>
-                <span id="author-filter-display" class="hidden px-3 py-1 text-xs font-medium bg-[#A8D381] text-white rounded-full"></span>
-                <span id="tag-filter-display" class="hidden px-3 py-1 text-xs font-medium bg-gray-600 text-white rounded-full cursor-pointer hover:bg-gray-700 transition-colors" title="Click to clear tag filter"></span>
-              </div>
-            </div>
-            <div class="flex items-center gap-2">
-              <label for="sort" class="text-sm text-gray-600">Sort by:</label>
-              <select id="sort" class="text-sm border-gray-300 rounded-md focus:ring-[#54C4B6] focus:border-[#54C4B6]">
-                <option>Latest</option>
-                <option>Popular</option>
-                <option>Oldest</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-            {regularPosts.map((post) => (
-              <article class="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-300 blog-post" data-category={post.category} data-author={post.author} data-tags={post.tags ? post.tags.join(',') : ''}>
-                <div class="aspect-w-16 aspect-h-9 bg-gray-200">
-                  {post.optimizedImage ? (
-                    <Image 
-                      src={post.optimizedImage.default}
-                      alt={post.title}
-                      width={600}
-                      height={300}
-                      class="w-full h-48 object-cover object-top"
-                      format="webp"
-                    />
-                  ) : (
-                    <img src={post.image} alt={post.title} class="w-full h-48 object-cover object-top" />
-                  )}
-                </div>
-                <div class="p-6">
-                  <div class="flex items-center gap-3 text-xs text-gray-500 mb-2">
-                    <button class="bg-black/60 backdrop-blur-sm px-3 py-1 border-l-2 border-[#54C4B6] text-center cursor-pointer filter-category hover:bg-black/80 transition-colors" data-category={post.category}>
-                      <span class="text-white text-xs font-medium tracking-wide">{post.category}</span>
-                    </button>
-                    <span>{post.readTime}</span>
+              <div class="p-8 flex flex-col h-full">
+                  <div class="flex items-center gap-3 text-sm text-gray-500 mb-3">
+                    <span class="bg-[#54C4B6] text-white px-3 py-1 rounded-full text-xs font-medium">Featured</span>
+                    <span>{post.category}</span>
                   </div>
-                  <h3 class="text-lg font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors mb-2">
-                    <a href={post.slug ? `/blog/${post.slug}` : `#`}>
-                      {post.title}
-                    </a>
+                  <h3 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#54C4B6] transition-colors">
+                    <a href={`/blog/${post.slug}`}>{post.title}</a>
                   </h3>
-                  <p class="text-sm text-gray-600 mb-3 line-clamp-2">{post.excerpt}</p>
-                  <div class="flex items-center justify-between mb-3">
-                    <button class="text-sm text-gray-500 hover:text-[#54C4B6] hover:underline transition-colors cursor-pointer filter-author" data-author={post.author}>{post.author}</button>
-                    <p class="text-sm text-gray-400">{post.date}</p>
-                  </div>
-                  {post.tags && post.tags.length > 0 && (
-                    <div class="flex gap-1 flex-wrap">
-                      {post.tags.slice(0, 3).map((tag) => (
-                        <button class="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full hover:bg-[#54C4B6] hover:text-white transition-colors cursor-pointer filter-tag" data-tag={tag}>
-                          #{tag}
-                        </button>
-                      ))}
-                      {post.tags.length > 3 && (
-                        <span class="text-xs text-gray-400 self-center">+{post.tags.length - 3}</span>
+                  <p class="text-gray-600 mb-4 flex-grow">{post.excerpt}</p>
+                  <div class="mt-auto">
+                    <div class="flex items-center gap-3 mb-4">
+                      <Image 
+                        src={getAuthorImage(post.author)} 
+                        alt={post.author} 
+                        width={40}
+                        height={40}
+                        class="w-10 h-10 rounded-full object-cover"
+                      />
+                      <div>
+                        <p class="text-sm font-medium text-gray-900">{post.author}</p>
+                        <p class="text-xs text-gray-500">{post.readingTime} min read</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                      <span class="text-sm text-gray-500">{post.publishedAt}</span>
+                      {post.tags?.length > 0 && (
+                        <div class="flex gap-2 flex-wrap">
+                          {post.tags.slice(0, 2).map((tag) => (
+                            <a 
+                              href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                              class="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full hover:bg-[#54C4B6] hover:text-white transition-colors"
+                            >
+                              #{tag}
+                            </a>
+                          ))}
+                          {post.tags.length > 2 && (
+                            <span class="text-xs text-gray-400">+{post.tags.length - 2}</span>
+                          )}
+                        </div>
                       )}
                     </div>
-                  )}
-                </div>
-              </article>
-            ))}
-          </div>
-
-          <!-- Pagination - Hidden until we have more posts -->
-          {/* Will show pagination when we have more than 12 posts
-          <div class="mt-12 flex items-center justify-center gap-2">
-            <button class="px-3 py-2 text-sm text-gray-500 hover:text-gray-700 transition-colors">
-              Previous
-            </button>
-            <button class="px-3 py-2 text-sm font-medium text-white bg-[#54C4B6] rounded-md">1</button>
-            <button class="px-3 py-2 text-sm text-gray-700 hover:text-[#54C4B6] transition-colors">2</button>
-            <button class="px-3 py-2 text-sm text-gray-700 hover:text-[#54C4B6] transition-colors">3</button>
-            <button class="px-3 py-2 text-sm text-gray-500 hover:text-gray-700 transition-colors">
-              Next
-            </button>
-          </div>
-          */}
+                  </div>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- CTA Section -->
-  <section class="py-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl font-bold text-white mb-4">Share Your Story</h2>
-      <p class="text-xl text-white/90 max-w-2xl mx-auto mb-8">
-        Have insights about Better Conversations? We'd love to feature your experience in our community blog.
-      </p>
-      <a href="/contribute" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-[#54C4B6] bg-white hover:bg-gray-50 transition-colors">
-        Submit an Article
-      </a>
-    </div>
-  </section>
+    <!-- Main Blog Grid with Sidebar -->
+    <section id="latest" class="py-16 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="lg:grid lg:grid-cols-4 lg:gap-8">
+          <!-- Sidebar -->
+          <aside class="mb-8 lg:mb-0">
+            <div class="sticky top-20">
+              <h3 class="text-lg font-semibold text-gray-900 mb-4">Categories</h3>
+              <nav class="space-y-1">
+                {categories.map((category) => (
+                  <a
+                    href={category === 'All' ? '/blog' : `/blog?category=${encodeURIComponent(category)}`}
+                    class="group flex items-center justify-between w-full px-3 py-2 text-sm font-medium rounded-md hover:text-[#54C4B6] hover:bg-white transition-colors text-left"
+                  >
+                    <span>{category}</span>
+                    <span class="text-xs text-gray-400 group-hover:text-[#54C4B6]">
+                      {category === 'All' ? regularPosts.length : regularPosts.filter(p => p.category === category).length}
+                    </span>
+                  </a>
+                ))}
+              </nav>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const categoryFilters = document.querySelectorAll('.filter-category');
-      const authorFilters = document.querySelectorAll('.filter-author');
-      const tagFilters = document.querySelectorAll('.filter-tag');
-      const articles = document.querySelectorAll('.blog-post');
+              <div class="mt-8 p-6 bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10 rounded-lg overflow-hidden">
+                <h4 class="font-semibold text-gray-900 mb-2">Newsletter</h4>
+                <p class="text-sm text-gray-600 mb-4">Get the latest insights delivered to your inbox.</p>
+                <form action="/newsletter/subscribe" method="POST">
+                  <input type="email" name="email" placeholder="Your email" class="w-full px-3 py-2 mb-3 text-sm border border-gray-200 rounded-md focus:ring-[#54C4B6] focus:border-[#54C4B6]" required />
+                  <button type="submit" class="w-full px-4 py-2 bg-[#54C4B6] text-white rounded-md hover:bg-[#54C4B6]/90 transition-colors text-sm font-medium">
+                    Subscribe
+                  </button>
+                </form>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Blog Posts Grid -->
+          <div class="lg:col-span-3">
+            <div class="flex items-center justify-between mb-8">
+              <h2 class="text-2xl font-bold text-gray-900">Latest Articles</h2>
+            </div>
+
+            <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+              {regularPosts.map((post) => (
+                <article class="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-300 flex flex-col">
+                  <div class="h-48 bg-gray-200 flex-shrink-0">
+                    {post.optimizedImage ? (
+                      <Image 
+                        src={post.optimizedImage} 
+                        alt={post.title} 
+                        width={400}
+                        height={192}
+                        class="w-full h-full object-cover" 
+                      />
+                    ) : post.image ? (
+                      <img src={post.image} alt={post.title} class="w-full h-full object-cover" />
+                    ) : (
+                      <div class="w-full h-full bg-gradient-to-br from-[#54C4B6]/20 to-[#A8D381]/20 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path>
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+                  <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-center gap-3 text-xs text-gray-500 mb-2">
+                      <a 
+                        href={`/blog?category=${encodeURIComponent(post.category)}`}
+                        class="bg-black/60 backdrop-blur-sm px-3 py-1 border-l-2 border-[#54C4B6] text-center hover:bg-black/80 transition-colors text-white"
+                      >
+                        {post.category}
+                      </a>
+                      <a 
+                        href={`/blog?author=${encodeURIComponent(post.author)}`}
+                        class="hover:text-[#54C4B6] transition-colors"
+                      >
+                        {post.author}
+                      </a>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2 group-hover:text-[#54C4B6] transition-colors">
+                      <a href={`/blog/${post.slug}`}>{post.title}</a>
+                    </h3>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">{post.excerpt}</p>
+                    <div class="flex items-center justify-between mt-auto">
+                      <time class="text-xs text-gray-500">{post.publishedAt}</time>
+                      {post.tags?.length > 0 && (
+                        <div class="flex gap-2 flex-wrap">
+                          {post.tags.slice(0, 2).map((tag) => (
+                            <a 
+                              href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                              class="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full hover:bg-[#54C4B6] hover:text-white transition-colors"
+                            >
+                              #{tag}
+                            </a>
+                          ))}
+                          {post.tags.length > 2 && (
+                            <span class="text-xs text-gray-400">+{post.tags.length - 2}</span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Alpine.js enhanced version (progressive enhancement) -->
+  <div x-data="blogFilters()" x-init="initFromURL()" x-cloak style="display: none;">
+    <!-- Spotlight Section -->
+    <section class="py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8">Featured Articles</h2>
+        <div class="grid gap-8 lg:grid-cols-2">
+          {spotlightPosts.map((post) => (
+            <article class="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
+              <div class="h-64 bg-gray-200 flex-shrink-0">
+                {post.optimizedImage ? (
+                  <Image 
+                    src={post.optimizedImage} 
+                    alt={post.title} 
+                    width={800}
+                    height={400}
+                    class="w-full h-full object-cover" 
+                  />
+                ) : post.image ? (
+                  <img src={post.image} alt={post.title} class="w-full h-full object-cover" />
+                ) : (
+                  <div class="w-full h-full bg-gradient-to-br from-[#54C4B6]/20 to-[#A8D381]/20 flex items-center justify-center">
+                    <svg class="w-24 h-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path>
+                    </svg>
+                  </div>
+                )}
+              </div>
+              <div class="p-8 flex flex-col h-full">
+                  <div class="flex items-center gap-3 text-sm text-gray-500 mb-3">
+                    <span class="bg-[#54C4B6] text-white px-3 py-1 rounded-full text-xs font-medium">Featured</span>
+                    <span>{post.category}</span>
+                  </div>
+                  <h3 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#54C4B6] transition-colors">
+                    <a href={`/blog/${post.slug}`}>{post.title}</a>
+                  </h3>
+                  <p class="text-gray-600 mb-4 flex-grow">{post.excerpt}</p>
+                  <div class="mt-auto">
+                    <div class="flex items-center gap-3 mb-4">
+                      <Image 
+                        src={getAuthorImage(post.author)} 
+                        alt={post.author} 
+                        width={40}
+                        height={40}
+                        class="w-10 h-10 rounded-full object-cover"
+                      />
+                      <div>
+                        <p class="text-sm font-medium text-gray-900">{post.author}</p>
+                        <p class="text-xs text-gray-500">{post.readingTime} min read</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                      <span class="text-sm text-gray-500">{post.publishedAt}</span>
+                      {post.tags?.length > 0 && (
+                        <div class="flex gap-2 flex-wrap">
+                          {post.tags.slice(0, 2).map((tag) => (
+                            <button 
+                              @click="setFilter('tag', tag)"
+                              class="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full hover:bg-[#54C4B6] hover:text-white transition-colors cursor-pointer"
+                            >
+                              #{tag}
+                            </button>
+                          ))}
+                          {post.tags.length > 2 && (
+                            <span class="text-xs text-gray-400">+{post.tags.length - 2}</span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Blog Grid with Sidebar -->
+    <section id="latest" class="py-16 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="lg:grid lg:grid-cols-4 lg:gap-8">
+          <!-- Sidebar -->
+          <aside class="mb-8 lg:mb-0">
+            <div class="sticky top-20">
+              <h3 class="text-lg font-semibold text-gray-900 mb-4">Categories</h3>
+              <nav class="space-y-1">
+                <template x-for="category in categories" :key="category">
+                  <button
+                    @click="setFilter('category', category === 'All' ? '' : category)"
+                    :class="(filters.category === category || (filters.category === '' && category === 'All')) ? 'bg-white text-[#54C4B6]' : ''"
+                    class="group flex items-center justify-between w-full px-3 py-2 text-sm font-medium rounded-md hover:text-[#54C4B6] hover:bg-white transition-colors text-left"
+                  >
+                    <span x-text="category"></span>
+                    <span 
+                      class="text-xs text-gray-400 group-hover:text-[#54C4B6]"
+                      x-text="getCategoryCount(category)"
+                    ></span>
+                  </button>
+                </template>
+              </nav>
+
+              <div class="mt-8 p-6 bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10 rounded-lg overflow-hidden">
+                <h4 class="font-semibold text-gray-900 mb-2">Newsletter</h4>
+                <p class="text-sm text-gray-600 mb-4">Get the latest insights delivered to your inbox.</p>
+                <input type="email" placeholder="Your email" class="w-full px-3 py-2 mb-3 text-sm border border-gray-200 rounded-md focus:ring-[#54C4B6] focus:border-[#54C4B6]" />
+                <button class="w-full px-4 py-2 bg-[#54C4B6] text-white rounded-md hover:bg-[#54C4B6]/90 transition-colors text-sm font-medium">
+                  Subscribe
+                </button>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Blog Posts Grid -->
+          <div class="lg:col-span-3">
+            <div class="flex items-center justify-between mb-8">
+              <div class="flex items-center gap-4">
+                <h2 class="text-2xl font-bold text-gray-900">Latest Articles</h2>
+                <!-- Active Filters Display -->
+                <div x-show="hasActiveFilters" class="flex gap-2 flex-wrap">
+                  <button 
+                    @click="clearAllFilters"
+                    class="inline-flex items-center gap-1 px-3 py-1 text-xs font-medium text-[#54C4B6] border border-[#54C4B6] rounded-full hover:bg-[#54C4B6] hover:text-white transition-colors"
+                  >
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    Clear Filters
+                  </button>
+                  <span x-show="filters.category" class="px-3 py-1 text-xs font-medium bg-[#54C4B6] text-white rounded-full" x-text="'Category: ' + filters.category"></span>
+                  <span x-show="filters.author" class="px-3 py-1 text-xs font-medium bg-[#A8D381] text-white rounded-full" x-text="'Author: ' + filters.author"></span>
+                  <button 
+                    x-show="filters.tag" 
+                    @click="setFilter('tag', '')"
+                    class="px-3 py-1 text-xs font-medium bg-gray-600 text-white rounded-full cursor-pointer hover:bg-gray-700 transition-colors"
+                    x-text="'Tag: ' + filters.tag"
+                    title="Click to clear tag filter"
+                  ></button>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <label for="sort" class="text-sm text-gray-600">Sort by:</label>
+                <select 
+                  x-model="sortBy" 
+                  @change="updateURL"
+                  class="text-sm border-gray-300 rounded-md focus:ring-[#54C4B6] focus:border-[#54C4B6]"
+                >
+                  <option value="latest">Latest</option>
+                  <option value="popular">Popular</option>
+                  <option value="oldest">Oldest</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+              <template x-for="post in filteredPosts" :key="post.slug">
+                <article 
+                  x-show="true"
+                  x-transition:enter="transition ease-out duration-300"
+                  x-transition:enter-start="opacity-0 transform scale-95"
+                  x-transition:enter-end="opacity-100 transform scale-100"
+                  class="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-300 flex flex-col"
+                >
+                  <div class="h-48 bg-gray-200 flex-shrink-0">
+                    <img x-show="post.image" :src="post.image" :alt="post.title" class="w-full h-full object-cover" />
+                    <div x-show="!post.image" class="w-full h-full bg-gradient-to-br from-[#54C4B6]/20 to-[#A8D381]/20 flex items-center justify-center">
+                      <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex items-center gap-3 text-xs text-gray-500 mb-2">
+                      <button 
+                        @click="setFilter('category', post.category)"
+                        class="bg-black/60 backdrop-blur-sm px-3 py-1 border-l-2 border-[#54C4B6] text-center cursor-pointer hover:bg-black/80 transition-colors text-white"
+                        x-text="post.category"
+                      ></button>
+                      <button 
+                        @click="setFilter('author', post.author)"
+                        class="cursor-pointer hover:text-[#54C4B6] transition-colors"
+                        x-text="post.author"
+                      ></button>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2 group-hover:text-[#54C4B6] transition-colors">
+                      <a :href="'/blog/' + post.slug" x-text="post.title"></a>
+                    </h3>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow" x-text="post.excerpt"></p>
+                    <div class="flex items-center justify-between mt-auto">
+                      <time class="text-xs text-gray-500" x-text="post.publishedAt"></time>
+                      <div class="flex gap-2 flex-wrap" x-show="post.tags.length > 0">
+                        <template x-for="tag in post.tags.slice(0, 2)" :key="tag">
+                          <button 
+                            @click="setFilter('tag', tag)"
+                            class="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full hover:bg-[#54C4B6] hover:text-white transition-colors cursor-pointer"
+                            x-text="'#' + tag"
+                          ></button>
+                        </template>
+                        <span x-show="post.tags.length > 2" class="text-xs text-gray-400" x-text="'+' + (post.tags.length - 2)"></span>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </template>
+            </div>
+            
+            <!-- No Results -->
+            <div x-show="filteredPosts.length === 0" class="text-center py-12">
+              <p class="text-gray-500 text-lg mb-4">No articles match your current filters.</p>
+              <button @click="clearAllFilters" class="text-[#54C4B6] hover:underline">Clear all filters</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+  <script define:vars={{ regularPosts, categories }} is:inline>
+    // Pass data through global variables for Alpine
+    const regularPostsData = regularPosts;
+    const categoriesData = categories;
+    
+    // Progressive enhancement: Hide SSR content and show Alpine content when JS loads
+    document.addEventListener('alpine:initialized', () => {
+      const ssrContent = document.querySelector('.blog-content-ssr');
+      const alpineContent = document.querySelector('[x-data="blogFilters()"]');
       
-      // Get URL parameters for initial filtering
-      const urlParams = new URLSearchParams(window.location.search);
-      let currentCategoryFilter = urlParams.get('category') || '';
-      let currentAuthorFilter = urlParams.get('author') || '';
-      let currentTagFilter = urlParams.get('tag') || '';
-      
-      function filterArticles() {
-        articles.forEach((article) => {
-          const htmlElement = article as HTMLElement;
-          const articleCategory = htmlElement.dataset.category;
-          const articleAuthor = htmlElement.dataset.author;
-          const articleTags = htmlElement.dataset.tags ? htmlElement.dataset.tags.split(',') : [];
-          
-          const categoryMatch = !currentCategoryFilter || articleCategory === currentCategoryFilter;
-          const authorMatch = !currentAuthorFilter || articleAuthor === currentAuthorFilter;
-          const tagMatch = !currentTagFilter || articleTags.includes(currentTagFilter);
-          
-          if (categoryMatch && authorMatch && tagMatch) {
-            htmlElement.style.display = '';
-            htmlElement.classList.remove('opacity-0');
-            htmlElement.classList.add('opacity-100');
-          } else {
-            htmlElement.style.display = 'none';
-            htmlElement.classList.remove('opacity-100');
-            htmlElement.classList.add('opacity-0');
-          }
-        });
-        
-        updateActiveStates();
-        updateURL();
+      if (ssrContent && alpineContent) {
+        ssrContent.style.display = 'none';
+        alpineContent.style.display = 'block';
       }
-      
-      function updateURL() {
-        const url = new URL(window.location.href);
-        if (currentCategoryFilter) {
-          url.searchParams.set('category', currentCategoryFilter);
-        } else {
-          url.searchParams.delete('category');
-        }
-        if (currentAuthorFilter) {
-          url.searchParams.set('author', currentAuthorFilter);
-        } else {
-          url.searchParams.delete('author');
-        }
-        if (currentTagFilter) {
-          url.searchParams.set('tag', currentTagFilter);
-        } else {
-          url.searchParams.delete('tag');
-        }
+    });
+    
+    document.addEventListener('alpine:init', () => {
+      window.Alpine.data('blogFilters', () => ({
+        posts: regularPostsData,
+        categories: categoriesData,
+        filters: {
+          category: '',
+          author: '',
+          tag: ''
+        },
+        sortBy: 'latest',
         
-        // Update URL without page reload
-        window.history.replaceState({}, '', url);
-      }
-      
-      function updateActiveStates() {
-        // Update category filters in sidebar
-        document.querySelectorAll('.filter-category').forEach((btn) => {
-          const htmlBtn = btn as HTMLElement;
-          const category = htmlBtn.dataset.category;
-          if (category === currentCategoryFilter || (!currentCategoryFilter && category === '')) {
-            htmlBtn.classList.add('bg-[#54C4B6]', 'text-white');
-            htmlBtn.classList.remove('hover:text-[#54C4B6]', 'hover:bg-white');
-          } else {
-            htmlBtn.classList.remove('bg-[#54C4B6]', 'text-white');
-            htmlBtn.classList.add('hover:text-[#54C4B6]', 'hover:bg-white');
-          }
-        });
-        
-        // Update tag filters to show active state
-        document.querySelectorAll('.filter-tag').forEach((btn) => {
-          const htmlBtn = btn as HTMLElement;
-          const tag = htmlBtn.dataset.tag;
-          if (tag === currentTagFilter) {
-            htmlBtn.classList.add('bg-[#54C4B6]', 'text-white');
-            htmlBtn.classList.remove('bg-gray-100', 'text-gray-600', 'hover:bg-[#54C4B6]', 'hover:text-white');
-          } else {
-            htmlBtn.classList.remove('bg-[#54C4B6]', 'text-white');
-            htmlBtn.classList.add('bg-gray-100', 'text-gray-600', 'hover:bg-[#54C4B6]', 'hover:text-white');
-          }
-        });
-        
-        // Update active filters display
-        updateActiveFiltersDisplay();
-      }
-      
-      function updateActiveFiltersDisplay() {
-        const activeFiltersContainer = document.getElementById('active-filters');
-        const categoryDisplay = document.getElementById('category-filter-display');
-        const authorDisplay = document.getElementById('author-filter-display');
-        const tagDisplay = document.getElementById('tag-filter-display');
-        
-        const hasActiveFilters = currentCategoryFilter || currentAuthorFilter || currentTagFilter;
-        
-        if (activeFiltersContainer) {
-          if (hasActiveFilters) {
-            activeFiltersContainer.classList.remove('hidden');
-            activeFiltersContainer.classList.add('flex');
-          } else {
-            activeFiltersContainer.classList.add('hidden');
-            activeFiltersContainer.classList.remove('flex');
-          }
-        }
-        
-        // Category filter display
-        if (categoryDisplay) {
-          if (currentCategoryFilter) {
-            categoryDisplay.textContent = `Category: ${currentCategoryFilter}`;
-            categoryDisplay.classList.remove('hidden');
-          } else {
-            categoryDisplay.classList.add('hidden');
-          }
-        }
-        
-        // Author filter display
-        if (authorDisplay) {
-          if (currentAuthorFilter) {
-            authorDisplay.textContent = `Author: ${currentAuthorFilter}`;
-            authorDisplay.classList.remove('hidden');
-          } else {
-            authorDisplay.classList.add('hidden');
-          }
-        }
-        
-        // Tag filter display
-        if (tagDisplay) {
-          if (currentTagFilter) {
-            tagDisplay.textContent = `Tag: #${currentTagFilter}`;
-            tagDisplay.classList.remove('hidden');
-          } else {
-            tagDisplay.classList.add('hidden');
-          }
-        }
-      }
-      
-      // Category filter handlers
-      categoryFilters.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          const target = e.target as HTMLElement;
-          const category = target.dataset.category;
+        get filteredPosts() {
+          let filtered = [...this.posts];
           
-          if (currentCategoryFilter === category) {
-            currentCategoryFilter = '';
-          } else {
-            currentCategoryFilter = category || '';
+          // Apply filters
+          if (this.filters.category) {
+            filtered = filtered.filter(post => post.category === this.filters.category);
           }
           
-          currentAuthorFilter = '';
-          filterArticles();
-        });
-      });
-      
-      // Author filter handlers  
-      authorFilters.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          const target = e.target as HTMLElement;
-          const author = target.dataset.author;
-          
-          if (currentAuthorFilter === author) {
-            currentAuthorFilter = '';
-          } else {
-            currentAuthorFilter = author || '';
+          if (this.filters.author) {
+            filtered = filtered.filter(post => post.author === this.filters.author);
           }
           
-          currentCategoryFilter = '';
-          filterArticles();
-        });
-      });
-      
-      // Tag filter handlers  
-      tagFilters.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          const target = e.target as HTMLElement;
-          const tag = target.dataset.tag;
-          
-          if (currentTagFilter === tag) {
-            currentTagFilter = '';
-          } else {
-            currentTagFilter = tag || '';
+          if (this.filters.tag) {
+            filtered = filtered.filter(post => post.tags.includes(this.filters.tag));
           }
           
-          currentCategoryFilter = '';
-          currentAuthorFilter = '';
-          filterArticles();
-        });
-      });
-      
-      // Clear all filters handler
-      const clearAllBtn = document.getElementById('clear-all-filters');
-      if (clearAllBtn) {
-        clearAllBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          currentCategoryFilter = '';
-          currentAuthorFilter = '';
-          currentTagFilter = '';
-          filterArticles();
-        });
-      }
-      
-      // Clear individual tag filter by clicking the tag display
-      const tagDisplayBtn = document.getElementById('tag-filter-display');
-      if (tagDisplayBtn) {
-        tagDisplayBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          currentTagFilter = '';
-          filterArticles();
-        });
-      }
-      
-      // Initialize and apply any URL parameter filters
-      if (currentCategoryFilter || currentAuthorFilter || currentTagFilter) {
-        filterArticles();
-      } else {
-        updateActiveStates();
-      }
+          // Apply sorting
+          filtered.sort((a, b) => {
+            switch(this.sortBy) {
+              case 'oldest':
+                return new Date(a.date).getTime() - new Date(b.date).getTime();
+              case 'popular':
+                // You could add a popularity metric here
+                return 0;
+              case 'latest':
+              default:
+                return new Date(b.date).getTime() - new Date(a.date).getTime();
+            }
+          });
+          
+          return filtered;
+        },
+        
+        get hasActiveFilters() {
+          return this.filters.category || this.filters.author || this.filters.tag;
+        },
+        
+        setFilter(type, value) {
+          this.filters[type] = value;
+          this.updateURL();
+        },
+        
+        clearAllFilters() {
+          this.filters = {
+            category: '',
+            author: '',
+            tag: ''
+          };
+          this.updateURL();
+        },
+        
+        getCategoryCount(category) {
+          if (category === 'All') {
+            return this.posts.length;
+          }
+          return this.posts.filter(p => p.category === category).length;
+        },
+        
+        updateURL() {
+          const params = new URLSearchParams();
+          
+          if (this.filters.category) params.set('category', this.filters.category);
+          if (this.filters.author) params.set('author', this.filters.author);
+          if (this.filters.tag) params.set('tag', this.filters.tag);
+          if (this.sortBy !== 'latest') params.set('sort', this.sortBy);
+          
+          const newURL = `${window.location.pathname}${params.toString() ? '?' + params : ''}`;
+          window.history.replaceState({}, '', newURL);
+        },
+        
+        initFromURL() {
+          const params = new URLSearchParams(window.location.search);
+          
+          this.filters.category = params.get('category') || '';
+          this.filters.author = params.get('author') || '';
+          this.filters.tag = params.get('tag') || '';
+          this.sortBy = params.get('sort') || 'latest';
+        }
+      }));
     });
   </script>
 </Layout>
+

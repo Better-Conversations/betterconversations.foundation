@@ -13,6 +13,7 @@
 			]
 		}
 	},
-	"postCreateCommand": "npm install && npm run dev -- --host",
+	"postCreateCommand": "npm install",
+	"postStartCommand": "./.devcontainer/start-dev.sh",
 	"remoteUser": "node"
 } 

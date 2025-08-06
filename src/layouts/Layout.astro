@@ -1,17 +1,51 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import Search from '../components/Search.astro';
 import { getCollection } from 'astro:content';
 import { getAllTags } from '../utils/tags';
 import { pageMetadata } from '../data/pageMetadata';
+import { generateMetaProperties, generateStructuredData, generateCanonicalURL, type SchemaType } from '../utils/metadata';
+import type { SearchData } from '../types/search';
 import '../styles/global.css';
 
 export interface Props {
 	title?: string;
+	description?: string;
+	keywords?: string[];
+	author?: string | string[];
+	publishDate?: Date;
+	schemaType?: SchemaType;
+	image?: string;
+	canonicalURL?: string;
 }
 
-const { title = 'BCF Content' } = Astro.props;
+const { 
+	title = 'BCF Content',
+	description,
+	keywords,
+	author,
+	publishDate,
+	schemaType = 'WebPage',
+	image,
+	canonicalURL
+} = Astro.props;
+
+// Generate enhanced metadata
+const metaProps = generateMetaProperties(Astro.url.pathname, {
+	title,
+	description,
+	keywords,
+	author,
+	publishDate,
+	schemaType,
+	ogImage: image,
+	canonicalURL
+});
+
+const structuredData = generateStructuredData(metaProps, Astro.url.pathname);
+const canonicalUrl = canonicalURL || generateCanonicalURL(Astro.url.pathname);
 const isShowcasePage = Astro.url.pathname === '/showcase' || Astro.url.pathname === '/showcase/';
 
 // Prepare search data
@@ -21,9 +55,9 @@ const [blogs, whitepapers, tags] = await Promise.all([
   getAllTags()
 ]);
 
-const searchData = {
+const searchData: SearchData = {
   blogs: blogs.map(post => ({
-    type: 'blog',
+    type: 'blog' as const,
     title: post.data.title,
     excerpt: post.data.excerpt,
     slug: `/blog/${post.slug}`,
@@ -32,7 +66,7 @@ const searchData = {
     date: post.data.date
   })),
   whitepapers: whitepapers.map(paper => ({
-    type: 'whitepaper',
+    type: 'whitepaper' as const,
     title: paper.data.title,
     excerpt: paper.data.excerpt,
     slug: `/whitepapers/${paper.slug}`,
@@ -41,7 +75,7 @@ const searchData = {
     date: paper.data.date
   })),
   pages: Object.entries(pageMetadata).map(([path, page]) => ({
-    type: 'page',
+    type: 'page' as const,
     title: page.title,
     excerpt: page.excerpt,
     slug: path,
@@ -49,7 +83,7 @@ const searchData = {
     category: page.category
   })),
   tags: tags.map(tag => ({
-    type: 'tag',
+    type: 'tag' as const,
     title: tag.name,
     count: tag.count,
     slug: `/tags/${tag.name.toLowerCase().replace(/\s+/g, '-')}`
@@ -62,9 +96,88 @@ const searchData = {
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/png" href="/favicon.png" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+		<title>{metaProps.title}</title>
+		
+		<!-- SEO Meta Tags -->
+		<meta name="description" content={metaProps.description} />
+		{metaProps.keywords && metaProps.keywords.length > 0 && <meta name="keywords" content={metaProps.keywords.join(', ')} />}
+		{metaProps.author && <meta name="author" content={Array.isArray(metaProps.author) ? metaProps.author.join(', ') : metaProps.author} />}
+		<link rel="canonical" href={canonicalUrl} />
+		
+		<!-- OpenGraph Meta Tags -->
+		<meta property="og:title" content={metaProps.ogTitle} />
+		<meta property="og:description" content={metaProps.ogDescription} />
+		<meta property="og:type" content={metaProps.ogType} />
+		<meta property="og:url" content={Astro.url.href} />
+		{metaProps.ogImage && <meta property="og:image" content={metaProps.ogImage.startsWith('http') ? metaProps.ogImage : new URL(metaProps.ogImage, Astro.site).href} />}
+		<meta property="og:site_name" content="Better Conversations Foundation" />
+		
+		<!-- Twitter Card Meta Tags -->
+		<meta name="twitter:card" content={metaProps.twitterCard} />
+		<meta name="twitter:title" content={metaProps.ogTitle} />
+		<meta name="twitter:description" content={metaProps.ogDescription} />
+		{metaProps.ogImage && <meta name="twitter:image" content={metaProps.ogImage.startsWith('http') ? metaProps.ogImage : new URL(metaProps.ogImage, Astro.site).href} />}
+		
+		<!-- Additional Meta Tags -->
+		<meta name="robots" content="index, follow" />
+		<meta name="language" content="en-GB" />
+		
+		<!-- View Transitions -->
+		<ClientRouter />
+		{metaProps.publishDate && <meta name="article:published_time" content={metaProps.publishDate.toISOString()} />}
+		
+		<!-- Structured Data -->
+		<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+		
+		<!-- Alpine.js Global Initialization -->
+		<script>
+			import Alpine from 'alpinejs';
+			
+			// Initialize Alpine globally
+			if (typeof window !== 'undefined') {
+				// Only set Alpine if not already set
+				if (!window.Alpine) {
+					window.Alpine = Alpine;
+					// Dispatch alpine:init event for components to register
+					window.dispatchEvent(new CustomEvent('alpine:init'));
+				}
+				
+				// Function to initialize Alpine
+				const initAlpine = () => {
+					// Only start Alpine if it hasn't been started
+					if (!Alpine.version) {
+						Alpine.start();
+					}
+					// Dispatch custom event when Alpine is initialized
+					window.dispatchEvent(new CustomEvent('alpine:initialized'));
+				};
+				
+				// Initialize on first load
+				if (document.readyState === 'loading') {
+					document.addEventListener('DOMContentLoaded', initAlpine);
+				} else {
+					// DOM is already loaded
+					initAlpine();
+				}
+				
+				// Re-initialize Alpine components after Astro page transitions
+				document.addEventListener('astro:after-swap', () => {
+					// Alpine needs to re-initialize components after DOM swap
+					Alpine.initTree(document.body);
+					// Dispatch event again for any listeners
+					window.dispatchEvent(new CustomEvent('alpine:initialized'));
+				});
+			}
+		</script>
+		
+		<style>
+			/* Hide Alpine elements until loaded */
+			[x-cloak] { 
+				display: none !important; 
+			}
+		</style>
 	</head>
 	<body class={isShowcasePage ? "h-full overflow-hidden" : "h-full"}>
 		<Navbar />
@@ -72,7 +185,7 @@ const searchData = {
 			<slot />
 		</main>
 		{!isShowcasePage && <Footer />}
-		<Search searchData={searchData} />
+		<Search searchData={searchData} loadDataOnDemand={false} />
 	</body>
 </html>
 

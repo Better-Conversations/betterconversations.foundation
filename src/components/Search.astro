@@ -1,125 +1,239 @@
 ---
-// This component provides the search modal and functionality
-// Search data will be passed from the parent component
+// Alpine.js-powered search component with progressive enhancement
+import type { SearchData } from '../types/search';
+
 export interface Props {
-  searchData?: {
-    blogs: any[];
-    whitepapers: any[];
-    pages: any[];
-    tags: any[];
-  };
+  searchData?: SearchData;
+  loadDataOnDemand?: boolean;
 }
 
-const { searchData = { blogs: [], whitepapers: [], pages: [], tags: [] } } = Astro.props;
+const { searchData, loadDataOnDemand = true } = Astro.props;
 ---
 
-<div id="search-modal" class="fixed inset-0 z-[100] hidden">
-  <!-- Backdrop -->
-  <div class="search-backdrop absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
-  
-  <!-- Modal -->
-  <div class="relative flex items-start justify-center pt-[10vh] px-4 sm:px-6 lg:px-8">
-    <div class="search-container w-full max-w-3xl bg-white rounded-2xl shadow-2xl overflow-hidden transform transition-all">
-      <!-- Search Header -->
-      <div class="p-6 sm:p-8 border-b border-gray-200 bg-gradient-to-br from-gray-50 to-white">
-        <div class="flex items-center gap-4 relative">
-          <svg class="w-6 h-6 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-          </svg>
-          <input
-            type="text"
-            id="search-input"
-            placeholder="Search blogs, whitepapers, and topics..."
-            class="flex-1 text-lg bg-transparent outline-none placeholder-gray-400 text-gray-900 font-medium"
-            autocomplete="off"
-          />
-          <button id="close-search" class="p-2 hover:bg-gray-100 rounded-lg transition-all duration-200 hover:scale-110">
-            <svg class="w-5 h-5 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+<!-- Progressive Enhancement Container -->
+<div id="search-modal-container" x-data="searchModal()" x-init="init()" style="position: relative; z-index: 9999;">
+  <!-- Fallback search form (works without JS) -->
+  <form 
+    action="/search" 
+    method="GET" 
+    class="search-form-fallback"
+    x-show="!jsLoaded"
+  >
+    <div class="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 bg-white hover:border-[#54C4B6] transition-colors">
+      <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      </svg>
+      <input
+        type="search"
+        name="q"
+        placeholder="Search..."
+        class="flex-1 bg-transparent outline-none placeholder-gray-400 text-gray-900"
+        required
+      />
+      <button 
+        type="submit"
+        class="px-3 py-1 text-sm bg-[#54C4B6] text-white rounded-md hover:bg-[#54C4B6]/90 transition-colors"
+      >
+        Search
+      </button>
+    </div>
+  </form>
+
+  <!-- Enhanced search trigger (visible when JS loads) -->
+  <button 
+    @click="open = true"
+    x-show="jsLoaded"
+    x-cloak
+    class="search-trigger flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 bg-white hover:border-[#54C4B6] transition-colors cursor-pointer"
+  >
+    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+    </svg>
+    <span class="text-gray-600">Search...</span>
+    <kbd class="hidden sm:inline-block px-2 py-1 text-xs bg-gray-100 rounded">⌘K</kbd>
+  </button>
+
+  <!-- Search Modal -->
+  <div 
+    x-show="open" 
+    x-cloak
+    @keydown.escape.window="open = false"
+    class="fixed inset-0 z-[100]"
+    role="dialog"
+    aria-modal="true"
+  >
+    <!-- Backdrop -->
+    <div 
+      x-show="open"
+      x-transition:enter="transition ease-out duration-200"
+      x-transition:enter-start="opacity-0"
+      x-transition:enter-end="opacity-100"
+      x-transition:leave="transition ease-in duration-150"
+      x-transition:leave-start="opacity-100"
+      x-transition:leave-end="opacity-0"
+      @click="open = false"
+      class="absolute inset-0 bg-black/50 backdrop-blur-sm"
+    ></div>
+    
+    <!-- Modal -->
+    <div class="relative flex items-start justify-center pt-[10vh] px-4 sm:px-6 lg:px-8">
+      <div 
+        x-show="open"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 transform scale-95"
+        x-transition:enter-end="opacity-100 transform scale-100"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 transform scale-100"
+        x-transition:leave-end="opacity-0 transform scale-95"
+        @click.outside="open = false"
+        class="w-full max-w-3xl bg-white rounded-2xl shadow-2xl overflow-hidden"
+      >
+        <!-- Search Header -->
+        <div class="p-6 sm:p-8 border-b border-gray-200 bg-gradient-to-br from-gray-50 to-white">
+          <div class="flex items-center gap-4 relative">
+            <svg class="w-6 h-6 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
             </svg>
-          </button>
-        </div>
-        
-        <!-- Filters -->
-        <div class="flex flex-wrap gap-2 mt-6">
-          <button class="search-filter active px-3 py-1 text-sm rounded-full transition-colors" data-type="all">
-            All
-          </button>
-          <button class="search-filter px-3 py-1 text-sm rounded-full transition-colors" data-type="blog">
-            Blogs
-          </button>
-          <button class="search-filter px-3 py-1 text-sm rounded-full transition-colors" data-type="whitepaper">
-            Whitepapers
-          </button>
-          <button class="search-filter px-3 py-1 text-sm rounded-full transition-colors" data-type="page">
-            Pages
-          </button>
-          <button class="search-filter px-3 py-1 text-sm rounded-full transition-colors" data-type="tag">
-            Topics
-          </button>
-        </div>
-      </div>
-      
-      <!-- Search Results -->
-      <div id="search-results" class="max-h-[60vh] overflow-y-auto">
-        <!-- Initial state -->
-        <div class="search-initial p-12 text-center text-gray-500">
-          <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-          </svg>
-          <p class="text-lg font-medium mb-2">Quick search across all content</p>
-          <p class="text-sm">Start typing to search blogs, whitepapers, and topics</p>
-        </div>
-        
-        <!-- Loading state -->
-        <div class="search-loading hidden p-12 text-center">
-          <div class="inline-flex items-center gap-3">
-            <svg class="animate-spin h-5 w-5 text-[#54C4B6]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            <span class="text-gray-600">Searching...</span>
+            <input
+              x-ref="searchInput"
+              x-model="query"
+              @input.debounce.300ms="search"
+              @keydown.down.prevent="selectNext"
+              @keydown.up.prevent="selectPrev"
+              @keydown.enter.prevent="goToSelected"
+              type="text"
+              placeholder="Search blogs, whitepapers, and topics..."
+              class="flex-1 text-lg bg-transparent outline-none placeholder-gray-400 text-gray-900 font-medium"
+              autocomplete="off"
+            />
+            <button 
+              @click="open = false"
+              class="p-2 hover:bg-gray-100 rounded-lg transition-all duration-200 hover:scale-110"
+            >
+              <svg class="w-5 h-5 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+          
+          <!-- Filters -->
+          <div class="flex flex-wrap gap-2 mt-6">
+            <template x-for="filter in filters" :key="filter">
+              <button 
+                @click="activeFilter = filter; search()"
+                :class="activeFilter === filter ? 'bg-gradient-to-r from-[#54C4B6] to-[#A8D381] text-white shadow-md' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
+                class="px-3 py-1 text-sm rounded-full transition-all duration-200"
+                x-text="filter === 'all' ? 'All' : filter.charAt(0).toUpperCase() + filter.slice(1) + 's'"
+              ></button>
+            </template>
           </div>
         </div>
         
-        <!-- Results container -->
-        <div class="search-results-container hidden">
-          <div class="px-4 sm:px-6 py-2">
-            <!-- Results will be dynamically inserted here -->
+        <!-- Search Results -->
+        <div class="max-h-[60vh] overflow-y-auto">
+          <!-- Initial state -->
+          <div x-show="!query && !loading" class="p-12 text-center text-gray-500">
+            <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+            </svg>
+            <p class="text-lg font-medium mb-2">Quick search across all content</p>
+            <p class="text-sm">Start typing to search blogs, whitepapers, and topics</p>
+          </div>
+          
+          <!-- Loading state -->
+          <div x-show="loading" class="p-12 text-center">
+            <div class="inline-flex items-center gap-3">
+              <svg class="animate-spin h-5 w-5 text-[#54C4B6]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <span class="text-gray-600">Searching...</span>
+            </div>
+          </div>
+          
+          <!-- Results -->
+          <div x-show="!loading && query && results.length > 0" class="px-4 sm:px-6 py-2">
+            <template x-for="(result, index) in results" :key="result.slug">
+              <a
+                :href="result.slug"
+                @click="navigateToResult(result, $event)"
+                @mouseenter="selectedIndex = index"
+                :class="selectedIndex === index ? 'bg-[#e0f7fa] border-[#54C4B6] shadow-md' : 'bg-white border-gray-200 hover:bg-gray-50 hover:border-[#54C4B6]'"
+                class="block p-4 mb-2 rounded-lg border transition-all duration-200"
+              >
+                <div x-show="result.type === 'tag'" class="flex items-center justify-between gap-4">
+                  <div>
+                    <h3 class="font-semibold text-gray-900 text-lg mb-1">
+                      <span class="text-[#54C4B6]">#</span><span x-text="result.title"></span>
+                    </h3>
+                    <p class="text-sm text-gray-600">
+                      <span x-text="result.count"></span> <span x-text="result.count === 1 ? 'item' : 'items'"></span>
+                    </p>
+                  </div>
+                  <span class="px-2 py-1 text-xs rounded-full font-medium bg-gray-100 text-gray-600">Topic</span>
+                </div>
+                
+                <div x-show="result.type !== 'tag'" class="flex items-start justify-between gap-4">
+                  <div class="flex-1 min-w-0">
+                    <h3 class="font-semibold text-gray-900 text-lg mb-1 truncate" x-text="result.title"></h3>
+                    <p x-show="result.excerpt" class="text-sm text-gray-600 line-clamp-2 mb-2" x-text="result.excerpt"></p>
+                    <div class="flex items-center gap-2 text-xs text-gray-500">
+                      <time x-show="result.date" x-text="formatDate(result.date)"></time>
+                      <template x-if="result.tags && result.tags.length > 0">
+                        <span class="flex items-center gap-2">
+                          <span class="text-gray-400">•</span>
+                          <span x-text="result.tags.slice(0, 2).join(', ')"></span>
+                        </span>
+                      </template>
+                    </div>
+                  </div>
+                  <span 
+                    :class="getTypeStyles(result.type)"
+                    class="px-2 py-1 text-xs rounded-full font-medium flex-shrink-0"
+                    x-text="result.type.charAt(0).toUpperCase() + result.type.slice(1)"
+                  ></span>
+                </div>
+              </a>
+            </template>
+          </div>
+          
+          <!-- No results -->
+          <div x-show="!loading && query && results.length === 0" class="p-12 text-center">
+            <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <p class="text-lg font-medium text-gray-900 mb-2">No results found</p>
+            <p class="text-sm text-gray-600">Try adjusting your search or filters</p>
           </div>
         </div>
         
-        <!-- No results -->
-        <div class="search-no-results hidden p-12 text-center">
-          <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-          <p class="text-lg font-medium text-gray-900 mb-2">No results found</p>
-          <p class="text-sm text-gray-600">Try adjusting your search or filters</p>
-        </div>
-      </div>
-      
-      <!-- Footer -->
-      <div class="p-4 sm:px-6 border-t border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100/50 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-gray-500">
-        <div class="flex items-center gap-3 text-xs sm:text-sm">
-          <span class="flex items-center gap-1.5">
-            <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-mono shadow-sm">↑</kbd>
-            <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-mono shadow-sm">↓</kbd>
-            <span class="hidden sm:inline">Navigate</span>
-          </span>
-          <span class="text-gray-400">•</span>
-          <span class="flex items-center gap-1.5">
-            <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-mono shadow-sm">Enter</kbd>
-            <span class="hidden sm:inline">Select</span>
-          </span>
-          <span class="text-gray-400">•</span>
-          <span class="flex items-center gap-1.5">
-            <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-mono shadow-sm">Esc</kbd>
-            <span class="hidden sm:inline">Close</span>
-          </span>
-        </div>
-        <div class="search-result-count hidden">
-          <span class="font-medium">0</span> results
+        <!-- Footer -->
+        <div class="p-4 sm:px-6 border-t border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100/50 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-gray-500">
+          <div class="flex items-center gap-3 text-xs sm:text-sm">
+            <span class="flex items-center gap-1.5">
+              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-mono shadow-sm">↑</kbd>
+              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-mono shadow-sm">↓</kbd>
+              <span class="hidden sm:inline">Navigate</span>
+            </span>
+            <span class="text-gray-400">•</span>
+            <span class="flex items-center gap-1.5">
+              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-mono shadow-sm">Enter</kbd>
+              <span class="hidden sm:inline">Select</span>
+            </span>
+            <span class="text-gray-400">•</span>
+            <span class="flex items-center gap-1.5">
+              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-mono shadow-sm">Esc</kbd>
+              <span class="hidden sm:inline">Close</span>
+            </span>
+          </div>
+          <div class="flex items-center gap-4">
+            <a href="/search" class="text-[#54C4B6] hover:text-[#54C4B6]/80 text-sm font-medium transition-colors">
+              Advanced Search →
+            </a>
+            <div x-show="results.length > 0">
+              <span class="font-medium" x-text="results.length"></span> results
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -127,101 +241,12 @@ const { searchData = { blogs: [], whitepapers: [], pages: [], tags: [] } } = Ast
 </div>
 
 <style>
-  /* Search modal animations */
-  @keyframes modalIn {
-    from {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
+  /* Hide elements until Alpine loads */
+  [x-cloak] { 
+    display: none !important; 
   }
   
-  @keyframes backdropIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  
-  #search-modal.active .search-backdrop {
-    animation: backdropIn 0.2s ease-out;
-  }
-  
-  #search-modal.active .search-container {
-    animation: modalIn 0.3s ease-out;
-  }
-  
-  /* Glass morphism effect */
-  .search-container {
-    backdrop-filter: blur(10px);
-    background-color: rgba(255, 255, 255, 0.98);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  }
-  
-  /* Filter button styles */
-  .search-filter {
-    background-color: #f9fafb;
-    color: #6b7280;
-    border: 1px solid #e5e7eb;
-    transition: all 0.2s ease;
-  }
-  
-  .search-filter:hover {
-    background-color: #f3f4f6;
-    border-color: #d1d5db;
-    transform: translateY(-1px);
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-  }
-  
-  .search-filter.active {
-    background: linear-gradient(to right, #54C4B6, #A8D381);
-    color: white;
-    border-color: transparent;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  }
-  
-  /* Result item active state for keyboard navigation */
-  .search-result-item.active {
-    background-color: #e0f7fa !important;
-    border-color: #54C4B6 !important;
-    box-shadow: 0 0 0 2px rgba(84, 196, 182, 0.2) !important;
-  }
-  
-  .search-result-item.active h3 {
-    color: #54C4B6 !important;
-  }
-  
-  /* Type badges */
-  .result-type-badge {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.125rem 0.5rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-    border-radius: 9999px;
-  }
-  
-  .result-type-blog {
-    background-color: rgba(84, 196, 182, 0.1);
-    color: #54C4B6;
-  }
-  
-  .result-type-whitepaper {
-    background-color: rgba(168, 211, 129, 0.1);
-    color: #A8D381;
-  }
-  
-  .result-type-tag {
-    background-color: #f3f4f6;
-    color: #4b5563;
-  }
-  
-  .result-type-page {
-    background-color: rgba(249, 115, 22, 0.1);
-    color: #ea580c;
-  }
-  
+  /* Line clamp utility */
   .line-clamp-2 {
     overflow: hidden;
     display: -webkit-box;
@@ -230,284 +255,237 @@ const { searchData = { blogs: [], whitepapers: [], pages: [], tags: [] } } = Ast
   }
 </style>
 
-<script define:vars={{ searchDataProp: searchData }}>
-  // Search state
-  let searchModal;
-  let searchInput;
-  let searchResults;
-  let currentFilter = 'all';
-  let currentResults = [];
-  let selectedIndex = -1;
-  
-  // Use search data passed from props
-  const searchData = searchDataProp;
-  
-  // Search function
-  function performSearch(query) {
-    if (!searchData || !query.trim()) {
-      showInitialState();
-      return;
-    }
-    
-    const searchTerm = query.toLowerCase();
-    const results = [];
-    
-    // Search blogs
-    if (currentFilter === 'all' || currentFilter === 'blog') {
-      const blogResults = searchData.blogs.filter(item =>
-        item.title.toLowerCase().includes(searchTerm) ||
-        item.excerpt.toLowerCase().includes(searchTerm) ||
-        item.tags.some(tag => tag.toLowerCase().includes(searchTerm))
-      );
-      results.push(...blogResults);
-    }
-    
-    // Search whitepapers
-    if (currentFilter === 'all' || currentFilter === 'whitepaper') {
-      const whitepaperResults = searchData.whitepapers.filter(item =>
-        item.title.toLowerCase().includes(searchTerm) ||
-        item.excerpt.toLowerCase().includes(searchTerm) ||
-        item.tags.some(tag => tag.toLowerCase().includes(searchTerm))
-      );
-      results.push(...whitepaperResults);
-    }
-    
-    // Search pages
-    if (currentFilter === 'all' || currentFilter === 'page') {
-      const pageResults = searchData.pages.filter(item =>
-        item.title.toLowerCase().includes(searchTerm) ||
-        item.excerpt.toLowerCase().includes(searchTerm) ||
-        item.tags.some(tag => tag.toLowerCase().includes(searchTerm))
-      );
-      results.push(...pageResults);
-    }
-    
-    // Search tags
-    if (currentFilter === 'all' || currentFilter === 'tag') {
-      const tagResults = searchData.tags.filter(item =>
-        item.title.toLowerCase().includes(searchTerm)
-      );
-      results.push(...tagResults);
-    }
-    
-    currentResults = results;
-    selectedIndex = -1;
-    displayResults(results);
-  }
-  
-  // Display results
-  function displayResults(results) {
-    const container = document.querySelector('.search-results-container');
-    const noResults = document.querySelector('.search-no-results');
-    const initial = document.querySelector('.search-initial');
-    const loading = document.querySelector('.search-loading');
-    const resultCount = document.querySelector('.search-result-count');
-    
-    // Hide all states
-    initial?.classList.add('hidden');
-    loading?.classList.add('hidden');
-    noResults?.classList.add('hidden');
-    container?.classList.add('hidden');
-    resultCount?.classList.add('hidden');
-    
-    if (results.length === 0) {
-      noResults?.classList.remove('hidden');
-      return;
-    }
-    
-    // Show results
-    container?.classList.remove('hidden');
-    resultCount?.classList.remove('hidden');
-    const countSpan = resultCount?.querySelector('span');
-    if (countSpan) countSpan.textContent = results.length.toString();
-    
-    // Build results HTML
-    const html = results.map((result, index) => {
-      let typeClass = '';
-      let typeName = '';
-      
-      switch (result.type) {
-        case 'blog':
-          typeClass = 'result-type-blog';
-          typeName = 'Blog';
-          break;
-        case 'whitepaper':
-          typeClass = 'result-type-whitepaper';
-          typeName = 'Whitepaper';
-          break;
-        case 'tag':
-          typeClass = 'result-type-tag';
-          typeName = 'Topic';
-          break;
-        case 'page':
-          typeClass = 'result-type-page';
-          typeName = 'Page';
-          break;
-      }
-      
-      if (result.type === 'tag') {
-        return `
-          <a href="${result.slug}" 
-             class="search-result-item block p-4 mb-2 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 hover:border-[#54C4B6] hover:shadow-sm transition-all duration-200" 
-             data-index="${index}"
-             onmouseover="this.style.backgroundColor='#f0fdf4'; this.style.borderColor='#54C4B6'; this.querySelector('h3').style.color='#54C4B6';"
-             onmouseout="this.style.backgroundColor='white'; this.style.borderColor='#e5e7eb'; this.querySelector('h3').style.color='#111827';">
-            <div class="flex items-center justify-between gap-4">
-              <div>
-                <h3 class="font-semibold text-gray-900 text-lg mb-1 transition-colors">
-                  <span class="text-[#54C4B6]">#</span>${result.title}
-                </h3>
-                <p class="text-sm text-gray-600">${result.count} ${result.count === 1 ? 'item' : 'items'}</p>
-              </div>
-              <span class="result-type-badge ${typeClass}">${typeName}</span>
-            </div>
-          </a>
-        `;
-      } else {
-        return `
-          <a href="${result.slug}" 
-             class="search-result-item block p-4 mb-2 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 hover:border-[#54C4B6] hover:shadow-sm transition-all duration-200" 
-             data-index="${index}"
-             onmouseover="this.style.backgroundColor='#f0fdf4'; this.style.borderColor='#54C4B6'; this.querySelector('h3').style.color='#54C4B6';"
-             onmouseout="this.style.backgroundColor='white'; this.style.borderColor='#e5e7eb'; this.querySelector('h3').style.color='#111827';">
-            <div class="flex items-start justify-between gap-4">
-              <div class="flex-1 min-w-0">
-                <h3 class="font-semibold text-gray-900 text-lg mb-1 truncate transition-colors">${result.title}</h3>
-                <p class="text-sm text-gray-600 line-clamp-2 mb-2">${result.excerpt}</p>
-                <div class="flex items-center gap-2 text-xs text-gray-500">
-                  ${result.date ? `<time>${new Date(result.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'short' })}</time>` : ''}
-                  ${result.tags && result.tags.length > 0 ? `<span class="text-gray-400">•</span> <span>${result.tags.slice(0, 2).join(', ')}</span>` : ''}
-                </div>
-              </div>
-              <span class="result-type-badge ${typeClass} flex-shrink-0">${typeName}</span>
-            </div>
-          </a>
-        `;
-      }
-    }).join('');
-    
-    if (container) {
-      const innerContainer = container.querySelector('div');
-      if (innerContainer) {
-        innerContainer.innerHTML = html;
-      } else {
-        container.innerHTML = `<div class="px-4 sm:px-6 py-2">${html}</div>`;
-      }
+<script>
+  // Extend window interface
+  declare global {
+    interface Window {
+      openSearchModal?: () => void;
     }
   }
+</script>
+
+<script define:vars={{ searchData, loadDataOnDemand }} is:inline>
+  // Pass data through a global variable for Alpine
+  const searchDataProp = searchData || null;
   
-  // Show initial state
-  function showInitialState() {
-    document.querySelector('.search-initial')?.classList.remove('hidden');
-    document.querySelector('.search-loading')?.classList.add('hidden');
-    document.querySelector('.search-no-results')?.classList.add('hidden');
-    document.querySelector('.search-results-container')?.classList.add('hidden');
-    document.querySelector('.search-result-count')?.classList.add('hidden');
-  }
-  
-  // Initialize when DOM is ready
-  document.addEventListener('DOMContentLoaded', () => {
-    searchModal = document.getElementById('search-modal');
-    searchInput = document.getElementById('search-input');
-    
-    // Open search modal
-    window.openSearchModal = () => {
-      searchModal.classList.remove('hidden');
-      searchModal.classList.add('active');
-      searchInput.focus();
-    };
-    
-    // Close search modal
-    window.closeSearchModal = () => {
-      searchModal.classList.remove('active');
-      setTimeout(() => {
-        searchModal.classList.add('hidden');
-        searchInput.value = '';
-        showInitialState();
-      }, 300);
-    };
-    
-    // Close button
-    document.getElementById('close-search')?.addEventListener('click', window.closeSearchModal);
-    
-    // Backdrop click
-    document.querySelector('.search-backdrop')?.addEventListener('click', window.closeSearchModal);
-    
-    // Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !searchModal.classList.contains('hidden')) {
-        window.closeSearchModal();
-      }
+  // Define the search modal component
+  function registerSearchModal() {
+    // Register the component definition
+    window.Alpine.data('searchModal', () => ({
+      open: false,
+      query: '',
+      results: [],
+      loading: false,
+      selectedIndex: -1,
+      activeFilter: 'all',
+      filters: ['all', 'blog', 'whitepaper', 'page', 'tag'],
+      jsLoaded: false,
+      searchData: searchDataProp || null,
       
-      // Cmd/Ctrl + K to open search
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        window.openSearchModal();
-      }
-      
-      // Keyboard navigation
-      if (!searchModal.classList.contains('hidden') && currentResults.length > 0) {
-        if (e.key === 'ArrowDown') {
-          e.preventDefault();
-          selectedIndex = Math.min(selectedIndex + 1, currentResults.length - 1);
-          updateSelectedResult();
-        } else if (e.key === 'ArrowUp') {
-          e.preventDefault();
-          selectedIndex = Math.max(selectedIndex - 1, -1);
-          updateSelectedResult();
-        } else if (e.key === 'Enter' && selectedIndex >= 0) {
-          e.preventDefault();
-          const selectedResult = currentResults[selectedIndex];
-          if (selectedResult) {
-            window.location.href = selectedResult.slug;
+      init() {
+        // Mark JS as loaded for progressive enhancement
+        this.jsLoaded = true;
+        
+        // Focus input when modal opens
+        this.$watch('open', value => {
+          if (value) {
+            this.$nextTick(() => {
+              this.$refs.searchInput?.focus();
+            });
+          } else {
+            // Reset state when closing
+            this.query = '';
+            this.results = [];
+            this.selectedIndex = -1;
           }
+        });
+        
+        // Make search globally available with better resilience
+        const openModal = () => {
+          this.open = true;
+        };
+        
+        // Set on window
+        window.openSearchModal = openModal;
+        
+        // Also store reference on the element itself
+        const container = document.getElementById('search-modal-container');
+        if (container) {
+          container.openSearchModal = openModal;
         }
-      }
-    });
-    
-    // Search input
-    let searchTimeout;
-    searchInput?.addEventListener('input', (e) => {
-      clearTimeout(searchTimeout);
-      const query = e.target.value;
+        
+        // Listen for custom event
+        const openModalHandler = () => {
+          this.open = true;
+        };
+        window.addEventListener('open-search-modal', openModalHandler);
+        
+        // Register global keyboard shortcut
+        const keyboardHandler = (e) => {
+          if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+            e.preventDefault();
+            this.open = true;
+          }
+        };
+        document.addEventListener('keydown', keyboardHandler);
+        
+        // Clean up on destroy (for page transitions)
+        this.$cleanup = () => {
+          window.removeEventListener('open-search-modal', openModalHandler);
+          document.removeEventListener('keydown', keyboardHandler);
+        };
+      },
       
-      if (query.trim()) {
-        document.querySelector('.search-loading')?.classList.remove('hidden');
-        document.querySelector('.search-initial')?.classList.add('hidden');
-        
-        searchTimeout = setTimeout(() => {
-          performSearch(query);
-        }, 300);
-      } else {
-        showInitialState();
-      }
-    });
-    
-    // Filter buttons
-    document.querySelectorAll('.search-filter').forEach(button => {
-      button.addEventListener('click', () => {
-        // Update active state
-        document.querySelectorAll('.search-filter').forEach(b => b.classList.remove('active'));
-        button.classList.add('active');
-        
-        // Update filter and research
-        currentFilter = button.getAttribute('data-type') || 'all';
-        if (searchInput.value.trim()) {
-          performSearch(searchInput.value);
+      async search() {
+        if (!this.query.trim()) {
+          this.results = [];
+          return;
         }
-      });
-    });
-  });
-  
-  // Update selected result visual state
-  function updateSelectedResult() {
-    document.querySelectorAll('.search-result-item').forEach((item, index) => {
-      if (index === selectedIndex) {
-        item.classList.add('active');
-        item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-      } else {
-        item.classList.remove('active');
+        
+        this.loading = true;
+        
+        try {
+          if (loadDataOnDemand || !this.searchData) {
+            // Fetch from API
+            const params = new URLSearchParams({
+              q: this.query,
+              filter: this.activeFilter,
+              limit: '20'
+            });
+            
+            const response = await fetch(`/api/search.json?${params}`);
+            const data = await response.json();
+            this.results = data.results || [];
+          } else {
+            // Search in provided data
+            this.results = this.searchInData(this.query, this.activeFilter);
+          }
+        } catch (error) {
+          console.error('Search error:', error);
+          this.results = [];
+        } finally {
+          this.loading = false;
+          this.selectedIndex = -1;
+        }
+      },
+      
+      searchInData(query, filter) {
+        if (!this.searchData) return [];
+        
+        const term = query.toLowerCase();
+        const results = [];
+        
+        // Search blogs
+        if (filter === 'all' || filter === 'blog') {
+          const blogResults = this.searchData.blogs.filter(item =>
+            item.title.toLowerCase().includes(term) ||
+            (item.excerpt && item.excerpt.toLowerCase().includes(term)) ||
+            (item.tags && item.tags.some(tag => tag.toLowerCase().includes(term)))
+          );
+          results.push(...blogResults);
+        }
+        
+        // Search whitepapers
+        if (filter === 'all' || filter === 'whitepaper') {
+          const whitepaperResults = this.searchData.whitepapers.filter(item =>
+            item.title.toLowerCase().includes(term) ||
+            (item.excerpt && item.excerpt.toLowerCase().includes(term)) ||
+            (item.tags && item.tags.some(tag => tag.toLowerCase().includes(term)))
+          );
+          results.push(...whitepaperResults);
+        }
+        
+        // Search pages
+        if (filter === 'all' || filter === 'page') {
+          const pageResults = this.searchData.pages.filter(item =>
+            item.title.toLowerCase().includes(term) ||
+            (item.excerpt && item.excerpt.toLowerCase().includes(term))
+          );
+          results.push(...pageResults);
+        }
+        
+        // Search tags
+        if (filter === 'all' || filter === 'tag') {
+          const tagResults = this.searchData.tags.filter(item =>
+            item.title.toLowerCase().includes(term)
+          );
+          results.push(...tagResults);
+        }
+        
+        return results;
+      },
+      
+      selectNext() {
+        if (this.results.length > 0) {
+          this.selectedIndex = Math.min(this.selectedIndex + 1, this.results.length - 1);
+          this.scrollToSelected();
+        }
+      },
+      
+      selectPrev() {
+        this.selectedIndex = Math.max(this.selectedIndex - 1, -1);
+        this.scrollToSelected();
+      },
+      
+      scrollToSelected() {
+        this.$nextTick(() => {
+          const selectedEl = document.querySelector(`[data-index="${this.selectedIndex}"]`);
+          selectedEl?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        });
+      },
+      
+      goToSelected() {
+        if (this.selectedIndex >= 0 && this.results[this.selectedIndex]) {
+          window.location.href = this.results[this.selectedIndex].slug;
+        }
+      },
+      
+      navigateToResult(result, event) {
+        // Allow cmd/ctrl click to open in new tab
+        if (!event.metaKey && !event.ctrlKey) {
+          event.preventDefault();
+          window.location.href = result.slug;
+        }
+      },
+      
+      formatDate(date) {
+        if (!date) return '';
+        const d = typeof date === 'string' ? new Date(date) : date;
+        return d.toLocaleDateString('en-GB', { year: 'numeric', month: 'short' });
+      },
+      
+      getTypeStyles(type) {
+        const styles = {
+          blog: 'bg-[#54C4B6]/10 text-[#54C4B6]',
+          whitepaper: 'bg-[#A8D381]/10 text-[#A8D381]',
+          page: 'bg-orange-100 text-orange-600',
+          tag: 'bg-gray-100 text-gray-600'
+        };
+        return styles[type] || styles.tag;
       }
-    });
+    }));
+    
+    // After registering, initialize any existing components
+    const searchContainer = document.getElementById('search-modal-container');
+    if (searchContainer && window.Alpine) {
+      // Initialize this specific element with Alpine
+      window.Alpine.initTree(searchContainer);
+    }
+  }
+  
+  // Register the component when Alpine is ready
+  if (window.Alpine) {
+    registerSearchModal();
+  } else {
+    document.addEventListener('alpine:init', registerSearchModal);
+    // Also check periodically in case we missed the event
+    const checkInterval = setInterval(() => {
+      if (window.Alpine) {
+        clearInterval(checkInterval);
+        registerSearchModal();
+      }
+    }, 100);
+    // Stop checking after 5 seconds
+    setTimeout(() => clearInterval(checkInterval), 5000);
   }
 </script>

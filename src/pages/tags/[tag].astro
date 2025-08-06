@@ -3,6 +3,8 @@ import Layout from '../../layouts/Layout.astro';
 import TagButton from '../../components/TagButton.astro';
 import { getContentByTag, getRelatedTags, normalizeTag } from '../../utils/tags';
 import { Image } from 'astro:assets';
+import { getBlogImage } from '../../data/blogImages';
+import bcfSymbol from '../../assets/images/logos/bcf-symbol.png';
 
 export async function getStaticPaths() {
   const { getAllTags } = await import('../../utils/tags');
@@ -24,21 +26,10 @@ const relatedTags = await getRelatedTags(tag, 8);
 const blogPosts = taggedContent.filter(item => item.type === 'blog');
 const whitepapers = taggedContent.filter(item => item.type === 'whitepaper');
 const pages = taggedContent.filter(item => item.type === 'page');
-
-// Import blog images
-const images = import.meta.glob('../../assets/images/blog/*', { eager: true });
 ---
 
 <Layout title={`${tagName} - Better Conversations Foundation`}>
   <style>
-    /* Content card hover effects */
-    .content-card {
-      transition: all 0.3s ease;
-    }
-    
-    .content-card:hover {
-      transform: translateY(-4px);
-    }
     
     /* Type badge styles */
     .type-badge {
@@ -91,34 +82,34 @@ const images = import.meta.glob('../../assets/images/blog/*', { eager: true });
         <div class="flex justify-center gap-6 md:gap-8 text-center mb-8 flex-wrap">
           <div>
             <div class="text-3xl font-bold text-[#54C4B6]">{taggedContent.length}</div>
-            <div class="text-sm text-gray-600">Total Items</div>
+            <div class="text-lg text-gray-600">Total Items</div>
           </div>
           <div>
             <div class="text-3xl font-bold text-[#A8D381]">{blogPosts.length}</div>
-            <div class="text-sm text-gray-600">Blog Posts</div>
+            <div class="text-lg text-gray-600">Blog Posts</div>
           </div>
           <div>
             <div class="text-3xl font-bold text-[#54C4B6]">{whitepapers.length}</div>
-            <div class="text-sm text-gray-600">Whitepapers</div>
+            <div class="text-lg text-gray-600">Whitepapers</div>
           </div>
           <div>
             <div class="text-3xl font-bold text-orange-600">{pages.length}</div>
-            <div class="text-sm text-gray-600">Pages</div>
+            <div class="text-lg text-gray-600">Pages</div>
           </div>
         </div>
         
         <!-- Related Tags -->
         {relatedTags.length > 0 && (
           <div class="mt-8">
-            <p class="text-sm text-gray-600 mb-3">Related topics:</p>
-            <div class="flex flex-wrap justify-center gap-2">
+            <p class="text-lg text-gray-600 mb-2">Related topics:</p>
+            <div class="flex flex-wrap justify-center gap-1 px-8 md:px-16 lg:px-24">
               {relatedTags.map((relatedTag, index) => (
                 <a
                   href={`/tags/${normalizeTag(relatedTag)}`}
                   class="related-tag"
                   style={`animation-delay: ${index * 0.1}s;`}
                 >
-                  <TagButton tag={relatedTag} size="xs" />
+                  <TagButton tag={relatedTag} size="sm" />
                 </a>
               ))}
             </div>
@@ -141,55 +132,64 @@ const images = import.meta.glob('../../assets/images/blog/*', { eager: true });
       {blogPosts.length > 0 && (
         <div class="mb-16">
           <h2 class="text-2xl font-bold text-gray-900 mb-8">Blog Articles</h2>
-          <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div class="space-y-4">
             {blogPosts.map(post => {
               // Get optimized image if available
-              let optimizedImage = null;
-              if (post.type === 'blog') {
-                const imagePath = `/images/blog/${post.slug.split('/').pop()}.jpg`;
-                const imageKey = `../../assets/images/blog/${post.slug.split('/').pop()}.jpg`;
-                optimizedImage = images[imageKey] as any;
-              }
+              const postSlug = post.slug.split('/').pop() || '';
+              const optimizedImage = getBlogImage(postSlug);
               
               return (
-                <article class="content-card group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg hover:border-[#54C4B6]/50">
-                  <a href={post.slug} class="block">
-                    <div class="relative h-48 overflow-hidden bg-gray-100">
-                      {optimizedImage ? (
-                        <Image
-                          src={optimizedImage.default}
-                          alt={post.title}
-                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      ) : (
-                        <div class="w-full h-full bg-gradient-to-br from-[#54C4B6]/20 to-[#A8D381]/20 flex items-center justify-center">
-                          <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path>
-                          </svg>
+                <article class="bcf-content-card">
+                  <a href={post.slug} class="bcf-content-card-link group">
+                    <div class="bcf-content-card-body">
+                      <div class="bcf-content-card-image">
+                        {optimizedImage ? (
+                          <Image
+                            src={optimizedImage}
+                            alt={post.title}
+                            class="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div class="w-full h-full bg-gradient-to-br from-[#54C4B6]/20 to-[#A8D381]/20 flex items-center justify-center">
+                            <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path>
+                            </svg>
+                          </div>
+                        )}
+                        <div class="bcf-content-card-badge">
+                          <span class="px-2 py-1 bg-[#54C4B6] text-white text-xs font-medium rounded-full">
+                            Blog
+                          </span>
                         </div>
-                      )}
-                      <div class="type-badge">
-                        <span class="px-3 py-1 bg-[#54C4B6] text-white text-xs font-medium rounded-full">
-                          Blog
-                        </span>
                       </div>
-                    </div>
-                    
-                    <div class="p-6">
-                      <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#54C4B6] transition-colors line-clamp-2">
-                        {post.title}
-                      </h3>
-                      <p class="text-gray-600 mb-4 line-clamp-3">
-                        {post.excerpt}
-                      </p>
                       
-                      <div class="flex items-center justify-between text-sm text-gray-500">
-                        <div class="flex items-center gap-4">
-                          <span>{typeof post.authors === 'string' ? post.authors : post.authors?.join(', ')}</span>
-                          <span>•</span>
-                          <span>{post.readingTime ? `${post.readingTime} min` : '5 min'}</span>
+                      <div class="bcf-content-card-content">
+                        <h3 class="bcf-content-card-title">
+                          {post.title}
+                        </h3>
+                        <p class="bcf-content-card-excerpt">
+                          {post.excerpt}
+                        </p>
+                        
+                        <div class="bcf-content-card-meta">
+                          {post.date && <time>{post.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' })}</time>}
+                          {post.authors && (
+                            <span>{Array.isArray(post.authors) ? post.authors.join(', ') : post.authors}</span>
+                          )}
+                          {post.readingTime && <span>{post.readingTime} min read</span>}
+                          {post.tags && post.tags.length > 0 && (
+                            <div class="flex gap-1 flex-wrap">
+                              {post.tags.map((tag) => (
+                                <a 
+                                  href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                                  class="bcf-content-tag-pill"
+                                >
+                                  #{tag}
+                                </a>
+                              ))}
+                            </div>
+                          )}
                         </div>
-                        <time>{post.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' })}</time>
                       </div>
                     </div>
                   </a>
@@ -201,53 +201,52 @@ const images = import.meta.glob('../../assets/images/blog/*', { eager: true });
       )}
       
       {whitepapers.length > 0 && (
-        <div>
+        <div class="mb-16">
           <h2 class="text-2xl font-bold text-gray-900 mb-8">Research & Whitepapers</h2>
-          <div class="space-y-6">
+          <div class="space-y-4">
             {whitepapers.map(paper => (
-              <article class="content-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg hover:border-[#A8D381]/50">
-                <a href={paper.slug} class="block">
-                  <div class="md:flex">
-                    <div class="md:w-1/4 relative h-48 md:h-auto bg-gray-100">
-                      <div class="absolute inset-0 bg-gradient-to-br from-[#A8D381]/20 to-[#54C4B6]/20 flex items-center justify-center">
-                        <svg class="w-20 h-20 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <article class="bcf-content-card">
+                <a href={paper.slug} class="bcf-content-card-link group">
+                  <div class="bcf-content-card-body">
+                    <div class="bcf-content-card-image">
+                      <div class="w-full h-full bg-gradient-to-br from-[#A8D381]/20 to-[#54C4B6]/20 flex items-center justify-center">
+                        <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
                       </div>
-                      <div class="type-badge">
-                        <span class="px-3 py-1 bg-[#A8D381] text-white text-xs font-medium rounded-full">
+                      <div class="bcf-content-card-badge">
+                        <span class="px-2 py-1 bg-[#A8D381] text-white text-xs font-medium rounded-full">
                           Whitepaper
                         </span>
                       </div>
                     </div>
                     
-                    <div class="md:w-3/4 p-6">
-                      <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#A8D381] transition-colors">
+                    <div class="bcf-content-card-content">
+                      <h3 class="bcf-content-card-title">
                         {paper.title}
                       </h3>
-                      <p class="text-gray-600 mb-4 line-clamp-2">
+                      <p class="bcf-content-card-excerpt">
                         {paper.excerpt}
                       </p>
                       
-                      <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500">
-                        <div class="flex items-center gap-2">
-                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                          </svg>
+                      <div class="bcf-content-card-meta">
+                        {paper.date && <time>{paper.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short' })}</time>}
+                        {paper.authors && (
                           <span>{Array.isArray(paper.authors) ? paper.authors.join(', ') : paper.authors}</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                          </svg>
-                          <span>{paper.readingTime ? `${paper.readingTime} min read` : '20 min read'}</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                          </svg>
-                          <time>{paper.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long' })}</time>
-                        </div>
+                        )}
+                        {paper.readingTime && <span>{paper.readingTime} min read</span>}
+                        {paper.tags && paper.tags.length > 0 && (
+                          <div class="flex gap-1 flex-wrap">
+                            {paper.tags.map((tag) => (
+                              <a 
+                                href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                                class="bcf-content-tag-pill"
+                              >
+                                {tag}
+                              </a>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -259,28 +258,54 @@ const images = import.meta.glob('../../assets/images/blog/*', { eager: true });
       )}
 
       {pages.length > 0 && (
-        <div>
+        <div class="mb-16">
           <h2 class="text-2xl font-bold text-gray-900 mb-8">Related Pages</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-4">
             {pages.map(page => (
-              <article class="content-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg hover:border-orange-500/50">
-                <a href={page.slug} class="block p-6">
-                  <div class="flex items-start justify-between mb-3">
-                    <h3 class="text-xl font-bold text-gray-900 hover:text-orange-600 transition-colors">
-                      {page.title}
-                    </h3>
-                    <span class="px-3 py-1 bg-orange-100 text-orange-700 text-xs font-medium rounded-full flex-shrink-0 ml-3">
-                      Page
-                    </span>
-                  </div>
-                  <p class="text-gray-600 mb-4 line-clamp-2">
-                    {page.excerpt}
-                  </p>
-                  <div class="flex items-center gap-2 text-sm text-gray-500">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
-                    </svg>
-                    <span>{page.category}</span>
+              <article class="bcf-content-card">
+                <a href={page.slug} class="bcf-content-card-link group">
+                  <div class="bcf-content-card-body">
+                    <div class="bcf-content-card-image page-type">
+                      <Image
+                        src={bcfSymbol}
+                        alt="BCF Symbol"
+                        class="w-full h-full object-contain p-8"
+                      />
+                      <div class="bcf-content-card-badge">
+                        <span class="px-2 py-1 bg-orange-100 text-orange-700 text-xs font-medium rounded-full">
+                          Page
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div class="bcf-content-card-content centered">
+                      <h3 class="bcf-content-card-title">
+                        {page.title}
+                      </h3>
+                      <p class="bcf-content-card-excerpt">
+                        {page.excerpt}
+                      </p>
+                      <div class="bcf-content-card-meta">
+                        <div class="flex items-center gap-2">
+                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path>
+                          </svg>
+                          <span>{page.category}</span>
+                        </div>
+                        {page.tags && page.tags.length > 0 && (
+                          <div class="flex gap-1 flex-wrap">
+                            {page.tags.map((tag) => (
+                              <a 
+                                href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                                class="bcf-content-tag-pill"
+                              >
+                                #{tag}
+                              </a>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </a>
               </article>

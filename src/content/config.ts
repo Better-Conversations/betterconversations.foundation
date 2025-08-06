@@ -17,6 +17,14 @@ const blog = defineCollection({
     }).optional(),
     readingTime: z.number().positive().optional(),
     spotlight: z.boolean().default(false),
+    // Enhanced metadata fields for AI readability
+    metaDescription: z.string().max(160).optional(),
+    executiveSummary: z.string().optional(),
+    keywords: z.array(z.string()).optional(),
+    relatedContent: z.array(z.string()).optional(),
+    prerequisites: z.array(z.string()).optional(),
+    learningOutcomes: z.array(z.string()).optional(),
+    difficulty: z.enum(['beginner', 'intermediate', 'advanced']).optional(),
   }),
 });
 
@@ -33,6 +41,14 @@ const whitepapers = defineCollection({
     downloadUrl: z.string().optional(),
     readingTime: z.number().positive().optional(),
     featured: z.boolean().default(false),
+    // Enhanced metadata fields for AI readability
+    metaDescription: z.string().max(160).optional(),
+    executiveSummary: z.string().optional(),
+    keywords: z.array(z.string()).optional(),
+    relatedContent: z.array(z.string()).optional(),
+    prerequisites: z.array(z.string()).optional(),
+    learningOutcomes: z.array(z.string()).optional(),
+    difficulty: z.enum(['beginner', 'intermediate', 'advanced']).optional(),
   }),
 });
 

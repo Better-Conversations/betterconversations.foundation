@@ -12,6 +12,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+astro-dev.log
 
 # environment variables
 .env
@@ -23,3 +24,6 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 better-conversations-overview.md
+
+# local Claude settings
+CLAUDE.local.MD
