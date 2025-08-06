@@ -1,0 +1,448 @@
+---
+// Vanilla JavaScript Typesense search component (no Alpine.js)
+---
+
+<!-- Search Container -->
+<div id="search-modal-container">
+  <!-- Search Modal (hidden by default) -->
+  <div id="search-modal" class="fixed inset-0 z-[100] hidden" role="dialog" aria-modal="true">
+    <!-- Backdrop -->
+    <div id="search-backdrop" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+    
+    <!-- Modal -->
+    <div class="relative flex items-start justify-center pt-[10vh] px-4 sm:px-6 lg:px-8">
+      <div id="search-modal-content" class="w-full max-w-3xl bg-white rounded-2xl shadow-2xl overflow-hidden">
+        <!-- Search Header -->
+        <div class="p-6 sm:p-8 border-b border-gray-200 bg-gradient-to-br from-gray-50 to-white">
+          <div class="flex items-center gap-4 relative">
+            <svg class="w-6 h-6 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <input
+              id="search-input"
+              type="text"
+              placeholder="Search blogs, whitepapers, and pages..."
+              class="flex-1 text-lg bg-transparent outline-none placeholder-gray-400 text-gray-900 font-medium"
+              autocomplete="off"
+            />
+            <button id="search-close" class="p-2 hover:bg-gray-100 rounded-lg transition-all duration-200 hover:scale-110">
+              <svg class="w-5 h-5 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+          
+          <!-- Search stats -->
+          <div id="search-stats" class="mt-3 text-sm text-gray-500 hidden"></div>
+        </div>
+        
+        <!-- Search Results -->
+        <div class="max-h-[60vh] overflow-y-auto">
+          <!-- Initial state -->
+          <div id="search-initial" class="p-12 text-center text-gray-500">
+            <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+            </svg>
+            <p class="text-lg font-medium mb-2">Lightning-fast search</p>
+            <p class="text-sm">Start typing to search with typo tolerance</p>
+          </div>
+          
+          <!-- Loading state -->
+          <div id="search-loading" class="p-12 text-center hidden">
+            <div class="inline-flex items-center gap-3">
+              <svg class="animate-spin h-5 w-5 text-[#54C4B6]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <span class="text-gray-600">Searching...</span>
+            </div>
+          </div>
+          
+          <!-- Results container -->
+          <div id="search-results" class="px-4 sm:px-6 py-2 hidden"></div>
+          
+          <!-- No results -->
+          <div id="search-no-results" class="p-12 text-center hidden">
+            <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <p class="text-lg font-medium text-gray-900 mb-2">No results found</p>
+            <p class="text-sm text-gray-600">Try adjusting your search</p>
+          </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="p-4 sm:px-6 border-t border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100/50 flex items-center justify-between text-sm text-gray-500">
+          <div class="flex items-center gap-3 text-xs sm:text-sm">
+            <span class="flex items-center gap-1.5">
+              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-mono shadow-sm">↑↓</kbd>
+              Navigate
+            </span>
+            <span class="text-gray-400">•</span>
+            <span class="flex items-center gap-1.5">
+              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-mono shadow-sm">Enter</kbd>
+              Select
+            </span>
+          </div>
+          <a href="/search" class="text-[#54C4B6] hover:text-[#54C4B6]/80 font-medium transition-colors">
+            Advanced Search →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline src="https://cdn.jsdelivr.net/npm/typesense@2.1.0-13/dist/typesense.min.js"></script>
+
+<script is:inline>
+// Initialize search component
+function initSearchComponent() {
+  console.log('SearchTypesenseVanilla: Initializing...');
+  
+  let typesenseClient = null;
+  let searchTimeout = null;
+  let selectedIndex = -1;
+  let currentResults = [];
+  
+  // DOM elements
+  const modal = document.getElementById('search-modal');
+  const backdrop = document.getElementById('search-backdrop');
+  const input = document.getElementById('search-input');
+  const closeBtn = document.getElementById('search-close');
+  const searchStats = document.getElementById('search-stats');
+  const searchInitial = document.getElementById('search-initial');
+  const searchLoading = document.getElementById('search-loading');
+  const searchResults = document.getElementById('search-results');
+  const searchNoResults = document.getElementById('search-no-results');
+  
+  // Initialize Typesense client
+  function initTypesense() {
+    if (window.Typesense && !typesenseClient) {
+      console.log('SearchTypesenseVanilla: Creating Typesense client...');
+      typesenseClient = new window.Typesense.Client({
+        nodes: [{
+          host: 'typesense.bettercourses.org',
+          port: 443,
+          protocol: 'https'
+        }],
+        apiKey: '3dc57ebb7c46e57a5de5fa01d7c32c69855b3a04d26eaf5b5afff012d05641a4',
+        connectionTimeoutSeconds: 2
+      });
+      console.log('SearchTypesenseVanilla: Typesense client created');
+    }
+  }
+  
+  // Wait for Typesense to load
+  if (window.Typesense) {
+    initTypesense();
+  } else {
+    const checkTypesense = setInterval(() => {
+      if (window.Typesense) {
+        clearInterval(checkTypesense);
+        initTypesense();
+      }
+    }, 100);
+    // Stop checking after 10 seconds
+    setTimeout(() => clearInterval(checkTypesense), 10000);
+  }
+  
+  // Modal functions
+  function openModal() {
+    console.log('SearchTypesenseVanilla: Opening modal...');
+    modal.classList.remove('hidden');
+    input.focus();
+    document.body.style.overflow = 'hidden';
+  }
+  
+  function closeModal() {
+    console.log('SearchTypesenseVanilla: Closing modal...');
+    modal.classList.add('hidden');
+    input.value = '';
+    currentResults = [];
+    selectedIndex = -1;
+    searchResults.innerHTML = '';
+    searchResults.classList.add('hidden');
+    searchInitial.classList.remove('hidden');
+    searchStats.classList.add('hidden');
+    searchNoResults.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+  
+  // Search function
+  async function performSearch(query) {
+    if (!query.trim()) {
+      searchResults.innerHTML = '';
+      searchResults.classList.add('hidden');
+      searchInitial.classList.remove('hidden');
+      searchStats.classList.add('hidden');
+      searchNoResults.classList.add('hidden');
+      currentResults = [];
+      return;
+    }
+    
+    if (!typesenseClient) {
+      console.warn('SearchTypesenseVanilla: Typesense client not initialized');
+      return;
+    }
+    
+    // Show loading
+    searchInitial.classList.add('hidden');
+    searchLoading.classList.remove('hidden');
+    searchNoResults.classList.add('hidden');
+    searchResults.classList.add('hidden');
+    
+    const startTime = performance.now();
+    
+    try {
+      const searchResult = await typesenseClient
+        .collections('bcf-content')
+        .documents()
+        .search({
+          q: query,
+          query_by: 'title,content,tags',
+          query_by_weights: '3,1,2',
+          highlight_full_fields: 'title,content',
+          highlight_affix_num_tokens: 10,
+          num_typos: 2,
+          per_page: 20,
+          sort_by: '_text_match:desc,date_timestamp:desc'
+        });
+      
+      const hits = searchResult.hits || [];
+      currentResults = hits;
+      const searchTime = Math.round(performance.now() - startTime);
+      
+      // Hide loading
+      searchLoading.classList.add('hidden');
+      
+      if (hits.length > 0) {
+        // Show results
+        searchResults.innerHTML = hits.map((result, index) => createResultHTML(result, index)).join('');
+        searchResults.classList.remove('hidden');
+        
+        // Show stats
+        searchStats.textContent = `Found ${searchResult.found} results in ${searchTime}ms`;
+        searchStats.classList.remove('hidden');
+        
+        // Add event listeners to results
+        attachResultListeners();
+      } else {
+        // Show no results
+        searchNoResults.classList.remove('hidden');
+        searchStats.classList.add('hidden');
+      }
+    } catch (error) {
+      console.error('SearchTypesenseVanilla: Search error:', error);
+      searchLoading.classList.add('hidden');
+      searchNoResults.classList.remove('hidden');
+    }
+    
+    selectedIndex = -1;
+  }
+  
+  // Get the correct URL for different content types
+  function getResultUrl(doc) {
+    // If it's documentation type, redirect to docs site
+    if (doc.type === 'documentation') {
+      // For development, use localhost:8000
+      // For production, update this to your docs domain
+      const docsBaseUrl = window.location.hostname === 'localhost' 
+        ? 'http://localhost:8000' // Development URL
+        : 'https://betterconversations.foundation/'; // We will need to update this when we change the url for the docs site
+      
+      // If the slug already starts with /docs/, remove it to avoid duplication
+      const cleanSlug = doc.slug.replace(/^\/docs/, '');
+      return `${docsBaseUrl}${cleanSlug}`;
+    }
+    
+    // For all other content types, use the slug as-is (stays on current site)
+    return doc.slug;
+  }
+  
+  // Create result HTML
+  function createResultHTML(result, index) {
+    const doc = result.document;
+    const highlight = result.highlight;
+    
+    const title = highlight?.title?.snippet || doc.title;
+    const content = highlight?.content?.snippet || (doc.content ? doc.content.substring(0, 150) + '...' : '');
+    const date = doc.date_timestamp ? formatDate(doc.date_timestamp) : '';
+    const type = doc.type || 'page';
+    const typeStyles = getTypeStyles(type);
+    const url = getResultUrl(doc);
+    
+    return `
+      <a href="${url}" 
+         data-index="${index}"
+         class="search-result block p-4 mb-2 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 hover:border-[#54C4B6] transition-all duration-200">
+        <div class="flex items-start justify-between gap-4">
+          <div class="flex-1 min-w-0">
+            <h3 class="font-semibold text-gray-900 text-lg mb-1">
+              ${title}
+            </h3>
+            ${content ? `<p class="text-sm text-gray-600 line-clamp-2 mb-2">${content}</p>` : ''}
+            <div class="flex items-center gap-2 text-xs text-gray-500">
+              ${date ? `<time>${date}</time>` : ''}
+              ${doc.author ? `<span>• ${doc.author}</span>` : ''}
+            </div>
+          </div>
+          <span class="${typeStyles} px-2 py-1 text-xs rounded-full font-medium flex-shrink-0">
+            ${type.charAt(0).toUpperCase() + type.slice(1)}
+          </span>
+        </div>
+      </a>
+    `;
+  }
+  
+  // Format date
+  function formatDate(timestamp) {
+    const date = new Date(timestamp * 1000);
+    return date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
+  }
+  
+  // Get type styles
+  function getTypeStyles(type) {
+    const styles = {
+      blog: 'bg-[#54C4B6]/10 text-[#54C4B6]',
+      whitepaper: 'bg-[#A8D381]/10 text-[#A8D381]',
+      page: 'bg-orange-100 text-orange-600',
+      documentation: 'bg-blue-100 text-blue-600',
+      tag: 'bg-gray-100 text-gray-600'
+    };
+    return styles[type] || styles.tag;
+  }
+  
+  // Attach event listeners to results
+  function attachResultListeners() {
+    const results = searchResults.querySelectorAll('.search-result');
+    results.forEach((result, index) => {
+      result.addEventListener('mouseenter', () => {
+        selectedIndex = index;
+        updateSelectedResult();
+      });
+      
+      result.addEventListener('click', (e) => {
+        if (!e.metaKey && !e.ctrlKey) {
+          e.preventDefault();
+          window.location.href = result.getAttribute('href');
+        }
+      });
+    });
+  }
+  
+  // Update selected result styling
+  function updateSelectedResult() {
+    const results = searchResults.querySelectorAll('.search-result');
+    results.forEach((result, index) => {
+      if (index === selectedIndex) {
+        result.classList.add('bg-[#e0f7fa]', 'border-[#54C4B6]', 'shadow-md');
+        result.classList.remove('bg-white', 'border-gray-200');
+      } else {
+        result.classList.remove('bg-[#e0f7fa]', 'shadow-md');
+        result.classList.add('bg-white', 'border-gray-200');
+      }
+    });
+  }
+  
+  // Keyboard navigation
+  function navigateDown() {
+    const results = searchResults.querySelectorAll('.search-result');
+    if (results.length > 0) {
+      selectedIndex = Math.min(selectedIndex + 1, results.length - 1);
+      updateSelectedResult();
+      results[selectedIndex]?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+  }
+  
+  function navigateUp() {
+    if (selectedIndex > -1) {
+      selectedIndex = Math.max(selectedIndex - 1, -1);
+      updateSelectedResult();
+      if (selectedIndex >= 0) {
+        const results = searchResults.querySelectorAll('.search-result');
+        results[selectedIndex]?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }
+    }
+  }
+  
+  function selectCurrent() {
+    if (selectedIndex >= 0 && currentResults[selectedIndex]) {
+      const doc = currentResults[selectedIndex].document;
+      window.location.href = getResultUrl(doc);
+    }
+  }
+  
+  // Event listeners
+  closeBtn.addEventListener('click', closeModal);
+  backdrop.addEventListener('click', closeModal);
+  
+  // Input with debounce
+  input.addEventListener('input', (e) => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      performSearch(e.target.value);
+    }, 300);
+  });
+  
+  // Keyboard shortcuts in input
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      navigateDown();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      navigateUp();
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      selectCurrent();
+    }
+  });
+  
+  // Global keyboard shortcuts
+  document.addEventListener('keydown', (e) => {
+    // Cmd/Ctrl + K to open
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      openModal();
+    }
+    // Escape to close
+    if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+      closeModal();
+    }
+  });
+  
+  // Make openSearchModal globally available
+  window.openSearchModal = openModal;
+  console.log('SearchTypesenseVanilla: window.openSearchModal registered');
+  
+  // Re-register after page transitions (Astro View Transitions)
+  document.addEventListener('astro:after-swap', () => {
+    window.openSearchModal = openModal;
+    console.log('SearchTypesenseVanilla: window.openSearchModal re-registered after page swap');
+  });
+  
+  // Add line-clamp style
+  if (!document.getElementById('search-typesense-styles')) {
+    const style = document.createElement('style');
+    style.id = 'search-typesense-styles';
+    style.textContent = `
+      .line-clamp-2 {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+}
+
+// Initialize on first load
+initSearchComponent();
+
+// Re-initialize after page transitions
+document.addEventListener('astro:after-swap', () => {
+  setTimeout(initSearchComponent, 50); // Small delay to ensure DOM is ready
+});
+</script>

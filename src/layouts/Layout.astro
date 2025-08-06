@@ -2,7 +2,7 @@
 import { ClientRouter } from 'astro:transitions';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
-import Search from '../components/Search.astro';
+import SearchTypesenseVanilla from '../components/SearchTypesenseVanilla.astro';
 import { getCollection } from 'astro:content';
 import { getAllTags } from '../utils/tags';
 import { pageMetadata } from '../data/pageMetadata';
@@ -185,7 +185,7 @@ const searchData: SearchData = {
 			<slot />
 		</main>
 		{!isShowcasePage && <Footer />}
-		<Search searchData={searchData} loadDataOnDemand={false} />
+		<SearchTypesenseVanilla />
 	</body>
 </html>
 
