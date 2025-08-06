@@ -10,6 +10,7 @@ imageCredit:
   photographerUrl: "https://unsplash.com/photos/human-hand-neon-signage-AT5vuPoi8vc"
   source: "Unsplash"
 readingTime: 2
+spotlight: true
 ---
 
 ## Background
