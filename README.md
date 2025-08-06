@@ -119,6 +119,16 @@ All commands are run from the root of the project, from a terminal:
      photographer: "Photographer Name"
      photographerUrl: "https://link-to-photographer"
      source: "Source Platform"
+   # Enhanced metadata fields (optional but recommended):
+   metaDescription: "150-160 character description for SEO"
+   executiveSummary: |
+     A 2-3 paragraph summary of the article for AI consumption.
+     This helps with content understanding and discoverability.
+   keywords: ["additional", "seo", "keywords"]
+   relatedContent: ["/blog/related-post", "/whitepapers/related-paper"]
+   prerequisites: "Basic understanding of Clean Language"
+   learningOutcomes: "Readers will learn X, Y, and Z"
+   difficulty: "intermediate" # beginner, intermediate, or advanced
    ---
    ```
 3. Write your content in markdown
@@ -276,12 +286,54 @@ The site uses a comprehensive global CSS system (`src/styles/global.css`) for co
 - `astro.config.mjs`: Astro configuration with integrations
 - `tailwind.config.mjs`: Tailwind customization
 - `src/content/config.ts`: Content collection schemas
+- `src/utils/pageMetadata.ts`: Centralized page metadata
+- `src/utils/metadata.ts`: Metadata utility functions
 
 ### Environment
 - Built for static deployment (fully static, no SSR)
 - No runtime database required
 - Content managed through markdown files
 - All search and filtering handled client-side
+
+### Metadata System (August 2025 Update)
+
+The site now includes an enhanced metadata system for better SEO and AI readability:
+
+#### Automated Metadata Generation
+- **Build Scripts**: Automatically run during `npm run build`
+  - `scripts/generate-content-dates.js`: Extracts content dates from files
+  - `scripts/update-lastmod-from-git.js`: Updates last modified dates from Git
+- **Generated Files**:
+  - `src/utils/generated-content-dates.js`: Auto-generated content dates
+  - Updated `pageMetadata.ts` with Git-based lastmod dates
+
+#### Page Metadata Structure
+Each page can have:
+- **SEO Fields**: title, description, keywords, tags
+- **Sitemap Fields**: lastmod, priority, changefreq
+- **AI Fields**: executiveSummary, schemaType
+- **Navigation**: breadcrumbs, relatedPages
+
+#### Using Metadata
+```astro
+---
+import { generateMetaProperties, generateStructuredData } from '../utils/metadata';
+
+const metaProps = generateMetaProperties(Astro.url.pathname, {
+  title: 'Custom Page Title',
+  description: 'Custom description',
+  keywords: ['custom', 'keywords']
+});
+
+const structuredData = generateStructuredData(metaProps, Astro.url.pathname);
+---
+```
+
+#### Sitemap Integration
+- Automatic sitemap.xml generation
+- Uses metadata for priority and change frequency
+- Includes all pages, blog posts, and whitepapers
+- Updates lastmod dates from Git history
 
 ## 🤝 Contributing
 

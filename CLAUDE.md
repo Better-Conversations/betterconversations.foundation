@@ -162,7 +162,15 @@ When moving files between directories, update import paths:
 2. **Content Collections**:
    - Blog posts are managed through Astro's content collections
    - Schema defined in `src/content/config.ts` with frontmatter validation
-   - Each post requires: title, date, author, category, excerpt, and tags
+   - Required fields: title, date, author, category, excerpt, tags
+   - Enhanced metadata fields (August 2025 update):
+     - `metaDescription`: 150-160 character SEO description
+     - `executiveSummary`: 2-3 paragraph AI-readable summary
+     - `keywords`: Additional SEO keywords beyond tags
+     - `relatedContent`: Links to related articles
+     - `prerequisites`: Knowledge prerequisites
+     - `learningOutcomes`: Expected reader outcomes
+     - `difficulty`: Content difficulty level (beginner/intermediate/advanced)
 
 3. **Navigation Context**:
    - Blog remains under "Resources" in the main navigation for information architecture
@@ -596,6 +604,52 @@ When creating hover effects for dynamically generated content (via JavaScript), 
 </div>
 ```
 
+### Metadata System (Updated August 2025)
+
+The site uses a comprehensive metadata system for SEO optimization and AI readability:
+
+1. **Page Metadata** (`src/utils/pageMetadata.ts`):
+   - Centralized metadata for all static pages
+   - Includes SEO fields: title, description, keywords, tags
+   - Sitemap fields: lastmod, priority, changefreq
+   - AI-optimized fields: executiveSummary, schemaType
+   - Related content links for better discoverability
+
+2. **Automated Metadata Generation**:
+   - **Pre-build scripts** (run automatically with `npm run build`):
+     - `scripts/generate-content-dates.js`: Extracts dates from content files
+     - `scripts/update-lastmod-from-git.js`: Updates lastmod dates from Git history
+   - **Generated files**:
+     - `src/utils/generated-content-dates.js`: Auto-generated content dates
+     - Updates to `pageMetadata.ts` with Git-based dates
+
+3. **Metadata Utilities** (`src/utils/metadata.ts`):
+   - `getPageMetadata(path)`: Retrieve metadata for any page
+   - `generateMetaProperties(path, overrides)`: Create HTML meta tags
+   - `generateStructuredData()`: Generate Schema.org JSON-LD
+   - `generateExecutiveSummary()`: Create AI-optimized summaries
+   - `getRelatedContent()`: Find related pages by tags/categories
+   - `generateBreadcrumbs()`: Create breadcrumb navigation data
+
+4. **Layout Integration**:
+   - Layout.astro accepts enhanced metadata props
+   - Automatically generates comprehensive meta tags
+   - Includes Schema.org structured data
+   - Sets canonical URLs and Open Graph tags
+
+5. **Sitemap Generation**:
+   - Automated sitemap.xml generation via `@astrojs/sitemap`
+   - Uses pageMetadata for static pages
+   - Falls back to generated dates for dynamic content
+   - Proper priority and changefreq values
+
+6. **Best Practices**:
+   - Always provide metaDescription (150-160 chars) for new pages
+   - Include executiveSummary for important content pages
+   - Use appropriate schemaType (WebPage, AboutPage, BlogPosting, etc.)
+   - Add related pages to improve internal linking
+   - Keywords should complement, not duplicate, tags
+
 ## Important Notes
 
 - The showcase page (`/showcase`) requires special handling - it has unique scroll behavior and no footer
@@ -604,3 +658,4 @@ When creating hover effects for dynamically generated content (via JavaScript), 
 - The site uses no runtime JavaScript framework - all interactivity is vanilla JS in `<script>` tags
 - Maintain the balance between innovation and usability - the site should feel fresh but remain accessible
 - Site favicon uses `/public/favicon.png` (not SVG) - referenced in Layout.astro
+- Metadata is automatically updated from Git history during builds - no manual updates needed for lastmod dates
