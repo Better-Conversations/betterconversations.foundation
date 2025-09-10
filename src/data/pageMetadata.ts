@@ -267,7 +267,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['whitepapers', 'research', 'studies', 'reports', 'analysis'],
     category: 'Resources',
     description: 'Access comprehensive whitepapers on Better Conversations research and applications',
-    lastmod: '2025-07-21',
+    lastmod: '2025-09-10',
     priority: 0.6,
     changefreq: 'weekly'
   },

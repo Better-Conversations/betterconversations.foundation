@@ -264,7 +264,7 @@ const isPDF = Astro.url.pathname.endsWith('.pdf');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.style.animationPlayState = 'running';
+        (entry.target as HTMLElement).style.animationPlayState = 'running';
       }
     });
   }, observerOptions);

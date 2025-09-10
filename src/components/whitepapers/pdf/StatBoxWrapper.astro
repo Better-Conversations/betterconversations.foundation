@@ -10,15 +10,7 @@ export interface Props {
   animate?: boolean;
 }
 
-const { number, label, color, trend, animate } = Astro.props;
-
-// Convert to StatBoxPDF format
-const stats = [{
-  value: number,
-  label: label,
-  trend: trend,
-  color: color
-}];
+const { number, label, color, trend } = Astro.props;
 ---
 
-<StatBoxPDF stats={stats} />
+<StatBoxPDF number={number} label={label} color={color} trend={trend} />

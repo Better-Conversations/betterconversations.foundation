@@ -668,14 +668,14 @@ import HeroSection from '../../components/HeroSection.astro';
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.style.animationPlayState = 'running';
+          (entry.target as HTMLElement).style.animationPlayState = 'running';
         }
       });
     }, observerOptions);
     
     // Observe all animated elements
     document.querySelectorAll('.reveal-float').forEach(el => {
-      el.style.animationPlayState = 'paused';
+      (el as HTMLElement).style.animationPlayState = 'paused';
       observer.observe(el);
     });
     
@@ -702,9 +702,9 @@ import HeroSection from '../../components/HeroSection.astro';
           const arrows = entry.target.querySelectorAll('.journey-arrow');
           arrows.forEach((arrow, index) => {
             setTimeout(() => {
-              arrow.style.opacity = '1';
-              arrow.style.transform = 'translateY(-50%) translateX(0)';
-              arrow.style.transition = 'all 0.5s ease-out';
+              (arrow as HTMLElement).style.opacity = '1';
+              (arrow as HTMLElement).style.transform = 'translateY(-50%) translateX(0)';
+              (arrow as HTMLElement).style.transition = 'all 0.5s ease-out';
             }, 300 + (index * 200));
           });
           
@@ -712,8 +712,8 @@ import HeroSection from '../../components/HeroSection.astro';
           const text = entry.target.querySelector('.journey-text');
           if (text) {
             setTimeout(() => {
-              text.style.opacity = '1';
-              text.style.transform = 'translateY(0)';
+              (text as HTMLElement).style.opacity = '1';
+              (text as HTMLElement).style.transform = 'translateY(0)';
               text.style.transition = 'all 0.8s ease-out';
             }, 800);
           }

@@ -320,7 +320,7 @@ const relatedWhitepapers = allWhitepapers
     
     // Share functionality
     document.querySelectorAll('.share-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
+      btn.addEventListener('click', function(this: HTMLElement) {
         const platform = this.getAttribute('data-platform');
         const url = window.location.href;
         const title = document.querySelector('h1')?.textContent || '';

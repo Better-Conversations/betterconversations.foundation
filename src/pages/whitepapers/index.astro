@@ -490,7 +490,7 @@ const uniqueTags = [...new Set(allTags)].sort();
     
     // Download animation
     document.querySelectorAll('.download-button').forEach(button => {
-      button.addEventListener('click', function(e) {
+      button.addEventListener('click', function(this: HTMLElement, e) {
         e.preventDefault();
         
         const btn = this;

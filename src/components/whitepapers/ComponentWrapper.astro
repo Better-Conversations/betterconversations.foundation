@@ -2,6 +2,7 @@
 export interface Props {
   component: 'StatBox' | 'Timeline' | 'TabPanel' | 'ProgressBar' | 'InteractiveQuiz';
   isPDF?: boolean;
+  events?: any[]; // For Timeline component
   [key: string]: any;
 }
 
