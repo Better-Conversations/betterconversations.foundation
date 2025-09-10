@@ -27,3 +27,4 @@ better-conversations-overview.md
 
 # local Claude settings
 CLAUDE.local.MD
+.claude/settings.local.json
