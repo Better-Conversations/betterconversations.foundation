@@ -126,15 +126,19 @@ const currentYear = new Date().getFullYear();
                     isLatched = true;
                     minimalFooter?.classList.add('latched');
                     placeholder?.classList.add('active');
-                    (minimalFooter as HTMLElement)?.style.setProperty('position', 'relative');
-                    (minimalFooter as HTMLElement)?.style.setProperty('bottom', 'auto');
+                    if (minimalFooter instanceof HTMLElement) {
+                        minimalFooter.style.setProperty('position', 'relative');
+                        minimalFooter.style.setProperty('bottom', 'auto');
+                    }
                 } else if (footerTop > windowHeight - 60 && isLatched) {
                     // Unlatch and return to fixed position
                     isLatched = false;
                     minimalFooter?.classList.remove('latched');
                     placeholder?.classList.remove('active');
-                    (minimalFooter as HTMLElement)?.style.setProperty('position', 'fixed');
-                    (minimalFooter as HTMLElement)?.style.setProperty('bottom', '0');
+                    if (minimalFooter instanceof HTMLElement) {
+                        minimalFooter.style.setProperty('position', 'fixed');
+                        minimalFooter.style.setProperty('bottom', '0');
+                    }
                 }
                 
                 ticking = false;

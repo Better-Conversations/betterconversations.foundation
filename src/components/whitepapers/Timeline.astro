@@ -271,7 +271,9 @@ const isPDF = Astro.url.pathname.endsWith('.pdf');
   
   // Pause animations until in view
     document.querySelectorAll('.timeline-item').forEach(item => {
-      item.style.animationPlayState = 'paused';
+      if (item instanceof HTMLElement) {
+        item.style.animationPlayState = 'paused';
+      }
       observer.observe(item);
     });
   }

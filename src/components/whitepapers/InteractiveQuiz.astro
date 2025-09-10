@@ -458,7 +458,7 @@ const isPDF = Astro.url.pathname.endsWith('.pdf');
   }
 </style>
 
-<script define:vars={{ quizId, questions }}>
+<script define:vars={{ quizId, questions }} is:inline>
   // Skip all interactivity in PDF mode
   if (!window.location.pathname.endsWith('.pdf')) {
     document.addEventListener('DOMContentLoaded', () => {

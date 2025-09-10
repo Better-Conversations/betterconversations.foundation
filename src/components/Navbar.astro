@@ -330,7 +330,7 @@ const navItems = [
     const newSearchButton = document.getElementById('search-button');
     const newSearchButtonMobile = document.getElementById('search-button-mobile');
     
-    const openSearch = (e) => {
+    const openSearch = (e?: Event) => {
       e?.preventDefault();
       
       // Method 1: Try global function first (most reliable)

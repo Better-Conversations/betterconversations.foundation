@@ -288,7 +288,7 @@ const isPDF = Astro.url.pathname.endsWith('.pdf');
   }
 </style>
 
-<script define:vars={{ tabId, tabs }}>
+<script define:vars={{ tabId, tabs }} is:inline>
   // Skip script in PDF mode
   if (!window.location.pathname.endsWith('.pdf')) {
     document.addEventListener('DOMContentLoaded', () => {
