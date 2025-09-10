@@ -324,7 +324,7 @@ import Layout from '../../layouts/Layout.astro';
       
       if (isDeleting) {
         // Remove characters
-        typewriterElement.textContent = currentWord.substring(0, charIndex - 1);
+        if (typewriterElement) typewriterElement.textContent = currentWord.substring(0, charIndex - 1);
         charIndex--;
         
         if (charIndex === 0) {
@@ -335,7 +335,7 @@ import Layout from '../../layouts/Layout.astro';
         }
       } else {
         // Add characters
-        typewriterElement.textContent = currentWord.substring(0, charIndex + 1);
+        if (typewriterElement) typewriterElement.textContent = currentWord.substring(0, charIndex + 1);
         charIndex++;
         
         if (charIndex === currentWord.length) {
@@ -355,14 +355,14 @@ import Layout from '../../layouts/Layout.astro';
     document.querySelectorAll('.magnetic-button').forEach(button => {
       button.addEventListener('mousemove', (e) => {
         const rect = button.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
+        const x = (e as MouseEvent).clientX - rect.left - rect.width / 2;
+        const y = (e as MouseEvent).clientY - rect.top - rect.height / 2;
         
-        button.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+        (button as HTMLElement).style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
       });
       
       button.addEventListener('mouseleave', () => {
-        button.style.transform = 'translate(0, 0)';
+        (button as HTMLElement).style.transform = 'translate(0, 0)';
       });
     });
 
@@ -370,26 +370,27 @@ import Layout from '../../layouts/Layout.astro';
     document.querySelectorAll('.tilt-card').forEach(card => {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width;
-        const y = (e.clientY - rect.top) / rect.height;
+        const x = ((e as MouseEvent).clientX - rect.left) / rect.width;
+        const y = ((e as MouseEvent).clientY - rect.top) / rect.height;
         
         const tiltX = (y - 0.5) * 10;
         const tiltY = (x - 0.5) * -10;
         
-        card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+        (card as HTMLElement).style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
       });
       
       card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+        (card as HTMLElement).style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
       });
     });
 
     // Form submission handling
-    document.getElementById('contact-form').addEventListener('submit', (e) => {
+    document.getElementById('contact-form')?.addEventListener('submit', (e) => {
       e.preventDefault();
       
       // Add success animation
-      const button = e.target.querySelector('button[type="submit"]');
+      const button = (e.target as HTMLFormElement).querySelector('button[type="submit"]') as HTMLButtonElement | null;
+      if (!button) return;
       const originalText = button.innerHTML;
       
       button.innerHTML = `
@@ -401,6 +402,7 @@ import Layout from '../../layouts/Layout.astro';
       
       // Simulate form submission
       setTimeout(() => {
+        if (!button) return;
         button.innerHTML = `
           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
@@ -409,8 +411,9 @@ import Layout from '../../layouts/Layout.astro';
         `;
         
         setTimeout(() => {
+          if (!button) return;
           button.innerHTML = originalText;
-          e.target.reset();
+          (e.target as HTMLFormElement).reset();
         }, 3000);
       }, 2000);
     });

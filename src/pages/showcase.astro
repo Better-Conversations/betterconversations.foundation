@@ -89,8 +89,8 @@ const ambassadors = [
 
 // Sort ambassadors alphabetically by last name
 const sortedAmbassadors = [...ambassadors].sort((a, b) => {
-  const lastNameA = a.name.split(' ').pop();
-  const lastNameB = b.name.split(' ').pop();
+  const lastNameA = a.name.split(' ').pop() || '';
+  const lastNameB = b.name.split(' ').pop() || '';
   return lastNameA.localeCompare(lastNameB);
 });
 ---
@@ -269,8 +269,10 @@ const sortedAmbassadors = [...ambassadors].sort((a, b) => {
     document.querySelectorAll('.progress-dot').forEach((dot, index) => {
       dot.addEventListener('click', () => {
         const sectionId = dot.getAttribute('data-section');
-        const section = document.getElementById(sectionId);
-        section?.scrollIntoView({ behavior: 'smooth' });
+        if (sectionId) {
+          const section = document.getElementById(sectionId);
+          section?.scrollIntoView({ behavior: 'smooth' });
+        }
       });
     });
 

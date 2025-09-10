@@ -714,7 +714,7 @@ import HeroSection from '../../components/HeroSection.astro';
             setTimeout(() => {
               (text as HTMLElement).style.opacity = '1';
               (text as HTMLElement).style.transform = 'translateY(0)';
-              text.style.transition = 'all 0.8s ease-out';
+              (text as HTMLElement).style.transition = 'all 0.8s ease-out';
             }, 800);
           }
         }
@@ -722,7 +722,7 @@ import HeroSection from '../../components/HeroSection.astro';
     }, { threshold: 0.3 });
     
     // Observe journey section
-    const journeySection = document.querySelector('.grid.grid-cols-1.md\\:grid-cols-3').parentElement;
+    const journeySection = document.querySelector('.grid.grid-cols-1.md\\:grid-cols-3')?.parentElement;
     if (journeySection) {
       journeyObserver.observe(journeySection);
     }
