@@ -60,33 +60,94 @@ function handleClick(event: MouseEvent) {
 </script>
 ```
 
-### Important: Script Tag Requirements
+### Important: Script Tag Requirements in Astro
 
-When using `define:vars` in Astro:
+#### Script Tags with `define:vars`
 
-1. **ALWAYS add the `is:inline` directive** to avoid TypeScript warnings
-2. **Use only JavaScript syntax** - no TypeScript features (type annotations, assertions, interfaces)
-3. **Cannot import modules** - the script is inlined directly into HTML
+When using `define:vars` in Astro to pass server-side data to client-side scripts:
+
+1. **ALWAYS add the `is:inline` directive** - Required when using `define:vars`
+2. **Use ONLY plain JavaScript** - No TypeScript syntax allowed whatsoever
+3. **Cannot import modules** - The script is inlined directly into HTML
+4. **No type checking occurs** - These scripts are not processed by TypeScript
 
 ```astro
-<!-- Correct -->
-<script define:vars={{ myVar }} is:inline>
-  // Plain JavaScript only
+<!-- ✅ CORRECT: Plain JavaScript with define:vars -->
+<script define:vars={{ myVar, data }} is:inline>
+  // Plain JavaScript only - no TypeScript syntax
   const element = document.querySelector('.class');
   if (element) {
     element.style.display = 'none';
   }
+  
+  // Access passed variables directly
+  console.log(myVar);
+  
+  // Use optional chaining without type assertions
+  const input = document.getElementById('input');
+  input?.addEventListener('click', function(e) {
+    // Plain event handling
+  });
 </script>
 
-<!-- Incorrect - TypeScript syntax not allowed -->
+<!-- ❌ INCORRECT: TypeScript syntax in define:vars script -->
 <script define:vars={{ myVar }} is:inline>
+  // These will cause TypeScript errors:
   const element = document.querySelector('.class') as HTMLElement; // ❌ Type assertion
   interface MyType { ... } // ❌ Interface declaration
   function fn(param: string) { } // ❌ Type annotation
+  const handler = (e: Event) => { } // ❌ Event type annotation
+  const el = document.getElementById('id')!; // ❌ Non-null assertion
 </script>
 ```
 
-**Alternative for TypeScript**: If you need TypeScript features, use a regular `<script>` tag without `define:vars` and pass data through other means (data attributes, global variables, etc.).
+#### Regular Script Tags (Without `define:vars`)
+
+For TypeScript features, use regular `<script>` tags and pass data via:
+- Data attributes on HTML elements
+- Global window properties
+- Hidden input fields
+- JSON embedded in the page
+
+```astro
+<!-- ✅ TypeScript-compatible regular script -->
+<script>
+  // TypeScript features allowed here
+  const element = document.querySelector('.class') as HTMLElement;
+  
+  interface Config {
+    apiUrl: string;
+  }
+  
+  function handleClick(e: MouseEvent): void {
+    // Typed event handlers
+  }
+  
+  // Get data from data attributes instead of define:vars
+  const dataElement = document.getElementById('data-container') as HTMLElement;
+  const myData = JSON.parse(dataElement?.dataset.myData || '{}');
+</script>
+```
+
+#### Common Patterns and Fixes
+
+```javascript
+// ❌ WRONG in define:vars scripts:
+const input = document.getElementById('search') as HTMLInputElement;
+input.addEventListener('input', (e: Event) => { });
+
+// ✅ CORRECT in define:vars scripts:
+const input = document.getElementById('search');
+input?.addEventListener('input', (e) => { });
+
+// ❌ WRONG in define:vars scripts:
+const target = parseInt((counter as HTMLElement).dataset.target!);
+
+// ✅ CORRECT in define:vars scripts:
+const target = parseInt(counter?.dataset?.target || '0');
+```
+
+**Key Rule**: If you see TypeScript syntax errors (ts8010, ts8016) in script tags with `define:vars`, the solution is to remove ALL TypeScript syntax and use plain JavaScript only.
 
 ## Project Overview
 
