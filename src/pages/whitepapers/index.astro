@@ -441,7 +441,7 @@ const uniqueTags = [...new Set(allTags)].sort();
         if (currentTagFilter === tag) {
           currentTagFilter = '';
         } else {
-          currentTagFilter = tag;
+          currentTagFilter = tag || '';
         }
         
         filterWhitepapers();
@@ -493,22 +493,29 @@ const uniqueTags = [...new Set(allTags)].sort();
       button.addEventListener('click', function(e) {
         e.preventDefault();
         
-        const progress = this.querySelector('.download-progress');
-        const downloads = parseInt(this.dataset.downloads);
-        const id = this.dataset.id;
+        const btn = this;
+        const progress = btn.querySelector('.download-progress');
+        const downloads = parseInt(btn.dataset?.downloads || '0');
+        const id = btn.dataset?.id;
         
         // Start download animation
-        progress.style.width = '100%';
-        this.classList.add('pointer-events-none');
+        if (progress instanceof HTMLElement) {
+          progress.style.width = '100%';
+        }
+        btn.classList.add('pointer-events-none');
         
         // Update download count
         setTimeout(() => {
-          const countElement = this.closest('article').querySelector('.download-count');
-          countElement.textContent = (downloads + 1).toLocaleString();
+          const countElement = btn.closest('article')?.querySelector('.download-count');
+          if (countElement) {
+            countElement.textContent = (downloads + 1).toLocaleString();
+          }
           
           // Reset button
-          progress.style.width = '0';
-          this.classList.remove('pointer-events-none');
+          if (progress instanceof HTMLElement) {
+            progress.style.width = '0';
+          }
+          btn.classList.remove('pointer-events-none');
           
           // Simulate download
           alert('Download started! (This is a demo)');
