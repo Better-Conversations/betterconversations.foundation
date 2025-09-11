@@ -149,6 +149,119 @@ const target = parseInt(counter?.dataset?.target || '0');
 
 **Key Rule**: If you see TypeScript syntax errors (ts8010, ts8016) in script tags with `define:vars`, the solution is to remove ALL TypeScript syntax and use plain JavaScript only.
 
+### Advanced TypeScript Error Patterns and Fixes
+
+#### DOM Element Type Assertions
+
+```typescript
+// ✅ CORRECT: Type assertion when accessing style properties
+const element = document.querySelector('.class') as HTMLElement;
+element.style.opacity = '1';
+
+// ✅ CORRECT: Null safety with optional chaining
+document.getElementById('form')?.addEventListener('submit', (e) => {
+  // Handle event
+});
+
+// ✅ CORRECT: Specific element type casting
+const button = document.querySelector('button') as HTMLButtonElement | null;
+if (button) {
+  button.innerHTML = 'Loading...';
+}
+```
+
+#### MouseEvent Type Handling in Event Listeners
+
+```typescript
+// ✅ CORRECT: Use type assertion inside event handler
+button.addEventListener('mousemove', (e) => {
+  const x = (e as MouseEvent).clientX;
+  const y = (e as MouseEvent).clientY;
+});
+
+// ❌ WRONG: TypeScript parameter annotation in addEventListener
+button.addEventListener('mousemove', (e: MouseEvent) => {
+  // This causes overload mismatch errors
+});
+```
+
+#### IntersectionObserver Type Handling
+
+```typescript
+// ✅ CORRECT: Type assertion for IntersectionObserver entries
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      (entry.target as HTMLElement).style.animationPlayState = 'running';
+    }
+  });
+});
+```
+
+#### Component Props Type Compatibility
+
+```typescript
+// ✅ CORRECT: Use 'as any' for dynamic component props
+<Component {...props as any} />
+
+// ✅ CORRECT: Flexible prop interface with index signature
+export interface Props {
+  component: 'StatBox' | 'Timeline' | 'TabPanel';
+  isPDF?: boolean;
+  [key: string]: any; // Allow any additional props
+}
+```
+
+#### Global Type Declarations
+
+```typescript
+// ✅ CORRECT: Declare global variables to avoid 'globalThis' errors
+declare global {
+  var __PDF_CONTEXT__: boolean;
+}
+
+globalThis.__PDF_CONTEXT__ = true;
+```
+
+#### Buffer/ArrayBuffer Type Compatibility
+
+```typescript
+// ✅ CORRECT: Double type assertion for Buffer to ArrayBuffer
+return new Response(pdfBuffer as unknown as ArrayBuffer, {
+  headers: { 'Content-Type': 'application/pdf' }
+});
+```
+
+#### String Parsing and Null Safety
+
+```typescript
+// ✅ CORRECT: Handle potential undefined from array methods
+const lastName = person.name.split(' ').pop() || '';
+
+// ✅ CORRECT: Null safety for DOM queries
+const section = document.querySelector('.section');
+if (section) {
+  section.scrollIntoView({ behavior: 'smooth' });
+}
+```
+
+#### SVG Data URL Encoding
+
+```css
+/* ✅ CORRECT: Use CSS class for complex SVG data URLs */
+.bg-pattern {
+  background-image: url('data:image/svg+xml,<svg>...</svg>');
+}
+```
+
+```html
+<!-- ✅ Use the CSS class instead of inline style -->
+<div class="absolute inset-0 bg-pattern"></div>
+
+<!-- ❌ WRONG: Unescaped quotes in inline SVG data URL -->
+<div style="background-image: url('data:image/svg+xml,%3Csvg width="60"...')"></div>
+```
+
 ## Project Overview
 
 This is the Better Conversations Foundation (BCF) website built with Astro. The site promotes BCF's mission of improving professional and personal communication through Clean Language methodology and Emergent Knowledge techniques.
