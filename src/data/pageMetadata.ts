@@ -29,7 +29,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['partner', 'collaboration', 'organisations', 'facilitate', 'training'],
     category: 'Partnership',
     description: 'Partner with Better Conversations Foundation to transform communication in your organisation',
-    lastmod: '2025-08-04',
+    lastmod: '2025-09-10',
     priority: 0.7,
     changefreq: 'weekly'
   },
@@ -39,7 +39,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['partner', 'organisations', 'business', 'workplace', 'collaboration'],
     category: 'Partnership',
     description: 'Transform your culture with Better Conversations',
-    lastmod: '2025-07-14',
+    lastmod: '2025-09-10',
     priority: 0.5,
     changefreq: 'weekly'
   },
@@ -111,7 +111,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['contact', 'support', 'inquiries', 'connect', 'email'],
     category: 'About',
     description: 'Contact the BCF team for questions, partnerships, or general inquiries',
-    lastmod: '2025-07-14',
+    lastmod: '2025-09-10',
     priority: 0.5,
     changefreq: 'monthly'
   },
@@ -195,7 +195,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['courses', 'curriculum', 'learning', 'education', 'syllabus'],
     category: 'Approach',
     description: 'Explore our comprehensive Better Conversations course offerings',
-    lastmod: '2025-07-21',
+    lastmod: '2025-09-10',
     priority: 0.4,
     changefreq: 'weekly'
   },
@@ -247,7 +247,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['ambassadors', 'showcase', 'community', 'leaders', 'global'],
     category: 'Community',
     description: 'Meet the ambassadors bringing Better Conversations to communities worldwide',
-    lastmod: '2025-07-21',
+    lastmod: '2025-09-10',
     priority: 0.3,
     changefreq: 'monthly'
   },
@@ -287,7 +287,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['topics', 'categories', 'browse', 'explore', 'navigation'],
     category: 'Navigation',
     description: 'Explore BCF content organised by topics and themes',
-    lastmod: '2025-08-05',
+    lastmod: '2025-09-10',
     priority: 0.2,
     changefreq: 'weekly'
   },
