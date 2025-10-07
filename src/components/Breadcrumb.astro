@@ -24,15 +24,15 @@ const breadcrumbSchema = {
 };
 ---
 
-<nav aria-label="Breadcrumb" class="breadcrumb-nav">
-  <ol class="flex flex-wrap items-center gap-2 text-sm text-gray-600">
+<nav aria-label="Breadcrumb" class="breadcrumb-nav px-4 sm:px-6 lg:px-8">
+  <ol class="flex flex-wrap items-center gap-2 text-sm">
     {breadcrumbs.map((crumb, index) => (
       <li class="flex items-center gap-2">
         {index < breadcrumbs.length - 1 ? (
           <>
             <a
               href={crumb.url}
-              class="hover:text-[#54C4B6] transition-colors duration-200"
+              class="text-gray-700 hover:text-[#54C4B6] transition-colors duration-200"
             >
               {crumb.name}
             </a>
@@ -61,6 +61,6 @@ const breadcrumbSchema = {
 
 <style>
   .breadcrumb-nav {
-    @apply py-4 px-4 sm:px-6 lg:px-8;
+    @apply py-3;
   }
 </style>

@@ -277,7 +277,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['search', 'find', 'discover', 'explore'],
     category: 'utility',
     description: 'Search the Foundation\'s complete library of resources, blogs, and whitepapers',
-    lastmod: '2025-08-05',
+    lastmod: '2025-10-07',
     priority: 0.5,
     changefreq: 'monthly'
   },

@@ -3,7 +3,6 @@ import { ClientRouter } from 'astro:transitions';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import SearchTypesenseVanilla from '../components/SearchTypesenseVanilla.astro';
-import Breadcrumb from '../components/Breadcrumb.astro';
 import { generateMetaProperties, generateStructuredData, generateCanonicalURL, type SchemaType } from '../utils/metadata';
 import '../styles/global.css';
 
@@ -139,7 +138,7 @@ const isShowcasePage = Astro.url.pathname === '/showcase' || Astro.url.pathname 
 		</style>
 	</head>
 	<body class={isShowcasePage ? "h-full overflow-hidden" : "h-full"}>
-		<Navbar />
+		<Navbar showBreadcrumbs={showBreadcrumbs} customBreadcrumbs={customBreadcrumbs} />
 		<main class={isShowcasePage ? "pt-16 h-full" : "pt-16"}> <!-- No pb-16 as the footer is sticky and merges straight into the main content -->
 			<slot />
 		</main>
