@@ -1,0 +1,66 @@
+---
+import { generateBreadcrumbs } from '../utils/metadata';
+
+export interface Props {
+  path: string;
+  customBreadcrumbs?: Array<{ name: string; url: string }>;
+}
+
+const { path, customBreadcrumbs } = Astro.props;
+
+// Use custom breadcrumbs if provided, otherwise generate from path
+const breadcrumbs = customBreadcrumbs || generateBreadcrumbs(path);
+
+// Generate Schema.org BreadcrumbList structured data
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": breadcrumbs.map((crumb, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": crumb.name,
+    "item": `https://betterconversations.foundation${crumb.url}`
+  }))
+};
+---
+
+<nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="flex flex-wrap items-center gap-2 text-sm text-gray-600">
+    {breadcrumbs.map((crumb, index) => (
+      <li class="flex items-center gap-2">
+        {index < breadcrumbs.length - 1 ? (
+          <>
+            <a
+              href={crumb.url}
+              class="hover:text-[#54C4B6] transition-colors duration-200"
+            >
+              {crumb.name}
+            </a>
+            <svg
+              class="w-4 h-4 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </>
+        ) : (
+          <span class="text-gray-900 font-medium" aria-current="page">
+            {crumb.name}
+          </span>
+        )}
+      </li>
+    ))}
+  </ol>
+
+  <!-- Schema.org structured data -->
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+</nav>
+
+<style>
+  .breadcrumb-nav {
+    @apply py-4 px-4 sm:px-6 lg:px-8;
+  }
+</style>
