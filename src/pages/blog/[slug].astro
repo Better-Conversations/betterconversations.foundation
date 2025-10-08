@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import { extractCollectionMetadata } from '../../utils/metadata';
 import { getBlogImage } from '../../data/blogImages';
+import { blogPostingScope, personScope } from '../../utils/microdata';
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection('blog');
@@ -109,9 +110,17 @@ const blogMetadata = extractCollectionMetadata(entry, 'blog');
   </section>
 
   <!-- Blog Content -->
-  <article class="py-8 bg-white">
+  <article class="py-8 bg-white" itemscope itemtype="https://schema.org/BlogPosting">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="prose prose-lg prose-gray max-w-none prose-headings:text-gray-900 prose-a:text-[#54C4B6] prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-blockquote:border-l-[#54C4B6] prose-blockquote:text-gray-700 [&_.footnotes]:text-sm [&_.footnotes]:text-gray-600 [&_.footnotes_p]:mb-2 [&_.footnotes_ol]:pl-4 [&_iframe]:w-full [&_iframe]:aspect-video">
+      <!-- Hidden metadata for microdata -->
+      <meta itemprop="headline" content={entry.data.title} />
+      <meta itemprop="datePublished" content={entry.data.date.toISOString()} />
+      {heroImage && <meta itemprop="image" content={heroImage.src} />}
+      <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+        <meta itemprop="name" content={entry.data.author} />
+      </span>
+
+      <div class="prose prose-lg prose-gray max-w-none prose-headings:text-gray-900 prose-a:text-[#54C4B6] prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-blockquote:border-l-[#54C4B6] prose-blockquote:text-gray-700 [&_.footnotes]:text-sm [&_.footnotes]:text-gray-600 [&_.footnotes_p]:mb-2 [&_.footnotes_ol]:pl-4 [&_iframe]:w-full [&_iframe]:aspect-video" itemprop="articleBody">
         <Content />
       </div>
     </div>
