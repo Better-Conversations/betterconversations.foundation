@@ -85,7 +85,10 @@ const isShowcasePage = Astro.url.pathname === '/showcase' || Astro.url.pathname 
 		
 		<!-- Structured Data -->
 		<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
-		
+
+		<!-- Page-specific head content -->
+		<slot name="head" />
+
 		<!-- Alpine.js Global Initialization -->
 		<script>
 			import Alpine from 'alpinejs';

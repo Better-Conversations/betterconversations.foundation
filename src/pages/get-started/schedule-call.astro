@@ -1,478 +1,54 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+// Redirect to contact page with schedule tab active
+const redirectUrl = '/about/contact?tab=call';
 ---
 
-<Layout title="Schedule a Call - Better Conversations Foundation">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="0; url=/about/contact?tab=call">
+  <title>Redirecting to Contact - Better Conversations Foundation</title>
   <style>
-    /* Calendar grid animation */
-    @keyframes gridFade {
-      0%, 100% { opacity: 0.03; }
-      50% { opacity: 0.08; }
-    }
-    
-    .calendar-grid {
-      position: absolute;
-      inset: 0;
-      background-image: 
-        repeating-linear-gradient(0deg, rgba(84, 196, 182, 0.1) 0px, transparent 1px, transparent 40px, rgba(84, 196, 182, 0.1) 40px),
-        repeating-linear-gradient(90deg, rgba(168, 211, 129, 0.1) 0px, transparent 1px, transparent 40px, rgba(168, 211, 129, 0.1) 40px);
-      animation: gridFade 4s ease-in-out infinite;
-    }
-    
-    /* Availability badge */
-    .availability-badge {
-      display: inline-flex;
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-      border-radius: 9999px;
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: #059669;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #54C4B6 0%, #A8D381 100%);
     }
-    
-    .availability-dot {
-      width: 8px;
-      height: 8px;
-      background: #10b981;
+    .redirect-message {
+      text-align: center;
+      color: white;
+      padding: 2rem;
+    }
+    .spinner {
+      border: 3px solid rgba(255, 255, 255, 0.3);
       border-radius: 50%;
-      position: relative;
+      border-top: 3px solid white;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 1rem auto;
     }
-    
-    .availability-dot::before {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      background: #10b981;
-      border-radius: 50%;
-      opacity: 0.3;
-      animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-    }
-    
-    @keyframes ping {
-      75%, 100% {
-        transform: scale(2);
-        opacity: 0;
-      }
-    }
-    
-    /* Time slot preview cards */
-    .time-slot {
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(229, 231, 235, 0.5);
-      padding: 0.75rem 1rem;
-      border-radius: 0.5rem;
-      font-size: 0.875rem;
-      transition: all 0.3s ease;
-    }
-    
-    .time-slot:hover {
-      background: white;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-    
-    /* Animated clock background */
-    @keyframes clockRotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    
-    .clock-bg {
-      position: absolute;
-      width: 300px;
-      height: 300px;
-      top: 50%;
-      right: -150px;
-      transform: translateY(-50%);
-      opacity: 0.05;
-    }
-    
-    .clock-hand-minute {
-      animation: clockRotate 3600s linear infinite;
-    }
-    
-    .clock-hand-hour {
-      animation: clockRotate 43200s linear infinite;
-    }
-    
-    /* Conversation flow animations */
-    @keyframes flowPath {
-      0% { stroke-dashoffset: 0; }
-      100% { stroke-dashoffset: -20; }
-    }
-    
-    .conversation-path {
-      animation: flowPath 3s linear infinite;
-    }
-    
-    @keyframes nodeAppear {
-      0% { 
-        opacity: 0; 
-        transform: scale(0.8);
-      }
-      100% { 
-        opacity: 1; 
-        transform: scale(1);
-      }
-    }
-    
-    .conversation-node {
-      opacity: 0;
-      animation: nodeAppear 0.8s ease-out forwards;
-    }
-    
-    .animation-delay-1 {
-      animation-delay: 0.3s;
-    }
-    
-    .animation-delay-2 {
-      animation-delay: 0.6s;
-    }
-    
-    /* Calendly container styling */
-    .calendly-inline-widget {
-      min-width: 320px;
-      height: 700px;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
-    
-    /* Info cards hover effect */
-    .info-card {
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .info-card::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(84, 196, 182, 0.1) 0%, transparent 70%);
-      transform: scale(0);
-      transition: transform 0.5s ease;
-    }
-    
-    .info-card:hover::before {
-      transform: scale(1);
-    }
-    
-    .info-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-    }
-    
-    /* Animated clock icon */
-    @keyframes tick {
+    @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
-    
-    .clock-hand {
-      animation: tick 4s linear infinite;
-      transform-origin: center;
-    }
   </style>
-
-  <!-- Hero Section -->
-  <section class="relative overflow-hidden bg-gradient-to-br from-white via-gray-50/50 to-white py-20 lg:py-24">
-    <!-- Calendar grid background -->
-    <div class="calendar-grid"></div>
-    
-    <!-- Abstract clock SVG background -->
-    <svg class="clock-bg" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="150" cy="150" r="145" stroke="#54C4B6" stroke-width="2"/>
-      <circle cx="150" cy="150" r="130" stroke="#A8D381" stroke-width="1" stroke-dasharray="5 5"/>
-      <line class="clock-hand-hour" x1="150" y1="150" x2="150" y2="80" stroke="#54C4B6" stroke-width="3" stroke-linecap="round"/>
-      <line class="clock-hand-minute" x1="150" y1="150" x2="150" y2="50" stroke="#A8D381" stroke-width="2" stroke-linecap="round"/>
-      <circle cx="150" cy="150" r="8" fill="#54C4B6"/>
-    </svg>
-    
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <!-- Left content -->
-        <div class="text-center lg:text-left">
-          <div class="availability-badge inline-flex mb-6">
-            <span class="availability-dot"></span>
-            <span>Open for conversations</span>
-          </div>
-          
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-            Transform Your <br class="hidden lg:block" />
-            <span class="relative">
-              <span class="relative z-10 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] bg-clip-text text-transparent">
-                Conversations
-              </span>
-              <svg class="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 200 8" preserveAspectRatio="none">
-                <path d="M0 7 Q50 0 100 3 T200 7" stroke="url(#gradient)" stroke-width="2" fill="none" opacity="0.5"/>
-                <defs>
-                  <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" style="stop-color:#54C4B6" />
-                    <stop offset="100%" style="stop-color:#A8D381" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </span>
-          </h1>
-          
-          <p class="text-xl text-gray-600 mb-8 max-w-xl">
-            Book a complimentary 15-minute consultation to discover how Clean Language can elevate communication within your organisation.
-          </p>
-          
-          <div class="space-y-3 text-left max-w-md mx-auto lg:mx-0">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg bg-[#54C4B6]/10 flex items-center justify-center flex-shrink-0">
-                <svg class="w-5 h-5 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-              </div>
-              <span class="text-gray-700">No preparation required</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg bg-[#A8D381]/10 flex items-center justify-center flex-shrink-0">
-                <svg class="w-5 h-5 text-[#A8D381]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-              </div>
-              <span class="text-gray-700">Quick 30-minute call</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg bg-[#54C4B6]/10 flex items-center justify-center flex-shrink-0">
-                <svg class="w-5 h-5 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                </svg>
-              </div>
-              <span class="text-gray-700">Convenient video conferencing</span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Right content - Conversation Flow Visualization -->
-        <div class="hidden lg:block relative h-[400px]">
-          <!-- Conversation Flow SVG -->
-          <svg class="absolute inset-0 w-full h-full" viewBox="0 0 450 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Flowing conversation paths -->
-            <path d="M100 100 Q200 50 300 100 T400 150" 
-              stroke="url(#flow-gradient-1)" 
-              stroke-width="2" 
-              fill="none"
-              opacity="0.3"
-              stroke-dasharray="5 10"
-              class="conversation-path"
-            />
-            <path d="M50 200 Q150 150 250 200 T350 250" 
-              stroke="url(#flow-gradient-2)" 
-              stroke-width="2" 
-              fill="none"
-              opacity="0.3"
-              stroke-dasharray="5 10"
-              class="conversation-path"
-            />
-            <path d="M100 300 Q200 250 300 300 T400 350" 
-              stroke="url(#flow-gradient-3)" 
-              stroke-width="2" 
-              fill="none"
-              opacity="0.3"
-              stroke-dasharray="5 10"
-              class="conversation-path"
-            />
-            
-            <defs>
-              <linearGradient id="flow-gradient-1" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#54C4B6" stop-opacity="0"/>
-                <stop offset="50%" stop-color="#54C4B6" stop-opacity="1"/>
-                <stop offset="100%" stop-color="#54C4B6" stop-opacity="0"/>
-              </linearGradient>
-              <linearGradient id="flow-gradient-2" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#A8D381" stop-opacity="0"/>
-                <stop offset="50%" stop-color="#A8D381" stop-opacity="1"/>
-                <stop offset="100%" stop-color="#A8D381" stop-opacity="0"/>
-              </linearGradient>
-              <linearGradient id="flow-gradient-3" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#54C4B6" stop-opacity="0"/>
-                <stop offset="50%" stop-color="#54C4B6" stop-opacity="1"/>
-                <stop offset="100%" stop-color="#A8D381" stop-opacity="0"/>
-              </linearGradient>
-            </defs>
-          </svg>
-          
-          <!-- Conversation Elements -->
-          <div class="absolute top-[80px] left-[20%] -translate-x-1/2 conversation-node">
-            <div class="w-16 h-16 bg-white rounded-full shadow-lg border-2 border-[#54C4B6] flex items-center justify-center">
-              <svg class="w-8 h-8 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
-              </svg>
-            </div>
-            <p class="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs text-gray-600 whitespace-nowrap">Your Context</p>
-          </div>
-          
-          <div class="absolute top-[180px] left-[50%] -translate-x-1/2 conversation-node animation-delay-1">
-            <div class="w-20 h-20 bg-gradient-to-br from-[#54C4B6] to-[#A8D381] rounded-full shadow-xl flex items-center justify-center">
-              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path>
-              </svg>
-            </div>
-            <p class="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs text-gray-600 whitespace-nowrap">Clean Dialogue</p>
-          </div>
-          
-          <div class="absolute top-[280px] right-[20%] translate-x-1/2 conversation-node animation-delay-2">
-            <div class="w-16 h-16 bg-white rounded-full shadow-lg border-2 border-[#A8D381] flex items-center justify-center">
-              <svg class="w-8 h-8 text-[#A8D381]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-              </svg>
-            </div>
-            <p class="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs text-gray-600 whitespace-nowrap">New Insights</p>
-          </div>
-          
-          <!-- Floating dots -->
-          <div class="absolute top-[120px] right-[30%] w-3 h-3 bg-[#54C4B6]/30 rounded-full animate-pulse"></div>
-          <div class="absolute top-[220px] left-[30%] w-2 h-2 bg-[#A8D381]/30 rounded-full animate-pulse animation-delay-1"></div>
-          <div class="absolute bottom-[100px] right-[40%] w-3 h-3 bg-[#54C4B6]/30 rounded-full animate-pulse animation-delay-2"></div>
-          
-          <!-- Central message -->
-          <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-center">
-            <p class="text-sm text-gray-500 italic">"Where conversations transform into possibilities"</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Wave separator -->
-    <div class="absolute bottom-0 left-0 right-0">
-      <svg class="w-full h-16 text-white" preserveAspectRatio="none" viewBox="0 0 1440 54" fill="currentColor">
-        <path d="M0,22L60,27.2C120,32,240,43,360,44.7C480,46,600,38,720,30.3C840,22,960,14,1080,16.3C1200,19,1320,32,1380,38.5L1440,45L1440,54L1380,54C1320,54,1200,54,1080,54C960,54,840,54,720,54C600,54,480,54,360,54C240,54,120,54,60,54L0,54Z"></path>
-      </svg>
-    </div>
-  </section>
-
-  <!-- Info Cards Section -->
-  <section class="py-12 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12">
-        <!-- What to Expect Card -->
-        <div class="info-card bg-gray-50 rounded-xl p-6 border border-gray-200">
-          <div class="w-12 h-12 bg-[#54C4B6]/10 rounded-lg flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
-            </svg>
-          </div>
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">What to Expect</h3>
-          <ul class="text-sm text-gray-600 space-y-2">
-            <li class="flex items-start gap-2">
-              <span class="text-[#54C4B6] mt-1">•</span>
-              <span>Brief introduction to Clean Language</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-[#54C4B6] mt-1">•</span>
-              <span>Discussion of your specific needs</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-[#54C4B6] mt-1">•</span>
-              <span>Tailored recommendations</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Perfect For Card -->
-        <div class="info-card bg-gray-50 rounded-xl p-6 border border-gray-200">
-          <div class="w-12 h-12 bg-[#A8D381]/10 rounded-lg flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-[#A8D381]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-            </svg>
-          </div>
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">Perfect For</h3>
-          <ul class="text-sm text-gray-600 space-y-2">
-            <li class="flex items-start gap-2">
-              <span class="text-[#A8D381] mt-1">•</span>
-              <span>HR & Learning Leaders</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-[#A8D381] mt-1">•</span>
-              <span>Team Managers</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-[#A8D381] mt-1">•</span>
-              <span>Organisational Consultants</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- No Preparation Card -->
-        <div class="info-card bg-gray-50 rounded-xl p-6 border border-gray-200">
-          <div class="w-12 h-12 bg-[#54C4B6]/10 rounded-lg flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-[#54C4B6]">
-              <g class="clock-hand">
-                <path stroke="currentColor" stroke-width="2" d="M12 6v6l4 2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </g>
-              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
-            </svg>
-          </div>
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">No Preparation Needed</h3>
-          <ul class="text-sm text-gray-600 space-y-2">
-            <li class="flex items-start gap-2">
-              <span class="text-[#54C4B6] mt-1">•</span>
-              <span>Come as you are</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-[#54C4B6] mt-1">•</span>
-              <span>We'll guide the conversation</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-[#54C4B6] mt-1">•</span>
-              <span>Zero pressure or obligation</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Calendly Embed Section -->
-  <section class="py-16 bg-gray-50">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-8">
-        <h2 class="text-3xl font-bold text-gray-900 mb-4">Choose Your Preferred Time</h2>
-        <p class="text-lg text-gray-600">Select a time that works best for you from our available slots</p>
-      </div>
-      
-      <!-- Calendly inline widget begin -->
-      <div class="calendly-inline-widget" data-url="https://calendly.com/d/cp7s-5z6-5h8/better-conversations-foundation-discussion" style="min-width:320px;height:700px;"></div>
-      <!-- Calendly inline widget end -->
-    </div>
-  </section>
-
-  <!-- Alternative Contact Section -->
-  <section class="py-16 bg-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h3 class="text-2xl font-bold text-gray-900 mb-4">Prefer a Different Approach?</h3>
-      <p class="text-lg text-gray-600 mb-8">
-        If the available times don't work for you, or if you'd prefer to start with an email conversation, we're happy to accommodate.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/about/contact" class="inline-flex items-center justify-center px-6 py-3 border border-[#54C4B6] text-[#54C4B6] rounded-lg font-medium hover:bg-[#54C4B6] hover:text-white transition-colors">
-          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-          </svg>
-          Send us an email
-        </a>
-        <a href="/approach/faqs" class="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors">
-          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-          View FAQs
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Calendly widget script -->
-  <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-</Layout>
+  <script is:inline>
+    // JavaScript redirect as fallback
+    window.location.href = '/about/contact?tab=call';
+  </script>
+</head>
+<body>
+  <div class="redirect-message">
+    <div class="spinner"></div>
+    <h1>Redirecting to Contact...</h1>
+    <p>If you are not redirected automatically, <a href="/about/contact?tab=call" style="color: white; text-decoration: underline;">click here</a>.</p>
+  </div>
+</body>
+</html>
