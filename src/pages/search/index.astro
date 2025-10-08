@@ -1,28 +1,27 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
-import { getAllTags, getPopularTags } from '../../utils/tags';
+import { aggregateContent } from '../../utils/contentAggregation';
+import { getPopularTags } from '../../utils/tags';
 import { getAuthorNames } from '../../utils/authors';
-import { pageMetadata } from '../../data/pageMetadata';
 import { getBlogImage } from '../../data/blogImages';
+import { getCollection } from 'astro:content';
 import bcfSymbol from '../../assets/images/logos/bcf-symbol.png';
 
 // Enable static generation - search will be handled client-side
-// export const prerender = false; // Removed to enable static generation
-
 // Search parameters will be handled client-side
 // We'll embed all content data in the page for client-side filtering
 
-// Get popular tags for display
-const popularTags = await getPopularTags(10);
-
-// Get all content
-const [blogs, whitepapers, tags, authorNames] = await Promise.all([
-  getCollection('blog'),
-  getCollection('whitepapers'),
-  getAllTags(),
+// Get popular tags for display and author names
+const [popularTags, authorNames] = await Promise.all([
+  getPopularTags(10),
   getAuthorNames()
 ]);
+
+// Get BCF symbol URL for pages
+const bcfSymbolUrl = bcfSymbol.src;
+
+// Use shared content aggregation utility
+const aggregatedContent = await aggregateContent();
 
 // Define the search result type
 interface SearchResult {
@@ -39,70 +38,44 @@ interface SearchResult {
   image?: string;
 }
 
-// Get BCF symbol URL for pages
-const bcfSymbolUrl = bcfSymbol.src;
-
-// Prepare all content data for client-side search
+// Transform aggregated content to include images for display
 const allContent: SearchResult[] = [
-  // Blogs
-  ...blogs.map(post => {
-    const blogImage = getBlogImage(post.slug);
+  // Blogs - add image URLs
+  ...aggregatedContent.blogs.map(blog => {
+    const slugPart = blog.slug.replace('/blog/', '');
+    const blogImage = getBlogImage(slugPart);
     return {
-      type: 'blog' as const,
-      title: post.data.title,
-      excerpt: post.data.excerpt,
-      slug: `/blog/${post.slug}`,
-      tags: post.data.tags,
-      author: post.data.author,
-      date: post.data.date,
-      category: post.data.category,
+      ...blog,
       image: blogImage ? blogImage.src : undefined
     };
   }),
-  // Whitepapers
-  ...whitepapers.map(paper => ({
-    type: 'whitepaper' as const,
-    title: paper.data.title,
-    excerpt: paper.data.excerpt,
-    slug: `/whitepapers/${paper.slug}`,
-    tags: paper.data.tags,
-    authors: paper.data.authors,
-    date: paper.data.date,
-    category: paper.data.category,
-    image: paper.data.image
-  })),
-  // Static pages from pageMetadata
-  ...Object.entries(pageMetadata)
-    .filter(([path, meta]) => 
-      !path.includes('/blog/') && 
-      !path.includes('/whitepapers/') && 
-      !path.includes('/tags/') &&
-      path !== '/search/' &&
-      meta.title // Only include pages with titles
-    )
-    .map(([path, meta]) => ({
-      type: 'page' as const,
-      title: meta.title || '',
-      excerpt: meta.description || '',
-      slug: path,
-      tags: meta.tags || [],
-      category: meta.category || 'Page',
+  // Whitepapers - keep as is
+  ...aggregatedContent.whitepapers,
+  // Pages - add BCF symbol image and filter out search page
+  ...aggregatedContent.pages
+    .filter(page => page.slug !== '/search/' && page.slug !== '/search')
+    .map(page => ({
+      ...page,
+      excerpt: page.excerpt || '',
       image: bcfSymbolUrl
     })),
-  // Tags
-  ...tags.map(tag => ({
-    type: 'tag' as const,
-    title: tag.name,
-    excerpt: `View all content tagged with ${tag.name}`,
-    slug: `/tags/${tag.name}`,
-    count: tag.count
+  // Tags - add excerpt
+  ...aggregatedContent.tags.map(tag => ({
+    ...tag,
+    excerpt: `View all content tagged with ${tag.title}`,
+    tags: []
   }))
 ];
 
 // Get recent blog posts for the initial state
+const blogs = await getCollection('blog');
 const recentBlogs = blogs
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
+
+// Extract all unique tags and categories for filtering
+const allTags = [...new Set(allContent.flatMap(item => item.tags || []))].sort();
+const allCategories = [...new Set(allContent.map(item => item.category).filter(Boolean))].sort();
 
 const pageTitle = 'Search | Better Conversations Foundation';
 const pageDescription = 'Search our blogs, whitepapers, and resources.';
@@ -382,7 +355,7 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
 
   <script define:vars={{ 
     allContent: allContent,
-    allTagNames: tags.map(t => t.name), 
+    allTagNames: aggregatedContent.tags.map(t => t.title), 
     allAuthorNames: authorNames,
     popularTags: popularTags
   }} is:inline>
