@@ -267,7 +267,7 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
           <!-- Popular Topics -->
           <div class="bg-white rounded-lg border border-gray-200 p-6">
             <div class="flex items-center justify-between mb-4">
-              <h3 class="text-lg font-semibold text-gray-900">Popular Topics</h3>
+              <h2 class="text-lg font-semibold text-gray-900">Popular Topics</h2>
               <a href="/tags" class="text-sm text-[#54C4B6] hover:text-[#54C4B6]/80 font-medium transition-colors inline-flex items-center gap-1">
                 Browse all topics
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -291,7 +291,7 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
           <!-- Recent Content -->
           <div class="bg-white rounded-lg border border-gray-200 p-6">
             <div class="flex items-center justify-between mb-4">
-              <h3 class="text-lg font-semibold text-gray-900">Recent Posts</h3>
+              <h2 class="text-lg font-semibold text-gray-900">Recent Posts</h2>
               <a href="/blog" class="text-sm text-[#54C4B6] hover:text-[#54C4B6]/80 font-medium transition-colors inline-flex items-center gap-1">
                 View all posts
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1162,10 +1162,10 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
                     </h3>
                     ${result.excerpt ? `<p class="bcf-content-card-excerpt">${result.excerpt}</p>` : ''}
                     <div class="bcf-content-card-meta">
-                      ${result.date ? `<time>${new Date(result.date).toLocaleDateString('en-GB', { 
-                        year: 'numeric', 
-                        month: 'short', 
-                        day: 'numeric' 
+                      ${result.date ? `<time datetime="${new Date(result.date).toISOString()}">${new Date(result.date).toLocaleDateString('en-GB', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
                       })}</time>` : ''}
                       ${result.author ? `<span>${result.author}</span>` : ''}
                       ${result.authors ? `<span>${result.authors.join(', ')}</span>` : ''}

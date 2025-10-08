@@ -74,11 +74,11 @@ const blogMetadata = extractCollectionMetadata(entry, 'blog');
       <div class="mb-4">
         <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-8">
           <a href={`/blog?category=${encodeURIComponent(entry.data.category)}`} class="text-[#54C4B6] font-medium hover:text-[#54C4B6]/80 transition-colors">{entry.data.category}</a>
-          <span>{entry.data.date.toLocaleDateString('en-GB', { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-          })}</span>
+          <time datetime={entry.data.date.toISOString()}>{entry.data.date.toLocaleDateString('en-GB', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })}</time>
           <span>By <a href={`/blog?author=${encodeURIComponent(entry.data.author)}`} class="text-gray-600 hover:text-[#54C4B6] transition-colors">{entry.data.author}</a></span>
           <span>{entry.data.readingTime || 5} min read</span>
           {entry.data.imageCredit && (

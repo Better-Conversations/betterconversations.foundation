@@ -172,7 +172,7 @@ const pages = taggedContent.filter(item => item.type === 'page');
                         </p>
                         
                         <div class="bcf-content-card-meta">
-                          {post.date && <time>{post.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' })}</time>}
+                          {post.date && <time datetime={post.date.toISOString()}>{post.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' })}</time>}
                           {post.authors && (
                             <span>{Array.isArray(post.authors) ? post.authors.join(', ') : post.authors}</span>
                           )}
@@ -230,7 +230,7 @@ const pages = taggedContent.filter(item => item.type === 'page');
                       </p>
                       
                       <div class="bcf-content-card-meta">
-                        {paper.date && <time>{paper.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short' })}</time>}
+                        {paper.date && <time datetime={paper.date.toISOString()}>{paper.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short' })}</time>}
                         {paper.authors && (
                           <span>{Array.isArray(paper.authors) ? paper.authors.join(', ') : paper.authors}</span>
                         )}
