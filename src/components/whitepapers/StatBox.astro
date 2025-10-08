@@ -160,6 +160,7 @@ const shouldAnimate = isPDF ? false : animate;
         if (counter && !counter.classList.contains('counted')) {
           counter.classList.add('counted');
           const target = counter.getAttribute('data-target');
+          if (!target) return;
           const isPercentage = target.includes('%');
           const isDecimal = target.includes('.');
           const numericTarget = parseFloat(target.replace(/[^0-9.-]/g, ''));

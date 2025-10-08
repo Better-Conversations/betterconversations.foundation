@@ -348,7 +348,7 @@ const navItems = [
     const newSearchButton = document.getElementById('search-button');
     const newSearchButtonMobile = document.getElementById('search-button-mobile');
     
-    const openSearch = (e) => {
+    const openSearch = (e?: Event) => {
       e?.preventDefault();
       
       // For vanilla JS search component - just use the global function

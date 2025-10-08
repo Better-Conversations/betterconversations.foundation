@@ -18,15 +18,6 @@ const Component = isPDF
   ? (await import('./pdf/StatBoxPDF.astro')).default
   : (await import('./StatBox.astro')).default;
 
-// For PDF version, we need to convert to the expected format
-const pdfProps = isPDF ? {
-  stats: [{
-    value: props.number,
-    label: props.label,
-    trend: props.trend,
-    color: props.color
-  }]
-} : props;
 ---
 
-<Component {...(isPDF ? pdfProps : props)} />
+<Component {...props} />

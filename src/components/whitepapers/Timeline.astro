@@ -264,14 +264,16 @@ const isPDF = Astro.url.pathname.endsWith('.pdf');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.style.animationPlayState = 'running';
+        (entry.target as HTMLElement).style.animationPlayState = 'running';
       }
     });
   }, observerOptions);
   
   // Pause animations until in view
     document.querySelectorAll('.timeline-item').forEach(item => {
-      item.style.animationPlayState = 'paused';
+      if (item instanceof HTMLElement) {
+        item.style.animationPlayState = 'paused';
+      }
       observer.observe(item);
     });
   }

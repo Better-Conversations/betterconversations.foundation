@@ -270,14 +270,16 @@ const shouldAnimate = isPDF ? false : animated;
         progressFills.forEach(fill => {
           const targetWidth = fill.getAttribute('data-width');
           setTimeout(() => {
-            fill.style.setProperty('--progress-width', targetWidth);
+            if (fill instanceof HTMLElement) {
+              fill.style.setProperty('--progress-width', targetWidth);
+            }
           }, 100);
         });
         
         // Animate values
         const progressValues = entry.target.querySelectorAll('.progress-value');
         progressValues.forEach(value => {
-          const target = parseInt(value.getAttribute('data-target'));
+          const target = parseInt(value.getAttribute('data-target') || '0');
           let current = 0;
           const increment = target / 50;
           

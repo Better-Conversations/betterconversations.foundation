@@ -361,7 +361,7 @@ const uniqueTags = [...new Set(allTags)].sort();
     let currentTagFilter = '';
     
     // Animated counter
-    function animateCounter(element, target, duration = 2000) {
+    function animateCounter(element: HTMLElement, target: number, duration = 2000) {
       const start = 0;
       const increment = target / (duration / 16);
       let current = start;
@@ -378,7 +378,8 @@ const uniqueTags = [...new Set(allTags)].sort();
     
     // Initialize counters on page load
     document.querySelectorAll('.stat-counter').forEach(counter => {
-      const target = parseInt(counter.dataset.target);
+      if (!(counter instanceof HTMLElement)) return;
+      const target = parseInt(counter.dataset.target || '0');
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -396,8 +397,9 @@ const uniqueTags = [...new Set(allTags)].sort();
       let visibleCount = 0;
       
       cards.forEach(card => {
+        if (!(card instanceof HTMLElement)) return;
         const cardCategory = card.dataset.category;
-        const cardTags = card.dataset.tags.split(',').filter(t => t);
+        const cardTags = (card.dataset.tags || '').split(',').filter((t: string) => t);
         
         const categoryMatch = !currentCategoryFilter || cardCategory === currentCategoryFilter;
         const tagMatch = !currentTagFilter || cardTags.includes(currentTagFilter);
@@ -414,17 +416,17 @@ const uniqueTags = [...new Set(allTags)].sort();
       const categoryDisplay = document.getElementById('category-filter-display');
       const tagDisplay = document.getElementById('tag-filter-display');
       
-      if (currentCategoryFilter) {
+      if (currentCategoryFilter && categoryDisplay) {
         categoryDisplay.textContent = `Category: ${currentCategoryFilter}`;
         categoryDisplay.classList.remove('hidden');
-      } else {
+      } else if (categoryDisplay) {
         categoryDisplay.classList.add('hidden');
       }
       
-      if (currentTagFilter) {
+      if (currentTagFilter && tagDisplay) {
         tagDisplay.textContent = `#${currentTagFilter}`;
         tagDisplay.classList.remove('hidden');
-      } else {
+      } else if (tagDisplay) {
         tagDisplay.classList.add('hidden');
       }
     }
@@ -433,12 +435,13 @@ const uniqueTags = [...new Set(allTags)].sort();
     document.querySelectorAll('.filter-tag').forEach(button => {
       button.addEventListener('click', (e) => {
         e.preventDefault();
+        if (!(button instanceof HTMLElement)) return;
         const tag = button.dataset.tag;
         
         if (currentTagFilter === tag) {
           currentTagFilter = '';
         } else {
-          currentTagFilter = tag;
+          currentTagFilter = tag || '';
         }
         
         filterWhitepapers();
@@ -462,8 +465,9 @@ const uniqueTags = [...new Set(allTags)].sort();
     // Update active states on buttons
     function updateActiveStates() {
       document.querySelectorAll('.filter-tag').forEach(button => {
+        if (!(button instanceof HTMLElement)) return;
         const isActive = button.dataset.tag === currentTagFilter;
-        button.dataset.active = isActive;
+        button.dataset.active = String(isActive);
         
         if (isActive) {
           button.classList.add('bg-gradient-to-r', 'from-[#54C4B6]', 'to-[#A8D381]', 'text-white');
@@ -486,25 +490,32 @@ const uniqueTags = [...new Set(allTags)].sort();
     
     // Download animation
     document.querySelectorAll('.download-button').forEach(button => {
-      button.addEventListener('click', function(e) {
+      button.addEventListener('click', function(this: HTMLElement, e) {
         e.preventDefault();
         
-        const progress = this.querySelector('.download-progress');
-        const downloads = parseInt(this.dataset.downloads);
-        const id = this.dataset.id;
+        const btn = this;
+        const progress = btn.querySelector('.download-progress');
+        const downloads = parseInt(btn.dataset?.downloads || '0');
+        const id = btn.dataset?.id;
         
         // Start download animation
-        progress.style.width = '100%';
-        this.classList.add('pointer-events-none');
+        if (progress instanceof HTMLElement) {
+          progress.style.width = '100%';
+        }
+        btn.classList.add('pointer-events-none');
         
         // Update download count
         setTimeout(() => {
-          const countElement = this.closest('article').querySelector('.download-count');
-          countElement.textContent = (downloads + 1).toLocaleString();
+          const countElement = btn.closest('article')?.querySelector('.download-count');
+          if (countElement) {
+            countElement.textContent = (downloads + 1).toLocaleString();
+          }
           
           // Reset button
-          progress.style.width = '0';
-          this.classList.remove('pointer-events-none');
+          if (progress instanceof HTMLElement) {
+            progress.style.width = '0';
+          }
+          btn.classList.remove('pointer-events-none');
           
           // Simulate download
           alert('Download started! (This is a demo)');
@@ -517,12 +528,15 @@ const uniqueTags = [...new Set(allTags)].sort();
     // Mouse spotlight effect
     document.querySelectorAll('.spotlight-card').forEach(card => {
       card.addEventListener('mousemove', (e) => {
+        const mouseEvent = e as MouseEvent;
         const rect = card.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        const x = ((mouseEvent.clientX - rect.left) / rect.width) * 100;
+        const y = ((mouseEvent.clientY - rect.top) / rect.height) * 100;
         
-        card.style.setProperty('--mouse-x', `${x}%`);
-        card.style.setProperty('--mouse-y', `${y}%`);
+        if (card instanceof HTMLElement) {
+          card.style.setProperty('--mouse-x', `${x}%`);
+          card.style.setProperty('--mouse-y', `${y}%`);
+        }
       });
     });
   </script>

@@ -1,5 +1,4 @@
 import { getCollection } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
 import { pageMetadata } from '../data/pageMetadata';
 
 export interface TagInfo {

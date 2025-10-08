@@ -4,6 +4,11 @@ export interface Props {
   isPDF?: boolean;
 }
 
+// Extend global type to include our PDF context property
+declare global {
+  var __PDF_CONTEXT__: boolean;
+}
+
 const { isPDF = false } = Astro.props;
 
 // Store context in a global variable that components can access

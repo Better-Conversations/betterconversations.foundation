@@ -235,7 +235,7 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
 
       <!-- Background Pattern -->
       <div class="absolute inset-0 opacity-5">
-        <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%2354C4B6" fill-opacity="0.4"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+        <div class="absolute inset-0 bg-pattern"></div>
       </div>
     </section>
 
@@ -891,6 +891,11 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
   .module-node.active > div {
     animation: pulse 2s infinite;
   }
+
+  /* Background pattern */
+  .bg-pattern {
+    background-image: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%2354C4B6" fill-opacity="0.4"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></g></svg>');
+  }
 </style>
 
 <script>
@@ -898,14 +903,14 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
   document.querySelectorAll('.magnetic-button').forEach(button => {
     button.addEventListener('mousemove', (e) => {
       const rect = button.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
+      const x = (e as MouseEvent).clientX - rect.left - rect.width / 2;
+      const y = (e as MouseEvent).clientY - rect.top - rect.height / 2;
       
-      button.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px) scale(1.05)`;
+      (button as HTMLElement).style.transform = `translate(${x * 0.1}px, ${y * 0.1}px) scale(1.05)`;
     });
     
     button.addEventListener('mouseleave', () => {
-      button.style.transform = 'translate(0, 0) scale(1)';
+      (button as HTMLElement).style.transform = 'translate(0, 0) scale(1)';
     });
   });
 
@@ -920,8 +925,8 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
     entries.forEach((entry, index) => {
       if (entry.isIntersecting) {
         setTimeout(() => {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
+          (entry.target as HTMLElement).style.opacity = '1';
+          (entry.target as HTMLElement).style.transform = 'translateY(0)';
         }, index * 100);
       }
     });
@@ -929,9 +934,9 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
 
   // Observe all module cards
   document.querySelectorAll('.module-card').forEach((card, index) => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(20px)';
-    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    (card as HTMLElement).style.opacity = '0';
+    (card as HTMLElement).style.transform = 'translateY(20px)';
+    (card as HTMLElement).style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(card);
   });
 
@@ -970,13 +975,13 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
     
     node.addEventListener('mouseenter', () => {
       if (tooltip) {
-        tooltip.style.opacity = '1';
+        (tooltip as HTMLElement).style.opacity = '1';
       }
     });
     
     node.addEventListener('mouseleave', () => {
       if (tooltip) {
-        tooltip.style.opacity = '0';
+        (tooltip as HTMLElement).style.opacity = '0';
       }
     });
   });

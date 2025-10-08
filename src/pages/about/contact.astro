@@ -573,6 +573,33 @@ import Layout from '../../layouts/Layout.astro';
         content.classList.remove('active');
       });
 
+    function typeWriter() {
+      const currentWord = words[wordIndex];
+      
+      if (isDeleting) {
+        // Remove characters
+        if (typewriterElement) typewriterElement.textContent = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+        
+        if (charIndex === 0) {
+          isDeleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+          setTimeout(typeWriter, 500);
+          return;
+        }
+      } else {
+        // Add characters
+        if (typewriterElement) typewriterElement.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+        
+        if (charIndex === currentWord.length) {
+          isDeleting = true;
+          setTimeout(typeWriter, pauseTime);
+          return;
+        }
+      }
+      
+      setTimeout(typeWriter, isDeleting ? deletingSpeed : typingSpeed);
       // Add active class to selected tab and content
       document.getElementById('tab-' + tabName).classList.add('active');
       document.getElementById('content-' + tabName).classList.add('active');
@@ -583,6 +610,72 @@ import Layout from '../../layouts/Layout.astro';
       var urlParams = new URLSearchParams(window.location.search);
       var tab = urlParams.get('tab');
 
+    // Magnetic button effect
+    document.querySelectorAll('.magnetic-button').forEach(button => {
+      button.addEventListener('mousemove', (e) => {
+        const rect = button.getBoundingClientRect();
+        const x = (e as MouseEvent).clientX - rect.left - rect.width / 2;
+        const y = (e as MouseEvent).clientY - rect.top - rect.height / 2;
+        
+        (button as HTMLElement).style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+      });
+      
+      button.addEventListener('mouseleave', () => {
+        (button as HTMLElement).style.transform = 'translate(0, 0)';
+      });
+    });
+
+    // 3D tilt effect for cards
+    document.querySelectorAll('.tilt-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e as MouseEvent).clientX - rect.left) / rect.width;
+        const y = ((e as MouseEvent).clientY - rect.top) / rect.height;
+        
+        const tiltX = (y - 0.5) * 10;
+        const tiltY = (x - 0.5) * -10;
+        
+        (card as HTMLElement).style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        (card as HTMLElement).style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+      });
+    });
+
+    // Form submission handling
+    document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Add success animation
+      const button = (e.target as HTMLFormElement).querySelector('button[type="submit"]') as HTMLButtonElement | null;
+      if (!button) return;
+      const originalText = button.innerHTML;
+      
+      button.innerHTML = `
+        <svg class="w-5 h-5 mr-2 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+        </svg>
+        Sending...
+      `;
+      
+      // Simulate form submission
+      setTimeout(() => {
+        if (!button) return;
+        button.innerHTML = `
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          Message Sent!
+        `;
+        
+        setTimeout(() => {
+          if (!button) return;
+          button.innerHTML = originalText;
+          (e.target as HTMLFormElement).reset();
+        }, 3000);
+      }, 2000);
+    });
       if (tab === 'call' || tab === 'schedule') {
         window.switchTab('call');
       } else if (tab === 'message') {
@@ -635,6 +728,8 @@ import Layout from '../../layouts/Layout.astro';
       }
     }
 
+    // Start typewriter effect
+    typeWriter();
     // Initialize when DOM is ready
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initContactPage);

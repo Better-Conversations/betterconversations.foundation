@@ -39,7 +39,7 @@ export const GET: APIRoute = async ({ params, url }) => {
     const filename = generatePDFFilename(slug);
 
     // Return PDF
-    return new Response(pdfBuffer, {
+    return new Response(pdfBuffer as unknown as ArrayBuffer, {
       status: 200,
       headers: {
         'Content-Type': 'application/pdf',
