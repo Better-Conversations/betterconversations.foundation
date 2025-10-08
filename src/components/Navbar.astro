@@ -317,7 +317,7 @@ const navItems = [
   // Update on page navigation (for Astro's client-side routing)
   document.addEventListener('astro:after-swap', updateNavbar);
   
-  // Search button handlers - wait for Alpine to be ready
+  // Search button handlers
   const setupSearchButtons = () => {
     const searchButton = document.getElementById('search-button');
     const searchButtonMobile = document.getElementById('search-button-mobile');
@@ -333,23 +333,9 @@ const navItems = [
     const openSearch = (e) => {
       e?.preventDefault();
       
-      // Method 1: Try global function first (most reliable)
+      // For vanilla JS search component - just use the global function
       if (window.openSearchModal) {
         window.openSearchModal();
-        return;
-      }
-      
-      // Method 2: Direct Alpine component access by ID
-      const searchModal = document.getElementById('search-modal-container') as any;
-      if (searchModal && searchModal.__x) {
-        searchModal.__x.$data.open = true;
-        return;
-      }
-      
-      // Method 3: Try any Alpine search modal component
-      const anySearchModal = document.querySelector('[x-data*="searchModal"]') as any;
-      if (anySearchModal && anySearchModal.__x) {
-        anySearchModal.__x.$data.open = true;
         return;
       }
       
