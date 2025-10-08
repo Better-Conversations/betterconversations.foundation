@@ -141,11 +141,11 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
                       </div>
                     </div>
                     <div class="flex items-center justify-between">
-                      <span class="text-sm text-gray-500">{post.publishedAt}</span>
+                      <time datetime={post.date.toISOString()} class="text-sm text-gray-500">{post.publishedAt}</time>
                       {post.tags?.length > 0 && (
                         <div class="flex gap-2 flex-wrap">
                           {post.tags.slice(0, 2).map((tag) => (
-                            <a 
+                            <a
                               href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`}
                               class="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full hover:bg-[#54C4B6] hover:text-white transition-colors"
                             >
@@ -171,9 +171,9 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="lg:grid lg:grid-cols-4 lg:gap-8">
           <!-- Sidebar -->
-          <aside class="mb-8 lg:mb-0">
+          <aside class="mb-8 lg:mb-0" role="complementary" aria-label="Blog sidebar">
             <div class="sticky top-20">
-              <h3 class="text-lg font-semibold text-gray-900 mb-4">Categories</h3>
+              <h2 class="text-lg font-semibold text-gray-900 mb-4">Categories</h2>
               <nav class="space-y-1">
                 {categories.map((category) => (
                   <a
@@ -189,10 +189,10 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
               </nav>
 
               <div class="mt-8 p-6 bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10 rounded-lg overflow-hidden">
-                <h4 class="font-semibold text-gray-900 mb-2">Newsletter</h4>
+                <h3 class="font-semibold text-gray-900 mb-2">Newsletter</h3>
                 <p class="text-sm text-gray-600 mb-4">Get the latest insights delivered to your inbox.</p>
                 <form action="/newsletter/subscribe" method="POST">
-                  <input type="email" name="email" placeholder="Your email" class="w-full px-3 py-2 mb-3 text-sm border border-gray-200 rounded-md focus:ring-[#54C4B6] focus:border-[#54C4B6]" required />
+                  <input type="email" name="email" placeholder="Your email" aria-label="Email address for newsletter" class="w-full px-3 py-2 mb-3 text-sm border border-gray-200 rounded-md focus:ring-[#54C4B6] focus:border-[#54C4B6]" required />
                   <button type="submit" class="w-full px-4 py-2 bg-[#54C4B6] text-white rounded-md hover:bg-[#54C4B6]/90 transition-colors text-sm font-medium">
                     Subscribe
                   </button>
@@ -249,7 +249,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
                     </h3>
                     <p class="text-gray-600 text-sm mb-4 flex-grow">{post.excerpt}</p>
                     <div class="flex items-center justify-between mt-auto">
-                      <time class="text-xs text-gray-500">{post.publishedAt}</time>
+                      <time datetime={post.date.toISOString()} class="text-xs text-gray-500">{post.publishedAt}</time>
                       {post.tags?.length > 0 && (
                         <div class="flex gap-2 flex-wrap">
                           {post.tags.slice(0, 2).map((tag) => (
@@ -328,7 +328,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
                       </div>
                     </div>
                     <div class="flex items-center justify-between">
-                      <span class="text-sm text-gray-500">{post.publishedAt}</span>
+                      <time datetime={post.date.toISOString()} class="text-sm text-gray-500">{post.publishedAt}</time>
                       {post.tags?.length > 0 && (
                         <div class="flex gap-2 flex-wrap">
                           {post.tags.slice(0, 2).map((tag) => (
@@ -358,9 +358,9 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="lg:grid lg:grid-cols-4 lg:gap-8">
           <!-- Sidebar -->
-          <aside class="mb-8 lg:mb-0">
+          <aside class="mb-8 lg:mb-0" role="complementary" aria-label="Blog sidebar">
             <div class="sticky top-20">
-              <h3 class="text-lg font-semibold text-gray-900 mb-4">Categories</h3>
+              <h2 class="text-lg font-semibold text-gray-900 mb-4">Categories</h2>
               <nav class="space-y-1">
                 <template x-for="category in categories" :key="category">
                   <button
@@ -378,9 +378,9 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
               </nav>
 
               <div class="mt-8 p-6 bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10 rounded-lg overflow-hidden">
-                <h4 class="font-semibold text-gray-900 mb-2">Newsletter</h4>
+                <h3 class="font-semibold text-gray-900 mb-2">Newsletter</h3>
                 <p class="text-sm text-gray-600 mb-4">Get the latest insights delivered to your inbox.</p>
-                <input type="email" placeholder="Your email" class="w-full px-3 py-2 mb-3 text-sm border border-gray-200 rounded-md focus:ring-[#54C4B6] focus:border-[#54C4B6]" />
+                <input type="email" placeholder="Your email" aria-label="Email address for newsletter" class="w-full px-3 py-2 mb-3 text-sm border border-gray-200 rounded-md focus:ring-[#54C4B6] focus:border-[#54C4B6]" />
                 <button class="w-full px-4 py-2 bg-[#54C4B6] text-white rounded-md hover:bg-[#54C4B6]/90 transition-colors text-sm font-medium">
                   Subscribe
                 </button>
@@ -464,7 +464,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
                     </h3>
                     <p class="text-gray-600 text-sm mb-4 flex-grow" x-text="post.excerpt"></p>
                     <div class="flex items-center justify-between mt-auto">
-                      <time class="text-xs text-gray-500" x-text="post.publishedAt"></time>
+                      <time :datetime="new Date(post.date).toISOString()" class="text-xs text-gray-500" x-text="post.publishedAt"></time>
                       <div class="flex gap-2 flex-wrap" x-show="post.tags.length > 0">
                         <template x-for="tag in post.tags.slice(0, 2)" :key="tag">
                           <button 
