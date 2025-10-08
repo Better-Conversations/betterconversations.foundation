@@ -13,7 +13,17 @@
       "Bash(npm run build:*)",
       "Bash(npm run preview:*)",
       "Bash(grep:*)",
-      "Bash(npx astro check:*)"
+      "Bash(bc)",
+      "Bash(done)",
+      "Bash({ read hex)",
+      "Bash(echo \"ibase=16; $hex\")",
+      "Bash(})",
+      "Bash(python3:*)",
+      "Bash(timeout:*)",
+      "Bash(cat:*)",
+      "Bash(pkill:*)",
+      "Bash(npx astro:*)",
+      "Bash(tree:*)"
     ],
     "deny": [],
     "ask": []

@@ -1,13 +1,16 @@
 ---
 import { Image } from 'astro:assets';
 import bcfLogo from '../assets/images/logos/bcf-logo.png';
+import Breadcrumb from './Breadcrumb.astro';
 import { orgScope } from '../utils/microdata';
 
 export interface Props {
   class?: string;
+  showBreadcrumbs?: boolean;
+  customBreadcrumbs?: Array<{ name: string; url: string }>;
 }
 
-const { class: className = '' } = Astro.props;
+const { class: className = '', showBreadcrumbs = false, customBreadcrumbs } = Astro.props;
 
 const navItems = [
   { 
@@ -163,6 +166,13 @@ const navItems = [
         </button>
       </div>
     </div>
+
+    <!-- Breadcrumb Navigation -->
+    {showBreadcrumbs && (
+      <div class="absolute left-0 right-0 -bottom-10 bg-transparent transition-opacity duration-300" id="breadcrumb-container">
+        <Breadcrumb path={Astro.url.pathname} customBreadcrumbs={customBreadcrumbs} />
+      </div>
+    )}
   </div>
 
   <!-- Mobile menu -->
@@ -286,28 +296,33 @@ const navItems = [
   const navbarContainer = document.getElementById('navbar-container');
   const logo = document.getElementById('navbar-logo');
   const logoLink = document.querySelector('.logo-link');
-  
+  const breadcrumbContainer = document.getElementById('breadcrumb-container');
+
   function updateNavbar() {
     const scrollY = window.scrollY;
-    
+
     if (scrollY === 0) {
-      // At top - logo pops out vertically
+      // At top - logo pops out vertically, show breadcrumbs
       navbar?.classList.add('at-top');
       navbarContainer?.classList.add('h-24');
       navbarContainer?.classList.remove('h-20');
       logo?.classList.add('h-16');
       logo?.classList.remove('h-12');
       logoLink?.classList.add('transform', 'translate-y-1');
+      breadcrumbContainer?.classList.remove('opacity-0', 'invisible');
+      breadcrumbContainer?.classList.add('opacity-100');
     } else {
-      // Scrolled - logo normal
+      // Scrolled - logo normal, hide breadcrumbs
       navbar?.classList.remove('at-top');
       navbarContainer?.classList.remove('h-24');
       navbarContainer?.classList.add('h-20');
       logo?.classList.remove('h-16');
       logo?.classList.add('h-12');
       logoLink?.classList.remove('transform', 'translate-y-1');
+      breadcrumbContainer?.classList.add('opacity-0', 'invisible');
+      breadcrumbContainer?.classList.remove('opacity-100');
     }
-    
+
     lastScrollY = scrollY;
   }
   
