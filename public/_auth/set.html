@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authenticating...</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        .message {
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="message">
+        <p>Authenticating...</p>
+    </div>
+    <script>
+        // Get token and return path from URL parameters
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get('token');
+        const returnPath = params.get('return') || '/';
+
+        if (token) {
+            // Set authentication cookie on this domain (dev.betterconversations.foundation)
+            // The cookie will be sent with all future requests to this domain
+            document.cookie = `bcf_auth=${token}; Secure; SameSite=Lax; Max-Age=31536000; Path=/`;
+
+            // Redirect to the original page the user was trying to access
+            window.location.href = returnPath;
+        } else {
+            // No token provided, redirect to login
+            window.location.href = 'https://bettercourses.org';
+        }
+    </script>
+</body>
+</html>
