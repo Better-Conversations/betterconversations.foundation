@@ -71,7 +71,7 @@ const blogMetadata = extractCollectionMetadata(entry, 'blog');
 
   <!-- Blog Post Header -->
   <section class="relative pt-8 pb-4 lg:pt-10 lg:pb-6 bg-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8">
       <div class="mb-4">
         <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-8">
           <a href={`/blog?category=${encodeURIComponent(entry.data.category)}`} class="text-[#54C4B6] font-medium hover:text-[#54C4B6]/80 transition-colors">{entry.data.category}</a>
@@ -110,8 +110,8 @@ const blogMetadata = extractCollectionMetadata(entry, 'blog');
   </section>
 
   <!-- Blog Content -->
-  <article class="py-8 bg-white" itemscope itemtype="https://schema.org/BlogPosting">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+  <article class="py-12 lg:py-16 bg-white" itemscope itemtype="https://schema.org/BlogPosting">
+    <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8">
       <!-- Hidden metadata for microdata -->
       <meta itemprop="headline" content={entry.data.title} />
       <meta itemprop="datePublished" content={entry.data.date.toISOString()} />
@@ -120,7 +120,15 @@ const blogMetadata = extractCollectionMetadata(entry, 'blog');
         <meta itemprop="name" content={entry.data.author} />
       </span>
 
-      <div class="prose prose-lg prose-gray max-w-none prose-headings:text-gray-900 prose-a:text-[#54C4B6] prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-blockquote:border-l-[#54C4B6] prose-blockquote:text-gray-700 [&_.footnotes]:text-sm [&_.footnotes]:text-gray-600 [&_.footnotes_p]:mb-2 [&_.footnotes_ol]:pl-4 [&_iframe]:w-full [&_iframe]:aspect-video" itemprop="articleBody">
+      <div class="prose prose-lg prose-gray max-w-none
+        prose-headings:text-gray-900
+        prose-p:text-gray-600 prose-p:leading-relaxed prose-p:mb-6
+        prose-a:text-[#54C4B6] prose-a:no-underline hover:prose-a:underline
+        prose-strong:text-gray-900
+        prose-blockquote:border-l-[#54C4B6] prose-blockquote:text-gray-700
+        prose-li:my-2
+        [&_.footnotes]:text-sm [&_.footnotes]:text-gray-600 [&_.footnotes_p]:mb-2 [&_.footnotes_ol]:pl-4
+        [&_iframe]:w-full [&_iframe]:aspect-video" itemprop="articleBody">
         <Content />
       </div>
     </div>

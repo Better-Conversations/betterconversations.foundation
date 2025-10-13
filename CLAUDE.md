@@ -512,6 +512,7 @@ The site uses a comprehensive set of global CSS classes defined in `src/styles/g
    - `.bcf-section-header` - Large section headings
    - `.bcf-section-description` - Section subtitle text
    - `.bcf-gradient-text` - Text with brand gradient effect
+   - `.bcf-prose-enhanced` - Enhanced readability for long-form content (blog posts, whitepapers)
 
 **Usage Example:**
 ```html
@@ -575,6 +576,28 @@ The site uses a comprehensive set of global CSS classes defined in `src/styles/g
 4. For one-off styling, use Tailwind utilities directly
 5. For complex animations or unique components, use scoped `<style>` blocks
 6. **Card alignment**: Use `.bcf-card` (includes flexbox) + `.bcf-card-footer` for cards with varying content heights to ensure footers align at the bottom
+
+### Spacing & Readability Guidelines
+
+For optimal readability across laptops and mobile devices:
+
+1. **Mobile Padding**: Use `px-6 sm:px-8` (24px mobile, 32px tablet) instead of `px-4 sm:px-6` for content areas
+2. **Section Spacing**: Use `py-12 lg:py-16` minimum for content sections (48px mobile, 64px desktop)
+3. **Article Content**: Use `py-12 lg:py-16` for blog post/whitepaper content areas (not just py-8)
+4. **Long-form Content**: Use `.bcf-prose-enhanced` class for consistent, readable typography
+5. **Line Height**: For body text, `leading-relaxed` (1.625) provides better readability than default
+6. **Paragraph Spacing**: Use `prose-p:mb-6` for comfortable paragraph separation
+
+**Example - Blog Post Content:**
+```astro
+<article class="py-12 lg:py-16 bg-white">
+  <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8">
+    <div class="bcf-prose-enhanced">
+      <Content />
+    </div>
+  </div>
+</article>
+```
 
 ### JavaScript Framework: Alpine.js
 
