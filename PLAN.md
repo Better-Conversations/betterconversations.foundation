@@ -53,10 +53,16 @@ Streamline the BCF website navigation for clarity and better user experience, wh
 
 ### Pages Hidden from Navigation (Still Accessible)
 - Success Stories (`/stories`) - under construction placeholder
-- Whitepapers (`/whitepapers`) - under development
 - Browse by Topic (`/tags`) - redundant with search
 - Schedule a Call (`/get-started/schedule-call`) - functionality in Contact Us
 - Download Materials (`/get-started/download`) - functionality in Open Content
+
+### Content Temporarily Hidden from Build
+- **Whitepapers** - Completely removed from build (October 2025) because they contain mocked-up example content not ready for public access
+  - Directories renamed with underscore prefix (`_whitepapers`)
+  - Collection disabled in content config
+  - Utility functions updated to skip whitepaper processing
+  - See CLAUDE.md "Whitepapers (Currently Hidden)" section for reintroduction instructions
 
 ### Completed Foundation Work ✅
 - [x] Create robots.txt and sitemap.xml
@@ -104,15 +110,48 @@ Streamline the BCF website navigation for clarity and better user experience, wh
 - [ ] Test keyboard navigation throughout site
 - [ ] Add skip-to-content link for screen readers
 
+### Technical Debt & Code Quality
+**Developer Tasks:**
+- [ ] **TypeScript Error Cleanup** (61 errors as of October 2025)
+  - Fix TypeScript syntax in `is:inline` script tags (must use plain JavaScript only)
+  - Primary issues in:
+    - `src/pages/about/contact.astro` (lines 617-638: type assertions in inline script)
+    - `src/pages/search/index.astro` (implicit 'any' types)
+    - Hidden `_whitepapers` files (will be addressed when reintroduced)
+  - See CLAUDE.md "TypeScript Error Handling" section for patterns and best practices
+  - Run `npx astro check` after each fix to track progress
+  - Goal: Zero TypeScript errors for production code quality
+
 ## Phase 3: Complete Whitepapers & Stories (Future)
 
-### When Ready to Launch
+### Reintroduce Whitepapers (When Content Ready)
 **Developer Tasks:**
+- [ ] Rename whitepaper directories (remove underscore prefix)
+  - `src/pages/_whitepapers` → `src/pages/whitepapers`
+  - `src/content/_whitepapers` → `src/content/whitepapers`
+  - `src/pages/api/_whitepapers` → `src/pages/api/whitepapers`
+  - `src/components/_whitepapers` → `src/components/whitepapers`
+- [ ] Uncomment whitepapers collection in `src/content/config.ts`
+- [ ] Restore whitepaper processing in utility functions:
+  - `src/utils/contentAggregation.ts`
+  - `src/utils/tags.ts`
+  - `src/utils/authors.ts`
+  - `src/utils/content-dates.ts`
 - [ ] Add Whitepapers back to Open Resources navigation
+- [ ] Run `npx astro check` and `npm run build` to verify
+- [ ] Test whitepaper listing, individual pages, PDF generation, tag pages, search
+
+**Content Creator Tasks:**
+- [ ] Replace mocked-up whitepapers with real research content
+- [ ] Ensure all whitepaper frontmatter is complete and accurate
+- [ ] Add proper citations and references
+- [ ] Create compelling excerpts and summaries
+
+### Success Stories
+**Developer Tasks:**
 - [ ] Add Success Stories back to Open Resources navigation
 
 **Content Creator Tasks:**
-- [ ] Complete whitepaper content collection
 - [ ] Write success stories / case studies
 - [ ] Create implementation guides
 

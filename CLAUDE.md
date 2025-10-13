@@ -364,6 +364,90 @@ When moving files between directories, update import paths:
    - Update the hardcoded value in the blog template at `src/pages/blog/[slug].astro`
    - Consider adding reading time to the blog schema for future automation
 
+### Whitepapers (Currently Hidden - October 2025)
+
+**Status**: Whitepapers are currently hidden from the site because they contain mocked-up example content that is not ready for public access.
+
+**What was done to hide them** (October 13, 2025):
+
+1. **Directories renamed with underscore prefix** (Astro ignores `_` prefixed directories):
+   - `src/pages/whitepapers` → `src/pages/_whitepapers`
+   - `src/content/whitepapers` → `src/content/_whitepapers`
+   - `src/pages/api/whitepapers` → `src/pages/api/_whitepapers`
+   - `src/components/whitepapers` → `src/components/_whitepapers`
+
+2. **Collection configuration disabled** in `src/content/config.ts`:
+   - Whitepapers collection definition commented out
+   - Removed from `export const collections = { blog }` (was `{ blog, whitepapers }`)
+
+3. **Utility functions updated** to skip whitepaper processing:
+   - `src/utils/contentAggregation.ts`: Returns empty array for whitepapers
+   - `src/utils/tags.ts`: Skips whitepaper tag processing in `getAllTags()` and `getContentByTag()`
+   - `src/utils/authors.ts`: Skips whitepaper author processing in `getAllAuthors()`
+   - `src/utils/content-dates.ts`: Skips whitepaper date collection in `getContentDates()`
+
+**How to reintroduce whitepapers when content is ready**:
+
+1. **Rename directories** (remove underscore prefix):
+   ```bash
+   mv src/pages/_whitepapers src/pages/whitepapers
+   mv src/content/_whitepapers src/content/whitepapers
+   mv src/pages/api/_whitepapers src/pages/api/whitepapers
+   mv src/components/_whitepapers src/components/whitepapers
+   ```
+
+2. **Uncomment the whitepapers collection** in `src/content/config.ts`:
+   - Uncomment the entire `whitepapers` collection definition (lines 31-55)
+   - Update exports: `export const collections = { blog, whitepapers };`
+
+3. **Restore utility functions** by uncommenting whitepaper processing:
+
+   **In `src/utils/contentAggregation.ts`**:
+   - Line 30: Uncomment `getCollection('whitepapers')`
+   - Lines 28-32: Change `const [blogs, tags]` to `const [blogs, whitepapers, tags]`
+   - Lines 62-86: Uncomment the entire whitepaper mapping section
+
+   **In `src/utils/tags.ts`**:
+   - Line 35: Uncomment `getCollection('whitepapers')`
+   - Lines 33-36: Change `const [blogPosts]` to `const [blogPosts, whitepapers]`
+   - Lines 55-69: Uncomment whitepaper tag processing
+   - Line 95: Uncomment `getCollection('whitepapers')`
+   - Lines 93-96: Change `const [blogPosts]` to `const [blogPosts, whitepapers]`
+   - Lines 118-135: Uncomment whitepaper content mapping
+
+   **In `src/utils/authors.ts`**:
+   - Line 16: Uncomment `getCollection('whitepapers')`
+   - Lines 14-17: Change `const [blogPosts]` to `const [blogPosts, whitepapers]`
+   - Lines 36-50: Uncomment whitepaper author processing
+
+   **In `src/utils/content-dates.ts`**:
+   - Lines 21-31: Uncomment the entire whitepaper date collection section
+
+4. **Add whitepapers back to navigation** in `src/components/Navbar.astro`:
+   - Add whitepaper link under "Open Resources" dropdown if desired
+   - Or create separate navigation section for research content
+
+5. **Run type checking and rebuild**:
+   ```bash
+   npx astro check
+   npm run build
+   npm run dev
+   ```
+
+6. **Verify functionality**:
+   - Whitepaper listing page: `/whitepapers/`
+   - Individual whitepapers: `/whitepapers/[slug]`
+   - PDF generation: `/whitepapers/[slug].pdf`
+   - Tag pages show whitepapers
+   - Search includes whitepapers
+   - Author filtering works
+
+**Schema structure** (for reference when creating real content):
+
+Required fields: `title`, `excerpt`, `date`, `authors` (array), `tags`, `category`
+
+Optional fields: `image`, `downloadUrl`, `readingTime`, `featured`, `metaDescription`, `executiveSummary`, `keywords`, `relatedContent`, `prerequisites`, `learningOutcomes`, `difficulty`
+
 ### Search Page Architecture
 
 1. **Static Rendering**:
