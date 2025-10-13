@@ -490,7 +490,8 @@ The site uses a comprehensive set of global CSS classes defined in `src/styles/g
 4. **Content Components**
    - `.bcf-filter-pill` - Active filter badges with gradient background
    - `.bcf-tag` - Tag badges with hover gradient effect
-   - `.bcf-card` - Card containers with hover lift effect
+   - `.bcf-card` - Card containers with hover lift effect and flexbox layout (includes `flex flex-col`)
+   - `.bcf-card-footer` - Pushes content to bottom of card (use with `.bcf-card` for aligned footers)
    - `.bcf-search-result` - Search result cards with border hover
 
 5. **Content Result Cards** (used for consistent display across search and tag pages)
@@ -534,10 +535,11 @@ The site uses a comprehensive set of global CSS classes defined in `src/styles/g
 <button class="bcf-button-primary">Submit</button>
 <button class="bcf-button-secondary">Cancel</button>
 
-<!-- Cards -->
+<!-- Cards with aligned footers -->
 <div class="bcf-card">
   <h3 class="bcf-gradient-text">Featured Content</h3>
   <p>Card content here...</p>
+  <a href="/learn-more" class="bcf-card-footer">Learn more →</a>
 </div>
 
 <!-- Content Result Card (for search/tag pages) -->
@@ -572,6 +574,7 @@ The site uses a comprehensive set of global CSS classes defined in `src/styles/g
 3. These classes automatically include hover states, focus rings, and transitions
 4. For one-off styling, use Tailwind utilities directly
 5. For complex animations or unique components, use scoped `<style>` blocks
+6. **Card alignment**: Use `.bcf-card` (includes flexbox) + `.bcf-card-footer` for cards with varying content heights to ensure footers align at the bottom
 
 ### JavaScript Framework: Alpine.js
 
