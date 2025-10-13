@@ -25,9 +25,9 @@ export async function aggregateContent(options: AggregationOptions = {}) {
   const baseUrl = 'https://betterconversations.foundation';
 
   // Get all content collections
-  const [blogs, whitepapers, tags] = await Promise.all([
+  const [blogs, tags] = await Promise.all([
     getCollection('blog'),
-    getCollection('whitepapers'),
+    // getCollection('whitepapers'), // DISABLED: Whitepapers hidden
     getAllTags()
   ]);
 
@@ -58,30 +58,32 @@ export async function aggregateContent(options: AggregationOptions = {}) {
     return baseBlog;
   });
 
+  // DISABLED: Whitepapers hidden
   // Map whitepapers
-  const whitepaperContent = whitepapers.map(paper => {
-    const baseWhitepaper: any = {
-      type: 'whitepaper' as const,
-      title: paper.data.title,
-      excerpt: paper.data.excerpt,
-      slug: formatUrl(`/whitepapers/${paper.slug}`),
-      tags: paper.data.tags,
-      authors: paper.data.authors,
-      date: paper.data.date
-    };
+  const whitepaperContent: any[] = [];
+  // const whitepaperContent = whitepapers.map(paper => {
+  //   const baseWhitepaper: any = {
+  //     type: 'whitepaper' as const,
+  //     title: paper.data.title,
+  //     excerpt: paper.data.excerpt,
+  //     slug: formatUrl(`/whitepapers/${paper.slug}`),
+  //     tags: paper.data.tags,
+  //     authors: paper.data.authors,
+  //     date: paper.data.date
+  //   };
 
-    if (includeExtendedMeta) {
-      baseWhitepaper.category = paper.data.category;
-      baseWhitepaper.readingTime = paper.data.readingTime;
-      baseWhitepaper.metaDescription = paper.data.metaDescription;
-      baseWhitepaper.difficulty = paper.data.difficulty;
-      baseWhitepaper.featured = paper.data.featured;
-      // Format date as string for API consumption
-      baseWhitepaper.date = paper.data.date.toISOString().split('T')[0];
-    }
+  //   if (includeExtendedMeta) {
+  //     baseWhitepaper.category = paper.data.category;
+  //     baseWhitepaper.readingTime = paper.data.readingTime;
+  //     baseWhitepaper.metaDescription = paper.data.metaDescription;
+  //     baseWhitepaper.difficulty = paper.data.difficulty;
+  //     baseWhitepaper.featured = paper.data.featured;
+  //     // Format date as string for API consumption
+  //     baseWhitepaper.date = paper.data.date.toISOString().split('T')[0];
+  //   }
 
-    return baseWhitepaper;
-  });
+  //   return baseWhitepaper;
+  // });
 
   // Map pages
   const pageContent = Object.entries(pageMetadata).map(([path, page]) => {

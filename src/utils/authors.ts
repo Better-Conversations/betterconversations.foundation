@@ -11,9 +11,9 @@ export interface AuthorInfo {
 
 // Get all unique authors across content types
 export async function getAllAuthors(): Promise<AuthorInfo[]> {
-  const [blogPosts, whitepapers] = await Promise.all([
+  const [blogPosts] = await Promise.all([
     getCollection('blog'),
-    getCollection('whitepapers')
+    // getCollection('whitepapers') // DISABLED: Whitepapers hidden
   ]);
 
   const authorMap = new Map<string, AuthorInfo>();
@@ -33,20 +33,21 @@ export async function getAllAuthors(): Promise<AuthorInfo[]> {
     }
   });
 
+  // DISABLED: Whitepapers hidden
   // Process whitepaper authors (array of authors)
-  whitepapers.forEach(paper => {
-    const authors = paper.data.authors || [];
-    authors.forEach(author => {
-      const existing = authorMap.get(author) || {
-        name: author,
-        count: 0,
-        sources: { blog: 0, whitepapers: 0 }
-      };
-      existing.count++;
-      existing.sources.whitepapers++;
-      authorMap.set(author, existing);
-    });
-  });
+  // whitepapers.forEach(paper => {
+  //   const authors = paper.data.authors || [];
+  //   authors.forEach(author => {
+  //     const existing = authorMap.get(author) || {
+  //       name: author,
+  //       count: 0,
+  //       sources: { blog: 0, whitepapers: 0 }
+  //     };
+  //     existing.count++;
+  //     existing.sources.whitepapers++;
+  //     authorMap.set(author, existing);
+  //   });
+  // });
 
   // Convert to array and sort alphabetically
   return Array.from(authorMap.values()).sort((a, b) => a.name.localeCompare(b.name));
