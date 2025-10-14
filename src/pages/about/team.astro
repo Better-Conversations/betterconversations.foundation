@@ -1,8 +1,160 @@
 ---
-import UnderConstruction from '../../layouts/UnderConstruction.astro';
+import Layout from '../../layouts/Layout.astro';
+import HeroSection from '../../components/HeroSection.astro';
 ---
 
-<UnderConstruction 
-  title="The Team" 
-  description="We're preparing profiles of the dedicated individuals behind Better Conversations Foundation. Soon you'll meet our founders, board members, facilitators, and the global community making this work possible."
-/>
+<Layout title="Our Team - Better Conversations Foundation">
+  <HeroSection
+    title="Our Team"
+    titleHighlight="Team"
+    description="Meet the dedicated individuals making better conversations accessible to all."
+  />
+
+  <!-- Faculty Section -->
+  <section class="py-16 lg:py-24 bg-white relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/5 via-transparent to-transparent"></div>
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 relative">
+      <div class="text-center mb-16">
+        <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Faculty</h2>
+        <p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
+          Trusted course facilitators
+        </p>
+        <p class="mt-4 max-w-3xl mx-auto text-xl text-gray-600 leading-relaxed">
+          Faculty members are trusted to deliver the course to a consistently high standard. They often deliver the course on behalf of the Foundation on a voluntary basis in our 'Experience Courses' as well as in their own private work.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <!-- Faculty Member Cards -->
+        <a href="https://www.linkedin.com/in/lyndsay-conklin-00670b290/" target="_blank" rel="noopener noreferrer" class="group bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 block">
+          <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors">Lyndsay Conklin</h3>
+          <div class="mt-3 h-1 w-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] rounded-full group-hover:w-24 transition-all"></div>
+          <div class="mt-4 flex items-center gap-2 text-sm text-gray-500 group-hover:text-[#54C4B6] transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            <span class="text-xs">View Profile</span>
+          </div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/evelina-de-lain/" target="_blank" rel="noopener noreferrer" class="group bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 block">
+          <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors">Evelina De Lain</h3>
+          <div class="mt-3 h-1 w-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] rounded-full group-hover:w-24 transition-all"></div>
+          <div class="mt-4 flex items-center gap-2 text-sm text-gray-500 group-hover:text-[#54C4B6] transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            <span class="text-xs">View Profile</span>
+          </div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/antoniamann/" target="_blank" rel="noopener noreferrer" class="group bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 block">
+          <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors">Antonia Mann</h3>
+          <div class="mt-3 h-1 w-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] rounded-full group-hover:w-24 transition-all"></div>
+          <div class="mt-4 flex items-center gap-2 text-sm text-gray-500 group-hover:text-[#54C4B6] transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            <span class="text-xs">View Profile</span>
+          </div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/virginia-mckendry-ph-d-3465b51b/" target="_blank" rel="noopener noreferrer" class="group bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 block">
+          <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors">Virginia McKendry, Ph.D.</h3>
+          <div class="mt-3 h-1 w-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] rounded-full group-hover:w-24 transition-all"></div>
+          <div class="mt-4 flex items-center gap-2 text-sm text-gray-500 group-hover:text-[#54C4B6] transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            <span class="text-xs">View Profile</span>
+          </div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/christianmejerknudsen/" target="_blank" rel="noopener noreferrer" class="group bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 block">
+          <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors">Christian Mejer Knudsen</h3>
+          <div class="mt-3 h-1 w-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] rounded-full group-hover:w-24 transition-all"></div>
+          <div class="mt-4 flex items-center gap-2 text-sm text-gray-500 group-hover:text-[#54C4B6] transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            <span class="text-xs">View Profile</span>
+          </div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/matt-michaelsen/" target="_blank" rel="noopener noreferrer" class="group bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 block">
+          <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors">Matthew Michaelsen</h3>
+          <div class="mt-3 h-1 w-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] rounded-full group-hover:w-24 transition-all"></div>
+          <div class="mt-4 flex items-center gap-2 text-sm text-gray-500 group-hover:text-[#54C4B6] transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            <span class="text-xs">View Profile</span>
+          </div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/johanhnordin/" target="_blank" rel="noopener noreferrer" class="group bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 block">
+          <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors">Johan Nordin</h3>
+          <div class="mt-3 h-1 w-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] rounded-full group-hover:w-24 transition-all"></div>
+          <div class="mt-4 flex items-center gap-2 text-sm text-gray-500 group-hover:text-[#54C4B6] transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            <span class="text-xs">View Profile</span>
+          </div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/robynodegaard/" target="_blank" rel="noopener noreferrer" class="group bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 block">
+          <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors">Dr Robyn Lynette</h3>
+          <div class="mt-3 h-1 w-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] rounded-full group-hover:w-24 transition-all"></div>
+          <div class="mt-4 flex items-center gap-2 text-sm text-gray-500 group-hover:text-[#54C4B6] transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            <span class="text-xs">View Profile</span>
+          </div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/danielparsons2/" target="_blank" rel="noopener noreferrer" class="group bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 block">
+          <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors">Dan Parsons</h3>
+          <div class="mt-3 h-1 w-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] rounded-full group-hover:w-24 transition-all"></div>
+          <div class="mt-4 flex items-center gap-2 text-sm text-gray-500 group-hover:text-[#54C4B6] transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            <span class="text-xs">View Profile</span>
+          </div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/naiara-sieben/" target="_blank" rel="noopener noreferrer" class="group bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 block">
+          <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors">Naiara Sieben</h3>
+          <div class="mt-3 h-1 w-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] rounded-full group-hover:w-24 transition-all"></div>
+          <div class="mt-4 flex items-center gap-2 text-sm text-gray-500 group-hover:text-[#54C4B6] transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            <span class="text-xs">View Profile</span>
+          </div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/christine-stief-hausch-669965ab/" target="_blank" rel="noopener noreferrer" class="group bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 block">
+          <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors">Christine Stief</h3>
+          <div class="mt-3 h-1 w-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] rounded-full group-hover:w-24 transition-all"></div>
+          <div class="mt-4 flex items-center gap-2 text-sm text-gray-500 group-hover:text-[#54C4B6] transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            <span class="text-xs">View Profile</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="mt-16 pt-12 border-t border-gray-100">
+        <div class="max-w-4xl mx-auto text-center bg-gradient-to-br from-[#54C4B6]/5 to-[#A8D381]/5 rounded-2xl p-8 lg:p-12">
+          <p class="text-xl lg:text-2xl text-gray-700 leading-relaxed italic">
+            "We could never have achieved what we have without the support of our Faculty, who have generously given their time and expertise to help us create our content."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
