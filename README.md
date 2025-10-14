@@ -2,352 +2,142 @@
 
 The official website for the Better Conversations Foundation (BCF), built with Astro and focused on promoting improved professional and personal communication through Clean Language methodology and Emergent Knowledge techniques.
 
+## Quick Start
+
+```bash
+npm install             # Install dependencies
+npm run dev             # Start dev server at localhost:4321
+npm run build           # Build production site to ./dist/
+npm run preview         # Preview production build locally
+npx astro check         # Check for TypeScript errors
+```
+
 ## 🚀 Project Structure
 
 ```text
 /
-├── public/                          # Static assets (served at root)
-│   ├── images/
-│   │   └── blog/                    # Inline blog images (not optimized)
-│   │       ├── badges-linkedin-example.png
-│   │       └── bulls-and-better-conversations-picasso-series.jpg
-│   ├── Better-Conversations-Foundation-RGB.png
-│   └── favicon.png
+├── public/             # Static assets (images, favicon)
+├── scripts/            # Build automation scripts
 ├── src/
-│   ├── assets/                      # Optimized images (processed by Astro)
-│   │   └── images/
-│   │       └── blog/                # Blog hero images (auto-optimized)
-│   │           ├── course-not-a-course-hero.png
-│   │           ├── bulls-and-better-conversations-hero.png
-│   │           ├── an-experiment-hero.png
-│   │           └── [other hero images...]
-│   ├── components/                  # Reusable Astro components
-│   │   ├── Navbar.astro
-│   │   ├── Footer.astro
-│   │   └── HeroSection.astro
-│   ├── content/                     # Content collections
-│   │   ├── blog/                    # Blog posts (markdown)
-│   │   │   └── *.md
-│   │   └── config.ts                # Content schema definitions
-│   ├── layouts/                     # Page wrapper components
-│   │   └── Layout.astro
-│   ├── pages/                       # File-based routing
-│   │   ├── about/
-│   │   │   ├── index.astro
-│   │   │   ├── contact.astro
-│   │   │   └── mission.astro
-│   │   ├── blog/                    # Blog pages
-│   │   │   ├── index.astro          # Blog listing (/blog/)
-│   │   │   └── [slug].astro         # Individual posts (/blog/[slug])
-│   │   ├── partner/
-│   │   │   ├── index.astro
-│   │   │   └── organizations.astro
-│   │   ├── resources/
-│   │   │   ├── index.astro          # Resources landing page
-│   │   │   └── whitepapers.astro
-│   │   ├── showcase.astro           # Ambassador showcase
-│   │   └── index.astro              # Homepage
-│   └── styles/
-│       └── global.css
-├── CLAUDE.md                        # Development guidance for Claude Code
-├── astro.config.mjs                 # Astro configuration
-├── tailwind.config.mjs              # Tailwind CSS configuration
-└── tsconfig.json                    # TypeScript configuration
+│   ├── assets/         # Optimized images (processed by Astro)
+│   ├── components/     # Reusable Astro components
+│   ├── content/        # Content collections (blog, _whitepapers)
+│   ├── data/           # Image imports and data utilities
+│   ├── layouts/        # Page wrapper components
+│   ├── pages/          # File-based routing
+│   ├── scripts/        # Client-side JavaScript
+│   ├── styles/         # Global CSS with .bcf-* classes
+│   └── utils/          # Helper functions and utilities
+├── .claude/            # Claude Code configuration
+├── AGENTS.md           # AI assistant development guidance (+ nested files)
+├── PLAN.md             # Project roadmap and development phases
+├── astro.config.mjs    # Astro configuration
+├── tailwind.config.mjs # Tailwind CSS configuration
+└── tsconfig.json       # TypeScript configuration
 ```
 
-## 🧞 Commands
+## 🏗️ Technology Stack
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 🏗️ Architecture
-
-### Framework Stack
 - **Astro v5.11.0** - Static site generator (fully static build, no SSR)
-- **Tailwind CSS v3.4.17** - Utility-first CSS framework  
+- **Tailwind CSS v3.4.17** - Utility-first CSS framework with global `.bcf-*` component classes
 - **TypeScript** - Type-safe JavaScript with strict configuration
 - **Alpine.js v3.14.9** - Lightweight framework for progressive enhancement
 
-### Key Features
-- **Content Collections**: Blog posts managed through Astro's content collections with schema validation
-- **File-based Routing**: Automatic route generation from the `src/pages/` directory
-- **Responsive Design**: Mobile-first approach with Tailwind CSS
-- **Interactive Elements**: Magnetic buttons, 3D tilt cards, typewriter effects
-- **SEO Optimized**: Clean URLs and proper meta tags
-- **Progressive Enhancement**: Server-rendered content enhanced with Alpine.js for interactivity
-- **Client-Side Search**: Fast, interactive search with advanced filtering (no SSR required)
+## 📖 Documentation
 
-### Blog Architecture
-- **URL Structure**: 
-  - Blog listing: `/blog/` (clean, SEO-friendly)
-  - Individual posts: `/blog/[slug]`
-- **Navigation**: Blog appears under "Resources" in the main menu but has its own URL structure
-- **Content**: Markdown files in `src/content/blog/` with frontmatter validation
-- **TypeScript**: Proper typing with `CollectionEntry<'blog'>` for type safety
+### For Developers
 
-### Design System
+**[AGENTS.md](AGENTS.md)** - Comprehensive development guidance including:
+- Critical project-wide rules (UK English, TypeScript patterns, error handling)
+- Framework stack and architectural decisions
+- Design system and styling guidelines
+- Content management and image handling
+- Progressive enhancement patterns with Alpine.js
+- Nested AGENTS.md files in specific directories for context-aware guidance
+
+### For Project Planning
+
+**[PLAN.md](PLAN.md)** - Project roadmap and status:
+- Current development phase (Phase 1: Navigation Streamlining - October 2025)
+- Task lists for developers and content creators
+- Success metrics and completion criteria
+- Future enhancements and feature roadmap
+- Status of incomplete features (whitepapers, success stories)
+
+### Nested Documentation
+
+The project uses nested `AGENTS.md` files for context-specific guidance:
+- `src/content/blog/AGENTS.md` - Blog content writing standards
+- `src/pages/blog/AGENTS.md` - Blog page development patterns
+- `src/components/AGENTS.md` - Component development rules
+- `src/pages/search/AGENTS.md` - Search functionality
+- `src/pages/AGENTS.md` - General page development
+
+## 🎨 Design System
+
 - **Brand Colors**: Primary teal (`#54C4B6`) and secondary green (`#A8D381`)
 - **Consistent Gradients**: `from-[#54C4B6] to-[#A8D381]` pattern throughout
-- **Wave Separators**: Custom SVG patterns between sections
-- **Interactive Elements**: Hover effects, transitions, and micro-interactions
-- **Global CSS Classes**: Unified component system with `.bcf-*` prefix for consistency
-- **Content Cards**: Standardized card design using `.bcf-content-card-*` classes
+- **Global CSS Classes**: `.bcf-*` prefix for consistent components (check `src/styles/global.css`)
+- **Responsive Design**: Mobile-first approach with generous spacing
+- **Interactive Elements**: Magnetic buttons, 3D tilt cards, typewriter effects
 
 ## 📝 Content Management
 
-### Adding Blog Posts
-1. Create a new markdown file in `src/content/blog/`
-2. Include required frontmatter:
-   ```yaml
-   ---
-   title: "Your Post Title"
-   date: 2024-01-15
-   author: "Author Name"
-   category: "Category"
-   excerpt: "Brief description of the post"
-   tags: ["tag1", "tag2"]
-   image: "/images/blog/your-hero-image.png"
-   imageCredit:
-     photographer: "Photographer Name"
-     photographerUrl: "https://link-to-photographer"
-     source: "Source Platform"
-   # Enhanced metadata fields (optional but recommended):
-   metaDescription: "150-160 character description for SEO"
-   executiveSummary: |
-     A 2-3 paragraph summary of the article for AI consumption.
-     This helps with content understanding and discoverability.
-   keywords: ["additional", "seo", "keywords"]
-   relatedContent: ["/blog/related-post", "/whitepapers/related-paper"]
-   prerequisites: "Basic understanding of Clean Language"
-   learningOutcomes: "Readers will learn X, Y, and Z"
-   difficulty: "intermediate" # beginner, intermediate, or advanced
-   ---
-   ```
-3. Write your content in markdown
-4. The post will automatically appear in the blog listing
+### Blog Posts
 
-### Image Management
+Create markdown files in `src/content/blog/` with required frontmatter:
 
-#### Where to Place Images
-
-**In `/public/`** (served as-is, no optimization):
-- Favicons (`favicon.png`)
-- Open Graph/social media images (need static URLs)
-- External service images (RSS feeds, etc.)
-- Inline blog content images referenced in markdown
-
-**In `/src/assets/`** (optimized by Astro):
-- Author photos → `/src/assets/images/authors/`
-- Blog hero images → `/src/assets/images/blog/`
-- Logo variations → `/src/assets/images/logos/`
-- All other component images
-
-#### Content Type Image Strategy
-- **Blog Posts**: Hero images from `/src/assets/images/blog/` (auto-optimized)
-- **Whitepapers**: Default document icon (no custom images)
-- **Pages**: BCF symbol logo from `/src/assets/images/logos/bcf-symbol.png`
-- **Tag/Search Pages**: Consistent display with white backgrounds and borders
-
-#### Automatic Image Import System
-
-The site uses dynamic image imports for blog and author images, eliminating the need for manual imports.
-
-**Blog Images:**
-- Place hero images in `/src/assets/images/blog/`
-- Follow naming convention: `[blog-slug]-hero.{png,jpg,jpeg,webp}`
-- Example: For a blog post with slug `my-awesome-post`, name the image `my-awesome-post-hero.png`
-- Images are automatically imported and optimized via `src/data/blogImages.ts`
-
-**Author Images:**
-- Place author photos in `/src/assets/images/authors/`
-- Follow naming convention: `[firstname-lastname].{png,jpg,jpeg,webp}`
-- Example: For author "Jane Smith", name the image `jane-smith.jpg`
-- The system automatically converts filenames to proper names (e.g., `jane-smith.jpg` → "Jane Smith")
-- Include a `default.jpg` for authors without specific images
-
-#### Using Images
-
-**Blog hero images (automatic):**
-```astro
+```yaml
 ---
-import { getBlogImage } from '../data/blogImages';
-import { Image } from 'astro:assets';
-
-const heroImage = getBlogImage(entry.slug);
----
-{heroImage && (
-  <Image src={heroImage} alt={entry.data.title} width={1920} height={800} />
-)}
-```
-
-**Author images (automatic):**
-```astro
----
-import { getAuthorImage } from '../data/authorImages';
-import { Image } from 'astro:assets';
-
-const authorImage = getAuthorImage(post.data.author);
----
-<Image src={authorImage} alt={post.data.author} width={64} height={64} class="rounded-full" />
-```
-
-**In MDX files:**
-```mdx
-import { Image } from 'astro:assets';
-import diagram from '../assets/images/blog/diagram.png';
-
-<Image src={diagram} alt="Diagram" width={800} height={400} />
-```
-
-#### Image Guidelines
-- **Blog hero images**: 1200x630px (16:9 ratio)
-- **Author photos**: 400x400px (square)
-- **File formats**: `.jpg` for photos, `.png` for graphics with transparency, `.svg` for icons
-- **Naming conventions**:
-  - Blog heroes: `[slug]-hero.{ext}` (e.g., `my-blog-post-hero.jpg`)
-  - Authors: `[firstname-lastname].{ext}` (e.g., `john-doe.jpg`)
-  - Other images: Use descriptive kebab-case names
-
-### Page Structure
-- Most pages use the `Layout.astro` wrapper
-- Exception: Showcase page has special handling for full-screen layout
-- All pages follow the design system with consistent spacing and typography
-
-## 🎨 Styling Guidelines
-
-### Tailwind Classes
-- Use utility classes for most styling
-- Global CSS classes with `.bcf-*` prefix for common components
-- Custom CSS in `<style>` blocks for animations and complex layouts
-- Maintain consistency with the design system
-
-### Global CSS Components
-The site uses a comprehensive global CSS system (`src/styles/global.css`) for consistency:
-- **Dropdowns**: `.bcf-dropdown-button`, `.bcf-dropdown-container`, etc.
-- **Forms**: `.bcf-input`, `.bcf-label`
-- **Buttons**: `.bcf-button-primary`, `.bcf-button-secondary`
-- **Content Cards**: `.bcf-content-card-*` classes for search/tag page results
-- **Typography**: `.bcf-section-header`, `.bcf-gradient-text`
-
-### Responsive Design
-- Mobile-first approach using Tailwind breakpoints
-- Test interactive elements on touch devices
-- Simplify animations on mobile for performance
-
-### Brand Guidelines
-- Use UK English spelling throughout
-- Follow the colour palette and gradient patterns
-- Maintain the clean, modern aesthetic
-
-### JavaScript and Interactivity
-
-#### Alpine.js Implementation
-- **Progressive Enhancement**: All content must be accessible without JavaScript
-- **Global Initialization**: Alpine is initialized once in `src/scripts/alpine-init.ts`
-- **Current Usage**:
-  - Search modal with fallback form submission
-  - Blog filtering and sorting with URL parameter support
-  - Tag filtering functionality
-- **Best Practices**:
-  - Always use `x-cloak` to prevent FOUC
-  - Provide server-rendered content that Alpine enhances
-  - Never rely on JavaScript for core functionality
-  - Total JavaScript overhead: ~45KB (Alpine.js) + <2KB custom code
-
-## 📚 Development Notes
-
-### Special Pages
-- **Showcase Page**: Has unique scroll behavior and no footer
-- **Blog Posts**: Use dynamic routing and content collections
-- **Resources**: Central hub linking to blog, whitepapers, and tools
-
-### Navigation
-- Multi-level dropdown navigation in `Navbar.astro`
-- Mobile-responsive with hamburger menu
-- Blog accessible via Resources → Blog but lives at `/blog/`
-
-### TypeScript
-- Strict configuration enabled
-- Proper typing for content collections
-- Import paths relative to directory structure
-
-## 🔧 Configuration
-
-### Important Files
-- `CLAUDE.md`: Development guidance and architectural decisions
-- `astro.config.mjs`: Astro configuration with integrations
-- `tailwind.config.mjs`: Tailwind customization
-- `src/content/config.ts`: Content collection schemas
-- `src/utils/pageMetadata.ts`: Centralized page metadata
-- `src/utils/metadata.ts`: Metadata utility functions
-
-### Environment
-- Built for static deployment (fully static, no SSR)
-- No runtime database required
-- Content managed through markdown files
-- All search and filtering handled client-side
-
-### Metadata System (August 2025 Update)
-
-The site now includes an enhanced metadata system for better SEO and AI readability:
-
-#### Automated Metadata Generation
-- **Build Scripts**: Automatically run during `npm run build`
-  - `scripts/generate-content-dates.js`: Extracts content dates from files
-  - `scripts/update-lastmod-from-git.js`: Updates last modified dates from Git
-- **Generated Files**:
-  - `src/utils/generated-content-dates.js`: Auto-generated content dates
-  - Updated `pageMetadata.ts` with Git-based lastmod dates
-
-#### Page Metadata Structure
-Each page can have:
-- **SEO Fields**: title, description, keywords, tags
-- **Sitemap Fields**: lastmod, priority, changefreq
-- **AI Fields**: executiveSummary, schemaType
-- **Navigation**: breadcrumbs, relatedPages
-
-#### Using Metadata
-```astro
----
-import { generateMetaProperties, generateStructuredData } from '../utils/metadata';
-
-const metaProps = generateMetaProperties(Astro.url.pathname, {
-  title: 'Custom Page Title',
-  description: 'Custom description',
-  keywords: ['custom', 'keywords']
-});
-
-const structuredData = generateStructuredData(metaProps, Astro.url.pathname);
+title: "Your Post Title"
+date: 2024-01-15
+author: "Author Name"
+category: "Category"
+excerpt: "Brief description"
+tags: ["tag1", "tag2"]
 ---
 ```
 
-#### Sitemap Integration
-- Automatic sitemap.xml generation
-- Uses metadata for priority and change frequency
-- Includes all pages, blog posts, and whitepapers
-- Updates lastmod dates from Git history
+### Images
+
+- **Blog hero images**: Place in `/src/assets/images/blog/` as `[slug]-hero.{ext}` (auto-optimized)
+- **Author photos**: Place in `/src/assets/images/authors/` as `[firstname-lastname].{ext}`
+- **Inline images**: Place in `/public/images/` (served as-is)
+
+See [AGENTS.md](AGENTS.md) for complete image management guidelines.
+
+## 🔍 Key Features
+
+- **Content Collections**: Blog posts managed through Astro's content collections with schema validation
+- **File-based Routing**: Automatic route generation from the `src/pages/` directory
+- **Client-Side Search**: Fast, interactive search with advanced filtering (Typesense)
+- **SEO Optimized**: Sitemap, robots.txt, structured data (JSON-LD), OpenGraph tags
+- **Progressive Enhancement**: Server-rendered content enhanced with Alpine.js for interactivity
+- **AI-Friendly**: Metadata system with executive summaries, `.well-known/ai-plugin.json`
+
+## ⚠️ Current Status (October 2025)
+
+- ✅ **Blog**: Live and active with MDX support
+- ⚠️ **Whitepapers**: Currently hidden (contain mocked content not ready for public access)
+  - Directories prefixed with `_whitepapers`
+  - See [PLAN.md](PLAN.md) Phase 3 for restoration checklist
+- ⏳ **Success Stories**: Under construction (placeholder page)
 
 ## 🤝 Contributing
 
-This project follows the Better Conversations Foundation's mission of open collaboration. When making changes:
+When making changes:
 
-1. Follow the existing code patterns
-2. Maintain design consistency
-3. Update documentation as needed
-4. Test responsive design thoroughly
-5. Use UK English spelling
+1. **Follow existing patterns** - Check [AGENTS.md](AGENTS.md) for guidelines
+2. **Run `npx astro check`** after TypeScript/Astro file changes
+3. **Use UK English spelling** throughout
+4. **Test responsive design** on mobile, tablet, and desktop
+5. **Check [PLAN.md](PLAN.md)** for current priorities and task assignments
 
-## 📞 Support
+## 📚 Additional Resources
 
-For technical questions or contributions, please refer to the project documentation or contact the Better Conversations Foundation team.
+- **Astro Documentation**: https://docs.astro.build
+- **Tailwind CSS**: https://tailwindcss.com/docs
+- **BCF Website**: https://betterconversations.foundation
 
 ---
 

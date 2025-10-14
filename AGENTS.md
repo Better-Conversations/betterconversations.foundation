@@ -8,6 +8,71 @@ This is the root AGENTS.md file, which provides guidance to AI coding assistants
 
 When working in specific directories, AI assistants automatically load both this root file and any nested AGENTS.md files in that directory, providing the most relevant guidance for the task at hand.
 
+## Documentation Philosophy & Separation of Concerns
+
+### README.md - For Humans
+The README.md is the **human-facing overview** of the project. Keep it:
+- **Concise**: Target ~150 lines maximum
+- **High-level**: Quick overview of what, why, and how to get started
+- **Reference-focused**: Point to AGENTS.md and PLAN.md for details
+- **Onboarding-friendly**: Help newcomers understand the project quickly
+
+**What belongs in README.md:**
+- Project description and purpose
+- Quick start commands
+- High-level project structure (directories only, not implementation details)
+- Technology stack (versions and names only)
+- Basic content management instructions (how to add a blog post)
+- Current status overview (what's live, what's hidden)
+- Clear pointers to AGENTS.md and PLAN.md
+
+**What does NOT belong in README.md:**
+- Detailed implementation guidance (belongs in AGENTS.md)
+- TypeScript patterns and error handling (belongs in AGENTS.md)
+- Design system implementation details (belongs in AGENTS.md)
+- Development workflow and best practices (belongs in AGENTS.md)
+- Image management system details (belongs in AGENTS.md)
+- Task lists and roadmaps (belongs in PLAN.md)
+
+### AGENTS.md - For AI Assistants
+This file (and nested AGENTS.md files) contains **comprehensive technical guidance** for AI coding assistants:
+- Critical project-wide rules and conventions
+- Detailed implementation patterns
+- TypeScript and Astro best practices
+- Design system implementation
+- Content management technical details
+- Progressive enhancement patterns
+- Error handling and debugging guidance
+
+### PLAN.md - For Project Planning
+Contains project roadmap, task tracking, and status:
+- Current development phase
+- Task lists for developers and content creators
+- Success metrics and completion criteria
+- Future enhancements roadmap
+- Status of incomplete features
+
+### When to Update Each File
+
+**Update README.md when:**
+- Adding a new major feature (add to Key Features section)
+- Changing the technology stack (update versions)
+- Changing project structure (top-level directories only)
+- Hiding/showing content collections (update Current Status)
+
+**Update AGENTS.md when:**
+- Adding new development rules or conventions
+- Changing architectural patterns
+- Adding new TypeScript patterns
+- Updating design system implementation
+- Changing how components should be built
+
+**Update PLAN.md when:**
+- Completing tasks or phases
+- Adding new tasks to the roadmap
+- Changing project priorities
+- Updating status of features
+
 ## Project-Wide Critical Rules
 
 ### Must Follow Always
