@@ -283,18 +283,20 @@ Whitepapers are **currently hidden** because they contain mocked-up example cont
 - Collection disabled in `src/content/config.ts`
 - Utility functions skip whitepaper processing
 
-**When ready to reintroduce**: See `src/content/_whitepapers/AGENTS.md` for complete restoration checklist.
+**When ready to reintroduce**: See `src/content/_whitepapers/_AGENTS.md` for complete restoration checklist.
 
 ## Detailed Implementation Guidelines
 
-For specific areas of the codebase, see these nested AGENTS.md files:
+For specific areas of the codebase, see these nested AGENTS.md files (prefixed with underscore to prevent Astro from processing them):
 
-- **Blog content writing**: `src/content/blog/AGENTS.md`
-- **Blog page development**: `src/pages/blog/AGENTS.md`
-- **Component development**: `src/components/AGENTS.md`
-- **Search functionality**: `src/pages/search/AGENTS.md`
-- **General page development**: `src/pages/AGENTS.md`
-- **Whitepapers** (when ready): `src/content/_whitepapers/AGENTS.md`
+- **Blog content writing**: `src/content/blog/_AGENTS.md`
+- **Blog page development**: `src/pages/blog/_AGENTS.md`
+- **Component development**: `src/components/_AGENTS.md`
+- **Search functionality**: `src/pages/search/_AGENTS.md`
+- **General page development**: `src/pages/_AGENTS.md`
+- **Whitepapers** (when ready): `src/content/_whitepapers/_AGENTS.md`
+
+**Note**: All nested AGENTS.md files use the underscore prefix (`_AGENTS.md`) to signal to Astro that these are documentation files, not content to be processed or built.
 
 ## Before Committing
 

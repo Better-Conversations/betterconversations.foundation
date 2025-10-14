@@ -2,7 +2,15 @@
 
 **Status**: Whitepapers are currently hidden from the site (October 2025) because they contain mocked-up example content not ready for public access.
 
-This AGENTS.md file is ready for when whitepapers are reintroduced to the site.
+This AGENTS.md file provides comprehensive guidelines for creating whitepaper content when the feature is reintroduced to the site.
+
+## Quick Reference
+
+- **Collection Type**: `whitepapers` (currently disabled in `src/content/config.ts`)
+- **Directory**: `/src/content/_whitepapers/` (underscore prefix hides from build)
+- **When Active**: `/src/content/whitepapers/` (remove underscore)
+- **URL Pattern**: `/whitepapers/[slug]/`
+- **Schema**: See `src/content/config.ts` (commented out)
 
 ## Frontmatter Requirements
 
@@ -95,14 +103,17 @@ difficulty: "intermediate"  # beginner | intermediate | advanced
   - Biography
   - Photo in `/src/assets/images/authors/firstname-lastname.jpg`
   - Social links (optional)
+- **Important**: Author names must match exactly with entries in your author database
 
 ### Multiple Authors
 ```yaml
-authors: 
+authors:
   - "Jane Smith"
   - "John Doe"
   - "Maria Garcia"
 ```
+
+**Note**: Unlike blog posts which use singular `author`, whitepapers use plural `authors` array to support multiple contributors.
 
 ## Tags & Categories
 
@@ -194,37 +205,73 @@ Author, C. C. (Year). *Title of book*. Publisher Name. https://doi.org/xxxxx
 
 ## Reintroduction Checklist
 
-When ready to publish whitepapers:
+When ready to publish whitepapers, follow these steps in order:
 
-### Content Requirements
+### Phase 1: Content Preparation
 - [ ] Replace all mocked-up content with real research
-- [ ] All frontmatter fields complete and accurate
-- [ ] Citations properly formatted
+- [ ] All frontmatter fields complete and accurate (see schema in config.ts)
+- [ ] Citations properly formatted (APA 7th edition)
 - [ ] Author bios and images in place
-- [ ] Executive summary AI-optimized
-- [ ] Reading time calculated accurately
-- [ ] Tags and categories appropriate
+- [ ] Executive summary AI-optimized (3-4 paragraphs)
+- [ ] Reading time calculated accurately (based on word count)
+- [ ] Tags and categories appropriate for research content
+- [ ] All embedded images in `/public/images/whitepapers/[slug]/`
+- [ ] PDFs prepared (if applicable) with proper metadata
 
-### Technical Requirements
-- [ ] Rename directories (remove underscore prefix)
-- [ ] Uncomment collection in `src/content/config.ts`
-- [ ] Restore utility function processing
-- [ ] Add back to navigation menu
-- [ ] Run `npx astro check`
+### Phase 2: Technical Setup
+- [ ] **Step 1**: Rename `/src/content/_whitepapers/` to `/src/content/whitepapers/`
+  ```bash
+  mv /workspaces/bcf-content-site/src/content/_whitepapers /workspaces/bcf-content-site/src/content/whitepapers
+  ```
+- [ ] **Step 2**: Uncomment whitepaper collection in `src/content/config.ts`
+  - Uncomment the `whitepapers` collection definition
+  - Add to exports: `export const collections = { blog, whitepapers };`
+- [ ] **Step 3**: Update utility functions to process whitepapers
+  - Check `src/utils/contentAggregator.ts` for whitepaper handling
+  - Verify `src/utils/metadata.ts` generates correct metadata
+- [ ] **Step 4**: Add whitepapers to navigation menu
+  - Update `src/components/Navbar.astro`
+  - Add link to `/whitepapers/` in main navigation
+- [ ] **Step 5**: Verify pages exist and work correctly
+  - Create/verify `/src/pages/whitepapers/index.astro` (listing page)
+  - Create/verify `/src/pages/whitepapers/[slug].astro` (individual pages)
+  - Check PDF download functionality if implemented
+
+### Phase 3: Integration Testing
+- [ ] Run `npx astro check` - fix any TypeScript errors
 - [ ] Test listing page at `/whitepapers/`
-- [ ] Test individual pages at `/whitepapers/[slug]`
-- [ ] Test PDF generation (if implemented)
-- [ ] Verify tag pages show whitepapers
-- [ ] Verify search includes whitepapers
+  - Verify all whitepapers appear
+  - Check filtering and sorting
+  - Test featured whitepapers display
+- [ ] Test individual pages at `/whitepapers/[slug]/`
+  - Verify content renders correctly
+  - Check metadata (title, description, etc.)
+  - Test PDF download links (if applicable)
+  - Verify author information displays
+- [ ] Test search integration
+  - Verify whitepapers appear in search results at `/search/`
+  - Test search filtering by type
+  - Check tag-based search works
+- [ ] Test tag pages
+  - Verify whitepapers appear on tag pages
+  - Check cross-linking between blog and whitepapers
 - [ ] Test author filtering
+  - Verify multi-author support works
+  - Check author page integration (if exists)
 
-### Quality Assurance
-- [ ] Peer review completed
-- [ ] Fact-checking done
+### Phase 4: Quality Assurance
+- [ ] Peer review completed for all whitepapers
+- [ ] Fact-checking done on claims and citations
 - [ ] Legal/compliance review (if needed)
-- [ ] Accessibility audit
-- [ ] Cross-browser testing
+- [ ] Accessibility audit (WCAG 2.1 AA compliance)
+  - Screen reader testing
+  - Keyboard navigation
+  - Colour contrast on graphics
+  - Alt text for all images
+- [ ] Cross-browser testing (Chrome, Firefox, Safari, Edge)
 - [ ] Mobile responsiveness verified
+- [ ] Performance testing (page load times)
+- [ ] SEO verification (meta tags, structured data)
 
 ## Academic Standards
 
@@ -245,13 +292,47 @@ When ready to publish whitepapers:
 - Address reviewer feedback thoroughly
 - Document revision history
 
-## Before Publishing
+## Before Publishing - Final Checklist
 
-- [ ] Content is real research, not mocked-up examples
+Complete ALL items before making whitepapers publicly accessible:
+
+### Content Verification
+- [ ] All whitepapers contain real research (no mocked-up examples remain)
 - [ ] All citations verified and accessible
-- [ ] Authors approved publication
-- [ ] Legal/compliance clearance if needed
-- [ ] Technical reintroduction steps completed
-- [ ] Quality assurance checklist completed
-- [ ] Run `npx astro check` to verify TypeScript
-- [ ] Test all functionality end-to-end
+- [ ] All authors have approved publication
+- [ ] Legal/compliance clearance obtained if needed
+- [ ] Copyright and licensing clearly stated
+
+### Technical Verification
+- [ ] Phase 1 (Content Preparation) completed
+- [ ] Phase 2 (Technical Setup) completed
+- [ ] Phase 3 (Integration Testing) completed
+- [ ] Phase 4 (Quality Assurance) completed
+- [ ] No TypeScript errors: `npx astro check` passes
+- [ ] Build succeeds: `npm run build` completes
+- [ ] Preview works: `npm run preview` tested
+
+### Deployment Verification
+- [ ] Staging environment tested
+- [ ] All functionality works end-to-end
+- [ ] Analytics tracking configured (if applicable)
+- [ ] Sitemap includes whitepapers
+- [ ] RSS feed updated (if applicable)
+- [ ] Social media cards tested (Open Graph, Twitter)
+
+## Common Issues & Solutions
+
+### Issue: Collection not found after uncommenting
+**Solution**: Restart the Astro dev server after editing `config.ts`
+
+### Issue: Images not displaying
+**Solution**: Check that images are in `/public/images/whitepapers/` not `/src/assets/`
+
+### Issue: Multi-author display broken
+**Solution**: Verify author names match exactly with author database entries
+
+### Issue: Search not including whitepapers
+**Solution**: Check `src/utils/contentAggregator.ts` includes whitepaper processing
+
+### Issue: PDF downloads not working
+**Solution**: Ensure PDFs are in `/public/whitepapers/` directory and `downloadUrl` paths are correct
