@@ -4,29 +4,50 @@ import HeroSection from '../../components/HeroSection.astro';
 import { Image } from 'astro:assets';
 import simonColes from '../../assets/images/authors/simon-coles.jpg';
 import chandimaDutton from '../../assets/images/authors/chandima-dutton.jpg';
+import complexityImage from '../../assets/images/jacek-dylag-PMxT0XtQ--A-unsplash.jpg';
+import missionImage from '../../assets/images/curated-lifestyle-1UfCHcZfFrQ-unsplash.jpg';
 ---
 
+<style>
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 20s linear infinite;
+  }
+
+</style>
+
 <Layout title="About Us - Better Conversations Foundation">
-  <HeroSection 
+  <HeroSection
     title="About the Foundation"
     titleHighlight="Foundation"
-    description="We're on a mission to help people have better conversations at work and beyond."
+    description="Building bridges through better conversations."
   />
 
   <!-- Mission Section -->
   <section class="py-16 lg:py-24 bg-white">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
-        <div>
+      <div class="flex flex-col lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+        <div class="order-2 lg:order-1">
           <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Our Mission</h2>
           <p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
             Building bridges through better conversations
           </p>
-          <p class="mt-6 text-lg text-gray-600">
-            The Foundation is a not-for-profit organisation dedicated to helping people have better conversations at work and beyond. We believe that better conversations lead to better relationships, better decisions, and better outcomes.
+          <p class="mt-6 text-xl text-gray-600 leading-relaxed">
+            The Better Conversations Foundation is founded on a conviction: <strong>the quality of our conversations shapes nearly everything that matters—yet most of us have never been properly taught how to have them.</strong>
           </p>
           <p class="mt-4 text-lg text-gray-600">
-            Through our free resources, training programs, and community initiatives, we're creating a world where authentic communication is the foundation of every interaction.
+            We believe effective dialogue skills should be as accessible as any other essential capability—available to anyone who wants to learn them, not restricted by budget, position, or geography.
+          </p>
+          <p class="mt-4 text-lg text-gray-600">
+            Through open-source resources, research-informed training, and community support, we're making quality conversation skills available to all.
           </p>
           <div class="mt-8">
             <a href="/partner/support" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-[#54C4B6] hover:bg-[#54C4B6]/90 transition-colors">
@@ -34,62 +55,140 @@ import chandimaDutton from '../../assets/images/authors/chandima-dutton.jpg';
             </a>
           </div>
         </div>
-        <div class="mt-10 lg:mt-0">
-          <div class="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden bg-gray-100">
-            <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=800&h=600&fit=crop" alt="Team collaboration" class="w-full h-full object-cover" />
+        <div class="order-1 lg:order-2 mb-8 lg:mb-0">
+          <div class="rounded-2xl overflow-hidden bg-gray-100 shadow-lg">
+            <Image src={missionImage} alt="Team collaboration" class="w-full h-full object-cover aspect-[4/3]" width={800} height={600} />
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Values Section -->
-  <section class="py-16 lg:py-24 bg-gray-50">
+  <!-- Why Now Section -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/5 via-transparent to-[#A8D381]/5"></div>
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 relative">
+      <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+        <div class="order-2 lg:order-1 mb-8 lg:mb-0">
+          <div class="rounded-2xl overflow-hidden bg-gray-100 shadow-lg">
+            <Image src={complexityImage} alt="People in an urban scene" class="w-full h-full object-cover aspect-[4/3]" width={800} height={600} />
+          </div>
+        </div>
+        <div class="order-1 lg:order-2 mb-8 lg:mb-0">
+          <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Why Now</h2>
+          <p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl mb-6">
+            Making sense of complexity
+          </p>
+          <div class="space-y-6">
+            <p class="text-xl text-gray-600 leading-relaxed">
+              As our world becomes more complex and interconnected, the ability to have meaningful conversations is increasingly crucial. Whether we're working alongside AI, navigating diverse teams, or building community, <strong>the distinctly human skills of nuanced, adaptive, and emotionally-attuned dialogue are becoming more valuable, not less</strong>.
+            </p>
+            <p class="text-lg text-gray-600 leading-relaxed">
+              We're committed to ensuring these capabilities remain accessible, practiced, and passed forward for current and future generations—not as theoretical knowledge, but as lived skills that strengthen human connection and understanding in every context.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How We Work Section -->
+  <section class="py-16 lg:py-24 bg-white">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center">
-        <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Core Values</h2>
+      <div class="text-center mb-16">
+        <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">How We Work</h2>
         <p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
-          What drives us forward
-        </p>
-        <p class="mt-4 max-w-2xl text-xl text-gray-600 lg:mx-auto">
-          Our values shape everything we do, from the resources we create to the communities we build.
+          A partnership approach
         </p>
       </div>
 
-      <div class="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
-        <div class="relative bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
-          <div class="absolute -top-4 left-8">
-            <span class="inline-flex items-center justify-center h-8 w-8 rounded-full bg-[#54C4B6] text-white text-sm font-medium">
-              1
-            </span>
+      <div class="max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-[5fr_2fr_5fr] gap-1 items-center">
+          <!-- We Provide -->
+          <div class="relative md:text-right">
+            <div class="flex items-center gap-3 mb-6 md:justify-end">
+              <div class="order-2 md:order-1">
+                <h3 class="text-2xl font-bold text-gray-900">We Provide</h3>
+              </div>
+              <div class="order-1 md:order-2 w-12 h-12 bg-gradient-to-br from-[#54C4B6] to-[#54C4B6]/80 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+            </div>
+            <ul class="space-y-4">
+              <li class="flex items-start group">
+                <div class="w-2 h-2 bg-[#54C4B6] rounded-full mt-2 mr-4 flex-shrink-0 group-hover:scale-150 transition-transform md:hidden"></div>
+                <span class="text-lg text-gray-600 md:text-right md:flex-1">Research-informed frameworks</span>
+                <div class="w-2 h-2 bg-[#54C4B6] rounded-full mt-2 ml-4 flex-shrink-0 group-hover:scale-150 transition-transform hidden md:block"></div>
+              </li>
+              <li class="flex items-start group">
+                <div class="w-2 h-2 bg-[#54C4B6] rounded-full mt-2 mr-4 flex-shrink-0 group-hover:scale-150 transition-transform md:hidden"></div>
+                <span class="text-lg text-gray-600 md:text-right md:flex-1">Open-source materials</span>
+                <div class="w-2 h-2 bg-[#54C4B6] rounded-full mt-2 ml-4 flex-shrink-0 group-hover:scale-150 transition-transform hidden md:block"></div>
+              </li>
+              <li class="flex items-start group">
+                <div class="w-2 h-2 bg-[#54C4B6] rounded-full mt-2 mr-4 flex-shrink-0 group-hover:scale-150 transition-transform md:hidden"></div>
+                <span class="text-lg text-gray-600 md:text-right md:flex-1">Experiential learning resources</span>
+                <div class="w-2 h-2 bg-[#54C4B6] rounded-full mt-2 ml-4 flex-shrink-0 group-hover:scale-150 transition-transform hidden md:block"></div>
+              </li>
+              <li class="flex items-start group">
+                <div class="w-2 h-2 bg-[#54C4B6] rounded-full mt-2 mr-4 flex-shrink-0 group-hover:scale-150 transition-transform md:hidden"></div>
+                <span class="text-lg text-gray-600 md:text-right md:flex-1">Community of practice</span>
+                <div class="w-2 h-2 bg-[#54C4B6] rounded-full mt-2 ml-4 flex-shrink-0 group-hover:scale-150 transition-transform hidden md:block"></div>
+              </li>
+            </ul>
           </div>
-          <h3 class="mt-4 text-xl font-semibold text-gray-900">Authentic Self-Expression</h3>
-          <p class="mt-3 text-gray-600">
-            We believe in helping people be their unique selves, creating spaces where everyone can communicate authentically and confidently.
-          </p>
+
+          <!-- Center Connection -->
+          <div class="flex justify-center items-center my-8 md:my-0">
+            <div class="relative w-32 h-32">
+              <!-- Outer rotating ring -->
+              <div class="absolute inset-0 rounded-full border-2 border-dashed animate-spin-slow" style="border-color: #54C4B6 transparent #A8D381 transparent; animation-duration: 20s;"></div>
+              <!-- Inner circle with gradient -->
+              <div class="absolute inset-2 rounded-full bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10 flex items-center justify-center">
+                <!-- Circular arrows showing exchange/circulation -->
+                <svg class="w-12 h-12 text-gray-400 animate-spin-slow" style="transform: scaleX(-1);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- You Bring -->
+          <div class="relative">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-12 h-12 bg-gradient-to-br from-[#A8D381] to-[#A8D381]/80 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold text-gray-900">You Bring</h3>
+            </div>
+            <ul class="space-y-4">
+              <li class="flex items-start group">
+                <div class="w-2 h-2 bg-[#A8D381] rounded-full mt-2 mr-4 flex-shrink-0 group-hover:scale-150 transition-transform"></div>
+                <span class="text-lg text-gray-600">Your contextual expertise</span>
+              </li>
+              <li class="flex items-start group">
+                <div class="w-2 h-2 bg-[#A8D381] rounded-full mt-2 mr-4 flex-shrink-0 group-hover:scale-150 transition-transform"></div>
+                <span class="text-lg text-gray-600">Your local adaptations</span>
+              </li>
+              <li class="flex items-start group">
+                <div class="w-2 h-2 bg-[#A8D381] rounded-full mt-2 mr-4 flex-shrink-0 group-hover:scale-150 transition-transform"></div>
+                <span class="text-lg text-gray-600">Your commitment to delivery quality</span>
+              </li>
+              <li class="flex items-start group">
+                <div class="w-2 h-2 bg-[#A8D381] rounded-full mt-2 mr-4 flex-shrink-0 group-hover:scale-150 transition-transform"></div>
+                <span class="text-lg text-gray-600">Your practical insights</span>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <div class="relative bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
-          <div class="absolute -top-4 left-8">
-            <span class="inline-flex items-center justify-center h-8 w-8 rounded-full bg-[#54C4B6] text-white text-sm font-medium">
-              2
-            </span>
-          </div>
-          <h3 class="mt-4 text-xl font-semibold text-gray-900">Meaningful Connections</h3>
-          <p class="mt-3 text-gray-600">
-            We foster environments where meaningful and fulfilling connections can flourish, building bridges between people and ideas.
-          </p>
-        </div>
-
-        <div class="relative bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
-          <div class="absolute -top-4 left-8">
-            <span class="inline-flex items-center justify-center h-8 w-8 rounded-full bg-[#54C4B6] text-white text-sm font-medium">
-              3
-            </span>
-          </div>
-          <h3 class="mt-4 text-xl font-semibold text-gray-900">Open Communication</h3>
-          <p class="mt-3 text-gray-600">
-            We champion open and honest communication, creating frameworks that enable transparency and trust in every conversation.
+        <div class="text-center mt-16 pt-8 border-t border-gray-100">
+          <p class="text-xl text-gray-600">
+            Together, we create sustainable change in how people communicate
           </p>
         </div>
       </div>
@@ -97,7 +196,7 @@ import chandimaDutton from '../../assets/images/authors/chandima-dutton.jpg';
   </section>
 
   <!-- Founders Section -->
-  <section class="py-16 lg:py-24 bg-white relative overflow-hidden">
+  <section class="py-16 lg:py-24 bg-gray-50 relative overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/5 via-transparent to-[#A8D381]/5"></div>
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 relative">
       <div class="text-center mb-16">
@@ -160,7 +259,7 @@ import chandimaDutton from '../../assets/images/authors/chandima-dutton.jpg';
   </section>
 
   <!-- Impact Section -->
-  <section class="py-16 lg:py-24 bg-gray-50">
+  <section class="py-16 lg:py-24 bg-white">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
       <div class="text-center">
         <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Our Impact</h2>
@@ -169,23 +268,17 @@ import chandimaDutton from '../../assets/images/authors/chandima-dutton.jpg';
         </p>
       </div>
 
-      <div class="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
         <div class="text-center">
-          <div class="text-4xl font-bold text-[#54C4B6]">10,000+</div>
-          <div class="mt-2 text-lg font-medium text-gray-900">Professionals Trained</div>
-          <div class="mt-1 text-sm text-gray-600">Across 50+ countries</div>
+          <div class="text-4xl font-bold text-[#54C4B6]">1200+</div>
+          <div class="mt-2 text-lg font-medium text-gray-900">Attendances</div>
+          <div class="mt-1 text-sm text-gray-600">On our public courses</div>
         </div>
 
         <div class="text-center">
           <div class="text-4xl font-bold text-[#54C4B6]">500+</div>
-          <div class="mt-2 text-lg font-medium text-gray-900">Certified Facilitators</div>
-          <div class="mt-1 text-sm text-gray-600">Spreading the methodology</div>
-        </div>
-
-        <div class="text-center">
-          <div class="text-4xl font-bold text-[#54C4B6]">95%</div>
-          <div class="mt-2 text-lg font-medium text-gray-900">Satisfaction Rate</div>
-          <div class="mt-1 text-sm text-gray-600">From course participants</div>
+          <div class="mt-2 text-lg font-medium text-gray-900">Session Plan Downloads</div>
+          <div class="mt-1 text-sm text-gray-600">Accessing free content</div>
         </div>
 
         <div class="text-center">
