@@ -62,7 +62,7 @@ Streamline the BCF website navigation for clarity and better user experience, wh
   - Directories renamed with underscore prefix (`_whitepapers`)
   - Collection disabled in content config
   - Utility functions updated to skip whitepaper processing
-  - See CLAUDE.md "Whitepapers (Currently Hidden)" section for reintroduction instructions
+  - See AGENTS.md "Whitepapers Status" section for reintroduction instructions
 
 ### Completed Foundation Work ✅
 - [x] Create robots.txt and sitemap.xml
@@ -118,7 +118,7 @@ Streamline the BCF website navigation for clarity and better user experience, wh
     - `src/pages/about/contact.astro` (lines 617-638: type assertions in inline script)
     - `src/pages/search/index.astro` (implicit 'any' types)
     - Hidden `_whitepapers` files (will be addressed when reintroduced)
-  - See CLAUDE.md "TypeScript Error Handling" section for patterns and best practices
+  - See AGENTS.md "TypeScript Error Handling" section for patterns and best practices
   - Run `npx astro check` after each fix to track progress
   - Goal: Zero TypeScript errors for production code quality
 
@@ -185,6 +185,20 @@ Streamline the BCF website navigation for clarity and better user experience, wh
 
 ## Current Status Summary
 
+### Documentation Structure (October 2025)
+
+The project has adopted the VSCode AGENTS.md file convention for AI-assisted development:
+- **Root `AGENTS.md`** (formerly `CLAUDE.md`) - Project-wide rules and architecture
+- **Nested `AGENTS.md` files** in specific directories for context-specific guidance:
+  - `src/content/blog/AGENTS.md` - Blog content writing standards
+  - `src/pages/blog/AGENTS.md` - Blog page development patterns
+  - `src/components/AGENTS.md` - Component development rules
+  - `src/pages/search/AGENTS.md` - Search functionality implementation
+  - `src/pages/AGENTS.md` - General page development
+  - `src/content/_whitepapers/AGENTS.md` - Whitepaper guidelines (for future use)
+
+This structure enables AI coding assistants to automatically load the most relevant guidance based on which files are being edited, improving development efficiency and code consistency.
+
 **What We Have:**
 - Clean, functional site structure with 16 visible pages
 - Solid SEO foundation (robots.txt, sitemap, meta tags)
@@ -192,6 +206,7 @@ Streamline the BCF website navigation for clarity and better user experience, wh
 - Modern blog with MDX support
 - Powerful Typesense search functionality
 - Breadcrumb navigation with schema markup
+- Structured AI coding assistance via nested AGENTS.md files
 
 **What We're Doing Now (Phase 1):**
 - Streamlining navigation (hiding incomplete pages)
