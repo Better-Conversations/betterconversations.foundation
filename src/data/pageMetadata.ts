@@ -81,7 +81,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['about', 'mission', 'foundation', 'history', 'values'],
     category: 'About',
     description: 'Discover the Better Conversations Foundation\'s mission and values',
-    lastmod: '2025-10-13',
+    lastmod: '2025-10-14',
     priority: 0.7,
     changefreq: 'weekly'
   },
@@ -91,7 +91,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['about', 'mission', 'vision', 'values', 'purpose'],
     category: 'About',
     description: 'Understanding BCF\'s mission to make Better Conversations accessible worldwide',
-    lastmod: '2025-10-13',
+    lastmod: '2025-10-14',
     priority: 0.4,
     changefreq: 'monthly'
   },
@@ -101,7 +101,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['about', 'team', 'people', 'leadership', 'founders'],
     category: 'About',
     description: 'Meet the dedicated team driving BCF\'s mission forward',
-    lastmod: '2025-07-21',
+    lastmod: '2025-10-14',
     priority: 0.4,
     changefreq: 'monthly'
   },
@@ -111,7 +111,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['contact', 'support', 'inquiries', 'connect', 'email'],
     category: 'About',
     description: 'Contact the BCF team for questions, partnerships, or general inquiries',
-    lastmod: '2025-10-13',
+    lastmod: '2025-10-14',
     priority: 0.5,
     changefreq: 'monthly'
   },
@@ -247,7 +247,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['ambassadors', 'showcase', 'community', 'leaders', 'global'],
     category: 'Community',
     description: 'Meet the ambassadors bringing Better Conversations to communities worldwide',
-    lastmod: '2025-10-13',
+    lastmod: '2025-10-14',
     priority: 0.3,
     changefreq: 'monthly'
   },
@@ -297,7 +297,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['home', 'welcome', 'introduction', 'overview', 'start'],
     category: 'Navigation',
     description: 'Better Conversations Foundation - Six hours, lasting change. Communication skills training for any team, any sector.',
-    lastmod: '2025-10-13',
+    lastmod: '2025-10-14',
     priority: 1.0,
     changefreq: 'weekly'
   }
