@@ -297,7 +297,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['home', 'welcome', 'introduction', 'overview', 'start'],
     category: 'Navigation',
     description: 'Better Conversations Foundation - Six hours, lasting change. Communication skills training for any team, any sector.',
-    lastmod: '2025-10-14',
+    lastmod: '2025-10-15',
     priority: 1.0,
     changefreq: 'weekly'
   }
