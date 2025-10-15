@@ -49,7 +49,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['partner', 'facilitator', 'training', 'certification', 'teaching'],
     category: 'Partnership',
     description: 'Join our network of certified facilitators delivering Better Conversations courses',
-    lastmod: '2025-07-21',
+    lastmod: '2025-10-15',
     priority: 0.4,
     changefreq: 'weekly'
   },
@@ -59,7 +59,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['partner', 'research', 'academic', 'studies', 'collaboration'],
     category: 'Partnership',
     description: 'Partner with BCF on research projects exploring Better Conversations applications',
-    lastmod: '2025-07-21',
+    lastmod: '2025-10-15',
     priority: 0.4,
     changefreq: 'weekly'
   },
@@ -143,7 +143,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['join', 'membership', 'community', 'participate', 'member'],
     category: 'Getting Started',
     description: 'Join the BCF community and access exclusive resources',
-    lastmod: '2025-07-21',
+    lastmod: '2025-10-15',
     priority: 0.5,
     changefreq: 'weekly'
   },
@@ -195,7 +195,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['courses', 'curriculum', 'learning', 'education', 'syllabus'],
     category: 'Approach',
     description: 'Explore our comprehensive Better Conversations course offerings',
-    lastmod: '2025-10-13',
+    lastmod: '2025-10-15',
     priority: 0.4,
     changefreq: 'weekly'
   },

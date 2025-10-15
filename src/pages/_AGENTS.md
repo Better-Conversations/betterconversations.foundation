@@ -1,5 +1,62 @@
 # Page Development Rules
 
+## Content & Messaging Principles
+
+### Three-Audience Approach
+
+The Foundation serves three primary audiences: **organisations, educators, and researchers**. All content should work across these audiences without diluting the message.
+
+#### Universal Language (use these terms)
+- **"Learning"** instead of "training"
+- **"Participants"** instead of "employees/students"
+- **"Setting"** or **"context"** instead of "workplace"
+- **"Facilitator"** instead of "trainer/teacher"
+- **"Evidence-based"** (appeals to all three)
+- **"Open-source"** (appeals to all three)
+
+#### British Tone & Style
+✅ **Do:**
+- Be specific about time investment (6 hours)
+- Use "we've found" rather than "studies show"
+- Acknowledge limitations ("best-efforts volunteer support")
+- Show, don't tell ("1200+ attendances" speaks louder than "amazing impact")
+- Use understated language: "It works" not "Revolutionary!"
+- Be practical: "Saves time" not "Transforms everything"
+
+❌ **Don't:**
+- Oversell or use superlatives ("game-changing", "world-class")
+- Make grand promises
+- Use American-isms ("transform", "leverage", "ecosystem")
+- Hide the nonprofit/volunteer model
+- Pretend it solves everything
+
+#### Example Messaging Patterns
+
+**TOO AMERICAN:**
+> "Transform your workplace culture with our revolutionary framework!"
+
+**TOO DRY:**
+> "Our intervention demonstrates statistically significant improvements."
+
+**JUST RIGHT (British):**
+> "A six-hour course that actually changes how people talk to each other at work. Simple framework, practical skills, lasting effect."
+
+### Audience-Specific Language
+
+**For Organisations:**
+- Focus: Efficiency, retention, practical benefits
+- Language: "Reduces wasted time", "improves staff retention", "scales across departments"
+
+**For Educators:**
+- Focus: Student development, curriculum fit, pastoral care
+- Language: "Develops metacognitive skills", "supports pastoral care", "oracy skills"
+- British education terms: "Pupil voice", "PSHE curriculum", "student agency"
+
+**For Researchers:**
+- Focus: Methodology, evidence, collaboration
+- Language: "Open methodology", "research collaboration", "evidence-based framework"
+- Avoid marketing language entirely
+
 ## General Page Structure
 
 All pages should follow this structure:
