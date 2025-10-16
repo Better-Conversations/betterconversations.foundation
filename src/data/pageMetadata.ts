@@ -49,7 +49,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['partner', 'facilitator', 'training', 'certification', 'teaching'],
     category: 'Partnership',
     description: 'Join our network of certified facilitators delivering Better Conversations courses',
-    lastmod: '2025-07-21',
+    lastmod: '2025-10-15',
     priority: 0.4,
     changefreq: 'weekly'
   },
@@ -59,7 +59,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['partner', 'research', 'academic', 'studies', 'collaboration'],
     category: 'Partnership',
     description: 'Partner with BCF on research projects exploring Better Conversations applications',
-    lastmod: '2025-07-21',
+    lastmod: '2025-10-15',
     priority: 0.4,
     changefreq: 'weekly'
   },
@@ -81,7 +81,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['about', 'mission', 'foundation', 'history', 'values'],
     category: 'About',
     description: 'Discover the Better Conversations Foundation\'s mission and values',
-    lastmod: '2025-10-13',
+    lastmod: '2025-10-14',
     priority: 0.7,
     changefreq: 'weekly'
   },
@@ -91,7 +91,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['about', 'mission', 'vision', 'values', 'purpose'],
     category: 'About',
     description: 'Understanding BCF\'s mission to make Better Conversations accessible worldwide',
-    lastmod: '2025-10-13',
+    lastmod: '2025-10-14',
     priority: 0.4,
     changefreq: 'monthly'
   },
@@ -101,7 +101,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['about', 'team', 'people', 'leadership', 'founders'],
     category: 'About',
     description: 'Meet the dedicated team driving BCF\'s mission forward',
-    lastmod: '2025-07-21',
+    lastmod: '2025-10-14',
     priority: 0.4,
     changefreq: 'monthly'
   },
@@ -111,7 +111,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['contact', 'support', 'inquiries', 'connect', 'email'],
     category: 'About',
     description: 'Contact the BCF team for questions, partnerships, or general inquiries',
-    lastmod: '2025-10-13',
+    lastmod: '2025-10-14',
     priority: 0.5,
     changefreq: 'monthly'
   },
@@ -143,7 +143,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['join', 'membership', 'community', 'participate', 'member'],
     category: 'Getting Started',
     description: 'Join the BCF community and access exclusive resources',
-    lastmod: '2025-07-21',
+    lastmod: '2025-10-15',
     priority: 0.5,
     changefreq: 'weekly'
   },
@@ -195,7 +195,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['courses', 'curriculum', 'learning', 'education', 'syllabus'],
     category: 'Approach',
     description: 'Explore our comprehensive Better Conversations course offerings',
-    lastmod: '2025-10-13',
+    lastmod: '2025-10-15',
     priority: 0.4,
     changefreq: 'weekly'
   },
@@ -247,7 +247,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['ambassadors', 'showcase', 'community', 'leaders', 'global'],
     category: 'Community',
     description: 'Meet the ambassadors bringing Better Conversations to communities worldwide',
-    lastmod: '2025-10-13',
+    lastmod: '2025-10-14',
     priority: 0.3,
     changefreq: 'monthly'
   },
@@ -297,7 +297,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['home', 'welcome', 'introduction', 'overview', 'start'],
     category: 'Navigation',
     description: 'Better Conversations Foundation - Six hours, lasting change. Communication skills training for any team, any sector.',
-    lastmod: '2025-10-13',
+    lastmod: '2025-10-15',
     priority: 1.0,
     changefreq: 'weekly'
   }
