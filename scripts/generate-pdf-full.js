@@ -1,4 +1,4 @@
-import { chromium } from 'playwright';
+import puppeteer from 'puppeteer';
 import fs from 'fs';
 import path from 'path';
 import http from 'http';
@@ -145,13 +145,14 @@ async function generateFullPDF() {
   htmlFiles = sortPages(htmlFiles);
   console.log(`Processing ${htmlFiles.length} pages for PDF (navbar pages only)\n`);
 
-  // Launch browser
-  const browser = await chromium.launch({
+  // Launch browser with system Chromium
+  // Note: We use system Chromium instead of Puppeteer's bundled Chrome because
+  // on ARM64 systems, Puppeteer downloads x86-64 binaries which cannot run.
+  // See Dockerfile for full explanation of the architecture mismatch issue.
+  const browser = await puppeteer.launch({
     headless: true,
-  });
-
-  const context = await browser.newContext({
-    viewport: { width: 1600, height: 1200 }
+    executablePath: '/usr/bin/chromium',
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
   });
 
   // Array to store individual PDF pages
@@ -160,7 +161,8 @@ async function generateFullPDF() {
   console.log('Rendering pages...\n');
 
   // First, create a cover page
-  const coverPage = await context.newPage();
+  const coverPage = await browser.newPage();
+  await coverPage.setViewport({ width: 1600, height: 1200 });
   await coverPage.setContent(`
     <!DOCTYPE html>
     <html>
@@ -219,21 +221,17 @@ async function generateFullPDF() {
     console.log(`[${i + 1}/${htmlFiles.length}] ${pageTitle}`);
 
     try {
-      const page = await context.newPage();
+      const page = await browser.newPage();
+      await page.setViewport({ width: 1600, height: 1200 });
 
       // Use a more reliable waiting strategy
       await page.goto(pageUrl, {
-        waitUntil: 'domcontentloaded',
+        waitUntil: 'networkidle2',
         timeout: 60000
       });
 
-      // Wait for the page to be mostly loaded
-      await page.waitForLoadState('load', { timeout: 60000 }).catch(() => {
-        console.log(`  Warning: Page load timeout, continuing anyway`);
-      });
-
       // Wait for images and dynamic content
-      await page.waitForTimeout(2000);
+      await new Promise(resolve => setTimeout(resolve, 2000));
 
       // Inject styles and page title header
       await page.evaluate((title) => {
@@ -301,7 +299,7 @@ async function generateFullPDF() {
     } catch (error) {
       console.error(`  ✗ Error processing ${pageTitle}:`, error.message);
       // Create a placeholder error page
-      const errorPage = await context.newPage();
+      const errorPage = await browser.newPage();
       await errorPage.setContent(`
         <!DOCTYPE html>
         <html>
