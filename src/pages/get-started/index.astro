@@ -1,8 +1,234 @@
 ---
-import UnderConstruction from '../../layouts/UnderConstruction.astro';
+import Layout from '../../layouts/Layout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import { generateMetaProperties } from '../../utils/metadata';
+
+const metadata = generateMetaProperties('/get-started');
 ---
 
-<UnderConstruction 
-  title="Get Started" 
-  description="Welcome to Better Conversations! We're preparing comprehensive resources to help you begin your journey. Soon you'll find everything you need to join our community and start making a difference."
-/>
+<Layout
+  title={metadata.title}
+  description={metadata.description}
+  keywords={metadata.keywords}
+>
+  <HeroSection
+    title="Get Started with Better Conversations"
+    titleHighlight="Get Started"
+    description="Choose the pathway that fits your context—whether you're transforming an organisation, enriching education, or advancing research."
+  />
+
+  <!-- Pathway Selection Section -->
+  <section class="py-16 lg:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Choose Your Path</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          We offer tailored partnership models for organisations, educators, and researchers.
+          Select the path that best fits your needs.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 mb-16">
+        <!-- For Organisations -->
+        <a href="/get-started/organisations" class="group bg-gradient-to-br from-gray-50 to-white rounded-xl shadow-md border-2 border-gray-200 p-8 hover:shadow-2xl hover:border-[#54C4B6] transition-all duration-300">
+          <div class="flex items-center justify-center h-20 w-20 rounded-xl bg-[#54C4B6]/10 text-[#54C4B6] mx-auto group-hover:bg-[#54C4B6] group-hover:text-white transition-all duration-300">
+            <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
+          </div>
+          <h3 class="mt-6 text-2xl font-bold text-gray-900 text-center group-hover:text-[#54C4B6] transition-colors">For Organisations</h3>
+          <p class="mt-4 text-base text-gray-600 text-center leading-relaxed">
+            L&D professionals, HR leaders, and organisational change-makers seeking to transform workplace culture through better conversations.
+          </p>
+          <div class="mt-8 pt-6 border-t border-gray-200">
+            <ul class="space-y-3 text-sm text-gray-600">
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>Deep implementation support</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>Internal trainer development</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>Measurable impact assessment</span>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-6 flex items-center justify-center text-[#54C4B6] font-semibold group-hover:translate-x-1 transition-transform">
+            Learn More
+            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </a>
+
+        <!-- For Educators -->
+        <a href="/get-started/educators" class="group bg-gradient-to-br from-gray-50 to-white rounded-xl shadow-md border-2 border-gray-200 p-8 hover:shadow-2xl hover:border-[#A8D381] transition-all duration-300">
+          <div class="flex items-center justify-center h-20 w-20 rounded-xl bg-[#A8D381]/10 text-[#A8D381] mx-auto group-hover:bg-[#A8D381] group-hover:text-white transition-all duration-300">
+            <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+          <h3 class="mt-6 text-2xl font-bold text-gray-900 text-center group-hover:text-[#A8D381] transition-colors">For Educators</h3>
+          <p class="mt-4 text-base text-gray-600 text-center leading-relaxed">
+            Teachers, professors, and educational leaders embedding conversation skills in secondary and higher education curricula.
+          </p>
+          <div class="mt-8 pt-6 border-t border-gray-200">
+            <ul class="space-y-3 text-sm text-gray-600">
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>Curriculum integration guidance</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>Pedagogical support & assessment</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>Student outcome tracking</span>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-6 flex items-center justify-center text-[#A8D381] font-semibold group-hover:translate-x-1 transition-transform">
+            Learn More
+            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </a>
+
+        <!-- For Researchers -->
+        <a href="/get-started/researchers" class="group bg-gradient-to-br from-gray-50 to-white rounded-xl shadow-md border-2 border-gray-200 p-8 hover:shadow-2xl hover:border-[#54C4B6] transition-all duration-300">
+          <div class="flex items-center justify-center h-20 w-20 rounded-xl bg-[#54C4B6]/10 text-[#54C4B6] mx-auto group-hover:bg-[#54C4B6] group-hover:text-white transition-all duration-300">
+            <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+            </svg>
+          </div>
+          <h3 class="mt-6 text-2xl font-bold text-gray-900 text-center group-hover:text-[#54C4B6] transition-colors">For Researchers</h3>
+          <p class="mt-4 text-base text-gray-600 text-center leading-relaxed">
+            Academic and applied researchers studying team dynamics, group communication, and conversation as organisational infrastructure.
+          </p>
+          <div class="mt-8 pt-6 border-t border-gray-200">
+            <ul class="space-y-3 text-sm text-gray-600">
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>Standardized research intervention</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>Collaborative research design</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>Co-publishing opportunities</span>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-6 flex items-center justify-center text-[#54C4B6] font-semibold group-hover:translate-x-1 transition-transform">
+            Learn More
+            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Other Options Section -->
+  <section class="py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-white">
+    <div class="max-w-5xl mx-auto px-6 sm:px-8 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Other Ways to Get Involved</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Not ready for a full partnership? Explore these alternatives.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Join the Foundation -->
+        <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
+          <div class="w-14 h-14 bg-gradient-to-br from-[#54C4B6]/20 to-[#A8D381]/20 rounded-lg flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Join as a Member</h3>
+          <p class="text-gray-600 mb-6">
+            Individual trainers and facilitators can join the Foundation community to access resources, connect with peers, and deliver courses independently.
+          </p>
+          <a href="/get-started/join" class="inline-flex items-center text-[#54C4B6] font-medium hover:text-[#54C4B6]/80">
+            Learn about membership
+            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Attend a Course -->
+        <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
+          <div class="w-14 h-14 bg-gradient-to-br from-[#54C4B6]/20 to-[#A8D381]/20 rounded-lg flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-[#A8D381]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Attend a Course</h3>
+          <p class="text-gray-600 mb-6">
+            Experience Better Conversations firsthand by attending a public course, arranging private training, or accessing partner organisation courses.
+          </p>
+          <a href="/get-started/attend-course" class="inline-flex items-center text-[#A8D381] font-medium hover:text-[#A8D381]/80">
+            Find a course
+            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact CTA -->
+  <section class="py-16 lg:py-20 bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10">
+    <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Not Sure Which Path is Right?</h2>
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        Let's have a conversation about your goals and find the best fit for your context.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/get-started/schedule-call" class="inline-flex items-center justify-center px-8 py-4 text-lg font-medium rounded-full text-white bg-gradient-to-r from-[#54C4B6] to-[#A8D381] hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+          Schedule a Call
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+        </a>
+        <a href="/about/contact" class="inline-flex items-center justify-center px-8 py-4 text-lg font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transform hover:scale-105 transition-all duration-300 border-2 border-gray-200">
+          Email Us
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

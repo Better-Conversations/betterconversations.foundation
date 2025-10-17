@@ -177,6 +177,42 @@ export const pageMetadata: PageMetadataMap = {
     priority: 0.4,
     changefreq: 'weekly'
   },
+  '/get-started/organizations': {
+    title: 'Organizational Partnerships',
+    excerpt: 'Transform your workplace culture with deep implementation support and trainer development',
+    tags: ['organizations', 'partnership', 'workplace', 'L&D', 'HR', 'implementation'],
+    category: 'Getting Started',
+    description: 'Transform your workplace culture with deep implementation support, trainer development, and measurable impact through partnership with the Better Conversations Foundation.',
+    metaDescription: 'Partner with BCF for organizational transformation through Better Conversations—implementation support, trainer development, and sustained impact.',
+    keywords: ['organizational development', 'workplace culture', 'L&D', 'HR', 'team communication', 'employee engagement'],
+    lastmod: '2025-10-17',
+    priority: 0.8,
+    changefreq: 'weekly'
+  },
+  '/get-started/educators': {
+    title: 'Educator Partnerships',
+    excerpt: 'Embed conversation skills in your curriculum with pedagogical support and assessment frameworks',
+    tags: ['education', 'curriculum', 'pedagogy', 'educators', 'teaching', 'students'],
+    category: 'Getting Started',
+    description: 'Embed conversation skills in your curriculum with pedagogical support, assessment frameworks, and student outcome tracking through partnership with the Better Conversations Foundation.',
+    metaDescription: 'Partner with BCF to integrate Better Conversations into your curriculum—pedagogical guidance, assessment support, and student outcomes.',
+    keywords: ['education', 'curriculum', 'pedagogy', 'student outcomes', 'communication skills', 'higher education', 'secondary education'],
+    lastmod: '2025-10-17',
+    priority: 0.7,
+    changefreq: 'weekly'
+  },
+  '/get-started/researchers': {
+    title: 'Research Partnerships',
+    excerpt: 'Collaborate on research using Better Conversations as a standardized intervention',
+    tags: ['research', 'collaboration', 'academic', 'studies', 'intervention', 'teams'],
+    category: 'Getting Started',
+    description: 'Collaborate on research using Better Conversations as a standardized intervention to study teams, groups, and conversation dynamics. Co-design studies and co-publish findings.',
+    metaDescription: 'Partner with BCF for research collaboration—standardized intervention, co-designed studies, and co-publishing opportunities.',
+    keywords: ['research collaboration', 'team dynamics', 'group communication', 'psychology research', 'social science', 'intervention studies'],
+    lastmod: '2025-10-17',
+    priority: 0.6,
+    changefreq: 'weekly'
+  },
 
   // Approach Pages
   '/approach': {
@@ -297,7 +333,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['home', 'welcome', 'introduction', 'overview', 'start'],
     category: 'Navigation',
     description: 'Better Conversations Foundation - Six hours, lasting change. Communication skills training for any team, any sector.',
-    lastmod: '2025-10-15',
+    lastmod: '2025-10-17',
     priority: 1.0,
     changefreq: 'weekly'
   }

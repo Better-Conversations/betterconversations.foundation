@@ -1,0 +1,360 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import { generateMetaProperties } from '../../utils/metadata';
+
+const metadata = generateMetaProperties('/get-started/organisations');
+---
+
+<Layout
+  title={metadata.title}
+  description={metadata.description}
+  keywords={metadata.keywords}
+>
+  <HeroSection
+    title="Partnership for Organisational Transformation"
+    titleHighlight="Organisational Partnership"
+    description="Deep implementation support to embed Better Conversations across your organisation—building internal capacity, measuring impact, and creating lasting cultural change."
+  />
+
+  <!-- Value Proposition Section -->
+  <section class="py-16 lg:py-20 bg-white">
+    <div class="max-w-5xl mx-auto px-6 sm:px-8 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Why Partner With Us?</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Beyond simply downloading materials—we work alongside you to ensure successful implementation and sustained impact.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Guided Implementation -->
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-xl p-8 shadow-sm border border-gray-200">
+          <div class="w-14 h-14 bg-[#54C4B6]/10 rounded-lg flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Guided Implementation</h3>
+          <p class="text-gray-600">
+            Work directly with experienced facilitators who've successfully embedded Better Conversations across healthcare, education, and corporate contexts.
+          </p>
+        </div>
+
+        <!-- Internal Capacity Building -->
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-xl p-8 shadow-sm border border-gray-200">
+          <div class="w-14 h-14 bg-[#A8D381]/10 rounded-lg flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-[#A8D381]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Trainer Development</h3>
+          <p class="text-gray-600">
+            Build sustainable internal capacity by developing your own trainers—reducing dependency on external consultants while maintaining quality.
+          </p>
+        </div>
+
+        <!-- Measurable Impact -->
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-xl p-8 shadow-sm border border-gray-200">
+          <div class="w-14 h-14 bg-[#54C4B6]/10 rounded-lg flex items-center justify-center mb-6">
+            <svg class="w-7 h-7 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Impact Assessment</h3>
+          <p class="text-gray-600">
+            Measure what matters to you—quantitative or qualitative metrics tailored to your context and strategic goals.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partnership Model Section -->
+  <section class="py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-white">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">How Partnership Works</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          A collaborative, phased approach to embedding Better Conversations in your organisation
+        </p>
+      </div>
+
+      <div class="space-y-8">
+        <!-- Phase 1 -->
+        <div class="bg-white rounded-xl p-8 shadow-sm border-l-4 border-[#54C4B6]">
+          <div class="flex items-start">
+            <div class="flex-shrink-0 mr-6">
+              <div class="w-12 h-12 bg-[#54C4B6] text-white rounded-full flex items-center justify-center text-xl font-bold">
+                1
+              </div>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold text-gray-900 mb-3">Discovery & Planning</h3>
+              <p class="text-gray-600 mb-4">
+                We start with a collaborative discovery process to understand your organisational context, challenges, and goals.
+              </p>
+              <ul class="space-y-2 text-gray-600">
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Stakeholder interviews and needs assessment</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Co-design implementation roadmap</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Define success metrics (qualitative and/or quantitative)</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 2 -->
+        <div class="bg-white rounded-xl p-8 shadow-sm border-l-4 border-[#A8D381]">
+          <div class="flex items-start">
+            <div class="flex-shrink-0 mr-6">
+              <div class="w-12 h-12 bg-[#A8D381] text-white rounded-full flex items-center justify-center text-xl font-bold">
+                2
+              </div>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold text-gray-900 mb-3">Train-the-Trainer Program</h3>
+              <p class="text-gray-600 mb-4">
+                Develop internal trainers who can deliver Better Conversations with confidence and authenticity.
+              </p>
+              <ul class="space-y-2 text-gray-600">
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Cohort completes Better Conversations course together</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Facilitation skills training and practice sessions</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Adapt materials for your organisational context</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 3 -->
+        <div class="bg-white rounded-xl p-8 shadow-sm border-l-4 border-[#54C4B6]">
+          <div class="flex items-start">
+            <div class="flex-shrink-0 mr-6">
+              <div class="w-12 h-12 bg-[#54C4B6] text-white rounded-full flex items-center justify-center text-xl font-bold">
+                3
+              </div>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold text-gray-900 mb-3">Rollout & Support</h3>
+              <p class="text-gray-600 mb-4">
+                Launch courses across your organisation with ongoing support and continuous improvement.
+              </p>
+              <ul class="space-y-2 text-gray-600">
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Co-facilitation with experienced trainers for initial cohorts</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Regular debrief sessions and reflective practice</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Access to Foundation community of practice</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 4 -->
+        <div class="bg-white rounded-xl p-8 shadow-sm border-l-4 border-[#A8D381]">
+          <div class="flex items-start">
+            <div class="flex-shrink-0 mr-6">
+              <div class="w-12 h-12 bg-[#A8D381] text-white rounded-full flex items-center justify-center text-xl font-bold">
+                4
+              </div>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold text-gray-900 mb-3">Measure & Evolve</h3>
+              <p class="text-gray-600 mb-4">
+                Track impact, gather insights, and continuously refine your approach based on evidence.
+              </p>
+              <ul class="space-y-2 text-gray-600">
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Collect and analyze participant feedback</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Optional: Design custom metrics with research support</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Co-create case studies to share learnings</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who This Is For Section -->
+  <section class="py-16 lg:py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Is This Right For Your Organisation?</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Organisational partnerships work best when there's commitment to implementation, not just interest in materials.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Good Fit -->
+        <div class="bg-gradient-to-br from-[#54C4B6]/5 to-[#54C4B6]/10 rounded-xl p-8 border border-[#54C4B6]/20">
+          <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+            <svg class="w-8 h-8 text-[#54C4B6] mr-3" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            Partnership is a good fit if you:
+          </h3>
+          <ul class="space-y-4">
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-[#54C4B6] mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span class="text-gray-700">Have organisational buy-in from leadership</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-[#54C4B6] mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span class="text-gray-700">Can commit 3-5 people to trainer development</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-[#54C4B6] mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span class="text-gray-700">Want to reach hundreds of employees over time</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-[#54C4B6] mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span class="text-gray-700">Value evidence-based approaches</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-[#54C4B6] mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span class="text-gray-700">Are willing to share learnings with the community</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Alternative Options -->
+        <div class="bg-gradient-to-br from-gray-100 to-gray-50 rounded-xl p-8 border border-gray-200">
+          <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+            <svg class="w-8 h-8 text-gray-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Consider alternatives if you:
+          </h3>
+          <ul class="space-y-4">
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-gray-500 mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+              </svg>
+              <span class="text-gray-700">Want to test the materials independently first → <a href="/download/course-docs" class="text-[#54C4B6] hover:underline font-medium">Download free materials</a></span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-gray-500 mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+              </svg>
+              <span class="text-gray-700">Need a one-off training session → <a href="/get-started/attend-course" class="text-[#54C4B6] hover:underline font-medium">Explore course options</a></span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-gray-500 mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+              </svg>
+              <span class="text-gray-700">Are an individual trainer/facilitator → <a href="/get-started/join" class="text-[#54C4B6] hover:underline font-medium">Join the Foundation</a></span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-gray-500 mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+              </svg>
+              <span class="text-gray-700">Don't have leadership support yet → <a href="/about/contact" class="text-[#54C4B6] hover:underline font-medium">Let's discuss your situation</a></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 lg:py-20 bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10">
+    <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Ready to Explore Partnership?</h2>
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        Let's have a conversation about your organisation's needs, goals, and how we might work together.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+        <a href="/get-started/schedule-call" class="inline-flex items-center justify-center px-8 py-4 text-lg font-medium rounded-full text-white bg-gradient-to-r from-[#54C4B6] to-[#A8D381] hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+          Schedule a Discovery Call
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+        </a>
+        <a href="/about/contact" class="inline-flex items-center justify-center px-8 py-4 text-lg font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transform hover:scale-105 transition-all duration-300 border-2 border-gray-200">
+          Email Us Your Questions
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="bg-white/80 backdrop-blur rounded-xl p-6 max-w-2xl mx-auto">
+        <p class="text-gray-700 mb-2">
+          <strong>Note:</strong> We work with a limited number of partner organisations each year to ensure quality support.
+        </p>
+        <p class="text-gray-600 text-sm">
+          Initial consultations are always free with no obligation—we'll help you determine if partnership is the right path.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -3,20 +3,53 @@ import Layout from '../../layouts/Layout.astro';
 import HeroSection from '../../components/HeroSection.astro';
 ---
 
-<Layout title="Deliver Courses - Better Conversations Foundation">
+<Layout title="Community Membership - Better Conversations Foundation">
   <HeroSection
-    title="Deliver Better Conversations Courses"
-    titleHighlight="Deliver"
-    description="Join our global network of trainers bringing Clean Language and better communication skills to organizations and communities worldwide."
+    title="Join Our Community of Practitioners"
+    titleHighlight="Community"
+    description="Connect with trained facilitators from partner organisations who are delivering Better Conversations across diverse contexts worldwide."
   />
 
-  <!-- Why Deliver Section -->
+  <!-- Important Note Section -->
+  <section class="py-16 lg:py-20 bg-gradient-to-r from-[#54C4B6]/10 to-[#A8D381]/10">
+    <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8">
+      <div class="bg-white rounded-xl p-8 shadow-lg border-2 border-[#54C4B6]">
+        <div class="flex items-start">
+          <svg class="w-12 h-12 text-[#54C4B6] mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-3">Community Access Through Partnerships</h3>
+            <p class="text-lg text-gray-700 mb-4">
+              <strong>Our approach has evolved:</strong> We focus on deep organisational partnerships rather than supporting individual facilitators working independently.
+            </p>
+            <p class="text-gray-700 mb-4">
+              Community membership and trainer support are now <strong>primarily for those within partner organisations</strong> where we provide comprehensive train-the-trainer programs and sustained implementation support.
+            </p>
+            <div class="flex gap-4">
+              <a href="/get-started" class="inline-flex items-center px-6 py-3 text-base font-medium rounded-md text-white bg-[#54C4B6] hover:bg-[#54C4B6]/90">
+                Explore Organisational Partnerships
+                <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                </svg>
+              </a>
+              <a href="/approach/open-content" class="inline-flex items-center px-6 py-3 text-base font-medium rounded-md text-gray-700 bg-gray-100 hover:bg-gray-200">
+                Download Free Materials (DIY)
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Community Section -->
   <section class="py-16 lg:py-20 bg-white">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
       <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Why Deliver Better Conversations?</h2>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Why Join Our Community?</h2>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Transform organizations and communities by helping people connect on a human level through better communication.
+          For trainers within partner organisations, community membership provides ongoing support and connection.
         </p>
       </div>
 
@@ -38,7 +71,7 @@ import HeroSection from '../../components/HeroSection.astro';
             </svg>
           </div>
           <h3 class="text-xl font-semibold text-gray-900 mb-2">Free Resources</h3>
-          <p class="text-gray-600">Access comprehensive course materials under Creative Commons licensing at no cost.</p>
+          <p class="text-gray-600">Access comprehensive course materials under Creative Commons licencing at no cost.</p>
         </div>
 
         <div class="text-center">
@@ -286,7 +319,7 @@ import HeroSection from '../../components/HeroSection.astro';
             <h3 class="text-xl font-bold text-gray-900 mb-2">Access Course Materials</h3>
             <p class="text-gray-600 mb-4">
               Download flight plans, participant guides, and all supporting materials. All content is available under
-              Creative Commons licensing, allowing you to customize it for your specific context while maintaining course integrity.
+              Creative Commons licencing, allowing you to customize it for your specific context while maintaining course integrity.
             </p>
             <a href="https://betterconversations.foundation/l/flightplans" class="inline-flex items-center text-[#A8D381] hover:text-[#A8D381]/80 font-medium" target="_blank" rel="noopener noreferrer">
               View flight plans
@@ -308,7 +341,7 @@ import HeroSection from '../../components/HeroSection.astro';
             <h3 class="text-xl font-bold text-gray-900 mb-2">Deliver Your First Course</h3>
             <p class="text-gray-600">
               Start delivering courses with the support of our trainer community. Whether you're running private courses
-              for your organization, public courses, or partnering with nonprofits, you'll have access to tools,
+              for your organisation, public courses, or partnering with nonprofits, you'll have access to tools,
               feedback collection systems, and ongoing support from experienced facilitators.
             </p>
           </div>
@@ -337,7 +370,7 @@ import HeroSection from '../../components/HeroSection.astro';
           </div>
           <h3 class="text-xl font-bold text-gray-900 mb-3">Private Courses</h3>
           <p class="text-gray-600 mb-4">
-            Deliver tailored courses within your organization or for specific client groups. Perfect for
+            Deliver tailored courses within your organisation or for specific client groups. Perfect for
             workplace culture transformation and team development.
           </p>
           <ul class="space-y-2 text-sm text-gray-600">
@@ -371,7 +404,7 @@ import HeroSection from '../../components/HeroSection.astro';
           </div>
           <h3 class="text-xl font-bold text-gray-900 mb-3">Public Courses</h3>
           <p class="text-gray-600 mb-4">
-            Open courses for individuals from different organizations. Build diverse learning communities and
+            Open courses for individuals from different organisations. Build diverse learning communities and
             expand your reach as a facilitator.
           </p>
           <ul class="space-y-2 text-sm text-gray-600">
@@ -461,7 +494,7 @@ import HeroSection from '../../components/HeroSection.astro';
             </svg>
           </div>
           <h3 class="font-semibold text-gray-900 mb-1">Coaches</h3>
-          <p class="text-sm text-gray-600">Executive and organizational coaches</p>
+          <p class="text-sm text-gray-600">Executive and organisational coaches</p>
         </div>
 
         <div class="text-center">
