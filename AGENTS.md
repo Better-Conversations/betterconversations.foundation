@@ -76,7 +76,7 @@ Contains project roadmap, task tracking, and status:
 ## Project-Wide Critical Rules
 
 ### Must Follow Always
-- **UK English spelling** throughout the entire site
+- **UK English spelling for content only** - Use British English (organisation, licence, centre) in all user-facing text and content. **NEVER change code syntax**: CSS properties (`color:`, `border-color:`), CSS values (`text-align: center`), SVG attributes (`stop-color`), or Tailwind classes (`text-center`, `items-center`) must remain in standard code format.
 - **Run `npx astro check`** after any TypeScript or Astro file changes
 - **Only fix errors in files you have modified** - do not attempt to fix all project errors
 - **Use global `.bcf-*` classes** before creating custom styling (check `src/styles/global.css`)

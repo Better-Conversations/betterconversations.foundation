@@ -18,8 +18,8 @@ const blogPosts = await Promise.all(
       let optimizedImageUrl = post.data.image; // fallback to original
       
       if (heroImage) {
-        const optimized = await getImage({ src: heroImage, width: 800, height: 400 });
-        optimizedImageUrl = optimized.src;
+        const optimised = await getImage({ src: heroImage, width: 800, height: 400 });
+        optimizedImageUrl = optimised.src;
       }
       
       return {
