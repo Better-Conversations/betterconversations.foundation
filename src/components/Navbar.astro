@@ -13,40 +13,44 @@ export interface Props {
 const { class: className = '', showBreadcrumbs = false, customBreadcrumbs } = Astro.props;
 
 const navItems = [
-  { 
-    name: 'Home', 
-    href: '/' 
+  {
+    name: 'Home',
+    href: '/'
   },
   {
     name: 'Get Started',
     href: '/get-started',
     dropdown: [
-      { name: 'Join the Foundation', href: '/get-started/join' },
-      { name: 'Attend a Course', href: '/get-started/attend-course' }
+      { name: 'For Organisations', href: '/get-started/organizations' },
+      { name: 'For Educators', href: '/get-started/educators' },
+      { name: 'For Researchers', href: '/get-started/researchers' },
+      { name: 'Experience a Course', href: '/get-started/attend-course' },
+      { name: 'Schedule a Call', href: '/get-started/schedule-call' }
     ]
   },
   {
     name: 'Our Approach',
     href: '/approach',
     dropdown: [
-      { name: 'Course Overview', href: '/approach/courses' },
+      { name: 'The Framework', href: '/approach/courses' },
+      { name: 'Open Content', href: '/approach/open-content' },
       { name: 'FAQs', href: '/approach/faqs' }
     ]
   },
   {
-    name: 'Open Resources',
+    name: 'Resources',
     href: '/resources',
     dropdown: [
       { name: 'Blog', href: '/blog' },
       { name: 'Documentation', href: 'https://betterconversations.foundation/documentation/index.html' }
     ]
   },
-  { 
-    name: 'Partner With Us', 
+  {
+    name: 'Partner',
     href: '/partner',
     dropdown: [
-      { name: 'For Organisations', href: '/partner/organizations' },
-      { name: 'Deliver Courses', href: '/partner/deliver-courses' },
+      { name: 'Partnership Options', href: '/partner' },
+      { name: 'Community Membership', href: '/partner/deliver-courses' },
       { name: 'Research Collaboration', href: '/partner/research' },
       { name: 'Support Us', href: '/partner/support' }
     ]
@@ -55,9 +59,10 @@ const navItems = [
     name: 'About',
     href: '/about',
     dropdown: [
+      { name: 'Our Mission', href: '/about/mission' },
       { name: 'Our Team', href: '/about/team' },
-      { name: 'Our Appreciation', href: '/about/thanks' },
       { name: 'Our Ambassadors', href: '/about/showcase' },
+      { name: 'Our Appreciation', href: '/about/thanks' },
       { name: 'Contact Us', href: '/about/contact' }
     ]
   }
