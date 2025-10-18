@@ -1,0 +1,16 @@
+---
+// This wrapper adapts the StatBox interface to StatBoxPDF
+import StatBoxPDF from './StatBoxPDF.astro';
+
+export interface Props {
+  number: string;
+  label: string;
+  color?: string;
+  trend?: 'up' | 'down' | 'neutral';
+  animate?: boolean;
+}
+
+const { number, label, color, trend } = Astro.props;
+---
+
+<StatBoxPDF number={number} label={label} color={color} trend={trend} />

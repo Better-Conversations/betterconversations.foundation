@@ -66,7 +66,7 @@ const pages = taggedContent.filter(item => item.type === 'page');
   <section class="relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white py-16 lg:py-20">
     <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/10 via-transparent to-[#A8D381]/10"></div>
     
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
       <div class="text-center">
         <a href="/tags" class="inline-flex items-center text-[#54C4B6] hover:text-[#54C4B6]/80 transition-colors mb-6">
           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -102,7 +102,7 @@ const pages = taggedContent.filter(item => item.type === 'page');
         {relatedTags.length > 0 && (
           <div class="mt-8">
             <p class="text-lg text-gray-600 mb-2">Related topics:</p>
-            <div class="flex flex-wrap justify-center gap-1 px-8 md:px-16 lg:px-24">
+            <div class="flex flex-wrap justify-center gap-1 px-6 sm:px-8 lg:px-8">
               {relatedTags.map((relatedTag, index) => (
                 <a
                   href={`/tags/${normalizeTag(relatedTag)}`}
@@ -128,13 +128,13 @@ const pages = taggedContent.filter(item => item.type === 'page');
 
   <!-- Content Sections -->
   <section class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
       {blogPosts.length > 0 && (
         <div class="mb-16">
           <h2 class="text-2xl font-bold text-gray-900 mb-8">Blog Articles</h2>
           <div class="space-y-4">
             {blogPosts.map(post => {
-              // Get optimized image if available
+              // Get optimised image if available
               const postSlug = post.slug.split('/').pop() || '';
               const optimizedImage = getBlogImage(postSlug);
               
@@ -172,7 +172,7 @@ const pages = taggedContent.filter(item => item.type === 'page');
                         </p>
                         
                         <div class="bcf-content-card-meta">
-                          {post.date && <time>{post.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' })}</time>}
+                          {post.date && <time datetime={post.date.toISOString()}>{post.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' })}</time>}
                           {post.authors && (
                             <span>{Array.isArray(post.authors) ? post.authors.join(', ') : post.authors}</span>
                           )}
@@ -230,7 +230,7 @@ const pages = taggedContent.filter(item => item.type === 'page');
                       </p>
                       
                       <div class="bcf-content-card-meta">
-                        {paper.date && <time>{paper.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short' })}</time>}
+                        {paper.date && <time datetime={paper.date.toISOString()}>{paper.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short' })}</time>}
                         {paper.authors && (
                           <span>{Array.isArray(paper.authors) ? paper.authors.join(', ') : paper.authors}</span>
                         )}
@@ -278,7 +278,7 @@ const pages = taggedContent.filter(item => item.type === 'page');
                       </div>
                     </div>
                     
-                    <div class="bcf-content-card-content centered">
+                    <div class="bcf-content-card-content centred">
                       <h3 class="bcf-content-card-title">
                         {page.title}
                       </h3>

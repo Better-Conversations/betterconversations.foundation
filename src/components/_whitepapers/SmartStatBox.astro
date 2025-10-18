@@ -1,0 +1,23 @@
+---
+// This is a smart wrapper that automatically renders either the interactive or PDF version
+export interface Props {
+  number: string;
+  label: string;
+  color?: string;
+  trend?: 'up' | 'down' | 'neutral';
+  animate?: boolean;
+}
+
+const props = Astro.props;
+
+// Check if we're in PDF context
+const isPDF = Astro.url.pathname.endsWith('.pdf');
+
+// Dynamically import the appropriate component
+const Component = isPDF 
+  ? (await import('./pdf/StatBoxPDF.astro')).default
+  : (await import('./StatBox.astro')).default;
+
+---
+
+<Component {...props} />

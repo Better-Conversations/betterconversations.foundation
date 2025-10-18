@@ -2,12 +2,8 @@
 import { ClientRouter } from 'astro:transitions';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
-import Search from '../components/Search.astro';
-import { getCollection } from 'astro:content';
-import { getAllTags } from '../utils/tags';
-import { pageMetadata } from '../data/pageMetadata';
+import SearchTypesenseVanilla from '../components/SearchTypesenseVanilla.astro';
 import { generateMetaProperties, generateStructuredData, generateCanonicalURL, type SchemaType } from '../utils/metadata';
-import type { SearchData } from '../types/search';
 import '../styles/global.css';
 
 export interface Props {
@@ -19,9 +15,11 @@ export interface Props {
 	schemaType?: SchemaType;
 	image?: string;
 	canonicalURL?: string;
+	showBreadcrumbs?: boolean;
+	customBreadcrumbs?: Array<{ name: string; url: string }>;
 }
 
-const { 
+const {
 	title = 'BCF Content',
 	description,
 	keywords,
@@ -29,7 +27,9 @@ const {
 	publishDate,
 	schemaType = 'WebPage',
 	image,
-	canonicalURL
+	canonicalURL,
+	showBreadcrumbs = false,
+	customBreadcrumbs
 } = Astro.props;
 
 // Generate enhanced metadata
@@ -47,48 +47,6 @@ const metaProps = generateMetaProperties(Astro.url.pathname, {
 const structuredData = generateStructuredData(metaProps, Astro.url.pathname);
 const canonicalUrl = canonicalURL || generateCanonicalURL(Astro.url.pathname);
 const isShowcasePage = Astro.url.pathname === '/showcase' || Astro.url.pathname === '/showcase/';
-
-// Prepare search data
-const [blogs, whitepapers, tags] = await Promise.all([
-  getCollection('blog'),
-  getCollection('whitepapers'),
-  getAllTags()
-]);
-
-const searchData: SearchData = {
-  blogs: blogs.map(post => ({
-    type: 'blog' as const,
-    title: post.data.title,
-    excerpt: post.data.excerpt,
-    slug: `/blog/${post.slug}`,
-    tags: post.data.tags,
-    author: post.data.author,
-    date: post.data.date
-  })),
-  whitepapers: whitepapers.map(paper => ({
-    type: 'whitepaper' as const,
-    title: paper.data.title,
-    excerpt: paper.data.excerpt,
-    slug: `/whitepapers/${paper.slug}`,
-    tags: paper.data.tags,
-    authors: paper.data.authors,
-    date: paper.data.date
-  })),
-  pages: Object.entries(pageMetadata).map(([path, page]) => ({
-    type: 'page' as const,
-    title: page.title,
-    excerpt: page.excerpt,
-    slug: path,
-    tags: page.tags,
-    category: page.category
-  })),
-  tags: tags.map(tag => ({
-    type: 'tag' as const,
-    title: tag.name,
-    count: tag.count,
-    slug: `/tags/${tag.name.toLowerCase().replace(/\s+/g, '-')}`
-  }))
-};
 ---
 
 <!doctype html>
@@ -130,7 +88,10 @@ const searchData: SearchData = {
 		
 		<!-- Structured Data -->
 		<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
-		
+
+		<!-- Page-specific head content -->
+		<slot name="head" />
+
 		<!-- Alpine.js Global Initialization -->
 		<script>
 			import Alpine from 'alpinejs';
@@ -180,12 +141,12 @@ const searchData: SearchData = {
 		</style>
 	</head>
 	<body class={isShowcasePage ? "h-full overflow-hidden" : "h-full"}>
-		<Navbar />
+		<Navbar showBreadcrumbs={showBreadcrumbs} customBreadcrumbs={customBreadcrumbs} />
 		<main class={isShowcasePage ? "pt-16 h-full" : "pt-16"}> <!-- No pb-16 as the footer is sticky and merges straight into the main content -->
 			<slot />
 		</main>
 		{!isShowcasePage && <Footer />}
-		<Search searchData={searchData} loadDataOnDemand={false} />
+		<SearchTypesenseVanilla />
 	</body>
 </html>
 

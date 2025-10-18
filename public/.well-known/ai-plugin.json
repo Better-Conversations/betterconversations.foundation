@@ -1,0 +1,46 @@
+{
+  "schema_version": "v1",
+  "name_for_model": "better_conversations_foundation",
+  "name_for_human": "Better Conversations Foundation",
+  "description_for_model": "Better Conversations Foundation (BCF) provides educational content, courses, and resources about Clean Language methodology and communication techniques. The foundation offers a 6-hour Better Conversations course that helps teams improve communication skills. Access blog posts, whitepapers, course information, and partnership opportunities.",
+  "description_for_human": "Educational resources and courses on Better Conversations methodology for improving team communication.",
+  "api": {
+    "type": "openapi",
+    "url": "https://betterconversations.foundation/api/content-index.json",
+    "has_user_authentication": false
+  },
+  "auth": {
+    "type": "none"
+  },
+  "logo_url": "https://betterconversations.foundation/favicon.png",
+  "contact_email": "info@betterconversations.foundation",
+  "capabilities": {
+    "content_types": ["blog", "whitepaper", "course", "page"],
+    "search": true,
+    "tags": true,
+    "categories": true
+  },
+  "content_structure": {
+    "blog": {
+      "url": "https://betterconversations.foundation/blog",
+      "description": "Articles, guides, and stories about Better Conversations methodology"
+    },
+    "whitepapers": {
+      "url": "https://betterconversations.foundation/whitepapers",
+      "description": "Research papers and detailed documents on communication techniques"
+    },
+    "courses": {
+      "url": "https://betterconversations.foundation/approach",
+      "description": "Information about the Better Conversations Framework - a 6-module transformative course"
+    },
+    "partner": {
+      "url": "https://betterconversations.foundation/partner",
+      "description": "Partnership opportunities for organisations, facilitators, and researchers"
+    }
+  },
+  "license": {
+    "type": "Creative Commons",
+    "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "description": "Most content licensed under CC BY-SA 4.0"
+  }
+}

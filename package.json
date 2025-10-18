@@ -7,17 +7,23 @@
     "prebuild": "node scripts/generate-content-dates.js && node scripts/update-lastmod-from-git.js",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "typesense:index": "tsx scripts/index-typesense.ts",
+    "generate:pdf": "npm run build && node scripts/generate-pdf-full.js"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/mdx": "^4.3.1",
-    "@astrojs/sitemap": "^3.4.2",
+    "@astrojs/mdx": "^4.3.6",
+    "@astrojs/sitemap": "^3.6.0",
     "@tailwindcss/typography": "^0.5.16",
     "alpinejs": "^3.14.9",
-    "astro": "^5.11.0",
-    "puppeteer": "^24.14.0",
-    "typescript": "^5.9.2"
+    "mime-types": "^3.0.1",
+    "pdf-lib": "^1.17.1",
+    "puppeteer": "^24.25.0",
+    "astro": "^5.14.4",
+    "typescript": "^5.9.2",
+    "typesense": "^2.1.0-13",
+    "typesense-instantsearch-adapter": "^2.9.0"
   },
   "devDependencies": {
     "@astrojs/tailwind": "^6.0.2",

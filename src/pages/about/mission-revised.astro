@@ -1,0 +1,291 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+---
+
+<Layout
+  title="Our Mission - Better Conversations Foundation"
+  showBreadcrumbs={true}
+>
+  <style>
+    /* Connecting lines animation */
+    @keyframes drawLine {
+      0% { stroke-dashoffset: 300; opacity: 0; }
+      50% { opacity: 1; }
+      100% { stroke-dashoffset: 0; opacity: 1; }
+    }
+    
+    .connection-line {
+      stroke-dasharray: 300;
+      stroke-dashoffset: 300;
+      animation: drawLine 2s ease-out forwards;
+    }
+    
+    /* Icon pulse */
+    @keyframes iconPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    .mission-icon {
+      animation: iconPulse 3s ease-in-out infinite;
+    }
+    
+    /* Text reveal animation */
+    @keyframes revealText {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    
+    .reveal-text {
+      opacity: 0;
+      animation: revealText 0.8s ease-out forwards;
+    }
+  </style>
+
+  <HeroSection 
+    title="Our Mission"
+    titleHighlight="Mission"
+    description="Safeguarding essential human dialogue capabilities for current and future generations."
+  />
+
+  <!-- Mission Statement Section -->
+  <section class="py-16 lg:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-16">
+          <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#54C4B6] to-[#A8D381] rounded-full mb-6 mission-icon">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          </div>
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Our Mission</h2>
+          
+          <div class="max-w-3xl mx-auto space-y-4 text-left reveal-text">
+            <p class="text-xl text-gray-600 leading-relaxed">
+              The Better Conversations Foundation is founded on a conviction: <strong>the quality of our conversations shapes nearly everything that matters—yet most of us have never been properly taught how to have them.</strong>
+            </p>
+            
+            <p class="text-lg text-gray-600 leading-relaxed">
+              In workplaces, communities, and relationships, how well we talk to each other determines what becomes possible: trust, shared understanding, creativity, and results. When we treat dialogue as something that just happens rather than as a learnable skill, we accept unnecessary misunderstanding, missed opportunities, and preventable problems.
+            </p>
+            
+            <p class="text-lg text-gray-600 leading-relaxed">
+              We believe effective dialogue skills should be as accessible as any other essential capability—available to anyone who wants to learn them, not restricted by budget, position, or geography.
+            </p>
+          </div>
+        </div>
+
+        <!-- Visual Connector -->
+        <div class="relative h-32 my-8">
+          <svg class="absolute inset-0 w-full h-full" viewBox="0 0 400 100">
+            <line class="connection-line" x1="200" y1="0" x2="100" y2="100" stroke="#54C4B6" stroke-width="2" style="animation-delay: 0.5s;" />
+            <line class="connection-line" x1="200" y1="0" x2="200" y2="100" stroke="#A8D381" stroke-width="2" style="animation-delay: 0.7s;" />
+            <line class="connection-line" x1="200" y1="0" x2="300" y2="100" stroke="#54C4B6" stroke-width="2" style="animation-delay: 0.9s;" />
+          </svg>
+        </div>
+
+        <!-- Our Approach Section -->
+        <div class="grid md:grid-cols-3 gap-8 mb-16">
+          <div class="text-center reveal-text" style="animation-delay: 0.2s;">
+            <div class="flex items-center justify-center w-16 h-16 bg-[#54C4B6]/10 rounded-full mx-auto mb-4">
+              <svg class="w-8 h-8 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.818-4.954A9.959 9.959 0 0121 12c0 5.523-4.477 10-10 10S1 17.523 1 12 5.477 2 11 2c2.231 0 4.298.73 5.977 1.969" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Evidence-Informed</h3>
+            <p class="text-gray-600">Grounded in research from coaching psychology, organisational studies, and communication principles</p>
+          </div>
+
+          <div class="text-center reveal-text" style="animation-delay: 0.4s;">
+            <div class="flex items-center justify-center w-16 h-16 bg-[#A8D381]/10 rounded-full mx-auto mb-4">
+              <svg class="w-8 h-8 text-[#A8D381]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Safeguarding by Design</h3>
+            <p class="text-gray-600">Built with clear boundaries, ethical guidelines, and appropriate scope for safe psychoeducational learning</p>
+          </div>
+
+          <div class="text-center reveal-text" style="animation-delay: 0.6s;">
+            <div class="flex items-center justify-center w-16 h-16 bg-[#54C4B6]/10 rounded-full mx-auto mb-4">
+              <svg class="w-8 h-8 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Open & Accessible</h3>
+            <p class="text-gray-600">Open-source resources and transparent practices make quality training available to all</p>
+          </div>
+        </div>
+
+        <!-- How We Work Section -->
+        <div class="mb-16 relative">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">How We Work</h2>
+          <p class="text-lg text-gray-600 mb-12 text-center max-w-3xl mx-auto">
+            Through open-source, research-informed resources, we provide practical frameworks grounded in evidence from coaching, leadership, and organisational psychology. Our materials are designed for safe delivery by trained facilitators in professional and community settings.
+          </p>
+          
+          <!-- Visual representation -->
+          <div class="relative">
+            <!-- Centre connector -->
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 md:w-40 md:h-40">
+              <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/20 to-[#A8D381]/20 rounded-full blur-xl"></div>
+              <div class="relative w-full h-full rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center">
+                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+              </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 md:gap-32">
+              <!-- We Provide -->
+              <div class="text-right">
+                <div class="inline-block">
+                  <h3 class="text-xl font-semibold text-gray-900 mb-4 flex items-center justify-end">
+                    <span>We Provide</span>
+                    <div class="w-12 h-12 bg-[#54C4B6]/10 rounded-full flex items-center justify-center ml-3">
+                      <svg class="w-6 h-6 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      </svg>
+                    </div>
+                  </h3>
+                  <ul class="space-y-3 text-gray-600">
+                    <li class="flex items-center justify-end">
+                      <span>Research-informed frameworks</span>
+                      <div class="w-2 h-2 bg-[#54C4B6] rounded-full ml-3"></div>
+                    </li>
+                    <li class="flex items-center justify-end">
+                      <span>Training and certification</span>
+                      <div class="w-2 h-2 bg-[#54C4B6] rounded-full ml-3"></div>
+                    </li>
+                    <li class="flex items-center justify-end">
+                      <span>Community support</span>
+                      <div class="w-2 h-2 bg-[#54C4B6] rounded-full ml-3"></div>
+                    </li>
+                    <li class="flex items-center justify-end">
+                      <span>Open-source materials</span>
+                      <div class="w-2 h-2 bg-[#54C4B6] rounded-full ml-3"></div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <!-- You Bring -->
+              <div>
+                <div class="inline-block">
+                  <h3 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                    <div class="w-12 h-12 bg-[#A8D381]/10 rounded-full flex items-center justify-center mr-3">
+                      <svg class="w-6 h-6 text-[#A8D381]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                      </svg>
+                    </div>
+                    <span>You Bring</span>
+                  </h3>
+                  <ul class="space-y-3 text-gray-600">
+                    <li class="flex items-center">
+                      <div class="w-2 h-2 bg-[#A8D381] rounded-full mr-3"></div>
+                      <span>Your contextual expertise</span>
+                    </li>
+                    <li class="flex items-center">
+                      <div class="w-2 h-2 bg-[#A8D381] rounded-full mr-3"></div>
+                      <span>Your delivery accountability</span>
+                    </li>
+                    <li class="flex items-center">
+                      <div class="w-2 h-2 bg-[#A8D381] rounded-full mr-3"></div>
+                      <span>Your unique perspective</span>
+                    </li>
+                    <li class="flex items-center">
+                      <div class="w-2 h-2 bg-[#A8D381] rounded-full mr-3"></div>
+                      <span>Your community connections</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Connecting message -->
+          <div class="text-center mt-12">
+            <p class="text-lg text-gray-600 italic">
+              Together, we create sustainable change in how people communicate
+            </p>
+          </div>
+        </div>
+
+        <!-- Safeguarding & Standards Section -->
+        <div class="bg-gray-50 rounded-2xl p-8 mb-16">
+          <div class="max-w-3xl mx-auto">
+            <div class="flex items-start gap-4 mb-6">
+              <div class="flex-shrink-0">
+                <div class="w-12 h-12 bg-[#54C4B6]/10 rounded-full flex items-center justify-center">
+                  <svg class="w-6 h-6 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.818-4.954A9.959 9.959 0 0121 12c0 5.523-4.477 10-10 10S1 17.523 1 12 5.477 2 11 2c2.231 0 4.298.73 5.977 1.969" />
+                  </svg>
+                </div>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Our Commitment to Quality & Safety</h2>
+                <p class="text-gray-600 mb-4">
+                  <strong>Better Conversations is psychoeducational skills training, not therapy or counselling.</strong> Our materials are built with clear boundaries, ethical guidelines, and appropriate scope. We provide training and ongoing support to our community of facilitators, while accountability for delivery sits with those who choose to use our resources.
+                </p>
+                <p class="text-gray-600">
+                  This open-source model allows us to make quality dialogue training widely accessible while maintaining high standards through our community of practice and facilitator certification process.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stewardship Section -->
+        <div class="bg-white rounded-2xl p-8 border-2 border-[#54C4B6]/20 mb-16">
+          <div class="max-w-3xl mx-auto">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0">
+                <div class="w-16 h-16 bg-gradient-to-br from-[#54C4B6] to-[#A8D381] rounded-full flex items-center justify-center">
+                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Stewardship for Future Generations</h2>
+                <p class="text-lg text-gray-600 leading-relaxed mb-4">
+                  Our commitment is to <strong>stewardship</strong>: preserving and developing essential human dialogue capabilities for future generations.
+                </p>
+                <p class="text-gray-600 leading-relaxed">
+                  In a world where AI increasingly handles routine communication, the distinctly human skills of nuanced, adaptive, and emotionally-attuned conversation become more valuable, not less. We're ensuring these capabilities remain accessible, practiced, and passed forward—not as theoretical knowledge, but as lived skills that strengthen human connection and understanding.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Together Section -->
+        <div class="text-center">
+          <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#54C4B6] to-[#A8D381] rounded-full mb-6">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Join Our Mission</h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+            Whether you're an organisation seeking training, a facilitator wanting to deliver our course, or a supporter of our mission—there are many ways to get involved in safeguarding human dialogue skills.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/partner" class="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gradient-to-r from-[#54C4B6] to-[#A8D381] hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+              Partner With Us
+              <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+              </svg>
+            </a>
+            <a href="/partner/support" class="inline-flex items-center px-8 py-3 border-2 border-[#54C4B6] text-base font-medium rounded-md text-[#54C4B6] hover:bg-[#54C4B6]/5 transition-colors">
+              Support Our Mission
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+</Layout>

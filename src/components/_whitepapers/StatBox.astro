@@ -1,0 +1,192 @@
+---
+export interface Props {
+  number: string;
+  label: string;
+  color?: string;
+  trend?: 'up' | 'down' | 'neutral';
+  animate?: boolean;
+}
+
+const { number, label, color = '#54C4B6', trend, animate = true } = Astro.props;
+
+// Check if we're in PDF mode by looking at the URL
+const isPDF = Astro.url.pathname.endsWith('.pdf');
+// Disable animations in PDF mode
+const shouldAnimate = isPDF ? false : animate;
+---
+
+<div class={`stat-box ${shouldAnimate ? 'animate' : ''} ${isPDF ? 'pdf-mode' : ''}`} style={`--stat-color: ${color}`}>
+  <div class="stat-number">
+    {shouldAnimate ? (
+      <span data-target={number} class="stat-counter">0</span>
+    ) : (
+      <span>{number}</span>
+    )}
+  </div>
+  <p class="stat-label">{label}</p>
+  {trend && (
+    <div class="stat-trend">
+      {trend === 'up' && <svg class="trend-icon up" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12" />
+      </svg>}
+      {trend === 'down' && <svg class="trend-icon down" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 13l-5 5m0 0l-5-5m5 5V6" />
+      </svg>}
+      {trend === 'neutral' && <svg class="trend-icon neutral" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12h10" />
+      </svg>}
+    </div>
+  )}
+</div>
+
+<style>
+  .stat-box {
+    background: linear-gradient(135deg, 
+      color-mix(in srgb, var(--stat-color) 20%, transparent),
+      color-mix(in srgb, var(--stat-color) 10%, transparent)
+    );
+    border: 2px solid var(--stat-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    margin: 1rem 0;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .stat-box::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, var(--stat-color) 0%, transparent 70%);
+    opacity: 0.1;
+    transition: transform 0.6s ease;
+  }
+  
+  .stat-box:hover::before {
+    transform: translate(25%, 25%);
+  }
+  
+  .stat-box:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px color-mix(in srgb, var(--stat-color) 30%, transparent);
+  }
+  
+  .stat-number {
+    font-size: 2.5rem;
+    margin: 0;
+    color: var(--stat-color);
+    font-weight: bold;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .stat-label {
+    margin: 0.5rem 0 0 0;
+    color: #666;
+    font-size: 0.9rem;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .stat-trend {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2rem;
+    height: 2rem;
+  }
+  
+  .trend-icon {
+    width: 100%;
+    height: 100%;
+    stroke-width: 3;
+  }
+  
+  .trend-icon.up {
+    color: #10b981;
+  }
+  
+  .trend-icon.down {
+    color: #ef4444;
+  }
+  
+  .trend-icon.neutral {
+    color: #6b7280;
+  }
+  
+  @keyframes countUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .stat-box.animate {
+    animation: countUp 0.6s ease-out;
+  }
+  
+  /* PDF mode adjustments */
+  .stat-box.pdf-mode {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .stat-box.pdf-mode::before {
+    display: none !important;
+  }
+  
+  .stat-box.pdf-mode:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+</style>
+
+<script>
+  // Skip script in PDF mode
+  if (!window.location.pathname.endsWith('.pdf')) {
+    // Animate numbers on intersection
+  const observerOptions = {
+    threshold: 0.5,
+    rootMargin: '0px'
+  };
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const counter = entry.target.querySelector('.stat-counter');
+        if (counter && !counter.classList.contains('counted')) {
+          counter.classList.add('counted');
+          const target = counter.getAttribute('data-target');
+          if (!target) return;
+          const isPercentage = target.includes('%');
+          const isDecimal = target.includes('.');
+          const numericTarget = parseFloat(target.replace(/[^0-9.-]/g, ''));
+          
+          let current = 0;
+          const increment = numericTarget / 50;
+          const timer = setInterval(() => {
+            current += increment;
+            if (current >= numericTarget) {
+              current = numericTarget;
+              clearInterval(timer);
+            }
+            
+            if (isDecimal) {
+              counter.textContent = current.toFixed(1) + (isPercentage ? '%' : target.replace(/[0-9.-]/g, ''));
+            } else {
+              counter.textContent = Math.floor(current) + (isPercentage ? '%' : target.replace(/[0-9.-]/g, ''));
+            }
+          }, 20);
+        }
+      }
+    });
+  }, observerOptions);
+  
+    document.querySelectorAll('.stat-box.animate').forEach(box => {
+      observer.observe(box);
+    });
+  }
+</script>

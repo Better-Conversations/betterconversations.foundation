@@ -18,16 +18,17 @@ export async function getContentDates(): Promise<Map<string, string>> {
     dateMap.set(url, date);
   }
   
+  // DISABLED: Whitepapers hidden
   // Get all whitepapers
-  const whitepapers = await getCollection('whitepapers');
-  for (const paper of whitepapers) {
-    // HTML version
-    const htmlUrl = `https://betterconversations.foundation/whitepapers/${paper.slug}/`;
-    const pdfUrl = `https://betterconversations.foundation/whitepapers/${paper.slug}.pdf/`;
-    const date = paper.data.date.toISOString().split('T')[0];
-    dateMap.set(htmlUrl, date);
-    dateMap.set(pdfUrl, date);
-  }
+  // const whitepapers = await getCollection('whitepapers');
+  // for (const paper of whitepapers) {
+  //   // HTML version
+  //   const htmlUrl = `https://betterconversations.foundation/whitepapers/${paper.slug}/`;
+  //   const pdfUrl = `https://betterconversations.foundation/whitepapers/${paper.slug}.pdf/`;
+  //   const date = paper.data.date.toISOString().split('T')[0];
+  //   dateMap.set(htmlUrl, date);
+  //   dateMap.set(pdfUrl, date);
+  // }
   
   contentDatesCache = dateMap;
   return dateMap;

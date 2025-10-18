@@ -1,86 +1,80 @@
 ---
 import { Image } from 'astro:assets';
 import bcfLogo from '../assets/images/logos/bcf-logo.png';
+import Breadcrumb from './Breadcrumb.astro';
+import { orgScope } from '../utils/microdata';
 
 export interface Props {
   class?: string;
+  showBreadcrumbs?: boolean;
+  customBreadcrumbs?: Array<{ name: string; url: string }>;
 }
 
-const { class: className = '' } = Astro.props;
+const { class: className = '', showBreadcrumbs = false, customBreadcrumbs } = Astro.props;
 
 const navItems = [
-  { 
-    name: 'Home', 
-    href: '/' 
+  {
+    name: 'Home',
+    href: '/'
   },
-  { 
-    name: 'Get Started', 
+  {
+    name: 'Get Started',
     href: '/get-started',
     dropdown: [
-      { name: 'Join the Foundation', href: '/get-started/join' },
-      { name: 'Attend a Course', href: '/get-started/attend-course' },
-      { name: 'Download Materials', href: '/get-started/download' },
-      { name: 'Schedule a Call', href: '/get-started/schedule-call' }
+      { name: 'For Organisations', href: '/get-started/organisations' },
+      { name: 'For Educators', href: '/get-started/educators' },
+      { name: 'For Researchers', href: '/get-started/researchers' },
+      { name: 'Join our Community', href: '/get-started/join-community' },
+      { name: 'Experience a Course', href: '/get-started/attend-course' },
+      { name: 'Book a Call', href: '/get-started/schedule-call' }
     ]
   },
-  { 
-    name: 'Our Approach', 
+  {
+    name: 'Our Approach',
     href: '/approach',
     dropdown: [
-      { name: 'Course Overview', href: '/approach/courses' },
       { name: 'Open Content', href: '/approach/open-content' },
       { name: 'FAQs', href: '/approach/faqs' }
     ]
   },
-  { 
-    name: 'Open Resources', 
+  {
+    name: 'Resources',
     href: '/resources',
     dropdown: [
       { name: 'Blog', href: '/blog' },
-      { name: 'Whitepapers', href: '/whitepapers' },
-      { name: 'Browse by Topic', href: '/tags' },
-      { name: 'Documentation', href: 'https://betterconversations.foundation/documentation/index.html' },
-      { name: 'Success Stories', href: '/stories' }
+      { name: 'Documentation', href: 'https://betterconversations.foundation/documentation/index.html' }
     ]
   },
-  { 
-    name: 'Partner With Us', 
-    href: '/partner',
-    dropdown: [
-      { name: 'For Organisations', href: '/partner/organizations' },
-      { name: 'Deliver Courses', href: '/partner/deliver-courses' },
-      { name: 'Research Collaboration', href: '/partner/research' },
-      { name: 'Support Us', href: '/partner/support' }
-    ]
-  },
-  { 
-    name: 'About', 
+  {
+    name: 'About',
     href: '/about',
     dropdown: [
       { name: 'Our Mission', href: '/about/mission' },
-      { name: 'The Team', href: '/about/team' },
+      { name: 'Our Team', href: '/about/team' },
+      { name: 'Our Ambassadors', href: '/about/showcase' },
       { name: 'Our Appreciation', href: '/about/thanks' },
-      { name: 'Ambassador Showcase', href: '/showcase' },
       { name: 'Contact Us', href: '/about/contact' }
     ]
   }
 ];
 ---
 
-<nav class={`fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 transition-all duration-300 ${className}`} id="navbar">
+<nav class={`fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 transition-all duration-300 ${className}`} id="navbar" itemscope itemtype="https://schema.org/Organization">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-20 transition-all duration-300 relative" id="navbar-container">
       <!-- Logo -->
       <div class="flex-shrink-0">
-        <a href="/" class="block logo-link transition-all duration-300">
-          <Image 
-            src={bcfLogo} 
-            alt="Better Conversations Foundation" 
+        <a href="/" class="block logo-link transition-all duration-300" itemprop="url">
+          <Image
+            src={bcfLogo}
+            alt="Better Conversations Foundation"
             height={48}
             width={300}
-            class="h-12 w-auto transition-all duration-300" 
+            class="h-12 w-auto transition-all duration-300"
             id="navbar-logo"
+            itemprop="logo"
           />
+          <meta itemprop="name" content="Better Conversations Foundation" />
         </a>
       </div>
 
@@ -160,6 +154,13 @@ const navItems = [
         </button>
       </div>
     </div>
+
+    <!-- Breadcrumb Navigation -->
+    {showBreadcrumbs && (
+      <div class="absolute left-0 right-0 -bottom-10 bg-transparent transition-opacity duration-300" id="breadcrumb-container">
+        <Breadcrumb path={Astro.url.pathname} customBreadcrumbs={customBreadcrumbs} />
+      </div>
+    )}
   </div>
 
   <!-- Mobile menu -->
@@ -283,28 +284,33 @@ const navItems = [
   const navbarContainer = document.getElementById('navbar-container');
   const logo = document.getElementById('navbar-logo');
   const logoLink = document.querySelector('.logo-link');
-  
+  const breadcrumbContainer = document.getElementById('breadcrumb-container');
+
   function updateNavbar() {
     const scrollY = window.scrollY;
-    
+
     if (scrollY === 0) {
-      // At top - logo pops out vertically
+      // At top - logo pops out vertically, show breadcrumbs
       navbar?.classList.add('at-top');
       navbarContainer?.classList.add('h-24');
       navbarContainer?.classList.remove('h-20');
       logo?.classList.add('h-16');
       logo?.classList.remove('h-12');
       logoLink?.classList.add('transform', 'translate-y-1');
+      breadcrumbContainer?.classList.remove('opacity-0', 'invisible');
+      breadcrumbContainer?.classList.add('opacity-100');
     } else {
-      // Scrolled - logo normal
+      // Scrolled - logo normal, hide breadcrumbs
       navbar?.classList.remove('at-top');
       navbarContainer?.classList.remove('h-24');
       navbarContainer?.classList.add('h-20');
       logo?.classList.remove('h-16');
       logo?.classList.add('h-12');
       logoLink?.classList.remove('transform', 'translate-y-1');
+      breadcrumbContainer?.classList.add('opacity-0', 'invisible');
+      breadcrumbContainer?.classList.remove('opacity-100');
     }
-    
+
     lastScrollY = scrollY;
   }
   
@@ -317,7 +323,7 @@ const navItems = [
   // Update on page navigation (for Astro's client-side routing)
   document.addEventListener('astro:after-swap', updateNavbar);
   
-  // Search button handlers - wait for Alpine to be ready
+  // Search button handlers
   const setupSearchButtons = () => {
     const searchButton = document.getElementById('search-button');
     const searchButtonMobile = document.getElementById('search-button-mobile');
@@ -330,26 +336,12 @@ const navItems = [
     const newSearchButton = document.getElementById('search-button');
     const newSearchButtonMobile = document.getElementById('search-button-mobile');
     
-    const openSearch = (e) => {
+    const openSearch = (e?: Event) => {
       e?.preventDefault();
       
-      // Method 1: Try global function first (most reliable)
+      // For vanilla JS search component - just use the global function
       if (window.openSearchModal) {
         window.openSearchModal();
-        return;
-      }
-      
-      // Method 2: Direct Alpine component access by ID
-      const searchModal = document.getElementById('search-modal-container') as any;
-      if (searchModal && searchModal.__x) {
-        searchModal.__x.$data.open = true;
-        return;
-      }
-      
-      // Method 3: Try any Alpine search modal component
-      const anySearchModal = document.querySelector('[x-data*="searchModal"]') as any;
-      if (anySearchModal && anySearchModal.__x) {
-        anySearchModal.__x.$data.open = true;
         return;
       }
       

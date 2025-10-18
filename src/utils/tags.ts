@@ -1,5 +1,4 @@
 import { getCollection } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
 import { pageMetadata } from '../data/pageMetadata';
 
 export interface TagInfo {
@@ -31,9 +30,9 @@ export function normalizeTag(tag: string): string {
 
 // Get all unique tags across content types
 export async function getAllTags(): Promise<TagInfo[]> {
-  const [blogPosts, whitepapers] = await Promise.all([
+  const [blogPosts] = await Promise.all([
     getCollection('blog'),
-    getCollection('whitepapers')
+    // getCollection('whitepapers') // DISABLED: Whitepapers hidden
   ]);
 
   const tagMap = new Map<string, TagInfo>();
@@ -53,20 +52,21 @@ export async function getAllTags(): Promise<TagInfo[]> {
     });
   });
 
+  // DISABLED: Whitepapers hidden
   // Process whitepaper tags
-  whitepapers.forEach(paper => {
-    paper.data.tags.forEach(tag => {
-      const normalizedTag = normalizeTag(tag);
-      const existing = tagMap.get(normalizedTag) || {
-        name: tag,
-        count: 0,
-        sources: { blog: 0, whitepapers: 0, pages: 0 }
-      };
-      existing.count++;
-      existing.sources.whitepapers++;
-      tagMap.set(normalizedTag, existing);
-    });
-  });
+  // whitepapers.forEach(paper => {
+  //   paper.data.tags.forEach(tag => {
+  //     const normalizedTag = normalizeTag(tag);
+  //     const existing = tagMap.get(normalizedTag) || {
+  //       name: tag,
+  //       count: 0,
+  //       sources: { blog: 0, whitepapers: 0, pages: 0 }
+  //     };
+  //     existing.count++;
+  //     existing.sources.whitepapers++;
+  //     tagMap.set(normalizedTag, existing);
+  //   });
+  // });
 
   // Process page tags
   Object.values(pageMetadata).forEach(page => {
@@ -90,9 +90,9 @@ export async function getAllTags(): Promise<TagInfo[]> {
 // Get all content with a specific tag
 export async function getContentByTag(tag: string): Promise<TaggedContent[]> {
   const normalizedTag = normalizeTag(tag);
-  const [blogPosts, whitepapers] = await Promise.all([
+  const [blogPosts] = await Promise.all([
     getCollection('blog'),
-    getCollection('whitepapers')
+    // getCollection('whitepapers') // DISABLED: Whitepapers hidden
   ]);
 
   const taggedContent: TaggedContent[] = [];
@@ -115,23 +115,24 @@ export async function getContentByTag(tag: string): Promise<TaggedContent[]> {
     }
   });
 
+  // DISABLED: Whitepapers hidden
   // Add matching whitepapers
-  whitepapers.forEach(paper => {
-    const hasTag = paper.data.tags.some(t => normalizeTag(t) === normalizedTag);
-    if (hasTag) {
-      taggedContent.push({
-        type: 'whitepaper',
-        title: paper.data.title,
-        excerpt: paper.data.excerpt,
-        slug: `/whitepapers/${paper.slug}`,
-        date: paper.data.date,
-        authors: paper.data.authors,
-        category: paper.data.category,
-        tags: paper.data.tags,
-        readingTime: paper.data.readingTime
-      });
-    }
-  });
+  // whitepapers.forEach(paper => {
+  //   const hasTag = paper.data.tags.some(t => normalizeTag(t) === normalizedTag);
+  //   if (hasTag) {
+  //     taggedContent.push({
+  //       type: 'whitepaper',
+  //       title: paper.data.title,
+  //       excerpt: paper.data.excerpt,
+  //       slug: `/whitepapers/${paper.slug}`,
+  //       date: paper.data.date,
+  //       authors: paper.data.authors,
+  //       category: paper.data.category,
+  //       tags: paper.data.tags,
+  //       readingTime: paper.data.readingTime
+  //     });
+  //   }
+  // });
 
   // Add matching pages
   Object.entries(pageMetadata).forEach(([path, page]) => {

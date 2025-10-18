@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import { extractCollectionMetadata } from '../../utils/metadata';
 import { getBlogImage } from '../../data/blogImages';
+import { blogPostingScope, personScope } from '../../utils/microdata';
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection('blog');
@@ -20,7 +21,7 @@ type Props = {
 const { entry } = Astro.props as Props;
 const { Content } = await entry.render();
 
-// Get the optimized hero image for this blog post
+// Get the optimised hero image for this blog post
 const heroImage = getBlogImage(entry.slug);
 
 // Generate enhanced metadata for the blog post
@@ -70,15 +71,15 @@ const blogMetadata = extractCollectionMetadata(entry, 'blog');
 
   <!-- Blog Post Header -->
   <section class="relative pt-8 pb-4 lg:pt-10 lg:pb-6 bg-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8">
       <div class="mb-4">
         <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-8">
           <a href={`/blog?category=${encodeURIComponent(entry.data.category)}`} class="text-[#54C4B6] font-medium hover:text-[#54C4B6]/80 transition-colors">{entry.data.category}</a>
-          <span>{entry.data.date.toLocaleDateString('en-GB', { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-          })}</span>
+          <time datetime={entry.data.date.toISOString()}>{entry.data.date.toLocaleDateString('en-GB', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })}</time>
           <span>By <a href={`/blog?author=${encodeURIComponent(entry.data.author)}`} class="text-gray-600 hover:text-[#54C4B6] transition-colors">{entry.data.author}</a></span>
           <span>{entry.data.readingTime || 5} min read</span>
           {entry.data.imageCredit && (
@@ -109,9 +110,25 @@ const blogMetadata = extractCollectionMetadata(entry, 'blog');
   </section>
 
   <!-- Blog Content -->
-  <article class="py-8 bg-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="prose prose-lg prose-gray max-w-none prose-headings:text-gray-900 prose-a:text-[#54C4B6] prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-blockquote:border-l-[#54C4B6] prose-blockquote:text-gray-700 [&_.footnotes]:text-sm [&_.footnotes]:text-gray-600 [&_.footnotes_p]:mb-2 [&_.footnotes_ol]:pl-4 [&_iframe]:w-full [&_iframe]:aspect-video">
+  <article class="py-12 lg:py-16 bg-white" itemscope itemtype="https://schema.org/BlogPosting">
+    <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8">
+      <!-- Hidden metadata for microdata -->
+      <meta itemprop="headline" content={entry.data.title} />
+      <meta itemprop="datePublished" content={entry.data.date.toISOString()} />
+      {heroImage && <meta itemprop="image" content={heroImage.src} />}
+      <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+        <meta itemprop="name" content={entry.data.author} />
+      </span>
+
+      <div class="prose prose-lg prose-gray max-w-none
+        prose-headings:text-gray-900
+        prose-p:text-gray-600 prose-p:leading-relaxed prose-p:mb-6
+        prose-a:text-[#54C4B6] prose-a:no-underline hover:prose-a:underline
+        prose-strong:text-gray-900
+        prose-blockquote:border-l-[#54C4B6] prose-blockquote:text-gray-700
+        prose-li:my-2
+        [&_.footnotes]:text-sm [&_.footnotes]:text-gray-600 [&_.footnotes_p]:mb-2 [&_.footnotes_ol]:pl-4
+        [&_iframe]:w-full [&_iframe]:aspect-video" itemprop="articleBody">
         <Content />
       </div>
     </div>
@@ -119,7 +136,7 @@ const blogMetadata = extractCollectionMetadata(entry, 'blog');
 
   <!-- Navigation -->
   <section class="py-12 bg-gray-50">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8">
       <div class="flex justify-between items-center">
         <a href="/blog" class="inline-flex items-center text-[#54C4B6] hover:text-[#54C4B6]/80 transition-colors">
           <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -146,7 +163,7 @@ const blogMetadata = extractCollectionMetadata(entry, 'blog');
 
   <!-- Related Content / CTA Section -->
   <section class="py-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381]">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
       <h2 class="text-3xl font-bold text-white mb-4">Continue the Conversation</h2>
       <p class="text-xl text-white/90 mb-8">
         Explore more insights and join our community of conversation practitioners.

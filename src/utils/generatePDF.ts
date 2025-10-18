@@ -1,5 +1,4 @@
 import puppeteer from 'puppeteer';
-import type { CollectionEntry } from 'astro:content';
 
 export interface PDFGenerationOptions {
   baseUrl: string;
