@@ -28,3 +28,10 @@ better-conversations-overview.md
 # local Claude settings
 CLAUDE.local.MD
 .claude/settings.local.json
+
+# browser binaries for PDF generation
+chrome-headless-shell/
+chromium/
+
+# generated PDF review file
+site-review-full.pdf
