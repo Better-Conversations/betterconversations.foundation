@@ -289,15 +289,65 @@ The site uses comprehensive global classes in `src/styles/global.css`. **Always 
 
 ## Metadata & SEO
 
-The site uses a comprehensive metadata system:
+The site uses a comprehensive metadata system with separate metadata titles and hero titles:
 
-- **Page metadata**: Centralized in `src/utils/pageMetadata.ts`
+### Metadata System Overview
+
+- **Page metadata**: Centralized in `src/data/pageMetadata.ts`
 - **SEO fields**: title, description (150-160 chars), keywords
 - **AI-optimized**: executiveSummary for LLM consumption
 - **Structured data**: Schema.org JSON-LD for all content
 - **Automated**: Git-based lastmod dates via pre-build scripts
 
-**For new pages**: Always provide metaDescription and executiveSummary for important content.
+### Metadata vs Hero Title Convention
+
+**CRITICAL**: The site maintains **separate but semantically related** titles for metadata and heroes.
+
+**Metadata titles** (defined in `src/data/pageMetadata.ts`) are used for:
+- Browser tabs (`<title>` tag)
+- Search engine results (Google, Bing)
+- Social media shares (OpenGraph)
+- Breadcrumb navigation
+- Internal site search results
+- Structured data (Schema.org)
+
+**Hero titles** (defined in individual page files) are used for:
+- On-page H1 headings
+- Visual impact and user engagement
+- Action-oriented messaging
+
+**Convention - Keep them SEPARATE but SEMANTICALLY RELATED**:
+
+✓ **DO**: Make them complementary (same topic, different tone)
+- Metadata: "Organisational partnerships" (descriptive, searchable)
+- Hero: "Partnership for organisational transformation" (friendly, expanded)
+
+✗ **DON'T**: Make them completely unrelated
+- Metadata: "Get Started"
+- Hero: "Contact Us" (confusing - user thinks they clicked wrong link!)
+
+**Style Guidelines**:
+- **Metadata**: Sentence case, descriptive, keyword-rich (50-60 chars ideal)
+- **Hero**: Sentence case, conversational, action-oriented (no length limit)
+- **Both**: Use British English spelling (organisation, not organization)
+- **Both**: Should share core keywords for SEO relevance
+
+**Example from the site**:
+```typescript
+// In src/data/pageMetadata.ts
+'/get-started/educators': {
+  title: 'Educator partnerships',  // SEO-focused
+  // ...
+}
+
+// In src/pages/get-started/educators.astro
+<HeroSection
+  title="Partnership for educational excellence"  // UX-focused
+  // ...
+/>
+```
+
+**For new pages**: Always provide metaDescription and executiveSummary for important content. Ensure metadata title and hero title are semantically related but optimize each for its purpose.
 
 ## Whitepapers Status (October 2025)
 
