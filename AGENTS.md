@@ -249,13 +249,38 @@ Alpine.js is used selectively for interactive components:
 The site uses comprehensive global classes in `src/styles/global.css`. **Always check for existing classes before creating custom styling.**
 
 **Key classes**:
-- **Buttons**: `.bcf-button-primary`, `.bcf-button-secondary`
+- **CTA Buttons**: `.bcf-cta-hero-primary`, `.bcf-cta-hero-secondary`, `.bcf-cta-primary`, `.bcf-cta-secondary`
+- **Regular Buttons**: `.bcf-button-primary`, `.bcf-button-secondary`
 - **Forms**: `.bcf-input`, `.bcf-label`
 - **Cards**: `.bcf-card`, `.bcf-card-footer`
 - **Content cards**: `.bcf-content-card`, `.bcf-content-card-link`, `.bcf-content-card-body`, etc.
 - **Dropdowns**: `.bcf-dropdown-button`, `.bcf-dropdown-container`, `.bcf-dropdown-option`
 - **Typography**: `.bcf-section-header`, `.bcf-gradient-text`, `.bcf-prose-enhanced`
 - **Filters**: `.bcf-filter-pill`, `.bcf-tag`
+
+### CTA Button Guidelines
+
+**Always use CTA classes for call-to-action buttons** - never use inline Tailwind classes for CTAs.
+
+**Button Hierarchy**:
+- **Hero sections** (top of page): Use `.bcf-cta-hero-primary` or `.bcf-cta-hero-secondary`
+- **Standard sections** (rest of page): Use `.bcf-cta-primary` or `.bcf-cta-secondary`
+- **Special cases**: `.bcf-cta-white-on-gradient`, `.bcf-cta-outline-on-gradient`
+
+**CTA Button Specifications** (as of January 2025):
+- **Padding**: `px-6 py-3` (24px horizontal, 12px vertical)
+- **Border radius**: `rounded-xl` (12px) - modern, friendly appearance
+- **Font weight**: `font-semibold` (600) - strong, scannable
+- **Hero font size**: `text-lg` (18px) - prominent
+- **Standard font size**: `text-base` (16px) - optimal readability
+- **Touch target**: ~48px height (exceeds 44px minimum accessibility requirement)
+- **Hover effect**: `scale-105` (5% growth) - subtle, professional
+
+**Why these specifications?**
+- 12px border radius balances professionalism with approachability
+- `px-6 py-3` provides compact sizing while exceeding minimum 44px touch targets
+- Semibold weight ensures CTAs stand out for scanning
+- Consistent sizing creates visual harmony across the site
 
 **Styling priority**:
 1. Global `.bcf-*` classes (check first)

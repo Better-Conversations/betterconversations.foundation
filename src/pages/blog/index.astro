@@ -72,11 +72,17 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
         Explore articles, guides, and success stories from our community of communication professionals.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#latest" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-[#54C4B6] hover:bg-[#54C4B6]/90 transition-colors shadow-sm">
+        <a href="#latest" class="bcf-cta-hero-primary">
           Browse Articles
+          <svg class="ml-2 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
         </a>
-        <a href="/contribute" class="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors shadow-sm">
+        <a href="/contribute" class="bcf-cta-hero-secondary">
           Contribute a Story
+          <svg class="ml-2 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+          </svg>
         </a>
       </div>
     </div>

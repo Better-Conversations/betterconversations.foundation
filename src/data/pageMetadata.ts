@@ -168,9 +168,9 @@ export const pageMetadata: PageMetadataMap = {
     changefreq: 'weekly'
   },
   '/get-started/schedule-call': {
-    title: 'Schedule a Call',
+    title: 'Book a Call',
     excerpt: 'Book a consultation to discuss Better Conversations for your needs',
-    tags: ['schedule', 'consultation', 'call', 'meeting', 'discuss'],
+    tags: ['book', 'consultation', 'call', 'meeting', 'discuss'],
     category: 'Getting Started',
     description: 'Schedule a consultation to explore Better Conversations for your organisation',
     lastmod: '2025-10-08',
