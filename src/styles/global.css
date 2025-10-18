@@ -139,6 +139,56 @@
     @apply flex flex-col;
   }
 
+  /* Card XL - Larger padding and border radius */
+  .bcf-card-xl {
+    @apply bg-white rounded-xl border border-gray-200 p-8;
+    @apply hover:border-[#54C4B6] hover:shadow-lg;
+    @apply transition-all duration-300 transform hover:-translate-y-1;
+    @apply block;
+  }
+
+  /* Card with gradient background */
+  .bcf-card-gradient {
+    @apply bg-gradient-to-br from-gray-50 to-white rounded-xl border border-gray-200 p-8;
+    @apply hover:border-[#54C4B6] hover:shadow-lg;
+    @apply transition-all duration-300 transform hover:-translate-y-1;
+    @apply block;
+  }
+
+  /* Clickable card (links/buttons) - More prominent hover effect */
+  .bcf-card-clickable {
+    @apply bg-white rounded-xl border-2 border-gray-200 p-8 shadow-md;
+    @apply hover:border-[#54C4B6] hover:shadow-xl;
+    @apply transition-all duration-300;
+    @apply block;
+  }
+
+  /* Clickable card with gradient background */
+  .bcf-card-clickable-gradient {
+    @apply bg-gradient-to-br from-gray-50 to-white rounded-xl border-2 border-gray-200 p-8 shadow-md;
+    @apply hover:shadow-2xl;
+    @apply transition-all duration-300;
+    @apply block;
+  }
+
+  /* Card with left border accent */
+  .bcf-card-accent-left {
+    @apply bg-white rounded-xl p-8 shadow-sm border-l-4;
+    @apply block;
+  }
+
+  /* Info card with backdrop blur */
+  .bcf-card-info {
+    @apply bg-white/80 backdrop-blur rounded-xl p-6 border border-gray-200;
+    @apply block;
+  }
+
+  /* Highlighted card with colored border */
+  .bcf-card-highlight {
+    @apply bg-white rounded-xl p-8 shadow-lg border-2;
+    @apply block;
+  }
+
   /* Card footer that pushes to bottom */
   .bcf-card-footer {
     @apply mt-auto pt-2;
