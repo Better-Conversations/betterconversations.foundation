@@ -37,7 +37,6 @@ function sortPages(pages) {
     'get-started/attend-course',            // - Attend a Course
     'approach/index.html',                  // Our Approach
     'approach/courses',                     // - Course Overview
-    'approach/courses-alt',                 // - Course Journey
     'approach/faqs',                        // - FAQs
     'resources/index.html',                 // Open Resources
     'partner/index.html',                   // Partner With Us

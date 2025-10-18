@@ -1,8 +1,186 @@
 ---
-import UnderConstruction from '../../layouts/UnderConstruction.astro';
+import Layout from '../../layouts/Layout.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import { generateMetaProperties } from '../../utils/metadata';
+
+const metadata = generateMetaProperties('/get-started');
 ---
 
-<UnderConstruction 
-  title="Get Started" 
-  description="Welcome to Better Conversations! We're preparing comprehensive resources to help you begin your journey. Soon you'll find everything you need to join our community and start making a difference."
-/>
+<Layout
+  title={metadata.title}
+  description={metadata.description}
+  keywords={metadata.keywords}
+>
+  <HeroSection
+    title="Work with us"
+    titleHighlight="with us"
+    description="We work with a select few organisations each year—developing internal facilitation capacity, supporting implementation, and measuring impact together."
+  />
+
+  <!-- Partnership Focus Section -->
+  <section class="py-16 lg:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Who we work with</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          We focus on deep partnerships with organisations ready to embed Better Conversations at scale. Here's what that looks like for different contexts.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 mb-16">
+        <!-- For Organisations -->
+        <a href="/get-started/organisations" class="group bcf-card-clickable-gradient hover:border-[#54C4B6]">
+          <div class="flex items-center justify-center h-20 w-20 rounded-xl bg-[#54C4B6]/10 text-[#54C4B6] mx-auto group-hover:bg-[#54C4B6] group-hover:text-white transition-all duration-300">
+            <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
+          </div>
+          <h3 class="mt-6 text-2xl font-bold text-gray-900 text-center group-hover:text-[#54C4B6] transition-colors">Organisations</h3>
+          <p class="mt-4 text-base text-gray-600 text-center leading-relaxed">
+            Transform your culture by developing internal advocates who can embed Better Conversations in your organisation reaching hundreds of people over time. <span class="font-semibold">Anyone</span> can learn these skills and pass them on to others.
+          </p>
+          <div class="mt-6 flex items-center justify-center text-[#54C4B6] font-semibold group-hover:translate-x-1 transition-transform">
+            Learn More
+            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </a>
+
+        <!-- For Educators -->
+        <a href="/get-started/educators" class="group bcf-card-clickable-gradient hover:border-[#A8D381]">
+          <div class="flex items-center justify-center h-20 w-20 rounded-xl bg-[#A8D381]/10 text-[#A8D381] mx-auto group-hover:bg-[#A8D381] group-hover:text-white transition-all duration-300">
+            <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+          <h3 class="mt-6 text-2xl font-bold text-gray-900 text-center group-hover:text-[#A8D381] transition-colors">Educators</h3>
+          <p class="mt-4 text-base text-gray-600 text-center leading-relaxed">
+            Integrate Better Conversations into your curriculum—whether secondary, tertiary, or professional education, with support for teaching staff and assessment.
+          </p>
+          <div class="mt-6 flex items-center justify-center text-[#A8D381] font-semibold group-hover:translate-x-1 transition-transform">
+            Learn More
+            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </a>
+
+        <!-- For Researchers -->
+        <a href="/get-started/researchers" class="group bcf-card-clickable-gradient hover:border-[#54C4B6]">
+          <div class="flex items-center justify-center h-20 w-20 rounded-xl bg-[#54C4B6]/10 text-[#54C4B6] mx-auto group-hover:bg-[#54C4B6] group-hover:text-white transition-all duration-300">
+            <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+            </svg>
+          </div>
+          <h3 class="mt-6 text-2xl font-bold text-gray-900 text-center group-hover:text-[#54C4B6] transition-colors">Researchers</h3>
+          <p class="mt-4 text-base text-gray-600 text-center leading-relaxed">
+            Use Better Conversations as a standardised intervention for research into team dynamics, conversation quality, or organisational change—with support for research design and co-publishing.
+          </p>
+          <div class="mt-6 flex items-center justify-center text-[#54C4B6] font-semibold group-hover:translate-x-1 transition-transform">
+            Learn More
+            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Other Ways to Work With Us -->
+  <section class="py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-white">
+    <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Partnership not right for you?</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          There are other ways to work with us or access Better Conversations.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Download Materials -->
+        <div class="bcf-card-xl text-center">
+          <div class="w-14 h-14 bg-[#54C4B6]/10 rounded-lg flex items-center justify-center mb-6 mx-auto">
+            <svg class="w-7 h-7 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Download materials</h3>
+          <p class="text-gray-600 mb-6">
+            All our materials are freely available under Creative Commons. Download and use them however makes sense for your context.
+          </p>
+          <a href="/approach/open-content" class="inline-flex items-center text-[#54C4B6] font-semibold hover:text-[#54C4B6]/80">
+            Access Materials
+            <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Community Membership -->
+        <div class="bcf-card-xl text-center">
+          <div class="w-14 h-14 bg-[#A8D381]/10 rounded-lg flex items-center justify-center mb-6 mx-auto">
+            <svg class="w-7 h-7 text-[#A8D381]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Community membership</h3>
+          <p class="text-gray-600 mb-6">
+            Connect with other facilitators, access peer support, and facilitate Better Conversations in your context. Primarily for facilitators within partner organisations.
+          </p>
+          <a href="/get-started/join-community" class="inline-flex items-center text-[#A8D381] font-semibold hover:text-[#A8D381]/80">
+            Learn About Membership
+            <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Experience a Course -->
+        <div class="bcf-card-xl text-center">
+          <div class="w-14 h-14 bg-[#54C4B6]/10 rounded-lg flex items-center justify-center mb-6 mx-auto">
+            <svg class="w-7 h-7 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Experience a course</h3>
+          <p class="text-gray-600 mb-6">
+            Experience Better Conversations through a partner organisation's course or occasional showcase sessions we run.
+          </p>
+          <a href="/get-started/attend-course" class="inline-flex items-center text-[#54C4B6] font-semibold hover:text-[#54C4B6]/80">
+            Find Options
+            <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact CTA -->
+  <section class="py-16 lg:py-20 bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10">
+    <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Want to talk it through?</h2>
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        Not sure if partnership makes sense for you? Let's have a conversation.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/get-started/schedule-call" class="bcf-cta-primary">
+          Book a Call
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+        </a>
+        <a href="/about/contact" class="bcf-cta-secondary">
+          Contact Us
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
