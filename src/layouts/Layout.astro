@@ -139,6 +139,9 @@ const isShowcasePage = Astro.url.pathname === '/showcase' || Astro.url.pathname 
 				display: none !important; 
 			}
 		</style>
+		/* Tracking code for Umami */
+		<script defer src="https://umami.betterconversations.foundation/script.js" data-website-id="fe991e3d-50c9-49d7-9ea7-488eee172625"></script>
+
 	</head>
 	<body class={isShowcasePage ? "h-full overflow-hidden" : "h-full"}>
 		<Navbar showBreadcrumbs={showBreadcrumbs} customBreadcrumbs={customBreadcrumbs} />
