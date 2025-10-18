@@ -1,3 +1,39 @@
+/**
+ * METADATA vs HERO TITLE CONVENTION
+ * ==================================
+ *
+ * This file defines metadata for SEO, social sharing, breadcrumbs, and search results.
+ * Hero titles (defined in individual page files) serve a different purpose.
+ *
+ * METADATA TITLES are used for:
+ * - Browser tabs
+ * - Search engine results (Google, Bing, etc.)
+ * - Social media shares (OpenGraph)
+ * - Breadcrumb navigation
+ * - Internal site search results
+ * - Structured data (Schema.org)
+ *
+ * HERO TITLES (in page files) are used for:
+ * - On-page H1 headings
+ * - Visual impact and user engagement
+ * - Action-oriented messaging
+ *
+ * CONVENTION - Keep them SEPARATE but SEMANTICALLY RELATED:
+ * ✓ DO: Make them complementary (same topic, different tone)
+ *   - Metadata: "Organisational Partnerships" (descriptive, searchable)
+ *   - Hero: "Partnership for organisational transformation" (friendly, expanded)
+ *
+ * ✗ DON'T: Make them completely unrelated
+ *   - Metadata: "Get Started"
+ *   - Hero: "Contact Us" (confusing - seems like wrong page!)
+ *
+ * STYLE GUIDELINES:
+ * - Metadata: Sentence case, descriptive, keyword-rich (50-60 chars ideal)
+ * - Hero: Sentence case, conversational, action-oriented (no length limit)
+ * - Both: Use British English spelling (organisation, not organization)
+ * - Both: Should share core keywords for SEO relevance
+ */
+
 export interface PageMetadata {
   title: string;
   excerpt: string;
@@ -128,12 +164,12 @@ export const pageMetadata: PageMetadataMap = {
 
   // Get Started Pages
   '/get-started': {
-    title: 'Get Started',
-    excerpt: 'Begin your Better Conversations journey with BCF',
-    tags: ['start', 'begin', 'learn', 'introduction', 'guide'],
+    title: 'Work with us',
+    excerpt: 'Partner with BCF for deep organisational transformation',
+    tags: ['partnership', 'work', 'collaborate', 'organisations', 'deep support'],
     category: 'Getting Started',
-    description: 'Start your Better Conversations journey with our resources and courses',
-    lastmod: '2025-07-21',
+    description: 'Work with the Better Conversations Foundation through organisational partnerships, educator collaborations, or research programmes',
+    lastmod: '2025-10-18',
     priority: 0.8,
     changefreq: 'weekly'
   },
@@ -178,38 +214,38 @@ export const pageMetadata: PageMetadataMap = {
     changefreq: 'weekly'
   },
   '/get-started/organizations': {
-    title: 'Organizational Partnerships',
+    title: 'Organisational partnerships',
     excerpt: 'Transform your workplace culture with deep implementation support and trainer development',
-    tags: ['organizations', 'partnership', 'workplace', 'L&D', 'HR', 'implementation'],
+    tags: ['organisations', 'partnership', 'workplace', 'L&D', 'HR', 'implementation'],
     category: 'Getting Started',
     description: 'Transform your workplace culture with deep implementation support, trainer development, and measurable impact through partnership with the Better Conversations Foundation.',
-    metaDescription: 'Partner with BCF for organizational transformation through Better Conversations—implementation support, trainer development, and sustained impact.',
-    keywords: ['organizational development', 'workplace culture', 'L&D', 'HR', 'team communication', 'employee engagement'],
-    lastmod: '2025-10-17',
+    metaDescription: 'Partner with BCF for organisational transformation through Better Conversations—implementation support, trainer development, and sustained impact.',
+    keywords: ['organisational development', 'workplace culture', 'L&D', 'HR', 'team communication', 'employee engagement'],
+    lastmod: '2025-10-18',
     priority: 0.8,
     changefreq: 'weekly'
   },
   '/get-started/educators': {
-    title: 'Educator Partnerships',
+    title: 'Educator partnerships',
     excerpt: 'Embed conversation skills in your curriculum with pedagogical support and assessment frameworks',
     tags: ['education', 'curriculum', 'pedagogy', 'educators', 'teaching', 'students'],
     category: 'Getting Started',
     description: 'Embed conversation skills in your curriculum with pedagogical support, assessment frameworks, and student outcome tracking through partnership with the Better Conversations Foundation.',
     metaDescription: 'Partner with BCF to integrate Better Conversations into your curriculum—pedagogical guidance, assessment support, and student outcomes.',
     keywords: ['education', 'curriculum', 'pedagogy', 'student outcomes', 'communication skills', 'higher education', 'secondary education'],
-    lastmod: '2025-10-17',
+    lastmod: '2025-10-18',
     priority: 0.7,
     changefreq: 'weekly'
   },
   '/get-started/researchers': {
-    title: 'Research Partnerships',
-    excerpt: 'Collaborate on research using Better Conversations as a standardized intervention',
+    title: 'Research partnerships',
+    excerpt: 'Collaborate on research using Better Conversations as a standardised intervention',
     tags: ['research', 'collaboration', 'academic', 'studies', 'intervention', 'teams'],
     category: 'Getting Started',
-    description: 'Collaborate on research using Better Conversations as a standardized intervention to study teams, groups, and conversation dynamics. Co-design studies and co-publish findings.',
-    metaDescription: 'Partner with BCF for research collaboration—standardized intervention, co-designed studies, and co-publishing opportunities.',
+    description: 'Collaborate on research using Better Conversations as a standardised intervention to study teams, groups, and conversation dynamics. Co-design studies and co-publish findings.',
+    metaDescription: 'Partner with BCF for research collaboration—standardised intervention, co-designed studies, and co-publishing opportunities.',
     keywords: ['research collaboration', 'team dynamics', 'group communication', 'psychology research', 'social science', 'intervention studies'],
-    lastmod: '2025-10-17',
+    lastmod: '2025-10-18',
     priority: 0.6,
     changefreq: 'weekly'
   },
