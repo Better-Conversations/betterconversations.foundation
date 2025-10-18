@@ -69,7 +69,7 @@ export const pageMetadata: PageMetadataMap = {
     priority: 0.7,
     changefreq: 'weekly'
   },
-  '/partner/organizations': {
+  '/get-started/organisations': {
     title: 'Partner Organisations',
     excerpt: 'Bring Better Conversations to your organisation',
     tags: ['partner', 'organisations', 'business', 'workplace', 'collaboration'],
@@ -79,12 +79,12 @@ export const pageMetadata: PageMetadataMap = {
     priority: 0.5,
     changefreq: 'weekly'
   },
-  '/partner/deliver-courses': {
-    title: 'Deliver Courses',
-    excerpt: 'Become a certified facilitator and deliver BCF courses',
-    tags: ['partner', 'facilitator', 'training', 'certification', 'teaching'],
-    category: 'Partnership',
-    description: 'Join our network of certified facilitators delivering Better Conversations courses',
+  '/get-started/join-community': {
+    title: 'Join Community',
+    excerpt: 'Connect with facilitators and deliver Better Conversations courses',
+    tags: ['community', 'facilitator', 'training', 'membership', 'network'],
+    category: 'Getting Started',
+    description: 'Join our community of facilitators delivering Better Conversations courses and access peer support',
     lastmod: '2025-10-18',
     priority: 0.4,
     changefreq: 'weekly'
@@ -213,18 +213,6 @@ export const pageMetadata: PageMetadataMap = {
     priority: 0.4,
     changefreq: 'weekly'
   },
-  '/get-started/organizations': {
-    title: 'Organisational partnerships',
-    excerpt: 'Transform your workplace culture with deep implementation support and trainer development',
-    tags: ['organisations', 'partnership', 'workplace', 'L&D', 'HR', 'implementation'],
-    category: 'Getting Started',
-    description: 'Transform your workplace culture with deep implementation support, trainer development, and measurable impact through partnership with the Better Conversations Foundation.',
-    metaDescription: 'Partner with BCF for organisational transformation through Better Conversations—implementation support, trainer development, and sustained impact.',
-    keywords: ['organisational development', 'workplace culture', 'L&D', 'HR', 'team communication', 'employee engagement'],
-    lastmod: '2025-10-18',
-    priority: 0.8,
-    changefreq: 'weekly'
-  },
   '/get-started/educators': {
     title: 'Educator partnerships',
     excerpt: 'Embed conversation skills in your curriculum with pedagogical support and assessment frameworks',
@@ -252,23 +240,13 @@ export const pageMetadata: PageMetadataMap = {
 
   // Approach Pages
   '/approach': {
-    title: 'Our Approach',
-    excerpt: 'Understanding BCF\'s approach to sharing resources and skills',
-    tags: ['approach', 'methodology', 'philosophy', 'principles', 'framework'],
+    title: 'The Better Conversations Framework',
+    excerpt: 'A transformative 6-module journey through Clean Language principles',
+    tags: ['approach', 'framework', 'courses', 'curriculum', 'learning', 'methodology'],
     category: 'Approach',
-    description: 'Explore BCF\'s unique approach to transforming communication',
+    description: 'A transformative 6-module journey through Clean Language principles, designed to revolutionise how people connect and communicate in organisations.',
     lastmod: '2025-07-21',
-    priority: 0.6,
-    changefreq: 'weekly'
-  },
-  '/approach/courses': {
-    title: 'Our Courses',
-    excerpt: 'Comprehensive Better Conversations courses and learning pathways',
-    tags: ['courses', 'curriculum', 'learning', 'education', 'syllabus'],
-    category: 'Approach',
-    description: 'Explore our comprehensive Better Conversations course offerings',
-    lastmod: '2025-10-18',
-    priority: 0.4,
+    priority: 0.7,
     changefreq: 'weekly'
   },
   '/approach/open-content': {

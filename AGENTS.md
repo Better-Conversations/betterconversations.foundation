@@ -212,6 +212,67 @@ For optimal readability across all devices:
 3. **Consistent Visual Language** - Teal/green brand colors, wave separators, open layouts
 4. **Mission-Driven** - Collaborative focus, not sales-oriented; community and partnership emphasis
 
+### Heading and Button Conventions
+
+**CRITICAL: Different capitalization rules for headings vs. interactive elements.**
+
+#### Section Headings: Sentence Case
+
+**Use sentence case for all section headings and non-clickable text** to maintain a friendly, professional tone.
+
+**Sentence case examples:**
+- ✓ "Who we work with"
+- ✓ "Partnership not right for you?"
+- ✓ "Want to talk it through?"
+- ✓ "Download materials" (card heading, non-clickable)
+- ✓ "Community membership" (card heading, non-clickable)
+
+**Title case (avoid for headings):**
+- ✗ "Who We Work With"
+- ✗ "Partnership Not Right For You?"
+
+**Why sentence case for headings?**
+- Creates a conversational, approachable tone
+- Aligns with BCF's collaborative, non-sales approach
+- Feels more human and less formal
+- Consistent with modern web design trends
+
+#### Buttons and Clickable Elements: Title Case
+
+**Use title case for all buttons, links, and clickable CTAs** to establish clear UI hierarchy.
+
+**Title case examples:**
+- ✓ "Get Started" (button)
+- ✓ "Contact Us" (button)
+- ✓ "Book a Call" (button)
+- ✓ "Explore Partnership" (clickable card link)
+- ✓ "Learn More" (clickable card link)
+
+**Sentence case (avoid for buttons):**
+- ✗ "Get started" (button)
+- ✗ "Contact us" (button)
+
+**Why title case for buttons?**
+- Buttons are UI controls, not prose
+- Follows industry standards (Apple, Google, Microsoft design guidelines)
+- Creates visual hierarchy - buttons stand out as actionable elements
+- Makes interactive elements immediately recognizable
+- Clearer call-to-action for users
+
+#### Summary
+
+- **Headings (h1, h2, h3, etc.)**: Sentence case → "Who we work with"
+- **Buttons and CTAs**: Title case → "Get Started"
+- **Clickable card links**: Title case → "Explore Partnership"
+- **Non-clickable card headings**: Sentence case → "Download materials"
+
+#### Exceptions
+
+- Proper nouns always capitalized (e.g., "Better Conversations Foundation")
+- Acronyms always capitalized (e.g., "BCF")
+- Product/framework names follow their own conventions
+- "For Organisations", "For Educators", "For Researchers" are proper nouns in BCF context
+
 ### Visual Standards
 
 - **Gradient text**: `.bcf-gradient-text` for headings
