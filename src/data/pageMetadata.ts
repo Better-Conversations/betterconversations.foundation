@@ -62,7 +62,7 @@ export const pageMetadata: PageMetadataMap = {
   '/partner': {
     title: 'Partner With Us',
     excerpt: 'Collaborate with BCF to bring Better Conversations to your organisation',
-    tags: ['partner', 'collaboration', 'organisations', 'facilitate', 'training'],
+    tags: ['partner', 'collaboration', 'organisations', 'facilitate', 'learning'],
     category: 'Partnership',
     description: 'Partner with Better Conversations Foundation to transform communication in your organisation',
     lastmod: '2025-10-18',
@@ -70,21 +70,25 @@ export const pageMetadata: PageMetadataMap = {
     changefreq: 'weekly'
   },
   '/get-started/organisations': {
-    title: 'Partner Organisations',
-    excerpt: 'Bring Better Conversations to your organisation',
-    tags: ['partner', 'organisations', 'business', 'workplace', 'collaboration'],
+    title: 'For Organisations',
+    excerpt: 'Partner as an Organisation',
+    tags: ['partner', 'organisations', 'business', 'workplace', 'collaboration', 'facilitation'],
     category: 'Partnership',
-    description: 'Transform your culture with Better Conversations',
-    lastmod: '2025-10-17',
+    description: 'Deep implementation support to embed Better Conversations across your organisation. We help you build internal capacity, measure impact, and create lasting cultural change.',
+    metaDescription: 'Partner as an organisation to embed Better Conversations. Build internal capacity, measure impact, and create lasting cultural change.',
+    keywords: ['organisational partnership', 'culture transformation', 'internal capacity', 'implementation support', 'workplace communication', 'lasting change'],
+    lastmod: '2025-10-18',
     priority: 0.5,
     changefreq: 'weekly'
   },
   '/get-started/join-community': {
     title: 'Join Community',
-    excerpt: 'Connect with facilitators and deliver Better Conversations courses',
-    tags: ['community', 'facilitator', 'training', 'membership', 'network'],
+    excerpt: 'Join Our Community',
+    tags: ['community', 'facilitator', 'facilitation', 'membership', 'network'],
     category: 'Getting Started',
-    description: 'Join our community of facilitators delivering Better Conversations courses and access peer support',
+    description: 'Connect with trained facilitators from partner organisations who are delivering Better Conversations across diverse contexts worldwide.',
+    metaDescription: 'Join our facilitator community—connect with trained facilitators delivering Better Conversations across diverse contexts worldwide.',
+    keywords: ['facilitator community', 'Better Conversations network', 'facilitator support', 'global community', 'partner organisations'],
     lastmod: '2025-10-18',
     priority: 0.4,
     changefreq: 'weekly'
@@ -152,13 +156,23 @@ export const pageMetadata: PageMetadataMap = {
     changefreq: 'monthly'
   },
   '/about/thanks': {
-    title: 'Thank You',
+    title: 'Our Appreciation',
     excerpt: 'Thank you for contacting Better Conversations Foundation',
     tags: ['contact', 'thanks'],
     category: 'About',
     description: 'Thank you page for form submissions',
     lastmod: '2025-10-13',
     priority: 0.1,
+    changefreq: 'monthly'
+  },
+  '/about/showcase': {
+    title: 'Our Ambassadors',
+    excerpt: 'Meet BCF\'s global ambassadors spreading Better Conversations',
+    tags: ['ambassadors', 'showcase', 'community', 'leaders', 'global'],
+    category: 'About',
+    description: 'Meet the ambassadors bringing Better Conversations to communities worldwide',
+    lastmod: '2025-10-14',
+    priority: 0.4,
     changefreq: 'monthly'
   },
 
@@ -169,6 +183,8 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['partnership', 'work', 'collaborate', 'organisations', 'deep support'],
     category: 'Getting Started',
     description: 'Work with the Better Conversations Foundation through organisational partnerships, educator collaborations, or research programmes',
+    metaDescription: 'Partner with BCF to develop internal facilitation capacity, supporting implementation, and measuring impact together.',
+    keywords: ['organisational partnership', 'facilitation capacity', 'implementation support', 'experiential learning', 'culture transformation'],
     lastmod: '2025-10-18',
     priority: 0.8,
     changefreq: 'weekly'
@@ -184,11 +200,13 @@ export const pageMetadata: PageMetadataMap = {
     changefreq: 'weekly'
   },
   '/get-started/attend-course': {
-    title: 'Attend a Course',
-    excerpt: 'Find and attend Better Conversations courses and workshops',
-    tags: ['courses', 'training', 'workshops', 'learn', 'attend'],
+    title: 'Experience a Course',
+    excerpt: 'Experience Better Conversations',
+    tags: ['courses', 'learning', 'workshops', 'experience', 'attend'],
     category: 'Getting Started',
-    description: 'Discover Better Conversations courses and workshops near you',
+    description: 'Experience the transformative power of Better Conversations through organisational partnerships or showcase courses.',
+    metaDescription: 'Experience Better Conversations through organisational partnerships or showcase courses—transformative communication skills development.',
+    keywords: ['Better Conversations course', 'organisational partnership', 'showcase courses', 'experiential learning', 'communication skills'],
     lastmod: '2025-10-18',
     priority: 0.5,
     changefreq: 'weekly'
@@ -214,25 +232,25 @@ export const pageMetadata: PageMetadataMap = {
     changefreq: 'weekly'
   },
   '/get-started/educators': {
-    title: 'Educator partnerships',
-    excerpt: 'Embed conversation skills in your curriculum with pedagogical support and assessment frameworks',
+    title: 'For Educators',
+    excerpt: 'Partner as an Educator',
     tags: ['education', 'curriculum', 'pedagogy', 'educators', 'teaching', 'students'],
     category: 'Getting Started',
-    description: 'Embed conversation skills in your curriculum with pedagogical support, assessment frameworks, and student outcome tracking through partnership with the Better Conversations Foundation.',
-    metaDescription: 'Partner with BCF to integrate Better Conversations into your curriculum—pedagogical guidance, assessment support, and student outcomes.',
-    keywords: ['education', 'curriculum', 'pedagogy', 'student outcomes', 'communication skills', 'higher education', 'secondary education'],
+    description: 'Integrate Better Conversations into your curriculum with expert pedagogical guidance, assessment support, and student outcome tracking.',
+    metaDescription: 'Partner as an educator to integrate Better Conversations—expert pedagogical guidance, assessment support, and student outcome tracking.',
+    keywords: ['education partnership', 'curriculum integration', 'pedagogy', 'student outcomes', 'conversation skills', 'higher education', 'assessment support'],
     lastmod: '2025-10-18',
     priority: 0.7,
     changefreq: 'weekly'
   },
   '/get-started/researchers': {
-    title: 'Research partnerships',
-    excerpt: 'Collaborate on research using Better Conversations as a standardised intervention',
+    title: 'For Researchers',
+    excerpt: 'Partner for Research',
     tags: ['research', 'collaboration', 'academic', 'studies', 'intervention', 'teams'],
     category: 'Getting Started',
-    description: 'Collaborate on research using Better Conversations as a standardised intervention to study teams, groups, and conversation dynamics. Co-design studies and co-publish findings.',
-    metaDescription: 'Partner with BCF for research collaboration—standardised intervention, co-designed studies, and co-publishing opportunities.',
-    keywords: ['research collaboration', 'team dynamics', 'group communication', 'psychology research', 'social science', 'intervention studies'],
+    description: 'Use Better Conversations as a standardised research intervention to study teams, groups, and the impact of conversation skills on organisational outcomes.',
+    metaDescription: 'Partner for research—use Better Conversations as a standardised intervention to study teams, groups, and organisational outcomes.',
+    keywords: ['research intervention', 'team dynamics', 'conversation skills research', 'standardised intervention', 'organisational outcomes', 'research partnership'],
     lastmod: '2025-10-18',
     priority: 0.6,
     changefreq: 'weekly'
@@ -241,11 +259,13 @@ export const pageMetadata: PageMetadataMap = {
   // Approach Pages
   '/approach': {
     title: 'The Better Conversations Framework',
-    excerpt: 'A transformative 6-module journey through Clean Language principles',
+    excerpt: 'A transformative 6-module experiential journey',
     tags: ['approach', 'framework', 'courses', 'curriculum', 'learning', 'methodology'],
     category: 'Approach',
-    description: 'A transformative 6-module journey through Clean Language principles, designed to revolutionise how people connect and communicate in organisations.',
-    lastmod: '2025-07-21',
+    description: 'A transformative 6-module experiential journey, designed to revolutionise how people connect and communicate in organisations.',
+    metaDescription: 'Transform communication in your organisation with our 6-module experiential framework—evidence-based, partnership-focused, and proven across 1000s of participants.',
+    keywords: ['communication framework', 'experiential learning', 'organisational communication', 'conversation skills', 'workplace transformation'],
+    lastmod: '2025-10-18',
     priority: 0.7,
     changefreq: 'weekly'
   },
@@ -291,16 +311,6 @@ export const pageMetadata: PageMetadataMap = {
     priority: 0.6,
     changefreq: 'weekly'
   },
-  '/showcase': {
-    title: 'Ambassador Showcase',
-    excerpt: 'Meet BCF\'s global ambassadors spreading Better Conversations',
-    tags: ['ambassadors', 'showcase', 'community', 'leaders', 'global'],
-    category: 'Community',
-    description: 'Meet the ambassadors bringing Better Conversations to communities worldwide',
-    lastmod: '2025-10-14',
-    priority: 0.3,
-    changefreq: 'monthly'
-  },
   '/blog': {
     title: 'Blog',
     excerpt: 'Latest insights, updates, and articles about Better Conversations',
@@ -343,10 +353,12 @@ export const pageMetadata: PageMetadataMap = {
   },
   '/': {
     title: 'Home',
-    excerpt: 'Welcome to the Better Conversations Foundation',
+    excerpt: 'Six hours, lasting change',
     tags: ['home', 'welcome', 'introduction', 'overview', 'start'],
     category: 'Navigation',
-    description: 'Better Conversations Foundation - Six hours, lasting change. Communication skills training for any team, any sector.',
+    description: 'Better Conversations is an evidence-based communication framework that works across organisations, education, and research settings. Any team. Any learner. Any sector.',
+    metaDescription: 'Six hours, lasting change. Better Conversations is an evidence-based communication framework for any team, any learner, any sector.',
+    keywords: ['evidence-based communication', 'communication framework', 'organisational learning', 'education', 'research', 'team communication'],
     lastmod: '2025-10-18',
     priority: 1.0,
     changefreq: 'weekly'
