@@ -553,6 +553,71 @@ The site uses a comprehensive metadata system with separate metadata titles and 
 
 **For new pages**: Always provide metaDescription and executiveSummary for important content. Ensure metadata title and hero title are semantically related but optimize each for its purpose.
 
+### Meta Description Writing Guidelines
+
+**Length**: 150-160 characters (strict limit for optimal display in search results)
+
+**Style Requirements**:
+- **British English spelling** - Use "organisation", "favour", "centre", etc.
+- **Sentence case** - Start with capital, rest lowercase (except proper nouns)
+- **Warm, conversational tone** - Not corporate, accessible and collaborative
+- **No em dashes** - Use periods, commas, or colons instead (em dashes are overused by AI)
+- **Descriptive & actionable** - Clearly state what the page offers
+- **Keyword-rich** - Include primary keywords in first 120 characters
+- **Unique per page** - Never duplicate descriptions
+
+**Structure Patterns**:
+1. **Action pages**: "[Action] + benefit + context"
+   - Example: "Partner as an educator to integrate Better Conversations. Expert pedagogical guidance, assessment support, and student outcome tracking."
+
+2. **Informational pages**: "Discover/Learn/Explore + what + benefit"
+   - Example: "Discover the Better Conversations Foundation. Building bridges through evidence-based communication skills for teams and organisations worldwide."
+
+3. **Resource pages**: "Access/Browse/Search + what + context"
+   - Example: "Search the complete library of Better Conversations Foundation resources, blog posts, whitepapers, and educational materials with advanced filters."
+
+**What to Avoid**:
+- Generic phrases like "Learn more" or "Click here"
+- Duplicate content from page titles
+- Em dashes (use periods, commas, or colons)
+- Questions (use statements instead)
+- American spelling ("organization", "color")
+- Corporate jargon ("solutions", "leverage", "synergy")
+
+**Where Stored**: All meta descriptions live in `src/data/pageMetadata.ts` in the `metaDescription` field.
+
+### Meta Description Implementation Status (October 2025)
+
+**Completed October 29, 2025 (BCTT-553):**
+- 10 static pages now have comprehensive meta descriptions (150-160 chars each)
+- Dynamic tag pages (`/tags/[tag]`) automatically generate contextual descriptions
+- All descriptions use British English spelling ("organisations" not "organizations")
+- No em dashes used (periods, commas, colons instead)
+
+**Pages with meta descriptions:**
+- `/about`, `/about/team`, `/about/contact`, `/about/thanks`, `/about/showcase`
+- `/tags`, `/search`, `/resources`, `/blog`
+- `/tags/[tag]` (dynamic template)
+
+**Critical bug fixed:** The `generateMetaProperties` function in `src/utils/metadata.ts` was spreading all override values including `undefined`, which overwrote correctly computed descriptions. Now filters out undefined values before spreading.
+
+**Pattern for new pages:** Pages should generally not pass explicit descriptions to Layout unless overriding the default. The Layout automatically looks up descriptions from `pageMetadata.ts`:
+
+```astro
+<!-- Good: Let Layout lookup metadata -->
+<Layout title="Page Title - Better Conversations Foundation">
+  <!-- content -->
+</Layout>
+
+<!-- Also good: Override if needed -->
+<Layout
+  title="Custom Title"
+  description="Custom description that overrides pageMetadata.ts"
+>
+  <!-- content -->
+</Layout>
+```
+
 ## Whitepapers Status (October 2025)
 
 Whitepapers are **currently hidden** because they contain mocked-up example content not ready for public access.

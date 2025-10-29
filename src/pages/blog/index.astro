@@ -44,9 +44,8 @@ const authors = [...new Set(blogPosts.map(post => post.author).filter(Boolean))]
 const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
 ---
 
-<Layout 
-  title="Blog - Better Conversations Foundation" 
-  description="Insights and stories about Better Conversations."
+<Layout
+  title="Blog - Better Conversations Foundation"
 >
   <!-- Hero Section -->
   <section class="relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white py-24 lg:py-32">

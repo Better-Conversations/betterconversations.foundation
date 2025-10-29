@@ -104,7 +104,12 @@ Streamline the BCF website navigation for clarity and better user experience, wh
 - [ ] Test all structured data and fix validation issues
 
 **Content Creator Tasks:**
-- [ ] Write meta descriptions for all visible pages (150-160 characters)
+- [x] Write meta descriptions for all visible pages (150-160 characters) - ✅ Completed Oct 29, 2025 (BCTT-553)
+  - 10 static pages now have comprehensive meta descriptions (150-160 chars)
+  - Dynamic tag pages automatically generate contextual descriptions
+  - Guidelines documented in AGENTS.md for future pages
+  - Bug fixed in metadata.ts that was preventing descriptions from rendering
+  - British English spelling throughout, no em dashes
 - [ ] Add executive summaries to key pages for AI scanning
 - [ ] Add descriptive alt text to all images
 - [ ] Create content relationship mappings (related articles, prerequisites)
@@ -175,7 +180,7 @@ Streamline the BCF website navigation for clarity and better user experience, wh
 - 🔄 **Zero 404 errors** from navigation (some links still need work)
 
 ### Phase 2 (Future)
-- ⏳ **All visible pages have meta descriptions & executive summaries**
+- ✅ **All visible pages have meta descriptions** (completed Oct 29, 2025) - executive summaries still pending
 - ✅ **AI assistant can discover site** (via .well-known/ai-plugin.json)
 - ⏳ **Content index API working** (/api/content-index.json - needs implementation)
 - ⏳ **WCAG 2.1 AA compliance** verified with automated testing

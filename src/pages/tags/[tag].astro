@@ -26,9 +26,12 @@ const relatedTags = await getRelatedTags(tag, 8);
 const blogPosts = taggedContent.filter(item => item.type === 'blog');
 const whitepapers = taggedContent.filter(item => item.type === 'whitepaper');
 const pages = taggedContent.filter(item => item.type === 'page');
+
+// Generate dynamic meta description
+const description = `Explore Better Conversations Foundation content about ${tagName}. Articles, resources, and insights from our community and partners.`;
 ---
 
-<Layout title={`${tagName} - Better Conversations Foundation`}>
+<Layout title={`${tagName} - Better Conversations Foundation`} description={description}>
   <style>
     
     /* Type badge styles */

@@ -121,6 +121,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['about', 'mission', 'foundation', 'history', 'values'],
     category: 'About',
     description: 'Discover the Better Conversations Foundation\'s mission and values',
+    metaDescription: 'Discover the Better Conversations Foundation. Building bridges through evidence-based communication skills for teams and organisations worldwide.',
     lastmod: '2025-10-18',
     priority: 0.7,
     changefreq: 'weekly'
@@ -141,6 +142,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['about', 'team', 'people', 'leadership', 'founders'],
     category: 'About',
     description: 'Meet the dedicated team driving BCF\'s mission forward',
+    metaDescription: 'Meet our Faculty. Trusted course facilitators who deliver Better Conversations training to consistently high standards in public courses and private work.',
     lastmod: '2025-10-14',
     priority: 0.4,
     changefreq: 'monthly'
@@ -151,6 +153,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['contact', 'support', 'inquiries', 'connect', 'email'],
     category: 'About',
     description: 'Contact the BCF team for questions, partnerships, or general inquiries',
+    metaDescription: 'Get in touch with the Better Conversations Foundation. We\'d love to hear about your work, answer questions, or explore partnership opportunities.',
     lastmod: '2025-10-29',
     priority: 0.5,
     changefreq: 'monthly'
@@ -161,6 +164,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['contact', 'thanks'],
     category: 'About',
     description: 'Thank you page for form submissions',
+    metaDescription: 'Recognizing the many people who have made significant contributions to Better Conversations. Our appreciation for contributors, faculty, and supporters.',
     lastmod: '2025-10-13',
     priority: 0.1,
     changefreq: 'monthly'
@@ -171,6 +175,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['ambassadors', 'showcase', 'community', 'leaders', 'global'],
     category: 'About',
     description: 'Meet the ambassadors bringing Better Conversations to communities worldwide',
+    metaDescription: 'Meet the ambassadors bringing Better Conversations to communities worldwide. Discover the people making conversation skills accessible across sectors.',
     lastmod: '2025-10-14',
     priority: 0.4,
     changefreq: 'monthly'
@@ -297,6 +302,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['resources', 'materials', 'library', 'content', 'tools'],
     category: 'Resources',
     description: 'Access BCF\'s comprehensive library of resources and skills',
+    metaDescription: 'Access Better Conversations resources including our blog, technical documentation, and upcoming whitepapers. Tools and insights to enhance your journey.',
     lastmod: '2025-10-17',
     priority: 0.7,
     changefreq: 'weekly'
@@ -317,6 +323,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['blog', 'articles', 'news', 'insights', 'updates'],
     category: 'Resources',
     description: 'Read the latest articles and insights from the BCF community',
+    metaDescription: 'Read the latest from the Better Conversations community. Articles, insights, and reflections on conversation practice across diverse contexts and sectors.',
     lastmod: '2025-10-18',
     priority: 0.8,
     changefreq: 'daily'
@@ -337,6 +344,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['search', 'find', 'discover', 'explore'],
     category: 'utility',
     description: 'Search the Foundation\'s complete library of resources, blogs, and whitepapers',
+    metaDescription: 'Search the complete library of Better Conversations Foundation resources, blog posts, whitepapers, and educational materials with advanced filters.',
     lastmod: '2025-10-17',
     priority: 0.5,
     changefreq: 'monthly'
@@ -347,6 +355,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['topics', 'categories', 'browse', 'explore', 'navigation'],
     category: 'Navigation',
     description: 'Explore BCF content organised by topics and themes',
+    metaDescription: 'Browse all topics and themes across the Better Conversations Foundation. Explore our resources by category, subject, or whatever catches your interest.',
     lastmod: '2025-10-13',
     priority: 0.2,
     changefreq: 'weekly'
