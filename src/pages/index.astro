@@ -97,6 +97,7 @@ const homeMetadata = generateMetaProperties('/');
 	
 	<!-- Hero Section -->
 	<section class="relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white">
+		
 		<!-- Animated gradient background -->
 		<div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/30 via-transparent to-[#A8D381]/30 animated-gradient"></div>
 		
@@ -122,29 +123,27 @@ const homeMetadata = generateMetaProperties('/');
 		<div class="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 py-32 lg:py-48">
 			<div class="text-center">
 				<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-					Six hours, lasting change. <br>
-					<span class="text-4xl md:text-5xl text-gray-900 mt-12 mb-12 max-w-3xl mx-auto">
-						Any team. Any classroom. Anywhere.
-					</span>
-						<svg class="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 200 8" preserveAspectRatio="none">
+					Six hours, <span class="text-[#54C4B6] relative">lasting change<svg class="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 200 8" preserveAspectRatio="none">
 							<path d="M0 7 Q50 0 100 3 T200 7" stroke="#54C4B6" stroke-width="2" fill="none" opacity="0.5"/>
-						</svg>
-					</span>
+						</svg></span>
 				</h1>
+				<p class="text-2xl md:text-3xl font-semibold text-gray-700 mb-8 max-w-3xl mx-auto">
+					Any team. Any learner. Any sector.
+				</p>
 				<p class="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto">
-					<span class="text-[#54C4B6] font-semibold">Better Conversations</span> works in workplaces, classrooms, and research settings.
+					<span class="text-[#54C4B6] font-semibold">Better Conversations</span> is an evidence-based communication framework that works across organisations, education, and research settings.
 				</p>
 				<div class="flex flex-col sm:flex-row gap-4 justify-center">
-					<a href="#join" class="ripple-button inline-flex items-center px-8 py-4 border border-transparent text-base font-medium rounded-full text-white bg-gradient-to-r from-[#54C4B6] to-[#A8D381] hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-						Join the Foundation
+					<a href="/get-started" class="ripple-button bcf-cta-hero-primary">
+						Get Started
 						<svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
 						</svg>
 					</a>
-					<a href="#course" class="group inline-flex items-center px-8 py-4 border-2 border-gray-300 text-base font-medium rounded-full text-gray-700 bg-white hover:border-[#54C4B6] hover:text-[#54C4B6] transition-all duration-300">
-						Attend a Course
-						<svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+					<a href="/about/contact" class="bcf-cta-hero-secondary">
+						Contact Us
+						<svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
 						</svg>
 					</a>
 				</div>
@@ -188,16 +187,22 @@ const homeMetadata = generateMetaProperties('/');
 				</p>
 				<div class="mt-4 max-w-2xl text-xl text-gray-600 text-center mx-auto space-y-4">
 					<p>We are <span class="text-[#54C4B6] font-semibold">The Better Conversations Foundation</span>, dedicated to helping people around the world connect on a human level. We develop and support open resources to help people listen to each other and be heard.</p>
-					<p>Better conversations improve collaboration, deepen learning, and strengthen research. Whether you work in business, education, or research, the same core skills apply.</p>
+					<p><span class="font-semibold">Better Conversations</span> improve collaboration, deepen learning, and strengthen research. We work with a select few organisations each year, to effectively measure impact.</p>
 				</div>
 
 				<!-- About Us CTA -->
 				<div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-					<a href="/download/flight-plans" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-[#54C4B6] hover:bg-[#54C4B6]/90 transition-colors">
+					<a href="/about" class="bcf-cta-primary">
 						About Us
+						<svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+						</svg>
 					</a>
-					<a href="/members/course-docs" class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+					<a href="/about/faq" class="bcf-cta-secondary">
 						FAQ's
+						<svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+						</svg>
 					</a>
 				</div>
 			</div>
@@ -218,65 +223,24 @@ const homeMetadata = generateMetaProperties('/');
 					</p>
 					<div class="mt-4 max-w-2xl text-xl text-gray-600 text-center mx-auto space-y-4">
 						<p>Small shifts can have deep and lasting impact. We've distilled the essence of good conversational skills into behaviours that stick—whether you're leading a team, teaching a class, or conducting research.</p>
-						<p>No fluff. Just a simple and reliable framework that allows immediate application.</p>
+						<p>No fluff. Just a clear and reliable framework that's easy to understand and apply immediately. </p>
 					</div>
 			</div>
 		</div>
 
-		<!-- Features Grid -->
-		<div class="mt-20 mb-20 max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-			<div class="grid grid-cols-1 gap-10 md:grid-cols-3">
-				<div class="text-center">
-					<div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#54C4B6]/10 text-[#54C4B6] mx-auto">
-						<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-						</svg>
-					</div>
-					<h3 class="mt-4 text-lg font-medium text-gray-900">Evidence-Based Framework</h3>
-					<p class="mt-2 text-base text-gray-600">
-						Built on research from coaching psychology, Clean Language, and organisational studies. Free to download, adapt, and use in your context.
-					</p>
-				</div>
-
-				<div class="text-center">
-					<div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#54C4B6]/10 text-[#54C4B6] mx-auto">
-						<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-						</svg>
-					</div>
-					<h3 class="mt-4 text-lg font-medium text-gray-900">Community of Practice</h3>
-					<p class="mt-2 text-base text-gray-600">
-						Connect with professionals across business, education, health, research, and community sectors. Share what works in your setting.
-					</p>
-				</div>
-
-				<div class="text-center">
-					<div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#54C4B6]/10 text-[#54C4B6] mx-auto">
-						<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-						</svg>
-					</div>
-					<h3 class="mt-4 text-lg font-medium text-gray-900">Scalable & Adaptable</h3>
-					<p class="mt-2 text-base text-gray-600">
-						Six-hour core course adapts to different contexts. Delivered in boardrooms, lecture halls, community centres, and research labs worldwide.
-					</p>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- One Framework, Multiple Settings Section -->
-	<section class="py-12 lg:py-16 bg-white">
-		<div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-			<h2 class="text-2xl font-bold text-gray-900 text-center mb-12">
-				One Framework, Multiple Settings
-			</h2>
+		<!-- One Framework, Multiple Settings -->
+		<div class="py-12 lg:py-16 max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
 
 			<div class="grid md:grid-cols-3 gap-8">
 				<!-- For Organisations -->
-				<div class="border-l-4 border-[#54C4B6] pl-6">
-					<h3 class="text-lg font-semibold text-gray-900 mb-3">For Organisations</h3>
-					<ul class="space-y-2 text-gray-600 text-sm">
+				<div class="bcf-card">
+					<div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#54C4B6]/10 text-[#54C4B6] mx-auto">
+						<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+						</svg>
+					</div>
+					<h3 class="mt-4 text-lg font-semibold text-gray-900 text-center">For Organisations</h3>
+					<ul class="mt-4 space-y-2 text-gray-600 text-base">
 						<li>• Reduces wasted time and rework</li>
 						<li>• Improves staff retention</li>
 						<li>• Scales across departments</li>
@@ -285,115 +249,269 @@ const homeMetadata = generateMetaProperties('/');
 				</div>
 
 				<!-- For Educators -->
-				<div class="border-l-4 border-[#A8D381] pl-6">
-					<h3 class="text-lg font-semibold text-gray-900 mb-3">For Educators</h3>
-					<ul class="space-y-2 text-gray-600 text-sm">
+				<div class="bcf-card">
+					<div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#A8D381]/10 text-[#A8D381] mx-auto">
+						<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+						</svg>
+					</div>
+					<h3 class="mt-4 text-lg font-semibold text-gray-900 text-center">For Educators</h3>
+					<ul class="mt-4 space-y-2 text-gray-600 text-base">
 						<li>• Develops metacognitive skills</li>
 						<li>• Supports pastoral care</li>
-						<li>• Fits curriculum requirements</li>
+						<li>• Fits within curriculum</li>
 						<li>• Adaptable across age groups</li>
 					</ul>
 				</div>
 
 				<!-- For Researchers -->
-				<div class="border-l-4 border-[#54C4B6] pl-6">
-					<h3 class="text-lg font-semibold text-gray-900 mb-3">For Researchers</h3>
-					<ul class="space-y-2 text-gray-600 text-sm">
-						<li>• Open-source methodology</li>
-						<li>• Research collaboration opportunities</li>
+				<div class="bcf-card">
+					<div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#54C4B6]/10 text-[#54C4B6] mx-auto">
+						<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+						</svg>
+					</div>
+					<h3 class="mt-4 text-lg font-semibold text-gray-900 text-center">For Researchers</h3>
+					<ul class="mt-4 space-y-2 text-gray-600 text-base">
+						<li>• Standardised, reliable intervention</li>
 						<li>• Evidence-based framework</li>
-						<li>• Published under Creative Commons</li>
+						<li>• Open-source approach</li>
+						<li>• Research collaboration opportunities</li>
 					</ul>
 				</div>
 			</div>
 		</div>
+
+		<div class="mt-4 max-w-2xl text-2xl font-semibold text-gray-900 text-center mx-auto">
+				<p>One framework, multiple settings, far-reaching impact.</p>
+		</div>
+		
+		
 	</section>
 
-	<!-- Course Download CTA -->
+	<!-- How It Works Section -->
+	<section class="py-12 lg:py-20 bg-white relative overflow-hidden">
+		<div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 relative">
+			<div class="text-center">
+				<h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">How It Works</h2>
+				<p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
+					Three interconnected elements
+				</p>
+			</div>
+
+			<!-- Three Circle Diagram -->
+			<div class="relative max-w-4xl mx-auto mb-16 mt-12">
+				<svg viewBox="0 0 800 300" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+					<!-- Left Circle - Evidence-Based Framework -->
+					<circle cx="200" cy="150" r="120" fill="#54C4B6" opacity="0.75"/>
+
+					<!-- Left Circle Icon -->
+					<g transform="translate(200, 115) scale(1.5)">
+						<path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+							stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"
+							transform="translate(-12, -12)"/>
+					</g>
+
+					<text x="200" y="168" text-anchor="middle" fill="white" font-size="18" font-weight="600">Evidence-Based</text>
+					<text x="200" y="188" text-anchor="middle" fill="white" font-size="18" font-weight="600">Framework</text>
+
+					<!-- Centre Circle - Community of Practice (overlapping both) -->
+					<circle cx="400" cy="150" r="120" fill="#A8D381" opacity="0.75"/>
+
+					<!-- Centre Circle Icon -->
+					<g transform="translate(400, 115) scale(1.5)">
+						<path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+							stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"
+							transform="translate(-12, -12)"/>
+					</g>
+
+					<text x="400" y="168" text-anchor="middle" fill="white" font-size="18" font-weight="600">Community</text>
+					<text x="400" y="188" text-anchor="middle" fill="white" font-size="18" font-weight="600">of Practice</text>
+
+					<!-- Right Circle - Open Resources -->
+					<circle cx="600" cy="150" r="120" fill="#7EB8B0" opacity="0.75"/>
+
+					<!-- Right Circle Icon -->
+					<g transform="translate(600, 115) scale(1.5)">
+						<path d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"
+							stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"
+							transform="translate(-12, -12)"/>
+					</g>
+
+					<text x="600" y="168" text-anchor="middle" fill="white" font-size="18" font-weight="600">Open &</text>
+					<text x="600" y="188" text-anchor="middle" fill="white" font-size="18" font-weight="600">Accessible</text>
+				</svg>
+			</div>
+
+			<!-- Detailed Descriptions Below -->
+			<div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+				<div class="text-center">
+					<h3 class="text-lg font-semibold text-gray-900 mb-3">Evidence-based framework</h3>
+					<p class="text-base text-gray-600">
+						Built on psychology, innovation and leadership research alongside organisational experience. <span class="font-medium text-gray-700">Our materials are freely available. </span>Partnership provides expertise in adapting them for your context.
+					</p>
+				</div>
+
+				<div class="text-center">
+					<h3 class="text-lg font-semibold text-gray-900 mb-3">Community of practice</h3>
+					<p class="text-base text-gray-600">
+						Supported by a global network of practitioners sharing insights across sectors. <span class="font-medium text-gray-700">Partnership connects you </span> with experienced leaders and practitioners who've successfully implemented Better Conversations in different sectors.
+					</p>
+				</div>
+
+				<div class="text-center">
+					<h3 class="text-lg font-semibold text-gray-900 mb-3">Open & accessible resources</h3>
+					<p class="text-base text-gray-600">
+						All materials transparently licensed under Creative Commons. Partnerships add implementation guidance, facilitator development, and sustained support for organisational change.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Why Choose Better Conversations Section -->
+	<section class="py-12 lg:py-20 bg-white relative overflow-hidden">
+		<div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 relative">
+			<div class="text-center">
+				<h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Why Partner With Us</h2>
+				<p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
+					Implementation that sticks
+				</p>
+			</div>
+
+			<div class="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
+				<div class="bg-gray-50 rounded-lg shadow-sm border border-gray-200 p-6 text-center hover:shadow-md transition-shadow">
+					<div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#54C4B6]/10 text-[#54C4B6] mx-auto">
+						<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+						</svg>
+					</div>
+					<h3 class="mt-4 text-lg font-medium text-gray-900">Guided implementation</h3>
+					<p class="mt-2 text-base text-gray-600">
+						Work directly with experienced leaders and practitioners who've successfully embedded Better Conversations across healthcare, education, and corporate contexts.
+					</p>
+				</div>
+
+				<div class="bg-gray-50 rounded-lg shadow-sm border border-gray-200 p-6 text-center hover:shadow-md transition-shadow">
+					<div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#54C4B6]/10 text-[#54C4B6] mx-auto">
+						<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+						</svg>
+					</div>
+					<h3 class="mt-4 text-lg font-medium text-gray-900">Measured impact</h3>
+					<p class="mt-2 text-base text-gray-600">
+						Co-design approaches to measure impact and gather participant experiences, tailored to your specific research question or organisational challenges. Apply it continuously and track the results.
+					</p>
+				</div>
+
+				<div class="bg-gray-50 rounded-lg shadow-sm border border-gray-200 p-6 text-center hover:shadow-md transition-shadow">
+					<div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#54C4B6]/10 text-[#54C4B6] mx-auto">
+						<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+						</svg>
+					</div>
+					<h3 class="mt-4 text-lg font-medium text-gray-900">Sustained support</h3>
+					<p class="mt-2 text-base text-gray-600">
+						Receive ongoing support to develop internal capacity throughout your organisation and the community it serves. Better Conversations diffuse naturally, with ease and in surprising ways.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Partnership & Resources CTA -->
 	<section class="py-12 lg:py-20 bg-gray-50 relative overflow-hidden">
 		<div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
 			<div class="text-center">
-				<p class="mt-20 mb-10 max-w-2xl text-xl text-gray-600 text-center mx-auto">
-					Feel free to download the Better Conversations course materials and incorporate them into your work.
+				<h2 class="text-3xl font-bold text-gray-900 mb-4">Ready to transform your organisation?</h2>
+				<p class="mt-4 mb-8 max-w-2xl text-xl text-gray-600 text-center mx-auto">
+					Partner with us for deep implementation support—or explore our open-access materials to see our approach.
 				</p>
-				<div class="mt-4 flex flex-col sm:flex-row gap-4 justify-center">
-					<a href="/download/flight-plans" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-[#54C4B6] hover:bg-[#54C4B6]/90 transition-colors">
-						Download Flight Plans
+				<div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+					<a href="/get-started" class="bcf-cta-primary">
+						Explore Partnership
+						<svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/>
+						</svg>
 					</a>
-					<a href="/members/course-docs" class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors">
-						Course Documentation
+					<a href="/download/course-docs" class="bcf-cta-secondary">
+						Download Materials
+						<svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+						</svg>
 					</a>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<!-- Attending a Course Section -->
-	<section id="course" class="py-16 lg:py-24 bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10">
-		<div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-			<div class="text-center">
-				<h2 class="text-3xl font-bold text-gray-900">Attending a Course</h2>
-				<div class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto space-y-4">
-					<p>If you would like to attend Better Conversations, there are many people providing both private and public courses.
-				</div>
-
-				<div class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-					<div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-						<div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#54C4B6]/10 text-[#54C4B6] mx-auto">
-							<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-							</svg>
-						</div>
-						<h3 class="mt-4 text-lg font-medium text-gray-900">Public Courses</h3>
-						<p class="mt-2 text-base text-gray-600">
-							Join scheduled public courses with other professionals
-						</p>
-					</div>
-	
-					<div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-						<div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#54C4B6]/10 text-[#54C4B6] mx-auto">
-							<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-							</svg>
-						</div>
-						<h3 class="mt-4 text-lg font-medium text-gray-900">Private Training</h3>
-						<p class="mt-2 text-base text-gray-600">
-							Arrange custom training for your organization
-						</p>
-					</div>
-	
-					<div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-						<div class="flex items-center justify-center h-12 w-12 rounded-md bg-[#54C4B6]/10 text-[#54C4B6] mx-auto">
-							<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
-							</svg>
-						</div>
-						<h3 class="mt-4 text-lg font-medium text-gray-900">Partner Organisations</h3>
-						<p class="mt-2 text-base text-gray-600">
-							Free courses for members of partner nonprofits with referral links
-						</p>
-					</div>
-				</div>
-				
-				<div class="mt-16
-				 text-lg text-gray-600 max-w-3xl mx-auto space-y-4">
-					<p>The Foundation runs a limited number of public courses each year to demonstrate the course and to test ongoing development of our standard course.</p>
-					<p>You can join our public courses if you are referred by a member of the Foundation through their personal referral link on our <span class="font-bold">bettercourses.org</span> app</p>
-					<p>We also work in partnership with other non-profits and public sector organisations, whose members can attend the course for free and are pre-approved for membership of the Foundation.</p>
-					<p>If you can't find the referral link, or would like to know how to arrange private courses, please get in touch with us.</p>
-					</div>
-				</div>
-				<div class="mt-4 flex flex-col sm:flex-row gap-4 justify-center">
-					<a href="/download/flight-plans" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-[#54C4B6] hover:bg-[#54C4B6]/90 transition-colors">
-						Book a Call
-					</a>
-					<a href="/members/course-docs" class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors">
-						Email Us
-					</a>
-				</div>
+	<!-- Choose Your Path Section -->
+	<section class="py-12 lg:py-20 bg-white relative overflow-hidden">
+		<div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 relative">
+			<div class="text-center mb-12">
+				<h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Choose Your Path</h2>
+				<p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
+					Find the right partnership model for your context
+				</p>
 			</div>
 
-			
+			<div class="grid md:grid-cols-3 gap-8">
+				<!-- For Organisations -->
+				<a href="/get-started/organisations" class="group bg-gradient-to-br from-gray-50 to-white rounded-xl shadow-sm border border-gray-200 p-8 hover:shadow-xl hover:border-[#54C4B6] transition-all duration-300">
+					<div class="flex items-center justify-center h-16 w-16 rounded-xl bg-[#54C4B6]/10 text-[#54C4B6] mx-auto group-hover:bg-[#54C4B6] group-hover:text-white transition-all duration-300">
+						<svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+						</svg>
+					</div>
+					<h3 class="mt-6 text-xl font-semibold text-gray-900 text-center group-hover:text-[#54C4B6] transition-colors">For Organisations</h3>
+					<p class="mt-4 text-base text-gray-600 text-center">
+						Transform your workplace culture with deep implementation support, facilitator development, and measurable impact.
+					</p>
+					<div class="mt-6 flex items-center justify-center text-[#54C4B6] font-medium group-hover:translate-x-1 transition-transform">
+						Explore Partnership
+						<svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+						</svg>
+					</div>
+				</a>
+
+				<!-- For Educators -->
+				<a href="/get-started/educators" class="group bg-gradient-to-br from-gray-50 to-white rounded-xl shadow-sm border border-gray-200 p-8 hover:shadow-xl hover:border-[#A8D381] transition-all duration-300">
+					<div class="flex items-center justify-center h-16 w-16 rounded-xl bg-[#A8D381]/10 text-[#A8D381] mx-auto group-hover:bg-[#A8D381] group-hover:text-white transition-all duration-300">
+						<svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+						</svg>
+					</div>
+					<h3 class="mt-6 text-xl font-semibold text-gray-900 text-center group-hover:text-[#A8D381] transition-colors">For Educators</h3>
+					<p class="mt-4 text-base text-gray-600 text-center">
+						Embed conversation skills in your curriculum with guidance on pedagogy, assessment, and student outcomes.
+					</p>
+					<div class="mt-6 flex items-center justify-center text-[#A8D381] font-medium group-hover:translate-x-1 transition-transform">
+						Explore Partnership
+						<svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+						</svg>
+					</div>
+				</a>
+
+				<!-- For Researchers -->
+				<a href="/get-started/researchers" class="group bg-gradient-to-br from-gray-50 to-white rounded-xl shadow-sm border border-gray-200 p-8 hover:shadow-xl hover:border-[#54C4B6] transition-all duration-300">
+					<div class="flex items-center justify-center h-16 w-16 rounded-xl bg-[#54C4B6]/10 text-[#54C4B6] mx-auto group-hover:bg-[#54C4B6] group-hover:text-white transition-all duration-300">
+						<svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+						</svg>
+					</div>
+					<h3 class="mt-6 text-xl font-semibold text-gray-900 text-center group-hover:text-[#54C4B6] transition-colors">For Researchers</h3>
+					<p class="mt-4 text-base text-gray-600 text-center">
+						Collaborate on research using our standardised intervention to study teams, groups, and conversation dynamics.
+					</p>
+					<div class="mt-6 flex items-center justify-center text-[#54C4B6] font-medium group-hover:translate-x-1 transition-transform">
+						Explore Partnership
+						<svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+						</svg>
+					</div>
+				</a>
 			</div>
 		</div>
 	</section>
@@ -408,18 +526,12 @@ const homeMetadata = generateMetaProperties('/');
 				<p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
 					We'd love to hear from you
 				</p>
-				<div class="mt-8 max-w-5xl mx-auto px-4">
-					<div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 text-lg text-gray-600">
-						<div class="space-y-4 text-center md:text-left">
-							<p>We built a course that brought people together in our sister company. Then educators asked if they could use it. Then researchers wanted to study it. And we thought other people might like it too.</p>
-							<p>And we made the standard course open and easy to access, because we knew it would get better quicker if more people used and shared their ideas and experiences.</p>
-							<p>And we left space for people to add and develop their own content, to make this their own because no one can have all the good ideas or know the all the contexts this material might be used in.</p>
-						</div>
-						<div class="space-y-4 text-center md:text-left">
-							<p>Along the way we were asked to set up a community. So we did that too.</p>
-							<p>We think we have co-created something quite special. And now we would like to share this with as many people as possible.</p>
-							<p class="font-semibold text-[#54C4B6]">If you've read this far, we think you might be one of them!</p>
-						</div>
+				<div class="mt-8 max-w-3xl mx-auto px-4">
+					<div class="space-y-4 text-lg text-gray-600 text-center">
+						<p>We developed a course that brought people together in our sister company. Then educators asked if they could use it. And researchers wanted to study it. We thought other people might like it too.</p>
+						<p>So we made a standard course that is open and easy to access and set up a community, because we knew we'd learn faster working with others. We left space for people to add their own content, to make this their own so it spreads further.</p>
+						<p>We think we have co-created something quite special. And now we're looking for the right partners to take this work deeper. We work with a select few organisations and educators each year co-designing implementation, developing internal capacity, and measuring real-world impact together.</p>
+						<p class="font-semibold text-[#54C4B6]">Would you like to help us make a difference?</p><br>
 					</div>
 				</div>
 			</div>
@@ -428,15 +540,18 @@ const homeMetadata = generateMetaProperties('/');
 		<!-- Joining the Foundation CTA -->
 		<div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
 				<div>
-					<p class="mt-12 text-lg text-gray-600 text-center">
-						If you have any further questions, or would like to be considered for membership or partnership, please get in touch.
-					</p>
 					<div class="mt-4 flex flex-col sm:flex-row gap-4 justify-center">
-						<a href="/download/flight-plans" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-[#54C4B6] hover:bg-[#54C4B6]/90 transition-colors">
+						<a href="/get-started/schedule-call" class="bcf-cta-primary">
 							Book a Call
+							<svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+							</svg>
 						</a>
-						<a href="/members/course-docs" class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors">
-							Email Us
+						<a href="/about/contact" class="bcf-cta-secondary">
+							Contact Us
+							<svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+							</svg>
 						</a>
 					</div>
 				</div>

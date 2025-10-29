@@ -35,3 +35,6 @@ chromium/
 
 # generated PDF review file
 site-review-full.pdf
+
+# generated .py files
+*.py

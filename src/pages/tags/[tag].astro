@@ -134,7 +134,7 @@ const pages = taggedContent.filter(item => item.type === 'page');
           <h2 class="text-2xl font-bold text-gray-900 mb-8">Blog Articles</h2>
           <div class="space-y-4">
             {blogPosts.map(post => {
-              // Get optimized image if available
+              // Get optimised image if available
               const postSlug = post.slug.split('/').pop() || '';
               const optimizedImage = getBlogImage(postSlug);
               
@@ -278,7 +278,7 @@ const pages = taggedContent.filter(item => item.type === 'page');
                       </div>
                     </div>
                     
-                    <div class="bcf-content-card-content centered">
+                    <div class="bcf-content-card-content centred">
                       <h3 class="bcf-content-card-title">
                         {page.title}
                       </h3>

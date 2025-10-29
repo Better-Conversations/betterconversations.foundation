@@ -1,5 +1,5 @@
 {
-	"name": "amphora-website",
+	"name": "bcf-content-site",
 	"dockerFile": "Dockerfile",
 	"forwardPorts": [4321],
 	"customizations": {
@@ -9,11 +9,12 @@
 				"dbaeumer.vscode-eslint",
 				"esbenp.prettier-vscode",
 				"bradlc.vscode-tailwindcss",
-				"github.vscode-github-actions"
+				"github.vscode-github-actions",
+				"Anthropic.claude-code"
 			]
 		}
 	},
 	"postCreateCommand": "npm install",
-	"postStartCommand": "./.devcontainer/start-dev.sh",
+	// "postStartCommand": "./.devcontainer/start-dev.sh",
 	"remoteUser": "node"
 } 

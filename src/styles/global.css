@@ -70,12 +70,57 @@
     @apply hover:bg-[#54C4B6]/90 hover:shadow-md;
     @apply transition-all focus:outline-none focus:ring-2 focus:ring-[#54C4B6] focus:ring-offset-2;
   }
-  
+
   .bcf-button-secondary {
     @apply px-4 py-2 text-sm font-medium text-gray-600;
     @apply bg-gray-100 rounded-lg;
     @apply hover:bg-gray-200 transition-colors;
     @apply focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2;
+  }
+
+  /* CTA Buttons - Hero Sections (More Prominent) */
+  .bcf-cta-hero-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 text-lg font-semibold rounded-xl;
+    @apply text-white bg-gradient-to-r from-[#54C4B6] to-[#A8D381];
+    @apply shadow-lg hover:shadow-xl;
+    @apply transform hover:scale-105 transition-all duration-300;
+  }
+
+  .bcf-cta-hero-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 text-lg font-semibold rounded-xl;
+    @apply text-gray-700 bg-white border-2 border-gray-300;
+    @apply shadow-md hover:shadow-lg hover:bg-gray-50;
+    @apply transform hover:scale-105 transition-all duration-300;
+  }
+
+  /* CTA Buttons - Standard Sections (Standard Prominence) */
+  .bcf-cta-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 text-base font-semibold rounded-xl;
+    @apply text-white bg-gradient-to-r from-[#54C4B6] to-[#A8D381];
+    @apply hover:shadow-xl;
+    @apply transform hover:scale-105 transition-all duration-300;
+  }
+
+  .bcf-cta-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 text-base font-semibold rounded-xl;
+    @apply text-gray-700 bg-white border-2 border-gray-200;
+    @apply hover:bg-gray-50;
+    @apply transform hover:scale-105 transition-all duration-300;
+  }
+
+  /* CTA Buttons - Special Variants */
+  .bcf-cta-white-on-gradient {
+    @apply inline-flex items-center justify-center px-6 py-3 text-base font-semibold rounded-xl;
+    @apply text-[#54C4B6] bg-white border-2 border-white;
+    @apply hover:bg-gray-50;
+    @apply transform hover:scale-105 transition-all duration-300;
+  }
+
+  .bcf-cta-outline-on-gradient {
+    @apply inline-flex items-center justify-center px-6 py-3 text-base font-semibold rounded-xl;
+    @apply text-white border-2 border-white;
+    @apply hover:bg-white/10;
+    @apply transform hover:scale-105 transition-all duration-300;
   }
   
   /* Tag Badges */
@@ -92,6 +137,56 @@
     @apply hover:border-[#54C4B6] hover:shadow-lg;
     @apply transition-all duration-300 transform hover:-translate-y-1;
     @apply flex flex-col;
+  }
+
+  /* Card XL - Larger padding and border radius */
+  .bcf-card-xl {
+    @apply bg-white rounded-xl border border-gray-200 p-8;
+    @apply hover:border-[#54C4B6] hover:shadow-lg;
+    @apply transition-all duration-300 transform hover:-translate-y-1;
+    @apply block;
+  }
+
+  /* Card with gradient background */
+  .bcf-card-gradient {
+    @apply bg-gradient-to-br from-gray-50 to-white rounded-xl border border-gray-200 p-8;
+    @apply hover:border-[#54C4B6] hover:shadow-lg;
+    @apply transition-all duration-300 transform hover:-translate-y-1;
+    @apply block;
+  }
+
+  /* Clickable card (links/buttons) - More prominent hover effect */
+  .bcf-card-clickable {
+    @apply bg-white rounded-xl border-2 border-gray-200 p-8 shadow-md;
+    @apply hover:border-[#54C4B6] hover:shadow-xl;
+    @apply transition-all duration-300;
+    @apply block;
+  }
+
+  /* Clickable card with gradient background */
+  .bcf-card-clickable-gradient {
+    @apply bg-gradient-to-br from-gray-50 to-white rounded-xl border-2 border-gray-200 p-8 shadow-md;
+    @apply hover:shadow-2xl;
+    @apply transition-all duration-300;
+    @apply block;
+  }
+
+  /* Card with left border accent */
+  .bcf-card-accent-left {
+    @apply bg-white rounded-xl p-8 shadow-sm border-l-4;
+    @apply block;
+  }
+
+  /* Info card with backdrop blur */
+  .bcf-card-info {
+    @apply bg-white/80 backdrop-blur rounded-xl p-6 border border-gray-200;
+    @apply block;
+  }
+
+  /* Highlighted card with colored border */
+  .bcf-card-highlight {
+    @apply bg-white rounded-xl p-8 shadow-lg border-2;
+    @apply block;
   }
 
   /* Card footer that pushes to bottom */

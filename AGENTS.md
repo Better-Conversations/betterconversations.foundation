@@ -76,7 +76,7 @@ Contains project roadmap, task tracking, and status:
 ## Project-Wide Critical Rules
 
 ### Must Follow Always
-- **UK English spelling** throughout the entire site
+- **UK English spelling for content only** - Use British English (organisation, licence, centre) in all user-facing text and content. **NEVER change code syntax**: CSS properties (`color:`, `border-color:`), CSS values (`text-align: center`), SVG attributes (`stop-color`), or Tailwind classes (`text-center`, `items-center`) must remain in standard code format.
 - **Run `npx astro check`** after any TypeScript or Astro file changes
 - **Only fix errors in files you have modified** - do not attempt to fix all project errors
 - **Use global `.bcf-*` classes** before creating custom styling (check `src/styles/global.css`)
@@ -212,6 +212,67 @@ For optimal readability across all devices:
 3. **Consistent Visual Language** - Teal/green brand colors, wave separators, open layouts
 4. **Mission-Driven** - Collaborative focus, not sales-oriented; community and partnership emphasis
 
+### Heading and Button Conventions
+
+**CRITICAL: Different capitalization rules for headings vs. interactive elements.**
+
+#### Section Headings: Sentence Case
+
+**Use sentence case for all section headings and non-clickable text** to maintain a friendly, professional tone.
+
+**Sentence case examples:**
+- ✓ "Who we work with"
+- ✓ "Partnership not right for you?"
+- ✓ "Want to talk it through?"
+- ✓ "Download materials" (card heading, non-clickable)
+- ✓ "Community membership" (card heading, non-clickable)
+
+**Title case (avoid for headings):**
+- ✗ "Who We Work With"
+- ✗ "Partnership Not Right For You?"
+
+**Why sentence case for headings?**
+- Creates a conversational, approachable tone
+- Aligns with BCF's collaborative, non-sales approach
+- Feels more human and less formal
+- Consistent with modern web design trends
+
+#### Buttons and Clickable Elements: Title Case
+
+**Use title case for all buttons, links, and clickable CTAs** to establish clear UI hierarchy.
+
+**Title case examples:**
+- ✓ "Get Started" (button)
+- ✓ "Contact Us" (button)
+- ✓ "Book a Call" (button)
+- ✓ "Explore Partnership" (clickable card link)
+- ✓ "Learn More" (clickable card link)
+
+**Sentence case (avoid for buttons):**
+- ✗ "Get started" (button)
+- ✗ "Contact us" (button)
+
+**Why title case for buttons?**
+- Buttons are UI controls, not prose
+- Follows industry standards (Apple, Google, Microsoft design guidelines)
+- Creates visual hierarchy - buttons stand out as actionable elements
+- Makes interactive elements immediately recognizable
+- Clearer call-to-action for users
+
+#### Summary
+
+- **Headings (h1, h2, h3, etc.)**: Sentence case → "Who we work with"
+- **Buttons and CTAs**: Title case → "Get Started"
+- **Clickable card links**: Title case → "Explore Partnership"
+- **Non-clickable card headings**: Sentence case → "Download materials"
+
+#### Exceptions
+
+- Proper nouns always capitalized (e.g., "Better Conversations Foundation")
+- Acronyms always capitalized (e.g., "BCF")
+- Product/framework names follow their own conventions
+- "For Organisations", "For Educators", "For Researchers" are proper nouns in BCF context
+
 ### Visual Standards
 
 - **Gradient text**: `.bcf-gradient-text` for headings
@@ -225,6 +286,149 @@ For optimal readability across all devices:
 - Interactive elements must work on touch devices
 - Simplify animations on mobile for performance
 - Test scroll-based effects on various viewport sizes
+
+## Accessibility & ARIA Implementation
+
+### Accessibility Philosophy
+
+The BCF website follows **WCAG 2.1 Level AA** standards with a "semantic HTML first, ARIA second" approach.
+
+**Core Principles:**
+1. **Semantic HTML first** - Use proper HTML5 elements before adding ARIA attributes
+2. **Progressive enhancement** - Content accessible without JavaScript, enhanced with it
+3. **Keyboard navigation required** - All interactive elements must work without a mouse
+4. **Screen reader testing mandatory** - Test with real assistive technology
+
+**First Rule of ARIA:** Don't use ARIA unless semantic HTML is insufficient. HTML elements have implicit roles:
+- `<nav>` → `role="navigation"` (implicit)
+- `<main>` → `role="main"` (implicit)
+- `<button>` → `role="button"` (implicit)
+- `<a href>` → `role="link"` (implicit)
+
+### When to Use ARIA Attributes
+
+#### Always Required
+
+1. **Icon-only buttons** - Must have `aria-label`:
+   ```html
+   <button aria-label="Open search" title="Search">
+     <svg aria-hidden="true">...</svg>
+   </button>
+   ```
+
+2. **Decorative SVGs** - Must have `aria-hidden="true"`:
+   ```html
+   <svg class="decorative-wave" aria-hidden="true">...</svg>
+   ```
+
+3. **Skip-to-content link** - Required for accessibility:
+   ```html
+   <a href="#main-content" class="sr-only focus:not-sr-only ...">
+     Skip to main content
+   </a>
+   <main id="main-content">...</main>
+   ```
+
+4. **Form validation** - Required fields and error states:
+   ```html
+   <input aria-required="true" aria-describedby="field-help" />
+   <span id="field-help">Help text</span>
+   ```
+
+#### Conditionally Required
+
+5. **Multiple landmarks** - Only when multiple navs, asides, etc. exist:
+   ```html
+   <nav aria-label="Main navigation">...</nav>
+   <nav aria-label="Footer navigation">...</nav>
+   ```
+
+6. **Dynamic content** - When content updates without page reload:
+   ```html
+   <div aria-live="polite">Showing 12 results</div>
+   ```
+
+7. **Interactive states** - Expandable/collapsible elements:
+   ```html
+   <button aria-expanded="false" aria-controls="dropdown-menu">
+     Menu
+   </button>
+   ```
+
+#### Generally Not Needed
+
+8. **Sections with headings** - Semantic HTML sufficient:
+   ```html
+   <!-- ❌ Unnecessary aria-labelledby -->
+   <section aria-labelledby="heading-1">
+     <h2 id="heading-1">Section Title</h2>
+   </section>
+
+   <!-- ✅ Semantic HTML is enough -->
+   <section>
+     <h2>Section Title</h2>
+   </section>
+   ```
+
+### Global Accessibility Patterns
+
+**See nested AGENTS.md files for detailed implementations:**
+- `/src/layouts/_AGENTS.md` - Skip link, landmark roles, page structure
+- `/src/components/_AGENTS.md` - Component-specific ARIA patterns
+- `/src/pages/_AGENTS.md` - Forms, dynamic content, page-level patterns
+- `/src/pages/search/_AGENTS.md` - Search-specific accessibility
+- `/src/pages/blog/_AGENTS.md` - Blog-specific accessibility
+
+### Focus Management
+
+All interactive elements must have visible focus indicators using the brand teal color:
+
+```css
+/* Standard focus ring (already in global.css) */
+focus:outline-none focus:ring-2 focus:ring-[#54C4B6] focus:ring-offset-2
+```
+
+**Touch targets:** All clickable elements should be minimum 44x44px (WCAG 2.1 Level AA). BCF uses ~48px height for better UX.
+
+### Testing Checklist
+
+Before marking any task complete, verify:
+
+**Keyboard Navigation:**
+- [ ] Tab key reaches all interactive elements in logical order
+- [ ] Skip link appears first and works correctly
+- [ ] Focus indicators visible on all focusable elements (teal ring)
+- [ ] No keyboard traps (can tab in and out of all components)
+- [ ] Enter/Space activate buttons, Enter follows links
+- [ ] Escape closes modals and dropdowns
+
+**Screen Reader Testing:**
+- [ ] Test with NVDA (Windows) or VoiceOver (Mac)
+- [ ] All images have appropriate alt text or are decorative (alt="")
+- [ ] Icon-only buttons announce their purpose
+- [ ] Form fields have labels or aria-label
+- [ ] Error messages are announced
+- [ ] Dynamic content updates are announced (aria-live)
+
+**Automated Testing:**
+- [ ] Run `npx astro check` (0 TypeScript errors)
+- [ ] Run Lighthouse accessibility audit (target: 95+ score)
+- [ ] Run axe DevTools (target: 0 violations)
+- [ ] Validate HTML structure (W3C Validator)
+
+**Visual Testing:**
+- [ ] Color contrast meets WCAG AA (4.5:1 for text, 3:1 for UI components)
+- [ ] Focus indicators don't cause layout shift
+- [ ] Content readable with 200% zoom
+- [ ] Page works without CSS (progressive enhancement)
+
+### UK English in ARIA Labels
+
+Maintain UK English spelling in all ARIA labels and accessibility text:
+- ✅ "Colour preferences"
+- ✅ "Organisation details"
+- ❌ "Color preferences"
+- ❌ "Organization details"
 
 ## Progressive Enhancement with Alpine.js
 
@@ -249,13 +453,38 @@ Alpine.js is used selectively for interactive components:
 The site uses comprehensive global classes in `src/styles/global.css`. **Always check for existing classes before creating custom styling.**
 
 **Key classes**:
-- **Buttons**: `.bcf-button-primary`, `.bcf-button-secondary`
+- **CTA Buttons**: `.bcf-cta-hero-primary`, `.bcf-cta-hero-secondary`, `.bcf-cta-primary`, `.bcf-cta-secondary`
+- **Regular Buttons**: `.bcf-button-primary`, `.bcf-button-secondary`
 - **Forms**: `.bcf-input`, `.bcf-label`
 - **Cards**: `.bcf-card`, `.bcf-card-footer`
 - **Content cards**: `.bcf-content-card`, `.bcf-content-card-link`, `.bcf-content-card-body`, etc.
 - **Dropdowns**: `.bcf-dropdown-button`, `.bcf-dropdown-container`, `.bcf-dropdown-option`
 - **Typography**: `.bcf-section-header`, `.bcf-gradient-text`, `.bcf-prose-enhanced`
 - **Filters**: `.bcf-filter-pill`, `.bcf-tag`
+
+### CTA Button Guidelines
+
+**Always use CTA classes for call-to-action buttons** - never use inline Tailwind classes for CTAs.
+
+**Button Hierarchy**:
+- **Hero sections** (top of page): Use `.bcf-cta-hero-primary` or `.bcf-cta-hero-secondary`
+- **Standard sections** (rest of page): Use `.bcf-cta-primary` or `.bcf-cta-secondary`
+- **Special cases**: `.bcf-cta-white-on-gradient`, `.bcf-cta-outline-on-gradient`
+
+**CTA Button Specifications** (as of January 2025):
+- **Padding**: `px-6 py-3` (24px horizontal, 12px vertical)
+- **Border radius**: `rounded-xl` (12px) - modern, friendly appearance
+- **Font weight**: `font-semibold` (600) - strong, scannable
+- **Hero font size**: `text-lg` (18px) - prominent
+- **Standard font size**: `text-base` (16px) - optimal readability
+- **Touch target**: ~48px height (exceeds 44px minimum accessibility requirement)
+- **Hover effect**: `scale-105` (5% growth) - subtle, professional
+
+**Why these specifications?**
+- 12px border radius balances professionalism with approachability
+- `px-6 py-3` provides compact sizing while exceeding minimum 44px touch targets
+- Semibold weight ensures CTAs stand out for scanning
+- Consistent sizing creates visual harmony across the site
 
 **Styling priority**:
 1. Global `.bcf-*` classes (check first)
@@ -264,15 +493,65 @@ The site uses comprehensive global classes in `src/styles/global.css`. **Always 
 
 ## Metadata & SEO
 
-The site uses a comprehensive metadata system:
+The site uses a comprehensive metadata system with separate metadata titles and hero titles:
 
-- **Page metadata**: Centralized in `src/utils/pageMetadata.ts`
+### Metadata System Overview
+
+- **Page metadata**: Centralized in `src/data/pageMetadata.ts`
 - **SEO fields**: title, description (150-160 chars), keywords
 - **AI-optimized**: executiveSummary for LLM consumption
 - **Structured data**: Schema.org JSON-LD for all content
 - **Automated**: Git-based lastmod dates via pre-build scripts
 
-**For new pages**: Always provide metaDescription and executiveSummary for important content.
+### Metadata vs Hero Title Convention
+
+**CRITICAL**: The site maintains **separate but semantically related** titles for metadata and heroes.
+
+**Metadata titles** (defined in `src/data/pageMetadata.ts`) are used for:
+- Browser tabs (`<title>` tag)
+- Search engine results (Google, Bing)
+- Social media shares (OpenGraph)
+- Breadcrumb navigation
+- Internal site search results
+- Structured data (Schema.org)
+
+**Hero titles** (defined in individual page files) are used for:
+- On-page H1 headings
+- Visual impact and user engagement
+- Action-oriented messaging
+
+**Convention - Keep them SEPARATE but SEMANTICALLY RELATED**:
+
+✓ **DO**: Make them complementary (same topic, different tone)
+- Metadata: "Organisational partnerships" (descriptive, searchable)
+- Hero: "Partnership for organisational transformation" (friendly, expanded)
+
+✗ **DON'T**: Make them completely unrelated
+- Metadata: "Get Started"
+- Hero: "Contact Us" (confusing - user thinks they clicked wrong link!)
+
+**Style Guidelines**:
+- **Metadata**: Sentence case, descriptive, keyword-rich (50-60 chars ideal)
+- **Hero**: Sentence case, conversational, action-oriented (no length limit)
+- **Both**: Use British English spelling (organisation, not organization)
+- **Both**: Should share core keywords for SEO relevance
+
+**Example from the site**:
+```typescript
+// In src/data/pageMetadata.ts
+'/get-started/educators': {
+  title: 'Educator partnerships',  // SEO-focused
+  // ...
+}
+
+// In src/pages/get-started/educators.astro
+<HeroSection
+  title="Partnership for educational excellence"  // UX-focused
+  // ...
+/>
+```
+
+**For new pages**: Always provide metaDescription and executiveSummary for important content. Ensure metadata title and hero title are semantically related but optimize each for its purpose.
 
 ## Whitepapers Status (October 2025)
 

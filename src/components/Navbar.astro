@@ -12,60 +12,57 @@ export interface Props {
 
 const { class: className = '', showBreadcrumbs = false, customBreadcrumbs } = Astro.props;
 
+// Get current path for aria-current
+const currentPath = Astro.url.pathname;
+
 const navItems = [
-  { 
-    name: 'Home', 
-    href: '/' 
+  {
+    name: 'Home',
+    href: '/'
   },
   {
     name: 'Get Started',
     href: '/get-started',
     dropdown: [
-      { name: 'Join the Foundation', href: '/get-started/join' },
-      { name: 'Attend a Course', href: '/get-started/attend-course' }
+      { name: 'For Organisations', href: '/get-started/organisations' },
+      { name: 'For Educators', href: '/get-started/educators' },
+      { name: 'For Researchers', href: '/get-started/researchers' },
+      { name: 'Join our Community', href: '/get-started/join-community' },
+      { name: 'Experience a Course', href: '/get-started/attend-course' },
+      { name: 'Book a Call', href: '/get-started/schedule-call' }
     ]
   },
   {
     name: 'Our Approach',
     href: '/approach',
     dropdown: [
-      { name: 'Course Overview', href: '/approach/courses' },
-      { name: 'Course Journey', href: '/approach/courses-alt' },
+      { name: 'Open Content', href: '/approach/open-content' },
       { name: 'FAQs', href: '/approach/faqs' }
     ]
   },
   {
-    name: 'Open Resources',
+    name: 'Resources',
     href: '/resources',
     dropdown: [
       { name: 'Blog', href: '/blog' },
       { name: 'Documentation', href: 'https://betterconversations.foundation/documentation/index.html' }
     ]
   },
-  { 
-    name: 'Partner With Us', 
-    href: '/partner',
-    dropdown: [
-      { name: 'For Organisations', href: '/partner/organizations' },
-      { name: 'Deliver Courses', href: '/partner/deliver-courses' },
-      { name: 'Research Collaboration', href: '/partner/research' },
-      { name: 'Support Us', href: '/partner/support' }
-    ]
-  },
   {
     name: 'About',
     href: '/about',
     dropdown: [
+      { name: 'Our Mission', href: '/about/mission' },
       { name: 'Our Team', href: '/about/team' },
-      { name: 'Our Appreciation', href: '/about/thanks' },
       { name: 'Our Ambassadors', href: '/about/showcase' },
+      { name: 'Our Appreciation', href: '/about/thanks' },
       { name: 'Contact Us', href: '/about/contact' }
     ]
   }
 ];
 ---
 
-<nav class={`fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 transition-all duration-300 ${className}`} id="navbar" itemscope itemtype="https://schema.org/Organization">
+<nav class={`fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 transition-all duration-300 ${className}`} id="navbar" aria-label="Main navigation" itemscope itemtype="https://schema.org/Organization">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-20 transition-all duration-300 relative" id="navbar-container">
       <!-- Logo -->
@@ -87,11 +84,14 @@ const navItems = [
       <!-- Desktop Navigation -->
       <div class="hidden lg:block">
         <div class="ml-10 flex items-center space-x-1">
-          {navItems.map((item) => (
+          {navItems.map((item) => {
+            const isCurrentPage = currentPath === item.href || currentPath.startsWith(item.href + '/');
+            return (
             <div class="relative nav-item group">
-              <a 
-                href={item.href} 
+              <a
+                href={item.href}
                 class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md text-base font-medium transition-colors inline-flex items-center"
+                aria-current={isCurrentPage ? 'page' : undefined}
               >
                 {item.name}
                 {item.dropdown && (
@@ -104,27 +104,32 @@ const navItems = [
               {item.dropdown && (
                 <div class="absolute left-0 mt-0 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-left">
                   <div class="py-1">
-                    {item.dropdown.map((dropdownItem) => (
+                    {item.dropdown.map((dropdownItem) => {
+                      const isDropdownCurrent = currentPath === dropdownItem.href;
+                      return (
                       <a
                         href={dropdownItem.href}
                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors"
+                        aria-current={isDropdownCurrent ? 'page' : undefined}
                       >
                         {dropdownItem.name}
                       </a>
-                    ))}
+                    )})}
                   </div>
                 </div>
               )}
             </div>
-          ))}
+          )}
+          )}
           
           <!-- Search Button -->
           <button
             id="search-button"
             class="ml-4 p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+            aria-label="Open search"
             title="Search (Cmd/Ctrl + K)"
           >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
             </svg>
           </button>
@@ -136,9 +141,10 @@ const navItems = [
         <button
           id="search-button-mobile"
           class="p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+          aria-label="Open search"
           title="Search"
         >
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
           </svg>
         </button>
@@ -172,12 +178,15 @@ const navItems = [
   <!-- Mobile menu -->
   <div class="mobile-menu hidden lg:hidden" id="mobile-menu">
     <div class="px-2 pt-2 pb-3 space-y-1 bg-white/80 backdrop-blur-md border-b border-gray-100">
-      {navItems.map((item) => (
+      {navItems.map((item) => {
+        const isCurrentPage = currentPath === item.href || currentPath.startsWith(item.href + '/');
+        return (
         <div class="mobile-nav-item">
-          <a 
-            href={item.href} 
+          <a
+            href={item.href}
             class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-lg font-medium flex justify-between items-center"
             data-dropdown={item.dropdown ? 'true' : 'false'}
+            aria-current={isCurrentPage ? 'page' : undefined}
           >
             {item.name}
             {item.dropdown && (
@@ -188,18 +197,21 @@ const navItems = [
           </a>
           {item.dropdown && (
             <div class="dropdown-content hidden pl-6 space-y-1">
-              {item.dropdown.map((dropdownItem) => (
+              {item.dropdown.map((dropdownItem) => {
+                const isDropdownCurrent = currentPath === dropdownItem.href;
+                return (
                 <a
                   href={dropdownItem.href}
                   class="block px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md"
+                  aria-current={isDropdownCurrent ? 'page' : undefined}
                 >
                   {dropdownItem.name}
                 </a>
-              ))}
+              )})}
             </div>
           )}
         </div>
-      ))}
+      )})}
     </div>
   </div>
 </nav>
