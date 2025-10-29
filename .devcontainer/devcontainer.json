@@ -9,7 +9,8 @@
 				"dbaeumer.vscode-eslint",
 				"esbenp.prettier-vscode",
 				"bradlc.vscode-tailwindcss",
-				"github.vscode-github-actions"
+				"github.vscode-github-actions",
+				"Anthropic.claude-code"
 			]
 		}
 	},
