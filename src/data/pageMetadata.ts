@@ -151,7 +151,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['contact', 'support', 'inquiries', 'connect', 'email'],
     category: 'About',
     description: 'Contact the BCF team for questions, partnerships, or general inquiries',
-    lastmod: '2025-10-18',
+    lastmod: '2025-10-29',
     priority: 0.5,
     changefreq: 'monthly'
   },

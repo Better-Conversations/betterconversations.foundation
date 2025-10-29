@@ -287,6 +287,149 @@ For optimal readability across all devices:
 - Simplify animations on mobile for performance
 - Test scroll-based effects on various viewport sizes
 
+## Accessibility & ARIA Implementation
+
+### Accessibility Philosophy
+
+The BCF website follows **WCAG 2.1 Level AA** standards with a "semantic HTML first, ARIA second" approach.
+
+**Core Principles:**
+1. **Semantic HTML first** - Use proper HTML5 elements before adding ARIA attributes
+2. **Progressive enhancement** - Content accessible without JavaScript, enhanced with it
+3. **Keyboard navigation required** - All interactive elements must work without a mouse
+4. **Screen reader testing mandatory** - Test with real assistive technology
+
+**First Rule of ARIA:** Don't use ARIA unless semantic HTML is insufficient. HTML elements have implicit roles:
+- `<nav>` → `role="navigation"` (implicit)
+- `<main>` → `role="main"` (implicit)
+- `<button>` → `role="button"` (implicit)
+- `<a href>` → `role="link"` (implicit)
+
+### When to Use ARIA Attributes
+
+#### Always Required
+
+1. **Icon-only buttons** - Must have `aria-label`:
+   ```html
+   <button aria-label="Open search" title="Search">
+     <svg aria-hidden="true">...</svg>
+   </button>
+   ```
+
+2. **Decorative SVGs** - Must have `aria-hidden="true"`:
+   ```html
+   <svg class="decorative-wave" aria-hidden="true">...</svg>
+   ```
+
+3. **Skip-to-content link** - Required for accessibility:
+   ```html
+   <a href="#main-content" class="sr-only focus:not-sr-only ...">
+     Skip to main content
+   </a>
+   <main id="main-content">...</main>
+   ```
+
+4. **Form validation** - Required fields and error states:
+   ```html
+   <input aria-required="true" aria-describedby="field-help" />
+   <span id="field-help">Help text</span>
+   ```
+
+#### Conditionally Required
+
+5. **Multiple landmarks** - Only when multiple navs, asides, etc. exist:
+   ```html
+   <nav aria-label="Main navigation">...</nav>
+   <nav aria-label="Footer navigation">...</nav>
+   ```
+
+6. **Dynamic content** - When content updates without page reload:
+   ```html
+   <div aria-live="polite">Showing 12 results</div>
+   ```
+
+7. **Interactive states** - Expandable/collapsible elements:
+   ```html
+   <button aria-expanded="false" aria-controls="dropdown-menu">
+     Menu
+   </button>
+   ```
+
+#### Generally Not Needed
+
+8. **Sections with headings** - Semantic HTML sufficient:
+   ```html
+   <!-- ❌ Unnecessary aria-labelledby -->
+   <section aria-labelledby="heading-1">
+     <h2 id="heading-1">Section Title</h2>
+   </section>
+
+   <!-- ✅ Semantic HTML is enough -->
+   <section>
+     <h2>Section Title</h2>
+   </section>
+   ```
+
+### Global Accessibility Patterns
+
+**See nested AGENTS.md files for detailed implementations:**
+- `/src/layouts/_AGENTS.md` - Skip link, landmark roles, page structure
+- `/src/components/_AGENTS.md` - Component-specific ARIA patterns
+- `/src/pages/_AGENTS.md` - Forms, dynamic content, page-level patterns
+- `/src/pages/search/_AGENTS.md` - Search-specific accessibility
+- `/src/pages/blog/_AGENTS.md` - Blog-specific accessibility
+
+### Focus Management
+
+All interactive elements must have visible focus indicators using the brand teal color:
+
+```css
+/* Standard focus ring (already in global.css) */
+focus:outline-none focus:ring-2 focus:ring-[#54C4B6] focus:ring-offset-2
+```
+
+**Touch targets:** All clickable elements should be minimum 44x44px (WCAG 2.1 Level AA). BCF uses ~48px height for better UX.
+
+### Testing Checklist
+
+Before marking any task complete, verify:
+
+**Keyboard Navigation:**
+- [ ] Tab key reaches all interactive elements in logical order
+- [ ] Skip link appears first and works correctly
+- [ ] Focus indicators visible on all focusable elements (teal ring)
+- [ ] No keyboard traps (can tab in and out of all components)
+- [ ] Enter/Space activate buttons, Enter follows links
+- [ ] Escape closes modals and dropdowns
+
+**Screen Reader Testing:**
+- [ ] Test with NVDA (Windows) or VoiceOver (Mac)
+- [ ] All images have appropriate alt text or are decorative (alt="")
+- [ ] Icon-only buttons announce their purpose
+- [ ] Form fields have labels or aria-label
+- [ ] Error messages are announced
+- [ ] Dynamic content updates are announced (aria-live)
+
+**Automated Testing:**
+- [ ] Run `npx astro check` (0 TypeScript errors)
+- [ ] Run Lighthouse accessibility audit (target: 95+ score)
+- [ ] Run axe DevTools (target: 0 violations)
+- [ ] Validate HTML structure (W3C Validator)
+
+**Visual Testing:**
+- [ ] Color contrast meets WCAG AA (4.5:1 for text, 3:1 for UI components)
+- [ ] Focus indicators don't cause layout shift
+- [ ] Content readable with 200% zoom
+- [ ] Page works without CSS (progressive enhancement)
+
+### UK English in ARIA Labels
+
+Maintain UK English spelling in all ARIA labels and accessibility text:
+- ✅ "Colour preferences"
+- ✅ "Organisation details"
+- ❌ "Color preferences"
+- ❌ "Organization details"
+
 ## Progressive Enhancement with Alpine.js
 
 Alpine.js is used selectively for interactive components:
