@@ -46,6 +46,11 @@ export function generateMetaProperties(
                      pageData?.description || 
                      'Better Conversations Foundation - Communication skills for teams and organizations';
 
+  // Filter out undefined values from overrides to prevent overwriting computed values
+  const filteredOverrides = Object.fromEntries(
+    Object.entries(overrides).filter(([_, value]) => value !== undefined)
+  );
+
   return {
     title,
     description,
@@ -55,7 +60,7 @@ export function generateMetaProperties(
     ogType: overrides.ogType || (pageData?.category === 'Resources' ? 'article' : 'website'),
     schemaType: overrides.schemaType || pageData?.schemaType || 'WebPage',
     twitterCard: overrides.twitterCard || (overrides.ogImage ? 'summary_large_image' : 'summary'),
-    ...overrides
+    ...filteredOverrides
   };
 }
 
