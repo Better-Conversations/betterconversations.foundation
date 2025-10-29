@@ -217,7 +217,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['download', 'resources', 'materials', 'free', 'guides'],
     category: 'Getting Started',
     description: 'Download free Better Conversations guides, worksheets, and resources',
-    lastmod: '2025-10-17',
+    lastmod: '2025-10-18',
     priority: 0.5,
     changefreq: 'weekly'
   },
@@ -285,7 +285,7 @@ export const pageMetadata: PageMetadataMap = {
     tags: ['faqs', 'questions', 'answers', 'help', 'information'],
     category: 'Approach',
     description: 'Find answers to common questions about Better Conversations and BCF',
-    lastmod: '2025-07-21',
+    lastmod: '2025-10-18',
     priority: 0.3,
     changefreq: 'weekly'
   },

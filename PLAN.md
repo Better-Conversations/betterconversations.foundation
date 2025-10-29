@@ -10,7 +10,8 @@ Streamline the BCF website navigation for clarity and better user experience, wh
 - ✅ **Basic SEO in place** (robots.txt, sitemap, meta tags)
 - ✅ **Structured data implemented** (JSON-LD for Organization, Articles, Courses)
 - ✅ **OpenGraph tags** for social media sharing
-- ⚠️ **Navigation still cluttered** (26 links including incomplete pages)
+- ✅ **Navigation streamlined** (soft launched October 18, 2025)
+- ⚠️ **Some navigation links still need work** (not all pages exist yet)
 - ⚠️ **Some pages under construction** (whitepapers, success stories)
 
 ---
@@ -20,41 +21,39 @@ Streamline the BCF website navigation for clarity and better user experience, wh
 ### Approach: Hide, Don't Delete
 **Strategy:** Remove incomplete/unnecessary pages from navigation while keeping them accessible via direct URLs. This allows faster deployment without requiring content consolidation work.
 
-### Navigation Structure (16 Links)
+### Current Navigation Structure (17 Links)
+**Implemented October 18, 2025 for soft launch**
 
 **Home**
 
-**Get Started** (2 links)
-- Join the Foundation
-- Attend a Course
+**Get Started** (6 links)
+- For Organisations → `/get-started/organisations`
+- For Educators → `/get-started/educators`
+- For Researchers → `/get-started/researchers`
+- Join our Community → `/get-started/join-community`
+- Experience a Course → `/get-started/attend-course`
+- Book a Call → `/get-started/schedule-call`
 
 **Our Approach** (2 links)
-- Course Overview
-- FAQs
+- Open Content → `/approach/open-content`
+- FAQs → `/approach/faqs`
 
-**Open Resources** (2 links)
-- Blog
-- Open Content (documentation + download materials)
-
-**Partner With Us** (4 links)
-- For Organisations
-- Deliver Courses
-- Research Collaboration
-- Support Us
+**Resources** (2 links)
+- Blog → `/blog`
+- Documentation → `https://betterconversations.foundation/documentation/index.html`
 
 **About** (5 links)
-- Our Mission
-- The Team
-- Our Appreciation
-- Ambassador Showcase
-- Contact Us
+- Our Mission → `/about/mission`
+- Our Team → `/about/team`
+- Our Ambassadors → `/about/showcase`
+- Our Appreciation → `/about/thanks`
+- Contact Us → `/about/contact`
 
 **Search Button** (in navbar, not dropdown)
 
 ### Pages Hidden from Navigation (Still Accessible)
 - Success Stories (`/stories`) - under construction placeholder
 - Browse by Topic (`/tags`) - redundant with search
-- Schedule a Call (`/get-started/schedule-call`) - functionality in Contact Us
 - Download Materials (`/get-started/download`) - functionality in Open Content
 
 ### Content Temporarily Hidden from Build
@@ -80,9 +79,9 @@ Streamline the BCF website navigation for clarity and better user experience, wh
 
 ### Current Tasks 🔄
 **Developer:**
-- [ ] Update Navbar.astro with streamlined navigation (1h)
-- [ ] Update homepage CTAs to match new navigation (0.5h)
-- [ ] Verify all navigation links work correctly (0.5h)
+- [x] Update Navbar.astro with streamlined navigation (1h) - ✅ Completed Oct 18, 2025
+- [x] Update homepage CTAs to match new navigation (0.5h) - ✅ Completed Oct 18, 2025
+- [ ] Verify all navigation links work correctly (0.5h) - ⚠️ Some links still need work
 
 **Content Creator:**
 - [ ] Update Contact Us page to include scheduling functionality (1h)
@@ -159,13 +158,13 @@ Streamline the BCF website navigation for clarity and better user experience, wh
 
 ## Success Metrics
 
-### Phase 1 (Current) ✅ In Progress
+### Phase 1 (Current) ✅ Mostly Complete
 - ✅ **Working sitemap and robots.txt**
 - ✅ **Valid structured data** (JSON-LD implemented)
 - ✅ **Breadcrumb navigation** with schema markup
 - ✅ **Search functionality** (Typesense integrated)
-- 🔄 **Streamlined navigation** (16 links, down from 26)
-- 🔄 **Zero 404 errors** from navigation
+- ✅ **Streamlined navigation** (17 links, soft launched Oct 18, 2025)
+- 🔄 **Zero 404 errors** from navigation (some links still need work)
 
 ### Phase 2 (Future)
 - ⏳ **All visible pages have meta descriptions & executive summaries**
@@ -200,17 +199,17 @@ The project has adopted the VSCode AGENTS.md file convention for AI-assisted dev
 This structure enables AI coding assistants to automatically load the most relevant guidance based on which files are being edited, improving development efficiency and code consistency.
 
 **What We Have:**
-- Clean, functional site structure with 16 visible pages
-- Solid SEO foundation (robots.txt, sitemap, meta tags)
+- Clean, functional site structure with 17 navigation links
+- Streamlined navigation (soft launched Oct 18, 2025)
+- Solid SEO foundation (robots.txt, sitemap, meta tags, humans.txt)
 - AI-readable content with JSON-LD structured data
 - Modern blog with MDX support
 - Powerful Typesense search functionality
 - Breadcrumb navigation with schema markup
 - Structured AI coding assistance via nested AGENTS.md files
 
-**What We're Doing Now (Phase 1):**
-- Streamlining navigation (hiding incomplete pages)
-- Final cleanup of navigation links
+**What We're Doing Now (Phase 1 - Final Tasks):**
+- Fixing broken navigation links (some pages don't exist yet)
 - Minor content updates for consistency
 
 **What's Next (Phase 2 & 3):**
@@ -223,10 +222,10 @@ This structure enables AI coding assistants to automatically load the most relev
 
 ## Immediate Task List (Phase 1 Completion)
 
-### Developer (2 hours)
-1. Update Navbar.astro with 16-link structure (1h)
-2. Update homepage CTAs to match navigation (0.5h)
-3. Test all navigation links (0.5h)
+### Developer (0.5 hours)
+1. ✅ ~~Update Navbar.astro with streamlined structure~~ (completed Oct 18)
+2. ✅ ~~Update homepage CTAs to match navigation~~ (completed Oct 18)
+3. Test all navigation links and fix broken ones (0.5h) - ⚠️ In progress
 
 ### Content Creator (1.5 hours)
 1. Update Contact Us page with scheduling info (1h)
