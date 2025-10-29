@@ -400,14 +400,17 @@ import Layout from '../../layouts/Layout.astro';
   <section class="py-16 bg-white">
     <div class="max-w-5xl mx-auto px-6 sm:px-8 lg:px-8">
       <!-- Tab Buttons -->
-      <div class="flex justify-center mb-8">
+      <div class="flex justify-center mb-8" role="tablist" aria-label="Contact options">
         <div class="inline-flex bg-gray-100 rounded-full p-1">
           <button
             onclick="switchTab('message')"
             id="tab-message"
             class="tab-button active px-8 py-3 rounded-lg font-medium transition-all duration-300"
+            role="tab"
+            aria-selected="true"
+            aria-controls="content-message"
           >
-            <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
             </svg>
             Send a Message
@@ -416,8 +419,11 @@ import Layout from '../../layouts/Layout.astro';
             onclick="switchTab('call')"
             id="tab-call"
             class="tab-button px-8 py-3 rounded-lg font-medium text-gray-700 hover:text-gray-900 transition-all duration-300"
+            role="tab"
+            aria-selected="false"
+            aria-controls="content-call"
           >
-            <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
             </svg>
             Book a Call
@@ -426,29 +432,49 @@ import Layout from '../../layouts/Layout.astro';
       </div>
 
       <!-- Tab Content -->
-      <div class="tab-content active" id="content-message">
+      <div class="tab-content active" id="content-message" role="tabpanel" aria-labelledby="tab-message">
     <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8">
       <div class="bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100">
         <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Send us a Message</h2>
 
-        <form id="contact-form" class="space-y-6">
+        <form id="contact-form" class="space-y-6" aria-label="Contact form">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Name Field -->
             <div class="form-group">
-              <input type="text" id="name" class="form-input w-full px-0 py-3 text-gray-900" placeholder=" " required>
+              <input
+                type="text"
+                id="name"
+                class="form-input w-full px-0 py-3 text-gray-900"
+                placeholder=" "
+                required
+                aria-required="true"
+              >
               <label for="name" class="form-label">Your Name</label>
             </div>
 
             <!-- Email Field -->
             <div class="form-group">
-              <input type="email" id="email" class="form-input w-full px-0 py-3 text-gray-900" placeholder=" " required>
+              <input
+                type="email"
+                id="email"
+                class="form-input w-full px-0 py-3 text-gray-900"
+                placeholder=" "
+                required
+                aria-required="true"
+              >
               <label for="email" class="form-label">Email Address</label>
             </div>
           </div>
 
           <!-- Organisation Field -->
           <div class="form-group">
-            <input type="text" id="organisation" class="form-input w-full px-0 py-3 text-gray-900" placeholder=" ">
+            <input
+              type="text"
+              id="organisation"
+              class="form-input w-full px-0 py-3 text-gray-900"
+              placeholder=" "
+              aria-required="false"
+            >
             <label for="organisation" class="form-label">Organisation (Optional)</label>
           </div>
 
@@ -485,7 +511,14 @@ import Layout from '../../layouts/Layout.astro';
 
           <!-- Message Field -->
           <div class="form-group">
-            <textarea id="message" rows="6" class="form-input w-full px-0 py-3 text-gray-900 resize-none" placeholder=" " required></textarea>
+            <textarea
+              id="message"
+              rows="6"
+              class="form-input w-full px-0 py-3 text-gray-900 resize-none"
+              placeholder=" "
+              required
+              aria-required="true"
+            ></textarea>
             <label for="message" class="form-label">Your Message</label>
           </div>
 
@@ -493,7 +526,7 @@ import Layout from '../../layouts/Layout.astro';
           <div class="text-center pt-4">
             <button type="submit" class="ripple magnetic-button inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] text-white font-medium rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-300">
               Send Message
-              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
               </svg>
             </button>
@@ -504,14 +537,14 @@ import Layout from '../../layouts/Layout.astro';
       </div>
 
       <!-- Call Tab Content -->
-      <div class="tab-content" id="content-call">
+      <div class="tab-content" id="content-call" role="tabpanel" aria-labelledby="tab-call">
         <div class="text-center mb-8">
           <h2 class="text-3xl font-bold text-gray-900 mb-4">Choose Your Preferred Time</h2>
           <p class="text-lg text-gray-600">Select a time that works best for you from our available slots</p>
         </div>
 
         <!-- Calendly inline widget begin -->
-        <div class="calendly-inline-widget" data-url="https://calendly.com/d/cp7s-5z6-5h8/better-conversations-foundation-discussion" style="min-width:320px;height:700px;"></div>
+        <div class="calendly-inline-widget" data-url="https://calendly.com/d/cp7s-5z6-5h8/better-conversations-foundation-discussion" style="min-width:320px;height:700px;" aria-label="Schedule a call with Better Conversations Foundation"></div>
         <!-- Calendly inline widget end -->
       </div>
     </div>
@@ -565,17 +598,24 @@ import Layout from '../../layouts/Layout.astro';
   <script is:inline>
     // Tab switching function - needs to be global for onclick handlers
     window.switchTab = function(tabName) {
-      // Remove active class from all tabs and content
+      // Remove active class and set aria-selected to false for all tabs
       document.querySelectorAll('.tab-button').forEach(function(btn) {
         btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
       });
       document.querySelectorAll('.tab-content').forEach(function(content) {
         content.classList.remove('active');
       });
 
-      // Add active class to selected tab and content
-      document.getElementById('tab-' + tabName).classList.add('active');
-      document.getElementById('content-' + tabName).classList.add('active');
+      // Add active class and set aria-selected to true for selected tab
+      var selectedTab = document.getElementById('tab-' + tabName);
+      var selectedContent = document.getElementById('content-' + tabName);
+
+      if (selectedTab && selectedContent) {
+        selectedTab.classList.add('active');
+        selectedTab.setAttribute('aria-selected', 'true');
+        selectedContent.classList.add('active');
+      }
     };
 
     // Check URL parameter and open correct tab on page load
