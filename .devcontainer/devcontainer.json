@@ -1,5 +1,5 @@
 {
-	"name": "amphora-website",
+	"name": "bcf-content-site",
 	"dockerFile": "Dockerfile",
 	"forwardPorts": [4321],
 	"customizations": {

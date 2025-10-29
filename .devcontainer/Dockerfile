@@ -20,18 +20,19 @@ FROM node:20
 # 3. SOLUTION: System Chromium is compiled for the correct architecture
 #    (ARM aarch64) and includes all necessary dependencies.
 #
-# Version pinned for reproducibility (Debian security repo)
-# To update: Check available versions with: apt-cache madison chromium
-# Current version: 141.0.7390.107-1~deb12u1 (installed 2025-10-16)
-#
+# Version pinning removed
+
 RUN apt update && apt install -y \
     less \
     man-db \
     sudo \
     linkchecker \
-    chromium=141.0.7390.107-1~deb12u1 \
-    chromium-common=141.0.7390.107-1~deb12u1 \
-    chromium-sandbox=141.0.7390.107-1~deb12u1
+    chromium \
+    chromium-common \
+    chromium-sandbox \
+    python3 \
+    python3-pip \
+    && pip3 install --break-system-packages python-pptx
 
 # ==============================================================================
 # ALTERNATIVE APPROACH (Puppeteer's Bundled Chrome) - DOES NOT WORK ON ARM64
