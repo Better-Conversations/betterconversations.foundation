@@ -12,6 +12,9 @@ export interface Props {
 
 const { class: className = '', showBreadcrumbs = false, customBreadcrumbs } = Astro.props;
 
+// Get current path for aria-current
+const currentPath = Astro.url.pathname;
+
 const navItems = [
   {
     name: 'Home',
@@ -81,11 +84,14 @@ const navItems = [
       <!-- Desktop Navigation -->
       <div class="hidden lg:block">
         <div class="ml-10 flex items-center space-x-1">
-          {navItems.map((item) => (
+          {navItems.map((item) => {
+            const isCurrentPage = currentPath === item.href || currentPath.startsWith(item.href + '/');
+            return (
             <div class="relative nav-item group">
-              <a 
-                href={item.href} 
+              <a
+                href={item.href}
                 class="text-gray-700 hover:text-gray-900 px-4 py-2 rounded-md text-base font-medium transition-colors inline-flex items-center"
+                aria-current={isCurrentPage ? 'page' : undefined}
               >
                 {item.name}
                 {item.dropdown && (
@@ -98,19 +104,23 @@ const navItems = [
               {item.dropdown && (
                 <div class="absolute left-0 mt-0 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-left">
                   <div class="py-1">
-                    {item.dropdown.map((dropdownItem) => (
+                    {item.dropdown.map((dropdownItem) => {
+                      const isDropdownCurrent = currentPath === dropdownItem.href;
+                      return (
                       <a
                         href={dropdownItem.href}
                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors"
+                        aria-current={isDropdownCurrent ? 'page' : undefined}
                       >
                         {dropdownItem.name}
                       </a>
-                    ))}
+                    )})}
                   </div>
                 </div>
               )}
             </div>
-          ))}
+          )}
+          )}
           
           <!-- Search Button -->
           <button
@@ -168,12 +178,15 @@ const navItems = [
   <!-- Mobile menu -->
   <div class="mobile-menu hidden lg:hidden" id="mobile-menu">
     <div class="px-2 pt-2 pb-3 space-y-1 bg-white/80 backdrop-blur-md border-b border-gray-100">
-      {navItems.map((item) => (
+      {navItems.map((item) => {
+        const isCurrentPage = currentPath === item.href || currentPath.startsWith(item.href + '/');
+        return (
         <div class="mobile-nav-item">
-          <a 
-            href={item.href} 
+          <a
+            href={item.href}
             class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-lg font-medium flex justify-between items-center"
             data-dropdown={item.dropdown ? 'true' : 'false'}
+            aria-current={isCurrentPage ? 'page' : undefined}
           >
             {item.name}
             {item.dropdown && (
@@ -184,18 +197,21 @@ const navItems = [
           </a>
           {item.dropdown && (
             <div class="dropdown-content hidden pl-6 space-y-1">
-              {item.dropdown.map((dropdownItem) => (
+              {item.dropdown.map((dropdownItem) => {
+                const isDropdownCurrent = currentPath === dropdownItem.href;
+                return (
                 <a
                   href={dropdownItem.href}
                   class="block px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md"
+                  aria-current={isDropdownCurrent ? 'page' : undefined}
                 >
                   {dropdownItem.name}
                 </a>
-              ))}
+              )})}
             </div>
           )}
         </div>
-      ))}
+      )})}
     </div>
   </div>
 </nav>

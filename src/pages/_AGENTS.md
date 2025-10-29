@@ -494,6 +494,60 @@ import ResearchPartial from './_research.astro';
 </button>
 ```
 
+### Form Accessibility
+
+**Required Fields:**
+```html
+<form aria-label="Contact form">
+  <label for="name">Your Name</label>
+  <input
+    type="text"
+    id="name"
+    required
+    aria-required="true"
+  >
+</form>
+```
+
+**Tab Navigation:**
+```html
+<div role="tablist" aria-label="Contact options">
+  <button
+    role="tab"
+    aria-selected="true"
+    aria-controls="panel-1"
+    id="tab-1"
+  >
+    Tab 1
+  </button>
+</div>
+<div role="tabpanel" aria-labelledby="tab-1" id="panel-1">
+  Content
+</div>
+```
+
+**JavaScript for tabs must update aria-selected:**
+```javascript
+function switchTab(tabName) {
+  // Update all tabs
+  document.querySelectorAll('[role="tab"]').forEach(tab => {
+    tab.setAttribute('aria-selected', 'false');
+  });
+  // Set selected tab
+  selectedTab.setAttribute('aria-selected', 'true');
+}
+```
+
+### Current Page Indication
+
+```html
+<!-- Use aria-current="page" for navigation -->
+<nav>
+  <a href="/about" aria-current="page">About</a>
+  <a href="/contact">Contact</a>
+</nav>
+```
+
 ## Performance Optimization
 
 ### Image Loading

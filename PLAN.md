@@ -75,7 +75,15 @@ Streamline the BCF website navigation for clarity and better user experience, wh
 - [x] Add `.well-known/ai-plugin.json` for AI assistant integration
 - [x] Create `humans.txt` for transparency (references thanks page)
 - [x] Use semantic HTML5 elements (`<nav>`, `<main>`, `<footer>`, `<article>`, `<section>`)
-- [x] Add ARIA labels (aria-controls, aria-expanded, sr-only, aria-hidden)
+- [x] Add ARIA labels - **Significantly Enhanced Oct 29, 2025** (Phase 1 & 2 complete)
+  - ✅ Skip-to-content link in Layout.astro
+  - ✅ Main content landmark (`id="main-content"`)
+  - ✅ Navigation ARIA labels (`aria-label="Main navigation"`)
+  - ✅ Search modal full accessibility (role="dialog", aria-modal, aria-live)
+  - ✅ Contact form tabs with proper ARIA states (role="tab", aria-selected)
+  - ✅ Form fields with aria-required attributes
+  - ✅ Comprehensive documentation in AGENTS.md and src/layouts/_AGENTS.md
+  - ⏳ Additional forms and aria-current for navigation (future enhancement)
 
 ### Current Tasks 🔄
 **Developer:**
