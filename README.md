@@ -1,6 +1,6 @@
 # Better Conversations Foundation Website
 
-The official website for the Better Conversations Foundation (BCF), built with Astro and focused on promoting improved professional and personal communication through Clean Language methodology and Emergent Knowledge techniques.
+The official website for the Better Conversations Foundation (BCF), built with Astro and focused on promoting improved professional and personal communication through Better Conversations methodology.
 
 ## Quick Start
 
@@ -16,70 +16,62 @@ npx astro check         # Check for TypeScript errors
 
 ```text
 /
-├── public/             # Static assets (images, favicon)
+├── docs/               # Complete development documentation
+│   ├── README.md       # Documentation overview
+│   ├── design-system.md
+│   ├── accessibility.md
+│   ├── development.md
+│   └── content-guidelines.md
+├── public/             # Static assets (favicon, robots.txt)
 ├── scripts/            # Build automation scripts
 ├── src/
 │   ├── assets/         # Optimized images (processed by Astro)
 │   ├── components/     # Reusable Astro components
 │   ├── content/        # Content collections (blog, _whitepapers)
-│   ├── data/           # Image imports and data utilities
-│   ├── layouts/        # Page wrapper components
+│   ├── data/           # Image imports, metadata, data utilities
+│   ├── layouts/        # Page wrapper components (Layout.astro)
 │   ├── pages/          # File-based routing
 │   ├── scripts/        # Client-side JavaScript
 │   ├── styles/         # Global CSS with .bcf-* classes
 │   └── utils/          # Helper functions and utilities
-├── .claude/            # Claude Code configuration
-├── AGENTS.md           # AI assistant development guidance (+ nested files)
-├── PLAN.md             # Project roadmap and development phases
-├── astro.config.mjs    # Astro configuration
-├── tailwind.config.mjs # Tailwind CSS configuration
-└── tsconfig.json       # TypeScript configuration
+├── AGENTS.md           # Quick reference for AI assistants
+└── PLAN.md             # Project roadmap and task tracking
 ```
 
 ## 🏗️ Technology Stack
 
-- **Astro v5.11.0** - Static site generator (fully static build, no SSR)
+- **Astro v5.15.6** - Static site generator (fully static build, no SSR)
 - **Tailwind CSS v3.4.17** - Utility-first CSS framework with global `.bcf-*` component classes
-- **TypeScript** - Type-safe JavaScript with strict configuration
+- **TypeScript v5.9.2** - Type-safe JavaScript with strict configuration
 - **Alpine.js v3.14.9** - Lightweight framework for progressive enhancement
 
 ## 📖 Documentation
 
 ### For Developers
 
-**[AGENTS.md](AGENTS.md)** - Comprehensive development guidance including:
-- Critical project-wide rules (UK English, TypeScript patterns, error handling)
-- Framework stack and architectural decisions
-- Design system and styling guidelines
-- Content management and image handling
-- Progressive enhancement patterns with Alpine.js
-- Nested AGENTS.md files in specific directories for context-aware guidance
+**Primary Documentation:** [/docs/](./docs/) folder contains comprehensive guides:
 
-### For Project Planning
+- **[Design System](./docs/design-system.md)** - Brand colors, UI components, spacing standards, button system
+- **[Accessibility](./docs/accessibility.md)** - WCAG 2.1 Level AA standards, ARIA patterns, keyboard navigation
+- **[Development](./docs/development.md)** - TypeScript rules, component structure, Alpine.js integration, build process
+- **[Content Guidelines](./docs/content-guidelines.md)** - UK English standards, metadata conventions, writing style, SEO
 
-**[PLAN.md](PLAN.md)** - Project roadmap and status:
-- Current development phase (Phase 1: Navigation Streamlining - October 2025)
-- Task lists for developers and content creators
-- Success metrics and completion criteria
-- Future enhancements and feature roadmap
-- Status of incomplete features (whitepapers, success stories)
+Start with [/docs/README.md](./docs/README.md) for an overview and common tasks.
 
-### Nested Documentation
+### Quick References
 
-The project uses nested `AGENTS.md` files for context-specific guidance:
-- `src/content/blog/AGENTS.md` - Blog content writing standards
-- `src/pages/blog/AGENTS.md` - Blog page development patterns
-- `src/components/AGENTS.md` - Component development rules
-- `src/pages/search/AGENTS.md` - Search functionality
-- `src/pages/AGENTS.md` - General page development
+- **[AGENTS.md](./AGENTS.md)** - Critical rules and quick reference (useful for AI assistants and humans)
+- **[PLAN.md](./PLAN.md)** - Project roadmap, current status, and task tracking
 
 ## 🎨 Design System
 
 - **Brand Colors**: Primary teal (`#54C4B6`) and secondary green (`#A8D381`)
 - **Consistent Gradients**: `from-[#54C4B6] to-[#A8D381]` pattern throughout
-- **Global CSS Classes**: `.bcf-*` prefix for consistent components (check `src/styles/global.css`)
+- **Global CSS Classes**: `.bcf-*` prefix for consistent components (see `src/styles/global.css`)
 - **Responsive Design**: Mobile-first approach with generous spacing
-- **Interactive Elements**: Magnetic buttons, 3D tilt cards, typewriter effects
+- **Typography**: Sentence case for headings, title case for buttons
+
+See [docs/design-system.md](./docs/design-system.md) for complete specifications.
 
 ## 📝 Content Management
 
@@ -90,11 +82,10 @@ Create markdown files in `src/content/blog/` with required frontmatter:
 ```yaml
 ---
 title: "Your Post Title"
-date: 2024-01-15
+pubDate: 2024-01-15
 author: "Author Name"
-category: "Category"
-excerpt: "Brief description"
 tags: ["tag1", "tag2"]
+excerpt: "Brief description for cards and listings"
 ---
 ```
 
@@ -102,36 +93,56 @@ tags: ["tag1", "tag2"]
 
 - **Blog hero images**: Place in `/src/assets/images/blog/` as `[slug]-hero.{ext}` (auto-optimized)
 - **Author photos**: Place in `/src/assets/images/authors/` as `[firstname-lastname].{ext}`
-- **Inline images**: Place in `/public/images/` (served as-is)
+- **General images**: Place in `/src/assets/images/` for automatic optimization
 
-See [AGENTS.md](AGENTS.md) for complete image management guidelines.
+See [docs/content-guidelines.md](./docs/content-guidelines.md) for complete guidelines.
 
 ## 🔍 Key Features
 
 - **Content Collections**: Blog posts managed through Astro's content collections with schema validation
 - **File-based Routing**: Automatic route generation from the `src/pages/` directory
-- **Client-Side Search**: Fast, interactive search with advanced filtering (Typesense)
-- **SEO Optimized**: Sitemap, robots.txt, structured data (JSON-LD), OpenGraph tags
+- **Client-Side Search**: Fast, interactive search with advanced filtering (Typesense-powered)
+- **SEO Optimized**: Sitemap generation, robots.txt, structured data (JSON-LD), OpenGraph tags
 - **Progressive Enhancement**: Server-rendered content enhanced with Alpine.js for interactivity
-- **AI-Friendly**: Metadata system with executive summaries, `.well-known/ai-plugin.json`
+- **Accessibility**: WCAG 2.1 Level AA compliant with keyboard navigation and screen reader support
 
-## ⚠️ Current Status (October 2025)
+## ⚠️ Current Status
 
-- ✅ **Blog**: Live and active with MDX support
-- ⚠️ **Whitepapers**: Currently hidden (contain mocked content not ready for public access)
-  - Directories prefixed with `_whitepapers`
-  - See [PLAN.md](PLAN.md) Phase 3 for restoration checklist
-- ⏳ **Success Stories**: Under construction (placeholder page)
+- ✅ **Blog**: Live and active with 8+ posts
+- ✅ **Static Pages**: All main navigation pages complete
+- ⚠️ **Whitepapers**: Currently hidden (directories prefixed with `_whitepapers`)
+- ⚠️ **Search**: Functional but has 2 TODOs (API key and collection name - see [SearchTypesense.astro](src/components/SearchTypesense.astro))
 
 ## 🤝 Contributing
 
 When making changes:
 
-1. **Follow existing patterns** - Check [AGENTS.md](AGENTS.md) for guidelines
-2. **Run `npx astro check`** after TypeScript/Astro file changes
-3. **Use UK English spelling** throughout
-4. **Test responsive design** on mobile, tablet, and desktop
-5. **Check [PLAN.md](PLAN.md)** for current priorities and task assignments
+1. **Check documentation first** - See [/docs/](./docs/) for comprehensive guidelines
+2. **Run `npx astro check`** after TypeScript/Astro file changes (must pass)
+3. **Use UK English spelling** in all content (organisation, colour, centre)
+4. **Check global `.bcf-*` classes** before creating custom styles
+5. **Test responsive design** on mobile, tablet, and desktop viewports
+6. **Test accessibility** with keyboard navigation and screen readers
+
+### Critical Development Rules
+
+- **TypeScript**: Scripts with `define:vars` must use `is:inline` and plain JavaScript only
+- **Accessibility**: All interactive elements must be keyboard accessible
+- **Mobile-first**: Always start with mobile styles, enhance for larger screens
+- **UK English**: Content only (never change code syntax like CSS properties)
+
+See [AGENTS.md](./AGENTS.md) for quick reference or [docs/development.md](./docs/development.md) for details.
+
+## 🧪 Testing Before Deployment
+
+- [ ] `npx astro check` passes with 0 errors
+- [ ] All navigation links work
+- [ ] Images load with proper alt text
+- [ ] Forms submit correctly
+- [ ] Keyboard navigation works (Tab, Enter, Escape)
+- [ ] Mobile responsive (320px - 1920px)
+- [ ] No console errors in browser
+- [ ] Search functionality works
 
 ## 📚 Additional Resources
 
@@ -141,4 +152,6 @@ When making changes:
 
 ---
 
-*This website promotes better communication through Clean Language methodology and Emergent Knowledge techniques. Learn more at [Better Conversations Foundation](https://betterconversations.foundation).*
+**About BCF:** The Better Conversations Foundation promotes improved communication through evidence-based methodologies. This is not a sales site—we emphasize partnership, collaboration, and open resources.
+
+*Learn more at [betterconversations.foundation](https://betterconversations.foundation)*

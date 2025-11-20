@@ -58,17 +58,7 @@ export interface PageMetadataMap {
 }
 
 export const pageMetadata: PageMetadataMap = {
-  // Partner Pages
-  '/partner': {
-    title: 'Partner With Us',
-    excerpt: 'Collaborate with BCF to bring Better Conversations to your organisation',
-    tags: ['partner', 'collaboration', 'organisations', 'facilitate', 'learning'],
-    category: 'Partnership',
-    description: 'Partner with Better Conversations Foundation to transform communication in your organisation',
-    lastmod: '2025-10-18',
-    priority: 0.7,
-    changefreq: 'weekly'
-  },
+  // Get Started Pages
   '/get-started/organisations': {
     title: 'For Organisations',
     excerpt: 'Partner as an Organisation',
@@ -89,26 +79,6 @@ export const pageMetadata: PageMetadataMap = {
     description: 'Connect with trained facilitators from partner organisations who are delivering Better Conversations across diverse contexts worldwide.',
     metaDescription: 'Join our facilitator community—connect with trained facilitators delivering Better Conversations across diverse contexts worldwide.',
     keywords: ['facilitator community', 'Better Conversations network', 'facilitator support', 'global community', 'partner organisations'],
-    lastmod: '2025-10-18',
-    priority: 0.4,
-    changefreq: 'weekly'
-  },
-  '/partner/research': {
-    title: 'Research Partnership',
-    excerpt: 'Collaborate on research and academic studies',
-    tags: ['partner', 'research', 'academic', 'studies', 'collaboration'],
-    category: 'Partnership',
-    description: 'Partner with BCF on research projects exploring Better Conversations applications',
-    lastmod: '2025-10-18',
-    priority: 0.4,
-    changefreq: 'weekly'
-  },
-  '/partner/support': {
-    title: 'Support BCF',
-    excerpt: 'Support the Better Conversations Foundation mission',
-    tags: ['partner', 'support', 'donate', 'sponsor', 'contribute'],
-    category: 'Partnership',
-    description: 'Support BCF\'s mission to make Better Conversations accessible to everyone',
     lastmod: '2025-10-18',
     priority: 0.4,
     changefreq: 'weekly'
@@ -192,16 +162,6 @@ export const pageMetadata: PageMetadataMap = {
     keywords: ['organisational partnership', 'facilitation capacity', 'implementation support', 'experiential learning', 'culture transformation'],
     lastmod: '2025-10-18',
     priority: 0.8,
-    changefreq: 'weekly'
-  },
-  '/get-started/join': {
-    title: 'Join BCF',
-    excerpt: 'Become a member of the Better Conversations Foundation community',
-    tags: ['join', 'membership', 'community', 'participate', 'member'],
-    category: 'Getting Started',
-    description: 'Join the BCF community and access exclusive resources',
-    lastmod: '2025-10-17',
-    priority: 0.5,
     changefreq: 'weekly'
   },
   '/get-started/attend-course': {
@@ -324,7 +284,7 @@ export const pageMetadata: PageMetadataMap = {
     category: 'Resources',
     description: 'Read the latest articles and insights from the BCF community',
     metaDescription: 'Read the latest from the Better Conversations community. Articles, insights, and reflections on conversation practice across diverse contexts and sectors.',
-    lastmod: '2025-10-18',
+    lastmod: '2025-10-29',
     priority: 0.8,
     changefreq: 'daily'
   },

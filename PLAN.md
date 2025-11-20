@@ -1,28 +1,30 @@
 # BCF Website Optimization - Streamlined Plan
-*2-Person Team | Updated October 2025 | Developed with Claude Code*
+*2-Person Team | Updated November 2025 | Developed with Claude Code*
 
 ## Goal
 Streamline the BCF website navigation for clarity and better user experience, while maintaining AI-friendly structure and SEO optimization.
 
 ---
 
-## Current Situation (October 2025)
+## Current Situation (November 2025)
 - ✅ **Basic SEO in place** (robots.txt, sitemap, meta tags)
 - ✅ **Structured data implemented** (JSON-LD for Organization, Articles, Courses)
 - ✅ **OpenGraph tags** for social media sharing
 - ✅ **Navigation streamlined** (soft launched October 18, 2025)
-- ⚠️ **Some navigation links still need work** (not all pages exist yet)
+- ✅ **All navigation links verified working** (November 20, 2025)
+- ✅ **Documentation consolidated** to `/docs/` folder (November 20, 2025)
+- ⚠️ **Search has 2 TODOs** (API key and collection name need updating)
 - ⚠️ **Some pages under construction** (whitepapers, success stories)
 
 ---
 
-## Phase 1: Navigation Streamlining (Current Focus)
+## Phase 1: Navigation Streamlining ✅ **COMPLETE**
 
 ### Approach: Hide, Don't Delete
 **Strategy:** Remove incomplete/unnecessary pages from navigation while keeping them accessible via direct URLs. This allows faster deployment without requiring content consolidation work.
 
-### Current Navigation Structure (17 Links)
-**Implemented October 18, 2025 for soft launch**
+### Current Navigation Structure (16 Links)
+**Implemented October 18, 2025 | Verified November 20, 2025**
 
 **Home**
 
@@ -43,7 +45,7 @@ Streamline the BCF website navigation for clarity and better user experience, wh
 - Documentation → `https://betterconversations.foundation/documentation/index.html`
 
 **About** (5 links)
-- Our Mission → `/about/mission`
+- Our Mission → `/about/mission` (redirects to `/about#mission`)
 - Our Team → `/about/team`
 - Our Ambassadors → `/about/showcase`
 - Our Appreciation → `/about/thanks`
@@ -61,7 +63,7 @@ Streamline the BCF website navigation for clarity and better user experience, wh
   - Directories renamed with underscore prefix (`_whitepapers`)
   - Collection disabled in content config
   - Utility functions updated to skip whitepaper processing
-  - See AGENTS.md "Whitepapers Status" section for reintroduction instructions
+  - See `/docs/README.md` for reintroduction instructions
 
 ### Completed Foundation Work ✅
 - [x] Create robots.txt and sitemap.xml
@@ -82,20 +84,36 @@ Streamline the BCF website navigation for clarity and better user experience, wh
   - ✅ Search modal full accessibility (role="dialog", aria-modal, aria-live)
   - ✅ Contact form tabs with proper ARIA states (role="tab", aria-selected)
   - ✅ Form fields with aria-required attributes
-  - ✅ Comprehensive documentation in AGENTS.md and src/layouts/_AGENTS.md
+  - ✅ Comprehensive documentation in `/docs/accessibility.md`
   - ⏳ Additional forms and aria-current for navigation (future enhancement)
+
+### Recent Updates (November 20, 2025) ✅
+- [x] Consolidated scattered `_AGENTS.md` files into `/docs/` folder
+- [x] Created comprehensive documentation:
+  - `/docs/README.md` - Overview and quick start
+  - `/docs/design-system.md` - UI patterns and components
+  - `/docs/accessibility.md` - WCAG standards and ARIA patterns
+  - `/docs/development.md` - TypeScript rules and build process
+  - `/docs/content-guidelines.md` - Writing standards and SEO
+- [x] Updated root `AGENTS.md` to be concise quick reference pointing to `/docs/`
+- [x] Removed `/partner` section from pageMetadata (merged with other sections)
+- [x] Deleted old draft pages (`_educators.astro`, `_organizations.astro`, `_research.astro`)
+- [x] Fixed `/about/mission` path (now redirects to `/about#mission` section)
+- [x] Updated README.md to reference new documentation structure
+- [x] Verified all navigation links work correctly
 
 ### Current Tasks 🔄
 **Developer:**
 - [x] Update Navbar.astro with streamlined navigation (1h) - ✅ Completed Oct 18, 2025
 - [x] Update homepage CTAs to match new navigation (0.5h) - ✅ Completed Oct 18, 2025
-- [ ] Verify all navigation links work correctly (0.5h) - ⚠️ Some links still need work
+- [x] Verify all navigation links work correctly (0.5h) - ✅ Completed Nov 20, 2025
+- [ ] Fix Typesense TODOs (API key and collection name) - ⚠️ Waiting for credentials
 
 **Content Creator:**
 - [ ] Update Contact Us page to include scheduling functionality (1h)
 - [ ] Update Open Content page to reference download materials (0.5h)
 
-## Phase 2: Content Enhancement (Future)
+## Phase 2: Content Enhancement (In Progress)
 
 ### AI & Discovery
 **Developer Tasks:**
@@ -107,7 +125,7 @@ Streamline the BCF website navigation for clarity and better user experience, wh
 - [x] Write meta descriptions for all visible pages (150-160 characters) - ✅ Completed Oct 29, 2025 (BCTT-553)
   - 10 static pages now have comprehensive meta descriptions (150-160 chars)
   - Dynamic tag pages automatically generate contextual descriptions
-  - Guidelines documented in AGENTS.md for future pages
+  - Guidelines documented in `/docs/content-guidelines.md`
   - Bug fixed in metadata.ts that was preventing descriptions from rendering
   - British English spelling throughout, no em dashes
 - [ ] Add executive summaries to key pages for AI scanning
@@ -120,17 +138,17 @@ Streamline the BCF website navigation for clarity and better user experience, wh
 - [ ] Verify heading hierarchy across all pages (single H1, logical H2-H6)
 - [ ] Run WCAG 2.1 AA accessibility audit with automated tools
 - [ ] Test keyboard navigation throughout site
-- [ ] Add skip-to-content link for screen readers
+- [x] Add skip-to-content link for screen readers - ✅ Completed
 
 ### Technical Debt & Code Quality
 **Developer Tasks:**
-- [ ] **TypeScript Error Cleanup** (61 errors as of October 2025)
+- [ ] **TypeScript Error Cleanup** (50 errors as of November 2025, down from 61)
   - Fix TypeScript syntax in `is:inline` script tags (must use plain JavaScript only)
   - Primary issues in:
-    - `src/pages/about/contact.astro` (lines 617-638: type assertions in inline script)
-    - `src/pages/search/index.astro` (implicit 'any' types)
-    - Hidden `_whitepapers` files (will be addressed when reintroduced)
-  - See AGENTS.md "TypeScript Error Handling" section for patterns and best practices
+    - `src/pages/search/index.astro` (implicit 'any' types on parameters)
+    - `src/pages/api/_whitepapers/` (will be addressed when whitepapers reintroduced)
+    - Various unused imports (warnings, not critical)
+  - See `/docs/development.md` "TypeScript Rules" section for patterns and best practices
   - Run `npx astro check` after each fix to track progress
   - Goal: Zero TypeScript errors for production code quality
 
@@ -171,15 +189,17 @@ Streamline the BCF website navigation for clarity and better user experience, wh
 
 ## Success Metrics
 
-### Phase 1 (Current) ✅ Mostly Complete
+### Phase 1 ✅ **COMPLETE** (November 2025)
 - ✅ **Working sitemap and robots.txt**
 - ✅ **Valid structured data** (JSON-LD implemented)
 - ✅ **Breadcrumb navigation** with schema markup
-- ✅ **Search functionality** (Typesense integrated)
-- ✅ **Streamlined navigation** (17 links, soft launched Oct 18, 2025)
-- 🔄 **Zero 404 errors** from navigation (some links still need work)
+- ✅ **Search functionality** (Typesense integrated, 2 TODOs remaining)
+- ✅ **Streamlined navigation** (16 links, soft launched Oct 18, 2025)
+- ✅ **Zero 404 errors** from navigation (all links verified working Nov 20, 2025)
+- ✅ **Documentation consolidated** to `/docs/` folder
+- ✅ **Clean codebase** (old draft pages removed)
 
-### Phase 2 (Future)
+### Phase 2 (In Progress)
 - ✅ **All visible pages have meta descriptions** (completed Oct 29, 2025) - executive summaries still pending
 - ✅ **AI assistant can discover site** (via .well-known/ai-plugin.json)
 - ⏳ **Content index API working** (/api/content-index.json - needs implementation)
@@ -195,50 +215,56 @@ Streamline the BCF website navigation for clarity and better user experience, wh
 
 ---
 
-## Current Status Summary
+## Current Status Summary (November 2025)
 
-### Documentation Structure (October 2025)
+### Documentation Structure
 
-The project has adopted the VSCode AGENTS.md file convention for AI-assisted development:
-- **Root `AGENTS.md`** (formerly `CLAUDE.md`) - Project-wide rules and architecture
-- **Nested `AGENTS.md` files** in specific directories for context-specific guidance:
-  - `src/content/blog/AGENTS.md` - Blog content writing standards
-  - `src/pages/blog/AGENTS.md` - Blog page development patterns
-  - `src/components/AGENTS.md` - Component development rules
-  - `src/pages/search/AGENTS.md` - Search functionality implementation
-  - `src/pages/AGENTS.md` - General page development
-  - `src/content/_whitepapers/AGENTS.md` - Whitepaper guidelines (for future use)
+The project has consolidated all development documentation into the `/docs/` folder:
+- **[/docs/README.md](./docs/README.md)** - Documentation overview, quick start, common tasks
+- **[/docs/design-system.md](./docs/design-system.md)** - Brand colors, UI components, spacing, responsive design
+- **[/docs/accessibility.md](./docs/accessibility.md)** - WCAG 2.1 Level AA standards, ARIA patterns, keyboard navigation
+- **[/docs/development.md](./docs/development.md)** - TypeScript rules, component structure, build process
+- **[/docs/content-guidelines.md](./docs/content-guidelines.md)** - UK English standards, metadata, writing style, SEO
 
-This structure enables AI coding assistants to automatically load the most relevant guidance based on which files are being edited, improving development efficiency and code consistency.
+The root `AGENTS.md` now serves as a concise quick reference for AI assistants, pointing to `/docs/` for comprehensive guidance.
+
+This structure makes documentation more discoverable for human developers while maintaining AI assistant compatibility.
+
+### Launch Readiness: 95% Complete
 
 **What We Have:**
-- Clean, functional site structure with 17 navigation links
-- Streamlined navigation (soft launched Oct 18, 2025)
-- Solid SEO foundation (robots.txt, sitemap, meta tags, humans.txt)
-- AI-readable content with JSON-LD structured data
-- Modern blog with MDX support
-- Powerful Typesense search functionality
-- Breadcrumb navigation with schema markup
-- Structured AI coding assistance via nested AGENTS.md files
+- ✅ Clean, functional site structure with 16 navigation links (all working)
+- ✅ Streamlined navigation (soft launched Oct 18, 2025, verified Nov 20, 2025)
+- ✅ Solid SEO foundation (robots.txt, sitemap, meta tags, humans.txt)
+- ✅ AI-readable content with JSON-LD structured data
+- ✅ Modern blog with MDX support (8+ posts)
+- ✅ Powerful Typesense search functionality
+- ✅ Breadcrumb navigation with schema markup
+- ✅ Comprehensive documentation in `/docs/` folder
+- ✅ Clean codebase (old drafts removed, documentation consolidated)
+- ✅ Successful build (142 pages generated in 3.26s)
 
-**What We're Doing Now (Phase 1 - Final Tasks):**
-- Fixing broken navigation links (some pages don't exist yet)
-- Minor content updates for consistency
+**Remaining Launch Blockers (2):**
+- ⚠️ **Typesense API Key** - Need search-only key (security)
+- ⚠️ **Typesense Collection** - Change from `bcf-test` to production collection name
 
-**What's Next (Phase 2 & 3):**
+**What's Next (Post-Launch):**
 - Enhanced AI discovery features
 - Complete accessibility audit
 - Finish whitepapers and success stories content
 - Add analytics and engagement features
+- Fix remaining 50 TypeScript errors
 
 ---
 
-## Immediate Task List (Phase 1 Completion)
+## Immediate Task List (Phase 1 Wrap-Up)
 
-### Developer (0.5 hours)
+### Developer (Awaiting External)
 1. ✅ ~~Update Navbar.astro with streamlined structure~~ (completed Oct 18)
 2. ✅ ~~Update homepage CTAs to match navigation~~ (completed Oct 18)
-3. Test all navigation links and fix broken ones (0.5h) - ⚠️ In progress
+3. ✅ ~~Test all navigation links and fix broken ones~~ (completed Nov 20)
+4. ✅ ~~Consolidate documentation to /docs/ folder~~ (completed Nov 20)
+5. ⏳ Fix Typesense TODOs (awaiting credentials from team member)
 
 ### Content Creator (1.5 hours)
 1. Update Contact Us page with scheduling info (1h)
@@ -246,7 +272,7 @@ This structure enables AI coding assistants to automatically load the most relev
 
 ---
 
-## Appendix: Ideas for future enhancements
+## Appendix: Ideas for Future Enhancements
 
 ### Blog System Evolution
 - [x] Upgrade to MDX for enhanced blog capabilities ✅
@@ -262,23 +288,23 @@ Create static `/api/content-index.json` to enable programmatic access:
 {
   "name": "Better Conversations Foundation",
   "description": "Professional communication skills training and resources",
-  "lastUpdated": "2025-01-31",
+  "lastUpdated": "2025-11-20",
   "content": {
     "courses": {
       "title": "Communication Skills Training",
-      "url": "/approach/courses",
+      "url": "/approach",
       "description": "Learn professional conversation and facilitation techniques"
     },
     "partnerships": {
-      "organizations": "/partnership#organizations",
-      "facilitators": "/partnership#facilitators",
+      "organizations": "/get-started/organisations",
+      "educators": "/get-started/educators",
+      "researchers": "/get-started/researchers",
       "description": "Partner with BCF to bring professional communication training to your organization"
     },
     "resources": {
       "blog": "/blog",
-      "whitepapers": "/whitepapers",
-      "stories": "/stories",
-      "description": "Educational content and success stories"
+      "documentation": "https://betterconversations.foundation/documentation/index.html",
+      "description": "Educational content and resources"
     }
   }
 }
@@ -289,7 +315,6 @@ Create static `/api/content-index.json` to enable programmatic access:
 ### RSS Feeds
 Add RSS/Atom feeds for content syndication:
 - [ ] `/blog/rss.xml` - Blog posts feed
-- [ ] `/whitepapers/rss.xml` - Whitepapers feed
 - [ ] `/rss.xml` - Combined site feed
 
 ### Community Engagement (Long-term Vision)
