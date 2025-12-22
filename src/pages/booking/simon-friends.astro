@@ -1,0 +1,33 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Book a Call with Simon - Better Conversations Foundation">
+  <!-- Preconnect to Sprintful for faster loading -->
+  <link slot="head" rel="preconnect" href="https://app.sprintful.com" />
+  <link slot="head" rel="preconnect" href="https://on.sprintful.com" />
+  <link slot="head" rel="dns-prefetch" href="https://app.sprintful.com" />
+  <link slot="head" rel="dns-prefetch" href="https://on.sprintful.com" />
+
+  <style>
+    .sprintful-inline-widget {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+
+  <section class="py-16 bg-white">
+    <div class="max-w-3xl mx-auto px-6 sm:px-8 lg:px-8">
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-4">Book a Call with Simon</h1>
+        <p class="text-lg text-gray-600">Select a time that works best for you</p>
+      </div>
+
+      <!-- Sprintful inline widget begin -->
+      <div class="sprintful-inline-widget" data-copy-parents-query="false" data-url="https://on.sprintful.com/simon-coles-for-friends?hide-logo=true&hide-message=true" style="min-width:320px;height:630px;background-color:#fff;"></div>
+      <script type="text/javascript" src="https://app.sprintful.com/widget/v1.js"></script>
+      <!-- Sprintful inline widget end -->
+    </div>
+  </section>
+</Layout>
