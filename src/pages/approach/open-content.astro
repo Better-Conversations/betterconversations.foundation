@@ -1,8 +1,452 @@
 ---
-import UnderConstruction from '../../layouts/UnderConstruction.astro';
+import Layout from '../../layouts/Layout.astro';
+import HeroSection from '../../components/HeroSection.astro';
 ---
 
-<UnderConstruction 
-  title="Open Content" 
-  description="We're organising our open-source materials and Creative Commons resources. Soon you'll have free access to a wealth of Better Conversations content to use, share, and build upon."
-/>
+<Layout title="Open Content - Better Conversations Foundation">
+  <HeroSection
+    title="Open Content"
+    titleHighlight="Open"
+    description="Making learning accessible to all."
+  />
+
+  <!-- Introduction Section -->
+  <section class="py-16 lg:py-24 bg-white">
+    <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8">
+      <div class="prose prose-lg max-w-none">
+        <p class="text-xl text-gray-600 leading-relaxed mb-8">
+          The Better Conversations Foundation was founded by people from the software industry. The Internet itself was built on open source, and the approach has had a profound impact on how we build software. 
+        </p>
+        <p class="text-lg text-gray-600 leading-relaxed">
+          We've seen first-hand how open source transformed technology and we know the same principles transform learning in organisations and teams. A similar shift has been happening in learning, science and education. Wikipedia and MIT Open Courseware are great examples of this, as are the increasing number of free and open source academic journals published online.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Open Educational Resources Section -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/5 via-transparent to-[#A8D381]/5"></div>
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 relative">
+      <div class="text-center mb-16">
+        <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Open Educational Resources</h2>
+        <p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
+          Part of a global movement
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 mb-8">
+          <p class="text-lg text-gray-600 leading-relaxed mb-6">
+            We're part of the Open Educational Resources (OER) movement, a global effort to make learning materials freely available for anyone to use, adapt, and share. The term "open content" was coined by <a href="https://opencontent.org/definition/" target="_blank" rel="noopener noreferrer" class="text-[#54C4B6] hover:underline">David Wiley</a> in 1998, drawing directly from the principles that transformed software development.
+          </p>
+          <p class="text-lg text-gray-600 leading-relaxed">
+            Open content isn't about giving things away for free. It's about recognising that knowledge grows when it's shared, and that improvement is a collaborative effort. That everyone benefits from effective application of the materials and the insights that come from using them.
+          </p>
+        </div>
+
+        <!-- The 5Rs -->
+        <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+          <h3 class="text-xl font-bold text-gray-900 mb-6 text-center">The 5Rs of Open Content</h3>
+          <p class="text-gray-600 mb-8 text-center max-w-2xl mx-auto">
+            Open content is defined by <a href="https://opencontent.org/definition/" target="_blank" rel="noopener noreferrer" class="text-[#54C4B6] hover:underline">five freedoms</a>. Our approach grants you all of them.
+          </p>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div class="bg-gradient-to-br from-[#54C4B6]/10 to-[#54C4B6]/5 rounded-xl p-5 text-center">
+              <div class="w-12 h-12 bg-[#54C4B6]/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span class="text-[#54C4B6] font-bold text-lg">1</span>
+              </div>
+              <h4 class="font-bold text-gray-900 mb-2">Retain</h4>
+              <p class="text-sm text-gray-600">Make and keep your own copies</p>
+            </div>
+            <div class="bg-gradient-to-br from-[#5FB8AE]/10 to-[#5FB8AE]/5 rounded-xl p-5 text-center">
+              <div class="w-12 h-12 bg-[#5FB8AE]/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span class="text-[#5FB8AE] font-bold text-lg">2</span>
+              </div>
+              <h4 class="font-bold text-gray-900 mb-2">Revise</h4>
+              <p class="text-sm text-gray-600">Adapt, modify, and translate for your context</p>
+            </div>
+            <div class="bg-gradient-to-br from-[#7ED49B]/10 to-[#7ED49B]/5 rounded-xl p-5 text-center">
+              <div class="w-12 h-12 bg-[#7ED49B]/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span class="text-[#7ED49B] font-bold text-lg">3</span>
+              </div>
+              <h4 class="font-bold text-gray-900 mb-2">Remix</h4>
+              <p class="text-sm text-gray-600">Combine with other resources to create something new</p>
+            </div>
+            <div class="bg-gradient-to-br from-[#93D48E]/10 to-[#93D48E]/5 rounded-xl p-5 text-center">
+              <div class="w-12 h-12 bg-[#93D48E]/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span class="text-[#93D48E] font-bold text-lg">4</span>
+              </div>
+              <h4 class="font-bold text-gray-900 mb-2">Reuse</h4>
+              <p class="text-sm text-gray-600">Use in your own context, as you need to</p>
+            </div>
+            <div class="bg-gradient-to-br from-[#A8D381]/10 to-[#A8D381]/5 rounded-xl p-5 text-center">
+              <div class="w-12 h-12 bg-[#A8D381]/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span class="text-[#A8D381] font-bold text-lg">5</span>
+              </div>
+              <h4 class="font-bold text-gray-900 mb-2">Redistribute</h4>
+              <p class="text-sm text-gray-600">Share with others to spread the learning</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Outcome-Centric Learning Section -->
+  <section class="py-16 lg:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Learning Philosophy</h2>
+        <p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
+          From course-centric to outcome-centric
+        </p>
+        <p class="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
+          Organisational training spans a spectrum. Our open content approach supports movement toward outcome-focused learning.
+        </p>
+      </div>
+
+      <div class="max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+          <!-- Course/Trainer Centric -->
+          <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200">
+            <h3 class="text-xl font-bold text-gray-700 mb-6 text-center">Course/Trainer Centric</h3>
+            <ul class="space-y-4 text-gray-600">
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                Classroom-style groups of individuals
+              </li>
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                Learning must be translated into work context by the learner
+              </li>
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                Structured around a defined schedule
+              </li>
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                Focused on knowledge and information transfer
+              </li>
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                Emphasis on content delivery
+              </li>
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                Success measured by course completion
+              </li>
+            </ul>
+          </div>
+
+          <!-- Outcome Centric -->
+          <div class="bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10 rounded-2xl p-8 border border-[#54C4B6]/30">
+            <h3 class="text-xl font-bold text-[#54C4B6] mb-6 text-center">Outcome Centric</h3>
+            <ul class="space-y-4 text-gray-600">
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-[#54C4B6] rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                Shared purpose and collective goals
+              </li>
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-[#54C4B6] rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                Immediately applicable to work
+              </li>
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-[#54C4B6] rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                Flexible to participant needs and context
+              </li>
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-[#54C4B6] rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                Relational and skill-based
+              </li>
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-[#54C4B6] rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                Learners become facilitators of learning
+              </li>
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-[#54C4B6] rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                Success is linked to wider outcomes
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="text-center text-gray-500 mt-8 text-sm">
+          Based on Kegan and Lahey, <em>Immunity to Change</em>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/5 via-transparent to-[#A8D381]/5"></div>
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 relative">
+      <div class="text-center mb-16">
+        <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Why It Works</h2>
+        <p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
+          The benefits of open content for learning
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-gradient-to-br from-[#54C4B6]/5 to-[#54C4B6]/10 rounded-2xl p-8 border border-[#54C4B6]/20 text-center">
+          <div class="w-14 h-14 bg-[#54C4B6]/20 rounded-xl flex items-center justify-center mb-6 mx-auto">
+            <svg class="w-7 h-7 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Continuous Improvement</h3>
+          <p class="text-gray-600">
+            Materials are refined through use across diverse contexts. Feedback from facilitators, observers and participants flows back into better resources for everyone.
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#7ED49B]/5 to-[#7ED49B]/10 rounded-2xl p-8 border border-[#7ED49B]/20 text-center">
+          <div class="w-14 h-14 bg-[#7ED49B]/20 rounded-xl flex items-center justify-center mb-6 mx-auto">
+            <svg class="w-7 h-7 text-[#7ED49B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Lower Barriers to Adoption</h3>
+          <p class="text-gray-600">
+            No licensing fees or IP restrictions. Organisations can explore the materials before committing, and partners can collaborate without legal complexity.
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#A8D381]/5 to-[#A8D381]/10 rounded-2xl p-8 border border-[#A8D381]/20 text-center">
+          <div class="w-14 h-14 bg-[#A8D381]/20 rounded-xl flex items-center justify-center mb-6 mx-auto">
+            <svg class="w-7 h-7 text-[#A8D381]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Contextual Fit</h3>
+          <p class="text-gray-600">
+            Every organisation can tailor materials to their specific needs, culture, and language while benefiting from tested foundational materials and techniques.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Model Section -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/5 via-transparent to-[#A8D381]/5"></div>
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 relative">
+      <div class="text-center mb-16">
+        <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Our Model</h2>
+        <p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
+          Enabled by research, technology and community support
+        </p>
+      </div>
+
+      <div class="max-w-5xl mx-auto">
+        <!-- Three circles diagram -->
+        <div class="grid md:grid-cols-3 gap-8 mb-12">
+          <div class="text-center">
+            <div class="w-40 h-40 mx-auto mb-6 rounded-full bg-gradient-to-br from-[#54C4B6] to-[#54C4B6]/80 flex items-center justify-center shadow-lg">
+              <span class="text-2xl font-bold text-white">Foundation</span>
+            </div>
+            <ul class="text-left space-y-2 text-gray-600">
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-[#54C4B6] rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                IP, standard resources, toolset
+              </li>
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-[#54C4B6] rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                Demonstration courses
+              </li>
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-[#54C4B6] rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                R&D and continuous improvement
+              </li>
+            </ul>
+          </div>
+
+          <div class="text-center">
+            <div class="w-40 h-40 mx-auto mb-6 rounded-full bg-gradient-to-br from-[#3B5998] to-[#3B5998]/80 flex items-center justify-center shadow-lg">
+              <span class="text-2xl font-bold text-white">Community</span>
+            </div>
+            <ul class="text-left space-y-2 text-gray-600">
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-[#3B5998] rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                Testing and improvement
+              </li>
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-[#3B5998] rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                Mutual support and resources
+              </li>
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-[#3B5998] rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                Social connection and learning
+              </li>
+            </ul>
+          </div>
+
+          <div class="text-center">
+            <div class="w-40 h-40 mx-auto mb-6 rounded-full bg-gradient-to-br from-[#A8D381] to-[#A8D381]/80 flex items-center justify-center shadow-lg">
+              <span class="text-2xl font-bold text-white">Partners</span>
+            </div>
+            <ul class="text-left space-y-2 text-gray-600">
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-[#A8D381] rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                Customisation to context
+              </li>
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-[#A8D381] rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                Small and large scale innovation
+              </li>
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-[#A8D381] rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                Benefits from value delivered
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Available Section -->
+  <section class="py-16 lg:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">What's Available</h2>
+        <p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
+          Free resources under Creative Commons
+        </p>
+        <p class="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
+          All our materials are available under a Creative Commons Attribution-ShareAlike 4.0 International licence. You can use, adapt, and share them—just give credit and share your improvements back.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow text-center flex flex-col">
+          <div class="w-14 h-14 bg-[#54C4B6]/10 rounded-xl flex items-center justify-center mb-6 mx-auto">
+            <svg class="w-7 h-7 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3 min-h-[3.5rem] flex items-center justify-center">Course Overview</h3>
+          <p class="text-gray-600 mb-4 flex-grow">
+            A high-level summary of the course structure, modules, and what participants will learn.
+          </p>
+          <a href="https://betterconversations.foundation/l/overview" target="_blank" rel="noopener noreferrer" class="text-[#54C4B6] font-medium hover:underline inline-flex items-center justify-center gap-1 mt-auto">
+            Download
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow text-center flex flex-col">
+          <div class="w-14 h-14 bg-[#5FB8AE]/10 rounded-xl flex items-center justify-center mb-6 mx-auto">
+            <svg class="w-7 h-7 text-[#5FB8AE]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3 min-h-[3.5rem] flex items-center justify-center">Course Handbook</h3>
+          <p class="text-gray-600 mb-4 flex-grow">
+            The participant handbook with all course content, exercises, and reference materials.
+          </p>
+          <a href="https://betterconversations.foundation/l/handbook" target="_blank" rel="noopener noreferrer" class="text-[#5FB8AE] font-medium hover:underline inline-flex items-center justify-center gap-1 mt-auto">
+            Download
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow text-center flex flex-col">
+          <div class="w-14 h-14 bg-[#7ED49B]/10 rounded-xl flex items-center justify-center mb-6 mx-auto">
+            <svg class="w-7 h-7 text-[#7ED49B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3 min-h-[3.5rem] flex items-center justify-center">Flight Plans</h3>
+          <p class="text-gray-600 mb-4 flex-grow">
+            The detailed instructions for running the course—the most important part of what we make available.
+          </p>
+          <a href="https://betterconversations.foundation/l/flightplans" target="_blank" rel="noopener noreferrer" class="text-[#7ED49B] font-medium hover:underline inline-flex items-center justify-center gap-1 mt-auto">
+            Download
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow text-center flex flex-col">
+          <div class="w-14 h-14 bg-[#A8D381]/10 rounded-xl flex items-center justify-center mb-6 mx-auto">
+            <svg class="w-7 h-7 text-[#A8D381]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3 min-h-[3.5rem] flex items-center justify-center">Flight Plans Source</h3>
+          <p class="text-gray-600 mb-4 flex-grow">
+            The source code for generating flight plans. Contribute improvements or translations.
+          </p>
+          <a href="https://github.com/Better-Conversations/flightplans" target="_blank" rel="noopener noreferrer" class="text-[#A8D381] font-medium hover:underline inline-flex items-center justify-center gap-1 mt-auto">
+            View on GitHub
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+            </svg>
+          </a>
+        </div>
+
+      </div>
+
+      <p class="text-center text-gray-500 mt-8">
+        Browse all our open source projects on <a href="https://github.com/Better-Conversations/" target="_blank" rel="noopener noreferrer" class="text-[#54C4B6] hover:underline">GitHub</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Creative Commons Section -->
+  <section class="py-16 lg:py-20 bg-gradient-to-br from-gray-50 via-white to-gray-50">
+    <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8">
+      <div class="bg-white rounded-2xl p-8 md:p-12 shadow-sm border border-gray-100">
+        <div class="flex flex-col md:flex-row items-center gap-8">
+          <div class="flex-shrink-0">
+            <img src="https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by-sa.svg" alt="Creative Commons Attribution-ShareAlike" class="w-32" />
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Creative Commons BY-SA</h3>
+            <p class="text-gray-600 mb-4">
+              All Better Conversations materials are licensed under Creative Commons Attribution-ShareAlike 4.0 International. This means you're free to share and adapt the materials for any purpose, even commercially, as long as you give appropriate credit and distribute your contributions under the same licence.
+            </p>
+            <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer" class="text-[#54C4B6] font-medium hover:underline inline-flex items-center gap-1">
+              Learn more about this licence
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381]">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold text-white mb-4">Ready to get started?</h2>
+      <p class="text-xl text-white/90 max-w-2xl mx-auto mb-8">
+        Download our materials for free, or partner with us for deeper support in bringing Better Conversations to your organisation.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="https://docs.bettercourses.org/" target="_blank" rel="noopener noreferrer" class="bcf-cta-white-on-gradient">
+          Browse Documentation
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+        </a>
+        <a href="/get-started" class="bcf-cta-outline-on-gradient">
+          Explore Partnerships
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
