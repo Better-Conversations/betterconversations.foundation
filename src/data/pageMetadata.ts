@@ -297,16 +297,18 @@ The approach is grounded in psychology and communications research, and well-est
   '/approach/open-content': {
     title: 'Open Content',
     excerpt: 'BCF\'s commitment to open-source and Creative Commons resources',
-    tags: ['open-source', 'creative-commons', 'free', 'accessible', 'sharing'],
+    tags: ['open-source', 'creative-commons', 'free', 'accessible', 'sharing', 'OER', '5Rs'],
     category: 'Approach',
     description: 'Learn about BCF\'s open content philosophy and Creative Commons resources',
-    executiveSummary: `Everything we've made is free to download and use. Facilitator guides with session plans and timings, a participant handbook, and ongoing improvements. It's all under a Creative Commons licence (Attribution-ShareAlike), which means you can adapt it for your context as long as you share your improvements back.
+    metaDescription: 'All Better Conversations materials are free under Creative Commons BY-SA 4.0. Part of the Open Educational Resources movement—retain, revise, remix, reuse, redistribute.',
+    keywords: ['open content', 'Creative Commons', 'open educational resources', 'OER', '5Rs', 'open source learning', 'free training materials'],
+    executiveSummary: `We're part of the Open Educational Resources (OER) movement. All our materials—facilitator guides, participant handbooks, course overviews—are free to download under Creative Commons Attribution-ShareAlike 4.0. You can retain, revise, remix, reuse, and redistribute them, as long as you give credit and share improvements back.
 
-We've done this because we'd rather people actually use the materials than pay for them. Good conversation skills shouldn't be something only well-funded organisations can access. The materials work for in-person delivery, virtual sessions, or a mix of both.
+We've taken this approach because we come from the software industry and have seen how open source transformed technology. The same principles apply to learning: knowledge grows when it's shared, and improvement is a collaborative effort. Wikipedia, MIT OpenCourseWare, and open-access academic journals are all part of this shift.
 
-That said, we've found that downloading materials is just a starting point. Organisations that partner with us properly, with facilitator training, ongoing support and access to the booking app, tend to get much better results than those who just download and go. So if you're serious about embedding this in your organisation, consider getting in touch about a partnership. But if you just want to explore what we do, please feel free to download the materials and try them out. Reach out when you are ready.`,
-    lastmod: '2025-10-17',
-    priority: 0.3,
+Our model has three parts: the Foundation develops and maintains core materials, a community of facilitators tests and improves them, and partner organisations customise them for their contexts. This page also contrasts course-centric training (classroom-style, information-focused, success measured by completion) with outcome-centric learning (shared purpose, immediately applicable, learners become facilitators). That distinction draws on Robert Kegan and Lisa Laskow Lahey's Immunity to Change (Harvard Business Press, 2009), and explains why we focus on partnerships rather than just handing out materials.`,
+    lastmod: '2026-01-16',
+    priority: 0.6,
     changefreq: 'monthly'
   },
   '/approach/faqs': {
