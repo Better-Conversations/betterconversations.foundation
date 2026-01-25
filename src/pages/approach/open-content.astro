@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import HeroSection from '../../components/HeroSection.astro';
+import { siteConfig } from '../../data/siteConfig';
 ---
 
 <Layout title="Open Content - Better Conversations Foundation">
@@ -434,7 +435,7 @@ import HeroSection from '../../components/HeroSection.astro';
         Download our materials for free, or partner with us for deeper support in bringing Better Conversations to your organisation.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="https://docs.bettercourses.org/" target="_blank" rel="noopener noreferrer" class="bcf-cta-white-on-gradient">
+        <a href={siteConfig.docsUrl} target="_blank" rel="noopener noreferrer" class="bcf-cta-white-on-gradient">
           Browse Documentation
           <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>

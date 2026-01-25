@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import bcfLogo from '../assets/images/logos/bcf-logo.png';
 import Breadcrumb from './Breadcrumb.astro';
 import { orgScope } from '../utils/microdata';
+import { siteConfig } from '../data/siteConfig';
 
 export interface Props {
   class?: string;
@@ -48,7 +49,7 @@ const navItems = [
     dropdown: [
       { name: 'Resources', href: '/resources' },
       { name: 'Blog', href: '/blog' },
-      { name: 'Documentation', href: 'https://docs.bettercourses.org' }
+      { name: 'Documentation', href: siteConfig.docsUrl }
     ]
   },
   {

@@ -1,9 +1,10 @@
 ---
 // Vanilla JavaScript Typesense search component (no Alpine.js)
+import { siteConfig } from '../data/siteConfig';
 ---
 
 <!-- Search Container -->
-<div id="search-modal-container">
+<div id="search-modal-container" data-docs-url={siteConfig.docsUrl} data-typesense-host={siteConfig.typesenseHost}>
   <!-- Search Modal (hidden by default) -->
   <div id="search-modal" class="fixed inset-0 z-[100] hidden" role="dialog" aria-modal="true" aria-labelledby="search-modal-title">
     <!-- Backdrop -->
@@ -102,11 +103,16 @@
 // Initialize search component
 function initSearchComponent() {
   console.log('SearchTypesenseVanilla: Initializing...');
-  
+
   let typesenseClient = null;
   let searchTimeout = null;
   let selectedIndex = -1;
   let currentResults = [];
+
+  // Get config from data attributes
+  const container = document.getElementById('search-modal-container');
+  const docsUrl = container?.dataset.docsUrl || 'https://docs.bettercourses.org';
+  const typesenseHost = container?.dataset.typesenseHost || 'typesense.bettercourses.org';
   
   // DOM elements
   const modal = document.getElementById('search-modal');
@@ -125,7 +131,7 @@ function initSearchComponent() {
       console.log('SearchTypesenseVanilla: Creating Typesense client...');
       typesenseClient = new window.Typesense.Client({
         nodes: [{
-          host: 'typesense.bettercourses.org',
+          host: typesenseHost,
           port: 443,
           protocol: 'https'
         }],
@@ -249,11 +255,11 @@ function initSearchComponent() {
     // If it's documentation type, redirect to docs site
     if (doc.type === 'documentation') {
       // For development, use localhost:8000
-      // For production, update this to your docs domain
-      const docsBaseUrl = window.location.hostname === 'localhost' 
-        ? 'http://localhost:8000' // Development URL
-        : 'https://betterconversations.foundation/'; // We will need to update this when we change the url for the docs site
-      
+      // For production, use the configured docs URL
+      const docsBaseUrl = window.location.hostname === 'localhost'
+        ? 'http://localhost:8000'
+        : docsUrl;
+
       // If the slug already starts with /docs/, remove it to avoid duplication
       const cleanSlug = doc.slug.replace(/^\/docs/, '');
       return `${docsBaseUrl}${cleanSlug}`;

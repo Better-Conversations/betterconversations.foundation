@@ -1,4 +1,6 @@
 ---
+import { siteConfig } from '../data/siteConfig';
+
 export interface Props {
   type: 'info' | 'redirect';
 }
@@ -14,8 +16,8 @@ const { type = 'info' } = Astro.props;
       </svg>
       <div class="flex-1">
         <p class="text-sm text-blue-800">
-          Looking for technical documentation? Visit our dedicated 
-          <a href="https://docs.betterconversations.foundation" target="_blank" rel="noopener noreferrer" class="font-medium underline hover:text-blue-900">
+          Looking for technical documentation? Visit our dedicated
+          <a href={siteConfig.docsUrl} target="_blank" rel="noopener noreferrer" class="font-medium underline hover:text-blue-900">
             documentation portal
           </a>
           for technical documentation.
@@ -33,8 +35,8 @@ const { type = 'info' } = Astro.props;
         <p class="text-sm text-yellow-800 font-medium mb-1">This page has moved</p>
         <p class="text-sm text-yellow-800">
           Technical documentation is now available at our dedicated documentation site.
-          <a href="https://docs.betterconversations.foundation" target="_blank" rel="noopener noreferrer" class="font-medium underline hover:text-yellow-900">
-            Visit docs.betterconversations.foundation →
+          <a href={siteConfig.docsUrl} target="_blank" rel="noopener noreferrer" class="font-medium underline hover:text-yellow-900">
+            Visit documentation →
           </a>
         </p>
       </div>
