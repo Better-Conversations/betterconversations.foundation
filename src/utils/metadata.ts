@@ -89,8 +89,8 @@ export function generateStructuredData(
         url: baseURL,
         description: 'A foundation dedicated to helping people connect meaningfully',
         sameAs: [
-          'https://cleanlearning.co.uk',
-          'https://twitter.com/bcfoundation'
+          'https://github.com/Better-Conversations',
+          'https://linkedin.com/company/the-better-conversations-foundation'
         ]
       }
     }
