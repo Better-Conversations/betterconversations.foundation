@@ -24,6 +24,7 @@ const navItems = [
     name: 'Get Started',
     href: '/get-started',
     dropdown: [
+      { name: 'Get Started', href: '/get-started' },
       { name: 'For Organisations', href: '/get-started/organisations' },
       { name: 'For Educators', href: '/get-started/educators' },
       { name: 'For Researchers', href: '/get-started/researchers' },
@@ -36,6 +37,7 @@ const navItems = [
     name: 'Our Approach',
     href: '/approach',
     dropdown: [
+      { name: 'Our Approach', href: '/approach' },
       { name: 'Open Content', href: '/approach/open-content' },
       { name: 'FAQs', href: '/approach/faqs' }
     ]
@@ -44,6 +46,7 @@ const navItems = [
     name: 'Resources',
     href: '/resources',
     dropdown: [
+      { name: 'Resources', href: '/resources' },
       { name: 'Blog', href: '/blog' },
       { name: 'Documentation', href: 'https://docs.bettercourses.org' }
     ]
@@ -52,6 +55,7 @@ const navItems = [
     name: 'About',
     href: '/about',
     dropdown: [
+      { name: 'About', href: '/about' },
       { name: 'Our Mission', href: '/about/mission' },
       { name: 'Our Team', href: '/about/team' },
       { name: 'Our Ambassadors', href: '/about/showcase' },
@@ -257,42 +261,68 @@ const navItems = [
 </style>
 
 <script>
-  // Mobile menu toggle
-  const mobileMenuButton = document.querySelector('.mobile-menu-button');
-  const mobileMenu = document.querySelector('.mobile-menu');
-  const hamburgerIcon = document.querySelector('.hamburger-icon');
-  const xIcon = document.querySelector('.x-icon');
+  function setupMobileMenu() {
+    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const hamburgerIcon = document.querySelector('.hamburger-icon');
+    const xIcon = document.querySelector('.x-icon');
 
-  mobileMenuButton?.addEventListener('click', () => {
-    const isOpen = !mobileMenu?.classList.contains('hidden');
-    
-    if (isOpen) {
-      mobileMenu?.classList.add('hidden');
-      hamburgerIcon?.classList.remove('hidden');
-      xIcon?.classList.add('hidden');
-    } else {
-      mobileMenu?.classList.remove('hidden');
-      hamburgerIcon?.classList.add('hidden');
-      xIcon?.classList.remove('hidden');
-    }
-  });
+    // Reset menu state on page load/navigation
+    mobileMenu?.classList.add('hidden');
+    hamburgerIcon?.classList.remove('hidden');
+    xIcon?.classList.add('hidden');
 
-  // Mobile dropdown toggle
-  const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
-  
-  mobileNavItems.forEach(item => {
-    const link = item.querySelector('a[data-dropdown="true"]');
-    const dropdown = item.querySelector('.dropdown-content');
-    const arrow = item.querySelector('.dropdown-arrow');
-    
-    if (link && dropdown) {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        dropdown.classList.toggle('hidden');
-        arrow?.classList.toggle('rotate-180');
+    // Clone button to remove old event listeners
+    if (mobileMenuButton) {
+      const newButton = mobileMenuButton.cloneNode(true);
+      mobileMenuButton.parentNode?.replaceChild(newButton, mobileMenuButton);
+
+      newButton.addEventListener('click', () => {
+        const isOpen = !mobileMenu?.classList.contains('hidden');
+
+        if (isOpen) {
+          mobileMenu?.classList.add('hidden');
+          newButton.querySelector('.hamburger-icon')?.classList.remove('hidden');
+          newButton.querySelector('.x-icon')?.classList.add('hidden');
+        } else {
+          mobileMenu?.classList.remove('hidden');
+          newButton.querySelector('.hamburger-icon')?.classList.add('hidden');
+          newButton.querySelector('.x-icon')?.classList.remove('hidden');
+        }
       });
     }
-  });
+
+    // Mobile dropdown toggle
+    const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+
+    mobileNavItems.forEach(item => {
+      const link = item.querySelector('a[data-dropdown="true"]');
+      const dropdown = item.querySelector('.dropdown-content');
+      const arrow = item.querySelector('.dropdown-arrow');
+
+      // Reset dropdown state
+      dropdown?.classList.add('hidden');
+      arrow?.classList.remove('rotate-180');
+
+      if (link && dropdown) {
+        // Clone to remove old listeners
+        const newLink = link.cloneNode(true);
+        link.parentNode?.replaceChild(newLink, link);
+
+        newLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          dropdown.classList.toggle('hidden');
+          item.querySelector('.dropdown-arrow')?.classList.toggle('rotate-180');
+        });
+      }
+    });
+  }
+
+  // Run on initial page load
+  setupMobileMenu();
+
+  // Re-run after Astro page transitions
+  document.addEventListener('astro:after-swap', setupMobileMenu);
 </script>
 
 <script>
