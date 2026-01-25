@@ -1,5 +1,6 @@
 import type { PageMetadata } from '../data/pageMetadata';
 import { pageMetadata } from '../data/pageMetadata';
+import { siteConfig } from '../data/siteConfig';
 
 // Schema.org types for structured data
 export type SchemaType = 'WebPage' | 'AboutPage' | 'ContactPage' | 'FAQPage' | 'CollectionPage' | 'BlogPosting' | 'Article';
@@ -89,8 +90,8 @@ export function generateStructuredData(
         url: baseURL,
         description: 'A foundation dedicated to helping people connect meaningfully',
         sameAs: [
-          'https://github.com/Better-Conversations',
-          'https://linkedin.com/company/the-better-conversations-foundation'
+          siteConfig.githubUrl,
+          siteConfig.linkedinUrl
         ]
       }
     }
