@@ -120,6 +120,32 @@ docs/               # Complete documentation (read this!)
 3. Only fix files you modified
 4. Re-run `npx astro check`
 
+## 🔗 Centralized URL Configuration
+
+**All external URLs must use `src/data/siteConfig.ts`** - never hardcode URLs.
+
+```typescript
+import { siteConfig } from '../data/siteConfig';
+
+// ✅ CORRECT
+<a href={siteConfig.docsUrl}>Documentation</a>
+<a href={siteConfig.docsDownloadUrl}>Download Materials</a>
+
+// ❌ WRONG - hardcoded URL
+<a href="https://docs.bettercourses.org">Documentation</a>
+```
+
+**Available URLs:**
+- `siteConfig.docsUrl` - Docs site homepage (`https://docs.bettercourses.org`)
+- `siteConfig.docsDownloadUrl` - Course materials download page
+- `siteConfig.communityUrl` - Community forum
+- `siteConfig.githubUrl` - GitHub organisation
+- `siteConfig.linkedinUrl` - LinkedIn page
+
+**When to use each docs URL:**
+- `docsUrl` - General "Documentation" links, nav items, "Browse Documentation" CTAs
+- `docsDownloadUrl` - "Download Materials" buttons, direct access to course materials
+
 ## 🚫 Never Do
 
 1. **Never use TypeScript syntax** in `<script define:vars>` tags
@@ -127,6 +153,7 @@ docs/               # Complete documentation (read this!)
 3. **Never skip heading levels** (H1 → H2 → H3)
 4. **Never use "click here"** as link text
 5. **Never deploy without** running `npx astro check`
+6. **Never hardcode external URLs** - use `siteConfig.ts` instead
 
 ## 💡 Development Philosophy
 
