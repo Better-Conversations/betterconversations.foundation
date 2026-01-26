@@ -307,7 +307,7 @@ The approach is grounded in psychology and communications research, and well-est
 We've taken this approach because we come from the software industry and have seen how open source transformed technology. The same principles apply to learning: knowledge grows when it's shared, and improvement is a collaborative effort. Wikipedia, MIT OpenCourseWare, and open-access academic journals are all part of this shift.
 
 Our model has three parts: the Foundation develops and maintains core materials, a community of facilitators tests and improves them, and partner organisations customise them for their contexts. This page also contrasts course-centric training (classroom-style, information-focused, success measured by completion) with outcome-centric learning (shared purpose, immediately applicable, learners become facilitators). That distinction draws on Robert Kegan and Lisa Laskow Lahey's Immunity to Change (Harvard Business Press, 2009), and explains why we focus on partnerships rather than just handing out materials.`,
-    lastmod: '2026-01-16',
+    lastmod: '2026-01-25',
     priority: 0.6,
     changefreq: 'monthly'
   },
@@ -340,7 +340,7 @@ We've organised the FAQs by topic: understanding the methodology, partnership op
 Everything here is free. The blog covers practical topics and stories from our community. The documentation includes facilitator guides and participant materials. We're planning to add whitepapers on topics like measuring conversation skills and curious listening in teams, though these aren't ready yet.
 
 We'll be adding more over time: videos, case studies, assessment tools. For now, have a browse and sign up to the newsletter if you want to hear about new resources.`,
-    lastmod: '2025-10-17',
+    lastmod: '2026-01-25',
     priority: 0.7,
     changefreq: 'weekly'
   },
@@ -370,16 +370,17 @@ We also use the blog to share our own learning journey, including things that ha
     priority: 0.8,
     changefreq: 'daily'
   },
-  '/whitepapers': {
-    title: 'Whitepapers',
-    excerpt: 'In-depth research and whitepapers on Better Conversations applications',
-    tags: ['whitepapers', 'research', 'studies', 'reports', 'analysis'],
-    category: 'Resources',
-    description: 'Access comprehensive whitepapers on Better Conversations research and applications',
-    lastmod: '2025-10-13',
-    priority: 0.6,
-    changefreq: 'weekly'
-  },
+  // DISABLED: Whitepapers page not yet published
+  // '/whitepapers': {
+  //   title: 'Whitepapers',
+  //   excerpt: 'In-depth research and whitepapers on Better Conversations applications',
+  //   tags: ['whitepapers', 'research', 'studies', 'reports', 'analysis'],
+  //   category: 'Resources',
+  //   description: 'Access comprehensive whitepapers on Better Conversations research and applications',
+  //   lastmod: '2025-10-13',
+  //   priority: 0.6,
+  //   changefreq: 'weekly'
+  // },
   '/search': {
     title: 'Search',
     excerpt: 'Search across all Foundation content, resources, and publications',
