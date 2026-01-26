@@ -91,22 +91,49 @@ npx astro check  # MUST pass before committing
 ```
 src/
 ├── pages/          # File-based routing
+│   └── _whitepapers/  # Draft/hidden pages (underscore prefix)
 ├── components/     # Reusable Astro components
 ├── layouts/        # Page wrappers
 ├── content/        # Blog posts, content collections
+│   └── _whitepapers/  # Draft content (underscore prefix)
+├── data/           # Configuration and metadata
+│   ├── siteConfig.ts     # Centralized external URLs
+│   └── pageMetadata.ts   # Page metadata for SEO/AI
 ├── styles/         # Global CSS with .bcf-* classes
 └── assets/         # Optimized images
 
 docs/               # Complete documentation (read this!)
 ```
 
+**Note:** Folders/files prefixed with `_` (e.g., `_whitepapers`) are draft/hidden content - they build but don't appear in navigation or sitemaps.
+
 ## 📝 Common Tasks
 
 ### Adding a Page
 1. Create `.astro` file in `src/pages/`
-2. Add metadata to `src/data/pageMetadata.ts`
+2. Add metadata to `src/data/pageMetadata.ts` (see below)
 3. Use global `.bcf-*` classes
 4. Run `npx astro check`
+
+### Page Metadata (`src/data/pageMetadata.ts`)
+
+Every page needs an entry in `pageMetadata.ts`. Key fields:
+
+```typescript
+'/example-page': {
+  title: 'Example Page',           // Browser tab, search results
+  excerpt: 'Brief description',    // Cards, search snippets
+  tags: ['tag1', 'tag2'],          // Used for tag pages
+  executiveSummary: `              // 2-3 paragraphs for AI readability
+    Plain English explanation of the page content.
+    Written in BCF's friendly tone, UK English.
+    Helps AI systems understand and summarise the page.`,
+  lastmod: '2026-01-26',           // ISO date for sitemap
+  priority: 0.7,                   // Sitemap priority (0.0-1.0)
+}
+```
+
+**Note:** Hero titles (H1 on page) and metadata titles serve different purposes - keep them related but not identical. See the comment block at the top of `pageMetadata.ts` for the full convention.
 
 ### Writing Blog Post
 1. Create `.md` in `src/content/blog/`
