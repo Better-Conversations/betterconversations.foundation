@@ -62,7 +62,7 @@ const relatedWhitepapers = allWhitepapers
         <nav class="flex items-center gap-2 text-sm text-gray-500 mb-8">
           <a href="/" class="hover:text-[#54C4B6]">Home</a>
           <span>/</span>
-          <a href="/whitepapers" class="hover:text-[#54C4B6]">Whitepapers</a>
+          <a href="/resources" class="hover:text-[#54C4B6]">Resources</a>
           <span>/</span>
           <span class="text-gray-900">{paper.data.title}</span>
         </nav>
@@ -181,7 +181,7 @@ const relatedWhitepapers = allWhitepapers
               <div class="flex flex-wrap gap-2">
                 {paper.data.tags.map((tag) => (
                   <a 
-                    href={`/whitepapers?tag=${encodeURIComponent(tag)}`}
+                    href={`/tags/${encodeURIComponent(tag.toLowerCase().replace(/\s+/g, '-'))}`}
                     class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors text-sm"
                   >
                     {tag}
@@ -232,7 +232,7 @@ const relatedWhitepapers = allWhitepapers
                 {related.data.category}
               </span>
               <h3 class="text-lg font-semibold text-gray-900 mb-2 hover:text-[#54C4B6] transition-colors">
-                <a href={`/whitepapers/${related.slug}`}>
+                <a href={`/_whitepapers/${related.slug}`}>
                   {related.data.title}
                 </a>
               </h3>

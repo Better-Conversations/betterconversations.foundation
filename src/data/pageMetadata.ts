@@ -370,16 +370,17 @@ We also use the blog to share our own learning journey, including things that ha
     priority: 0.8,
     changefreq: 'daily'
   },
-  '/whitepapers': {
-    title: 'Whitepapers',
-    excerpt: 'In-depth research and whitepapers on Better Conversations applications',
-    tags: ['whitepapers', 'research', 'studies', 'reports', 'analysis'],
-    category: 'Resources',
-    description: 'Access comprehensive whitepapers on Better Conversations research and applications',
-    lastmod: '2025-10-13',
-    priority: 0.6,
-    changefreq: 'weekly'
-  },
+  // DISABLED: Whitepapers page not yet published
+  // '/whitepapers': {
+  //   title: 'Whitepapers',
+  //   excerpt: 'In-depth research and whitepapers on Better Conversations applications',
+  //   tags: ['whitepapers', 'research', 'studies', 'reports', 'analysis'],
+  //   category: 'Resources',
+  //   description: 'Access comprehensive whitepapers on Better Conversations research and applications',
+  //   lastmod: '2025-10-13',
+  //   priority: 0.6,
+  //   changefreq: 'weekly'
+  // },
   '/search': {
     title: 'Search',
     excerpt: 'Search across all Foundation content, resources, and publications',

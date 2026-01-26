@@ -8,6 +8,7 @@ export const siteConfig = {
 
   // External sites
   docsUrl: 'https://docs.bettercourses.org',
+  docsDownloadUrl: 'https://docs.bettercourses.org/documentation/course-materials/index.html',
   communityUrl: 'https://community.betterconversations.foundation',
   typesenseHost: 'typesense.bettercourses.org',
 
