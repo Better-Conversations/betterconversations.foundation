@@ -1,0 +1,183 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Book a Call with Chandima and Simon - Better Conversations Foundation">
+  <!-- Preconnect to Calendly for faster loading -->
+  <link slot="head" rel="preconnect" href="https://calendly.com" />
+  <link slot="head" rel="preconnect" href="https://assets.calendly.com" />
+  <link slot="head" rel="dns-prefetch" href="https://calendly.com" />
+  <link slot="head" rel="dns-prefetch" href="https://assets.calendly.com" />
+
+  <!-- Load Calendly script early -->
+  <script slot="head" type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+  <style>
+    /* Duration tab styling */
+    .duration-tab {
+      transition: all 0.3s ease;
+    }
+
+    .duration-tab.active {
+      background: linear-gradient(135deg, #54C4B6, #A8D381);
+      color: white;
+      box-shadow: 0 4px 12px rgba(84, 196, 182, 0.3);
+    }
+
+    .duration-content {
+      display: none;
+    }
+
+    .duration-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Calendly container styling */
+    .calendly-placeholder {
+      min-height: 400px;
+      border: 2px dashed #e5e7eb;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f9fafb;
+    }
+
+    .calendly-inline-widget {
+      min-width: 320px;
+      height: 1100px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden bg-gradient-to-br from-white via-gray-50/50 to-white py-16 lg:py-20">
+    <div class="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
+      <div class="text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          Book a Call with <span class="bg-gradient-to-r from-[#54C4B6] to-[#A8D381] bg-clip-text text-transparent">Chandima and Simon</span>
+        </h1>
+        <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          Schedule a conversation with us. Select a duration that suits your needs.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8">
+
+      <!-- Duration Tabs -->
+      <div class="flex justify-center mb-8" role="tablist" aria-label="Select call duration">
+        <div class="inline-flex bg-gray-100 rounded-full p-1">
+          <button
+            onclick="switchDuration('30')"
+            id="duration-30"
+            class="duration-tab active px-6 py-3 rounded-full font-medium"
+            role="tab"
+            aria-selected="true"
+            aria-controls="content-30"
+          >
+            30 Minutes
+          </button>
+          <button
+            onclick="switchDuration('45')"
+            id="duration-45"
+            class="duration-tab px-6 py-3 rounded-full font-medium text-gray-700 hover:text-gray-900"
+            role="tab"
+            aria-selected="false"
+            aria-controls="content-45"
+          >
+            45 Minutes
+          </button>
+          <button
+            onclick="switchDuration('60')"
+            id="duration-60"
+            class="duration-tab px-6 py-3 rounded-full font-medium text-gray-700 hover:text-gray-900"
+            role="tab"
+            aria-selected="false"
+            aria-controls="content-60"
+          >
+            60 Minutes
+          </button>
+        </div>
+      </div>
+
+      <!-- Duration Content -->
+      <div class="duration-content active" id="content-30" role="tabpanel" aria-labelledby="duration-30">
+<!-- Calendly inline widget begin -->
+<div class="calendly-inline-widget" data-url="https://calendly.com/d/cj88-9kv-spq/bcf-simon-chandima-30-mins" style="min-width:320px;height:1100px;"></div>
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<!-- Calendly inline widget end -->
+      </div>
+
+      <div class="duration-content" id="content-45" role="tabpanel" aria-labelledby="duration-45">
+<!-- Calendly inline widget begin -->
+<div class="calendly-inline-widget" data-url="https://calendly.com/d/3q4-qq4-gmy/bcf-simon-chandima" style="min-width:320px;height:1100px;"></div>
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<!-- Calendly inline widget end -->
+      </div>
+
+      <div class="duration-content" id="content-60" role="tabpanel" aria-labelledby="duration-60">
+<!-- Calendly inline widget begin -->
+<div class="calendly-inline-widget" data-url="https://calendly.com/d/cj79-8cj-pjq/bcf-simon-chandima-1hr" style="min-width:320px;height:1100px;"></div>
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<!-- Calendly inline widget end -->
+      </div>
+
+    </div>
+  </section>
+
+  <script is:inline>
+    // Duration switching function
+    window.switchDuration = function(duration) {
+      // Remove active class from all duration tabs
+      document.querySelectorAll('.duration-tab').forEach(function(btn) {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.duration-content').forEach(function(content) {
+        content.classList.remove('active');
+      });
+
+      // Add active class to selected duration
+      var selectedTab = document.getElementById('duration-' + duration);
+      var selectedContent = document.getElementById('content-' + duration);
+
+      if (selectedTab && selectedContent) {
+        selectedTab.classList.add('active');
+        selectedTab.setAttribute('aria-selected', 'true');
+        selectedContent.classList.add('active');
+      }
+    };
+
+    // Check URL parameters on page load
+    function initBookingPage() {
+      var urlParams = new URLSearchParams(window.location.search);
+      var duration = urlParams.get('duration');
+
+      if (duration === '30' || duration === '45' || duration === '60') {
+        window.switchDuration(duration);
+      }
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initBookingPage);
+    } else {
+      initBookingPage();
+    }
+
+    // Re-initialize after Astro page transitions
+    document.addEventListener('astro:after-swap', initBookingPage);
+  </script>
+</Layout>
