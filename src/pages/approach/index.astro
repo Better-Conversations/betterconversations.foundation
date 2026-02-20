@@ -2,12 +2,13 @@
 import Layout from '../../layouts/Layout.astro';
 import { courseScope, courseInstanceScope } from '../../utils/microdata';
 import SectionHeader from '../../components/SectionHeader.astro';
+import WaveSeparator from '../../components/WaveSeparator.astro';
 ---
 
 <Layout title="Course Overview - Better Conversations Foundation">
   <main>
     <!-- Hero Section -->
-    <section class="relative bg-gradient-to-br from-gray-50 to-white">
+    <section class="relative overflow-hidden bg-gradient-to-br from-gray-50 to-white">
       <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
         <div class="inline-flex items-center gap-2 bg-gradient-to-r from-[#54C4B6]/10 to-[#A8D381]/10 px-4 py-2 rounded-full mb-6">
           <div class="w-2 h-2 bg-[#54C4B6] rounded-full animate-pulse"></div>
@@ -57,10 +58,11 @@ import SectionHeader from '../../components/SectionHeader.astro';
           </div>
         </div>
       </div>
+      <WaveSeparator topColor="transparent" bottomColor="white" class="absolute bottom-0 left-0 right-0" />
     </section>
 
     <!-- Course Journey Timeline -->
-    <section class="bg-white" id="modules" itemscope itemtype="https://schema.org/Course">
+    <section class="bg-white relative overflow-hidden" id="modules" itemscope itemtype="https://schema.org/Course">
       <!-- Hidden Course metadata -->
       <meta itemprop="name" content="Better Conversations Course Journey" />
       <meta itemprop="description" content="A transformative 6-module experiential journey, designed to revolutionise how you connect and communicate." />
@@ -365,10 +367,11 @@ import SectionHeader from '../../components/SectionHeader.astro';
           </div>
         </div>
       </div>
+      <WaveSeparator topColor="white" bottomColor="gray" class="absolute bottom-0 left-0 right-0" />
     </section>
 
     <!-- Course Format Section -->
-    <section class="bg-gradient-to-br from-[#54C4B6]/5 to-[#A8D381]/5">
+    <section class="bg-gray-50 relative overflow-hidden">
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
         <SectionHeader heading="Course format" class="mb-16" />
 
@@ -438,24 +441,22 @@ import SectionHeader from '../../components/SectionHeader.astro';
           </div>
         </div>
       </div>
+      <WaveSeparator topColor="gray" bottomColor="white" class="absolute bottom-0 left-0 right-0" />
     </section>
 
     <!-- CTA Section -->
-    <section class="bg-gradient-to-br from-[#54C4B6]/5 to-[#A8D381]/5">
+    <section class="bg-gradient-to-r from-[#54C4B6] to-[#A8D381] relative overflow-hidden">
       <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
-        <SectionHeader
-          heading="Ready to bring this to your organisation?"
-          description="Transform your organisation's communication culture with deep partnership support or explore our free materials."
-          class="mb-8"
-        />
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/get-started" class="bcf-cta-primary">
+        <h2 class="text-3xl md:text-4xl font-bold text-white">Ready to bring this to your organisation?</h2>
+        <p class="mt-4 text-xl text-white/90 max-w-3xl mx-auto">Transform your organisation's communication culture with deep partnership support or explore our free materials.</p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/get-started" class="bcf-cta-white-on-gradient">
             Explore Partnership
             <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
             </svg>
           </a>
-          <a href="https://betterconversations.foundation/course/index.html" target="_blank" rel="noopener noreferrer" class="bcf-cta-secondary">
+          <a href="https://betterconversations.foundation/course/index.html" target="_blank" rel="noopener noreferrer" class="bcf-cta-outline-on-gradient">
             View Documentation
             <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
