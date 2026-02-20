@@ -287,7 +287,7 @@ import CheckListItem from '../../components/CheckListItem.astro';
         <SectionHeader heading="Course format" class="mb-16" />
 
         <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          <div class="bg-white rounded-xl p-8 border border-gray-200">
+          <div class="bcf-card-xl">
             <div class="w-16 h-16 bg-[#54C4B6]/10 rounded-full flex items-center justify-center mb-6">
               <svg class="w-8 h-8 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
@@ -298,28 +298,13 @@ import CheckListItem from '../../components/CheckListItem.astro';
               Sessions blend instruction with hands-on practice, ensuring you can immediately apply what you learn.
             </p>
             <ul class="space-y-3 text-gray-600">
-              <li class="flex items-center">
-                <svg class="w-5 h-5 text-[#54C4B6] mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                Online and interactive format
-              </li>
-              <li class="flex items-center">
-                <svg class="w-5 h-5 text-[#54C4B6] mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                Mix of instruction and practice
-              </li>
-              <li class="flex items-center">
-                <svg class="w-5 h-5 text-[#54C4B6] mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                Designed for busy professionals
-              </li>
+              <CheckListItem><span>Online and interactive format</span></CheckListItem>
+              <CheckListItem><span>Mix of instruction and practice</span></CheckListItem>
+              <CheckListItem><span>Designed for busy professionals</span></CheckListItem>
             </ul>
           </div>
 
-          <div class="bg-white rounded-xl p-8 border border-gray-200">
+          <div class="bcf-card-xl">
             <div class="w-16 h-16 bg-[#A8D381]/10 rounded-full flex items-center justify-center mb-6">
               <svg class="w-8 h-8 text-[#A8D381]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -330,24 +315,9 @@ import CheckListItem from '../../components/CheckListItem.astro';
               Simple setup ensures you can focus on learning, not technology.
             </p>
             <ul class="space-y-3 text-gray-600">
-              <li class="flex items-center">
-                <svg class="w-5 h-5 text-[#A8D381] mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                Computer with internet
-              </li>
-              <li class="flex items-center">
-                <svg class="w-5 h-5 text-[#A8D381] mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                Headset with microphone
-              </li>
-              <li class="flex items-center">
-                <svg class="w-5 h-5 text-[#A8D381] mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                Quiet, private space
-              </li>
+              <CheckListItem color="green"><span>Computer with internet</span></CheckListItem>
+              <CheckListItem color="green"><span>Headset with microphone</span></CheckListItem>
+              <CheckListItem color="green"><span>Quiet, private space</span></CheckListItem>
             </ul>
           </div>
         </div>
