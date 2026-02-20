@@ -49,7 +49,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
   title="Blog - Better Conversations Foundation"
 >
   <!-- Hero Section -->
-  <section class="relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white py-24 lg:py-32">
+  <section class="relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white">
     <!-- Enhanced gradient background -->
     <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/25 via-transparent to-[#A8D381]/25"></div>
     
@@ -93,7 +93,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
   <!-- Server-side rendered content (shows before Alpine loads) -->
   <div class="blog-content-ssr">
     <!-- Spotlight Section -->
-    <section class="py-16">
+    <section>
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
         <h2 class="text-3xl font-bold text-gray-900 mb-8">Featured Articles</h2>
         <div class="grid gap-8 lg:grid-cols-2">
@@ -168,7 +168,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
     </section>
 
     <!-- Main Blog Grid with Sidebar -->
-    <section id="latest" class="py-16 bg-gray-50">
+    <section id="latest" class="bg-gray-50">
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
         <div class="lg:grid lg:grid-cols-4 lg:gap-8">
           <!-- Sidebar -->
@@ -280,7 +280,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
   <!-- Alpine.js enhanced version (progressive enhancement) -->
   <div x-data="blogFilters()" x-init="initFromURL()" x-cloak style="display: none;">
     <!-- Spotlight Section -->
-    <section class="py-16">
+    <section>
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
         <h2 class="text-3xl font-bold text-gray-900 mb-8">Featured Articles</h2>
         <div class="grid gap-8 lg:grid-cols-2">
@@ -355,7 +355,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
     </section>
 
     <!-- Main Blog Grid with Sidebar -->
-    <section id="latest" class="py-16 bg-gray-50">
+    <section id="latest" class="bg-gray-50">
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
         <div class="lg:grid lg:grid-cols-4 lg:gap-8">
           <!-- Sidebar -->

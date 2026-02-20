@@ -270,9 +270,10 @@ const authorImage = getAuthorImage(author.name);
 
 ### Priority Order
 
-1. **Global `.bcf-*` classes** (check `src/styles/global.css` first)
-2. **Tailwind utilities** for one-off styling
-3. **Scoped `<style>` blocks** only for complex animations or unique needs
+1. **Global base styles** — `section` elements get `py-16 lg:py-24` automatically via `@layer base` in `global.css`
+2. **Global `.bcf-*` classes** (check `src/styles/global.css` first)
+3. **Tailwind utilities** for one-off styling or overrides
+4. **Scoped `<style>` blocks** only for complex animations or unique needs
 
 ### Responsive Design
 
@@ -285,8 +286,11 @@ Always use mobile-first approach:
 <!-- ✅ Mobile-first text sizes -->
 <h1 class="text-3xl sm:text-4xl lg:text-5xl">
 
-<!-- ✅ Responsive spacing -->
-<section class="py-12 lg:py-16">
+<!-- ✅ Sections get py-16 lg:py-24 automatically via global.css — no class needed -->
+<section>
+
+<!-- ✅ Override only when a section needs different spacing -->
+<section class="py-32 lg:py-40">
 ```
 
 ## Content Collections

@@ -4,6 +4,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  /* Standard section spacing — override with explicit py-* utilities when needed */
+  section {
+    @apply py-16 lg:py-24;
+  }
+}
+
 /* Custom Dropdown Components */
 @layer components {
   /* Dropdown Button */
