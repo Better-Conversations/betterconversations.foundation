@@ -1,0 +1,38 @@
+---
+export interface Props {
+  heading: string;         // Required — the main h2 text
+  description?: string;   // Optional — rendered as p below heading
+  eyebrow?: string;       // Optional — small teal category label (use sparingly)
+  align?: 'center' | 'left'; // Default: 'center'
+  accentLine?: boolean;   // Default: false — thin gradient underline
+  class?: string;         // Pass-through for spacing overrides
+}
+
+const {
+  heading,
+  description,
+  eyebrow,
+  align = 'center',
+  accentLine = false,
+  class: className = '',
+} = Astro.props;
+
+const alignClass = align === 'left' ? 'text-left' : 'text-center';
+const centred = align === 'center';
+---
+
+<div class={`${alignClass} ${className}`}>
+  {eyebrow && (
+    <p class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase mb-2">{eyebrow}</p>
+  )}
+  <h2 class="text-3xl md:text-4xl font-bold text-gray-900">{heading}</h2>
+  {accentLine && (
+    <div
+      class={`mt-2 h-0.5 w-12 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] rounded-full ${centred ? 'mx-auto' : ''}`}
+      aria-hidden="true"
+    />
+  )}
+  {description && (
+    <p class={`mt-4 text-xl text-gray-600 max-w-3xl ${centred ? 'mx-auto' : ''}`}>{description}</p>
+  )}
+</div>

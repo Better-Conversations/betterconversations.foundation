@@ -275,10 +275,61 @@ For highlighted content:
 
 ### Section Headers
 
-```html
-<h2 class="bcf-section-header">Section Title</h2>
-<p class="bcf-section-description">Description text</p>
+Use the `SectionHeader` component (`src/components/SectionHeader.astro`) for all section headings. Do not hand-roll heading markup — this component normalises sizing and enforces the "gently confident" defaults.
+
+```astro
+---
+import SectionHeader from '@/components/SectionHeader.astro';
+---
+
+<!-- Typical usage — no eyebrow, no accent line -->
+<SectionHeader
+  heading="Who we work with"
+  description="We focus on deep partnerships with organisations ready to embed Better Conversations at scale."
+/>
+
+<!-- With eyebrow — only when genuine category labelling adds clarity -->
+<SectionHeader
+  eyebrow="Our Founders"
+  heading="Meet the people behind the mission"
+/>
+
+<!-- Left-aligned, with optional accent line -->
+<SectionHeader
+  heading="Course format"
+  align="left"
+  accentLine
+/>
 ```
+
+#### Props
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `heading` | `string` | required | The `h2` text |
+| `description` | `string` | — | Rendered as `p` below the heading |
+| `eyebrow` | `string` | — | Small teal category label. **Use sparingly.** |
+| `align` | `'center' \| 'left'` | `'center'` | Text alignment |
+| `accentLine` | `boolean` | `false` | Thin teal→green gradient bar under the heading |
+| `class` | `string` | — | Pass-through for spacing overrides (e.g. `mb-12`) |
+
+#### Design rationale
+
+**Eyebrow off by default.** The teal eyebrow stacks three emphasis devices (uppercase + semibold + tracking-wide). "Gently confident" means the heading should speak for itself — reach for eyebrow only when category labelling genuinely helps (e.g. a page with "Our Mission" / "Our Founders" / "Our Impact" sections where the label prevents disorientation).
+
+The test: if you removed the eyebrow, would the reader lose their bearings on the page? If yes, keep it. If the heading already tells you what the section is about, the eyebrow is decoration.
+
+| Use eyebrow | Don't use eyebrow |
+|---|---|
+| Heading is a statement, not a label — "Building bridges through better conversations" benefits from "Our Mission" above it | Heading is already self-describing — "Three interconnected elements", "Implementation that sticks" need no label |
+| Page has multiple sections sharing a theme where the category distinguishes them — "Our Mission" / "Our Founders" / "Our Impact" | Every section on the page would get one — six eyebrows on the homepage means none of them stand out; emphasis cancels itself out |
+| | Eyebrow restates the heading in different words — "What We Do" → "Small changes, real impact" adds no navigational value |
+
+**Accent line off by default.** Full-saturation gradients are reserved for small interactive elements (buttons, accents). An opt-in gradient underline on the page's primary section is fine; the same decoration on every section across a page becomes visual noise.
+
+**Normalised heading size.** Existing pages inconsistently use `text-3xl`, `text-4xl`, and `text-3xl md:text-4xl`. The component standardises to `text-3xl md:text-4xl` (matching the get-started pages' clean pattern).
+
+**No background treatment.** Atmosphere (white vs `gray-50` alternation, gradient washes) belongs to the `<section>` wrapper, not the header component.
 
 ### Gradient Text
 
