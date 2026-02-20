@@ -72,7 +72,7 @@ export const pageMetadata: PageMetadataMap = {
 Here's roughly how it works: we start by understanding what you're trying to achieve, then we train some of your people to facilitate the course, support them as they start delivering it, and help you track whether it's making a difference. The whole thing typically takes several months. You keep all the materials under Creative Commons, so you can adapt them to your context.
 
 This approach isn't for everyone. It requires commitment: someone needs to champion it internally, you need people willing to train as facilitators, and ideally you're open to measuring outcomes and sharing what you learn. But if that sounds like you, we'd love to chat. We've worked directly with leaders of small nonprofit teams and also L&D teams deploying across larger organisations.`,
-    lastmod: '2025-10-18',
+    lastmod: '2026-02-20',
     priority: 0.5,
     changefreq: 'weekly'
   },
@@ -89,7 +89,7 @@ This approach isn't for everyone. It requires commitment: someone needs to champ
 If you're part of a partner organisation, you get access to detailed facilitator guides (we call them "flight plans"), participant workbooks, a community forum for sharing experiences and troubleshooting, and a certificate when you've completed training. The pathway is: first experience the course as a participant, then get trained as a facilitator through your organisation's partnership with us.
 
 Our facilitators work in nonprofits, universities, government bodies, and social enterprises across the UK, Europe, North America and beyond. If your organisation isn't yet a partner but you'd like to become a facilitator, the first step is getting your organisation to explore a partnership with us.`,
-    lastmod: '2025-10-18',
+    lastmod: '2026-02-20',
     priority: 0.4,
     changefreq: 'weekly'
   },
@@ -107,7 +107,7 @@ Our facilitators work in nonprofits, universities, government bodies, and social
 We're not trying to be a training company. Instead, we partner with organisations who are willing to train their own people to deliver the course internally and educators who want to develop these skills in their students. This takes more effort upfront, but it means the skills stay in the organisation and with the learners long after we're gone. We've worked with hundreds of people in businesses, nonprofits, universities, and the public sector.
 
 The course draws on psychology research about how our state of mind affects conversations, questioning techniques that don't impose assumptions, and practical facilitation methods we've refined over years of delivery. Our team are volunteers who care about this stuff. We're based in the UK but work with partners internationally.`,
-    lastmod: '2025-11-20',
+    lastmod: '2026-02-20',
     priority: 0.7,
     changefreq: 'weekly'
   },
@@ -133,7 +133,7 @@ The course draws on psychology research about how our state of mind affects conv
 Most faculty members facilitate within their own organisations as part of a partnership, though some also help with larger implementations or showcase courses. They share experiences through our community forum, and they've helped us refine the materials based on what actually works in practice.
 
 Our faculty are volunteers who believe in what we're doing. They're based across the UK, Europe, North America, and elsewhere. This page shows who they are and where they work, so you can get a sense of the range of contexts where Better Conversations is being used.`,
-    lastmod: '2025-10-14',
+    lastmod: '2026-02-20',
     priority: 0.4,
     changefreq: 'monthly'
   },
@@ -149,7 +149,7 @@ Our faculty are volunteers who believe in what we're doing. They're based across
 We've set up different enquiry types so messages get to the right person: partnership enquiries if you're an organisation thinking about working with us, facilitator questions if you're already in our community or want to join, general questions about the methodology, or feedback on our materials.
 
 The calendar lets you book a video call if you'd rather talk than email. We're happy to chat at any stage, whether you're just curious or ready to discuss a partnership in detail. The FAQs cover the basics like who can join the community (facilitators in partner organisations) and how to access courses (mainly through partnerships).`,
-    lastmod: '2025-10-29',
+    lastmod: '2026-02-20',
     priority: 0.5,
     changefreq: 'monthly'
   },
@@ -165,7 +165,7 @@ The calendar lets you book a video call if you'd rather talk than email. We're h
 We owe a particular debt to David Grove, who created Clean Language, a questioning methodology that has influenced how we approach curious listening. The authors and researchers who have influenced our work are documented in our course handbook, which we continually update as we learn more. We're not claiming to have invented anything new; we've built on the work of others.
 
 This page reflects our open-source values. Better Conversations isn't owned by anyone; it's a collaborative effort that keeps evolving. We update the acknowledgments as new people contribute.`,
-    lastmod: '2025-10-13',
+    lastmod: '2026-02-20',
     priority: 0.1,
     changefreq: 'monthly'
   },
@@ -200,7 +200,7 @@ Our ambassadors are based in the US, UK, Canada, Germany, and elsewhere. They he
 For each type of partner, we focus on what fits their needs. Organisations get help training their own facilitators so they can run the course themselves. Educators get curriculum materials and assessment frameworks. Researchers get a standardised course protocol they can use in studies, plus help with study design.
 
 If you're not ready for a full partnership, you can still download all our materials for free and have a look. We occasionally run demonstration courses too, though our main focus is on partnerships where we can work with others to support their outcomes rather than just delivering courses ourselves. We've found that's what makes the difference between people attending a training and actually changing how they work.`,
-    lastmod: '2025-10-18',
+    lastmod: '2026-02-20',
     priority: 0.8,
     changefreq: 'weekly'
   },
@@ -217,7 +217,7 @@ If you're not ready for a full partnership, you can still download all our mater
 The main routes in are: your organisation partners with us and runs the course internally, you're connected to someone in an existing partner organisation who can include you, or you catch one of our occasional showcase courses (though these are rare and usually need a referral).
 
 If none of those work for you right now, we'd suggest downloading the free materials to get a sense of the approach, or talking to your employer about whether a partnership might make sense. We know this is frustrating if you just want to attend a course as an individual, but we've genuinely found that standalone training doesn't create lasting change the way organisational implementation does.`,
-    lastmod: '2025-10-18',
+    lastmod: '2026-02-20',
     priority: 0.5,
     changefreq: 'weekly'
   },
@@ -290,7 +290,7 @@ We should be honest: this research partnership offering is still being developed
 It's very hands-on. Most of the time you're practising in pairs or small groups, trying out the techniques, and reflecting on what happened. We use a simple framework for noticing and managing your own state, understand what happens in a conversation and practical approaches for conversations you might be worried about. The six hours can be spread across several sessions, or integrated into a longer programme, and delivered online and in-person.
 
 The approach is grounded in psychology and communications research, and well-established techniques in attentive listening and generative questioning. Hundreds of people have taken the course. Their insights and feedback have helped us develop a course which has a deep impact and immediate applicability to professional and personal situations. The materials include facilitator guides with detailed timings, participant workbooks, and everything you need to run it virtually or in person.`,
-    lastmod: '2025-10-18',
+    lastmod: '2026-02-20',
     priority: 0.7,
     changefreq: 'weekly'
   },
@@ -307,7 +307,7 @@ The approach is grounded in psychology and communications research, and well-est
 We've taken this approach because we come from the software industry and have seen how open source transformed technology. The same principles apply to learning: knowledge grows when it's shared, and improvement is a collaborative effort. Wikipedia, MIT OpenCourseWare, and open-access academic journals are all part of this shift.
 
 Our model has three parts: the Foundation develops and maintains core materials, a community of facilitators tests and improves them, and partner organisations customise them for their contexts. This page also contrasts course-centric training (classroom-style, information-focused, success measured by completion) with outcome-centric learning (shared purpose, immediately applicable, learners become facilitators). That distinction draws on Robert Kegan and Lisa Laskow Lahey's Immunity to Change (Harvard Business Press, 2009), and explains why we focus on partnerships rather than just handing out materials.`,
-    lastmod: '2026-01-25',
+    lastmod: '2026-02-20',
     priority: 0.6,
     changefreq: 'monthly'
   },
@@ -340,7 +340,7 @@ We've organised the FAQs by topic: understanding the methodology, partnership op
 Everything here is free. The blog covers practical topics and stories from our community. The documentation includes facilitator guides and participant materials. We're planning to add whitepapers on topics like measuring conversation skills and curious listening in teams, though these aren't ready yet.
 
 We'll be adding more over time: videos, case studies, assessment tools. For now, have a browse and sign up to the newsletter if you want to hear about new resources.`,
-    lastmod: '2026-01-25',
+    lastmod: '2026-02-20',
     priority: 0.7,
     changefreq: 'weekly'
   },
@@ -366,7 +366,7 @@ We'll be adding more over time: videos, case studies, assessment tools. For now,
 Contributors include our faculty, ambassadors, partner organisations, and researchers we work with. We try to mix bigger-picture thinking with practical, immediately useful content. Recent topics have included communication in the age of AI, remote and hybrid team dynamics, and how to actually measure whether soft skills training works.
 
 We also use the blog to share our own learning journey, including things that haven't gone as planned. You can browse by category or tag, search for specific topics, or sign up to our newsletter if you want updates sent to you.`,
-    lastmod: '2025-10-29',
+    lastmod: '2026-02-20',
     priority: 0.8,
     changefreq: 'daily'
   },
@@ -393,7 +393,7 @@ We also use the blog to share our own learning journey, including things that ha
 Results show the publication date, author, reading time, and a snippet so you can tell if it's what you're looking for before clicking through. The search is powered by Typesense, which is fast and handles typos well.
 
 We also show popular topics and recent posts on the search page to help you discover content you might not have thought to search for.`,
-    lastmod: '2025-10-17',
+    lastmod: '2026-02-20',
     priority: 0.5,
     changefreq: 'monthly'
   },
@@ -409,7 +409,7 @@ We also show popular topics and recent posts on the search page to help you disc
 It's useful if you want to explore a particular area rather than searching for something specific. Click a topic and you'll see all the related content in one place.
 
 We also show recent posts on this page, so you can quickly see what's new regardless of topic.`,
-    lastmod: '2025-10-13',
+    lastmod: '2026-02-20',
     priority: 0.2,
     changefreq: 'weekly'
   },
@@ -426,7 +426,7 @@ We also show recent posts on this page, so you can quickly see what's new regard
 All our materials are free and open source under Creative Commons. We focus on working closely with a smaller number of organisations rather than running lots of public courses, because we've found that's what creates lasting change. Hundreds of people have been through the course so far, across for-profits businesses, nonprofits, universities, and in the public sector.
 
 The course draws on concepts from psychology about how our thinking and feelings affect conversations, attentive listening and purposeful questioning, and years of practical facilitation experience. It's hands-on and interactive, with lots of practice in pairs and small groups. No death by PowerPoint.`,
-    lastmod: '2025-10-18',
+    lastmod: '2026-02-20',
     priority: 1.0,
     changefreq: 'weekly'
   }
