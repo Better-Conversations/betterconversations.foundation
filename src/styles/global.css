@@ -138,27 +138,21 @@
     @apply transition-all duration-300 cursor-pointer;
   }
   
-  /* Card Hover Effects */
+  /* Static Cards */
   .bcf-card {
     @apply bg-white rounded-xl border border-gray-200 p-6;
-    @apply hover:border-[#54C4B6] hover:shadow-lg;
-    @apply transition-all duration-300 transform hover:-translate-y-1;
     @apply flex flex-col;
   }
 
   /* Card XL - Larger padding and border radius */
   .bcf-card-xl {
     @apply bg-white rounded-xl border border-gray-200 p-8;
-    @apply hover:border-[#54C4B6] hover:shadow-lg;
-    @apply transition-all duration-300 transform hover:-translate-y-1;
     @apply block;
   }
 
   /* Card with gradient background */
   .bcf-card-gradient {
     @apply bg-gradient-to-br from-gray-50 to-white rounded-xl border border-gray-200 p-8;
-    @apply hover:border-[#54C4B6] hover:shadow-lg;
-    @apply transition-all duration-300 transform hover:-translate-y-1;
     @apply block;
   }
 
