@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { courseScope, courseInstanceScope } from '../../utils/microdata';
+import SectionHeader from '../../components/SectionHeader.astro';
 ---
 
 <Layout title="Course Overview - Better Conversations Foundation">
@@ -71,12 +72,11 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
       </span>
 
       <div class="max-w-5xl mx-auto px-6 sm:px-8 lg:px-8">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold text-gray-900 mb-4">Course Modules</h2>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-            Each module builds upon the previous, creating a comprehensive foundation for better conversations
-          </p>
-        </div>
+        <SectionHeader
+          heading="Course modules"
+          description="Each module builds upon the previous, creating a comprehensive foundation for better conversations"
+          class="mb-16"
+        />
 
         <!-- Timeline -->
         <div class="timeline-container flex flex-col gap-8" style="--row-gap: 2rem; --circle-size: 5rem;">
@@ -370,7 +370,7 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
     <!-- Course Format Section -->
     <section class="py-20 bg-gradient-to-br from-[#54C4B6]/5 to-[#A8D381]/5">
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-        <h2 class="text-4xl font-bold text-center mb-16 text-gray-900">Course Format</h2>
+        <SectionHeader heading="Course format" class="mb-16" />
 
         <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
           <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
@@ -443,10 +443,11 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
     <!-- CTA Section -->
     <section class="py-20 bg-gradient-to-br from-[#54C4B6]/5 to-[#A8D381]/5">
       <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
-        <h2 class="text-4xl font-bold text-gray-900 mb-6">Ready to Bring This to Your Organisation?</h2>
-        <p class="text-xl text-gray-600 mb-8">
-          Transform your organisation's communication culture with deep partnership support or explore our free materials.
-        </p>
+        <SectionHeader
+          heading="Ready to bring this to your organisation?"
+          description="Transform your organisation's communication culture with deep partnership support or explore our free materials."
+          class="mb-8"
+        />
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a href="/get-started" class="bcf-cta-primary">
             Explore Partnership

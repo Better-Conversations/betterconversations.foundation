@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import HeroSection from '../../components/HeroSection.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
 import { siteConfig } from '../../data/siteConfig';
 ---
 
@@ -29,12 +30,11 @@ import { siteConfig } from '../../data/siteConfig';
   <section class="py-16 lg:py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/5 via-transparent to-[#A8D381]/5"></div>
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 relative">
-      <div class="text-center mb-16">
-        <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Open Educational Resources</h2>
-        <p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
-          Part of a global movement
-        </p>
-      </div>
+      <SectionHeader
+        eyebrow="Open Educational Resources"
+        heading="Part of a global movement"
+        class="mb-16"
+      />
 
       <div class="max-w-4xl mx-auto">
         <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 mb-8">
@@ -97,15 +97,12 @@ import { siteConfig } from '../../data/siteConfig';
   <!-- Outcome-Centric Learning Section -->
   <section class="py-16 lg:py-24 bg-white">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Learning Philosophy</h2>
-        <p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
-          From course-centric to outcome-centric
-        </p>
-        <p class="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
-          Organisational training spans a spectrum. Our open content approach supports movement toward outcome-focused learning.
-        </p>
-      </div>
+      <SectionHeader
+        eyebrow="Learning Philosophy"
+        heading="From course-centric to outcome-centric"
+        description="Organisational training spans a spectrum. Our open content approach supports movement toward outcome-focused learning."
+        class="mb-16"
+      />
 
       <div class="max-w-6xl mx-auto">
         <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
@@ -183,12 +180,11 @@ import { siteConfig } from '../../data/siteConfig';
   <section class="py-16 lg:py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/5 via-transparent to-[#A8D381]/5"></div>
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 relative">
-      <div class="text-center mb-16">
-        <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Why It Works</h2>
-        <p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
-          The benefits of open content for learning
-        </p>
-      </div>
+      <SectionHeader
+        eyebrow="Why it works"
+        heading="The benefits of open content for learning"
+        class="mb-16"
+      />
 
       <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
         <div class="bg-gradient-to-br from-[#54C4B6]/5 to-[#54C4B6]/10 rounded-2xl p-8 border border-[#54C4B6]/20 text-center">
@@ -234,12 +230,11 @@ import { siteConfig } from '../../data/siteConfig';
   <section class="py-16 lg:py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/5 via-transparent to-[#A8D381]/5"></div>
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 relative">
-      <div class="text-center mb-16">
-        <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Our Model</h2>
-        <p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
-          Enabled by research, technology and community support
-        </p>
-      </div>
+      <SectionHeader
+        eyebrow="Our Model"
+        heading="Enabled by research, technology and community support"
+        class="mb-16"
+      />
 
       <div class="max-w-5xl mx-auto">
         <!-- Three circles diagram -->
@@ -311,15 +306,12 @@ import { siteConfig } from '../../data/siteConfig';
   <!-- What's Available Section -->
   <section class="py-16 lg:py-24 bg-white">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">What's Available</h2>
-        <p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
-          Free resources under Creative Commons
-        </p>
-        <p class="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
-          All our materials are available under a Creative Commons Attribution-ShareAlike 4.0 International licence. You can use, adapt, and share them—just give credit and share your improvements back.
-        </p>
-      </div>
+      <SectionHeader
+        eyebrow="What's Available"
+        heading="Free resources under Creative Commons"
+        description="All our materials are available under a Creative Commons Attribution-ShareAlike 4.0 International licence. You can use, adapt, and share them—just give credit and share your improvements back."
+        class="mb-16"
+      />
 
       <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
         <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow text-center flex flex-col">
