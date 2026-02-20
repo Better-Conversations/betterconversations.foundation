@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import HeroSection from '../../components/HeroSection.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import { generateMetaProperties } from '../../utils/metadata';
+import CheckListItem from '../../components/CheckListItem.astro';
 
 const metadata = generateMetaProperties('/get-started/attend-course');
 ---
@@ -176,25 +177,10 @@ const metadata = generateMetaProperties('/get-started/attend-course');
               <p class="text-gray-700 mb-4 font-medium">
                 Transform your organisation with comprehensive support: facilitator development, implementation guidance, research collaboration, and sustained partnership.
               </p>
-              <ul class="space-y-2 mb-4">
-                <li class="flex items-start text-gray-600">
-                  <svg class="w-5 h-5 text-[#54C4B6] mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                  </svg>
-                  <span>Capacity-building programmes to develop internal facilitators</span>
-                </li>
-                <li class="flex items-start text-gray-600">
-                  <svg class="w-5 h-5 text-[#54C4B6] mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                  </svg>
-                  <span>Customized implementation planning and ongoing support</span>
-                </li>
-                <li class="flex items-start text-gray-600">
-                  <svg class="w-5 h-5 text-[#54C4B6] mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                  </svg>
-                  <span>Impact measurement and case study development</span>
-                </li>
+              <ul class="space-y-3 mb-4">
+                <CheckListItem class="text-gray-600"><span>Capacity-building programmes to develop internal facilitators</span></CheckListItem>
+                <CheckListItem class="text-gray-600"><span>Customized implementation planning and ongoing support</span></CheckListItem>
+                <CheckListItem class="text-gray-600"><span>Impact measurement and case study development</span></CheckListItem>
               </ul>
               <a href="/get-started" class="inline-flex items-center text-[#54C4B6] font-semibold hover:text-[#54C4B6]/80 text-lg">
                 Explore partnership

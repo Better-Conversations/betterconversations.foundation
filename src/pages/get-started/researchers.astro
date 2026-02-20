@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import HeroSection from '../../components/HeroSection.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import { generateMetaProperties } from '../../utils/metadata';
+import CheckListItem from '../../components/CheckListItem.astro';
 
 const metadata = generateMetaProperties('/get-started/researchers');
 ---
@@ -81,30 +82,10 @@ const metadata = generateMetaProperties('/get-started/researchers');
         <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
           <h3 class="text-xl font-bold text-gray-900 mb-4">Psychology & social science</h3>
           <ul class="space-y-3 text-gray-600">
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Team communication and collaboration patterns</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Group dynamics and psychological safety</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Skill acquisition and behavioral change</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Metacognition and self-awareness development</span>
-            </li>
+            <CheckListItem><span>Team communication and collaboration patterns</span></CheckListItem>
+            <CheckListItem><span>Group dynamics and psychological safety</span></CheckListItem>
+            <CheckListItem><span>Skill acquisition and behavioral change</span></CheckListItem>
+            <CheckListItem><span>Metacognition and self-awareness development</span></CheckListItem>
           </ul>
         </div>
 
@@ -112,30 +93,10 @@ const metadata = generateMetaProperties('/get-started/researchers');
         <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
           <h3 class="text-xl font-bold text-gray-900 mb-4">Organisational & management research</h3>
           <ul class="space-y-3 text-gray-600">
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Conversation as organisational infrastructure</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Workplace culture and employee engagement</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Leadership and management communication</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Learning intervention effectiveness and ROI</span>
-            </li>
+            <CheckListItem color="green"><span>Conversation as organisational infrastructure</span></CheckListItem>
+            <CheckListItem color="green"><span>Workplace culture and employee engagement</span></CheckListItem>
+            <CheckListItem color="green"><span>Leadership and management communication</span></CheckListItem>
+            <CheckListItem color="green"><span>Learning intervention effectiveness and ROI</span></CheckListItem>
           </ul>
         </div>
 
@@ -143,30 +104,10 @@ const metadata = generateMetaProperties('/get-started/researchers');
         <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
           <h3 class="text-xl font-bold text-gray-900 mb-4">Education research</h3>
           <ul class="space-y-3 text-gray-600">
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Collaborative learning and peer interaction</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Student engagement and participation</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Skill development and learning outcomes</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Pedagogy and teaching effectiveness</span>
-            </li>
+            <CheckListItem><span>Collaborative learning and peer interaction</span></CheckListItem>
+            <CheckListItem><span>Student engagement and participation</span></CheckListItem>
+            <CheckListItem><span>Skill development and learning outcomes</span></CheckListItem>
+            <CheckListItem><span>Pedagogy and teaching effectiveness</span></CheckListItem>
           </ul>
         </div>
 
@@ -174,30 +115,10 @@ const metadata = generateMetaProperties('/get-started/researchers');
         <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
           <h3 class="text-xl font-bold text-gray-900 mb-4">Health & wellbeing research</h3>
           <ul class="space-y-3 text-gray-600">
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Healthcare team communication and patient outcomes</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Stress, burnout, and workplace wellbeing</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Social connection and mental health</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Interprofessional collaboration</span>
-            </li>
+            <CheckListItem color="green"><span>Healthcare team communication and patient outcomes</span></CheckListItem>
+            <CheckListItem color="green"><span>Stress, burnout, and workplace wellbeing</span></CheckListItem>
+            <CheckListItem color="green"><span>Social connection and mental health</span></CheckListItem>
+            <CheckListItem color="green"><span>Interprofessional collaboration</span></CheckListItem>
           </ul>
         </div>
       </div>

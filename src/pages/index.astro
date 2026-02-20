@@ -4,6 +4,7 @@ import { generateMetaProperties } from '../utils/metadata';
 import { siteConfig } from '../data/siteConfig';
 import SectionHeader from '../components/SectionHeader.astro';
 import WaveSeparator from '../components/WaveSeparator.astro';
+import CheckListItem from '../components/CheckListItem.astro';
 
 // Generate enhanced metadata for homepage
 const homeMetadata = generateMetaProperties('/');
@@ -207,27 +208,27 @@ const homeMetadata = generateMetaProperties('/');
 						</svg>
 					</div>
 					<h3 class="mt-4 text-lg font-semibold text-gray-900 text-center">For Organisations</h3>
-					<ul class="mt-4 space-y-2 text-gray-600 text-base">
-						<li>• Reduces wasted time and rework</li>
-						<li>• Improves staff retention</li>
-						<li>• Scales across departments</li>
-						<li>• Works alongside AI tools</li>
+					<ul class="mt-4 space-y-3 text-gray-600 text-base">
+						<CheckListItem>Reduces wasted time and rework</CheckListItem>
+						<CheckListItem>Improves staff retention</CheckListItem>
+						<CheckListItem>Scales across departments</CheckListItem>
+						<CheckListItem>Works alongside AI tools</CheckListItem>
 					</ul>
 				</div>
 
 				<!-- For Educators -->
 				<div class="bcf-card">
-					<div class="bcf-icon-green">
+					<div class="bcf-icon bg-[#A8D381]/10 text-[#A8D381]">
 						<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
 						</svg>
 					</div>
 					<h3 class="mt-4 text-lg font-semibold text-gray-900 text-center">For Educators</h3>
-					<ul class="mt-4 space-y-2 text-gray-600 text-base">
-						<li>• Develops metacognitive skills</li>
-						<li>• Supports pastoral care</li>
-						<li>• Fits within curriculum</li>
-						<li>• Adaptable across age groups</li>
+					<ul class="mt-4 space-y-3 text-gray-600 text-base">
+						<CheckListItem color="green">Develops metacognitive skills</CheckListItem>
+						<CheckListItem color="green">Supports pastoral care</CheckListItem>
+						<CheckListItem color="green">Fits within curriculum</CheckListItem>
+						<CheckListItem color="green">Adaptable across age groups</CheckListItem>
 					</ul>
 				</div>
 
@@ -239,11 +240,11 @@ const homeMetadata = generateMetaProperties('/');
 						</svg>
 					</div>
 					<h3 class="mt-4 text-lg font-semibold text-gray-900 text-center">For Researchers</h3>
-					<ul class="mt-4 space-y-2 text-gray-600 text-base">
-						<li>• Standardised, reliable intervention</li>
-						<li>• Evidence-based framework</li>
-						<li>• Open-source approach</li>
-						<li>• Research collaboration opportunities</li>
+					<ul class="mt-4 space-y-3 text-gray-600 text-base">
+						<CheckListItem>Standardised, reliable intervention</CheckListItem>
+						<CheckListItem>Evidence-based framework</CheckListItem>
+						<CheckListItem>Open-source approach</CheckListItem>
+						<CheckListItem>Research collaboration opportunities</CheckListItem>
 					</ul>
 				</div>
 			</div>
@@ -350,7 +351,7 @@ const homeMetadata = generateMetaProperties('/');
 				</div>
 
 				<div class="bcf-card text-center">
-					<div class="bcf-icon">
+					<div class="bcf-icon bg-[#A8D381]/10 text-[#A8D381]">
 						<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
 						</svg>

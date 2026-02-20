@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import HeroSection from '../../components/HeroSection.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import { generateMetaProperties } from '../../utils/metadata';
+import CheckListItem from '../../components/CheckListItem.astro';
 
 const metadata = generateMetaProperties('/get-started/organisations');
 ---
@@ -234,36 +235,11 @@ const metadata = generateMetaProperties('/get-started/organisations');
         <div class="bcf-card-xl bg-gradient-to-br from-[#54C4B6]/5 to-[#54C4B6]/10 border-[#54C4B6]/20">
           <h3 class="text-2xl font-bold text-gray-900 mb-6">Partnership is a good fit if you:</h3>
           <ul class="space-y-4">
-            <li class="flex items-start">
-              <svg class="w-6 h-6 text-[#54C4B6] mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span class="text-gray-700">Have leadership buy-in at the appropriate team, department, or organisational level)</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-6 h-6 text-[#54C4B6] mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span class="text-gray-700">Can commit 3-5 people to initial facilitator development</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-6 h-6 text-[#54C4B6] mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span class="text-gray-700">Want to reach hundreds of employees over time</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-6 h-6 text-[#54C4B6] mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span class="text-gray-700">Value evidence-based approaches</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-6 h-6 text-[#54C4B6] mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span class="text-gray-700">Are willing to share learnings with our Community</span>
-            </li>
+            <CheckListItem size="lg"><span class="text-gray-700">Have leadership buy-in at the appropriate team, department, or organisational level)</span></CheckListItem>
+            <CheckListItem size="lg"><span class="text-gray-700">Can commit 3-5 people to initial facilitator development</span></CheckListItem>
+            <CheckListItem size="lg"><span class="text-gray-700">Want to reach hundreds of employees over time</span></CheckListItem>
+            <CheckListItem size="lg"><span class="text-gray-700">Value evidence-based approaches</span></CheckListItem>
+            <CheckListItem size="lg"><span class="text-gray-700">Are willing to share learnings with our Community</span></CheckListItem>
           </ul>
         </div>
 

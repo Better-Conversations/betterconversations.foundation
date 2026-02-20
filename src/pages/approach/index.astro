@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import { courseScope, courseInstanceScope } from '../../utils/microdata';
 import SectionHeader from '../../components/SectionHeader.astro';
 import WaveSeparator from '../../components/WaveSeparator.astro';
+import CheckListItem from '../../components/CheckListItem.astro';
 ---
 
 <Layout title="Course Overview - Better Conversations Foundation">
@@ -106,25 +107,10 @@ import WaveSeparator from '../../components/WaveSeparator.astro';
                   <p class="text-lg text-gray-700 mb-4 font-medium" itemprop="description">Understanding the State Model</p>
                   <div class="space-y-3">
                     <h4 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Learning Outcomes</h4>
-                    <ul class="space-y-2">
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Explain the State Model and its importance in conversations</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Describe how you know when you're in red, amber, or green state</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Recognize the impact of state on communication quality</span>
-                      </li>
+                    <ul class="space-y-3">
+                      <CheckListItem class="text-gray-600"><span>Explain the State Model and its importance in conversations</span></CheckListItem>
+                      <CheckListItem class="text-gray-600"><span>Describe how you know when you're in red, amber, or green state</span></CheckListItem>
+                      <CheckListItem class="text-gray-600"><span>Recognize the impact of state on communication quality</span></CheckListItem>
                     </ul>
                   </div>
                 </div>
@@ -153,25 +139,10 @@ import WaveSeparator from '../../components/WaveSeparator.astro';
                   <p class="text-lg text-gray-700 mb-4 font-medium" itemprop="description">Impact of assumptions on conversations</p>
                   <div class="space-y-3">
                     <h4 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Learning Outcomes</h4>
-                    <ul class="space-y-2">
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Explain how assumptions affect conversations and outcomes</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Describe the link between state and assumptions</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Identify your own assumptions in real-time interactions</span>
-                      </li>
+                    <ul class="space-y-3">
+                      <CheckListItem class="text-gray-600"><span>Explain how assumptions affect conversations and outcomes</span></CheckListItem>
+                      <CheckListItem class="text-gray-600"><span>Describe the link between state and assumptions</span></CheckListItem>
+                      <CheckListItem class="text-gray-600"><span>Identify your own assumptions in real-time interactions</span></CheckListItem>
                     </ul>
                   </div>
                 </div>
@@ -200,25 +171,10 @@ import WaveSeparator from '../../components/WaveSeparator.astro';
                   <p class="text-lg text-gray-700 mb-4 font-medium" itemprop="description">Understanding contextual elements in conversations</p>
                   <div class="space-y-3">
                     <h4 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Learning Outcomes</h4>
-                    <ul class="space-y-2">
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Describe the elements of context in conversations</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Explain the link between context, assumptions, and state</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Apply contextual awareness to improve communication</span>
-                      </li>
+                    <ul class="space-y-3">
+                      <CheckListItem class="text-gray-600"><span>Describe the elements of context in conversations</span></CheckListItem>
+                      <CheckListItem class="text-gray-600"><span>Explain the link between context, assumptions, and state</span></CheckListItem>
+                      <CheckListItem class="text-gray-600"><span>Apply contextual awareness to improve communication</span></CheckListItem>
                     </ul>
                   </div>
                 </div>
@@ -247,25 +203,10 @@ import WaveSeparator from '../../components/WaveSeparator.astro';
                   <p class="text-lg text-gray-700 mb-4 font-medium" itemprop="description">Active listening and curious questioning</p>
                   <div class="space-y-3">
                     <h4 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Learning Outcomes</h4>
-                    <ul class="space-y-2">
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Demonstrate listening to accept rather than listening to respond</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Practice using questions to understand the other person</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Apply curious questioning techniques</span>
-                      </li>
+                    <ul class="space-y-3">
+                      <CheckListItem color="green" class="text-gray-600"><span>Demonstrate listening to accept rather than listening to respond</span></CheckListItem>
+                      <CheckListItem color="green" class="text-gray-600"><span>Practice using questions to understand the other person</span></CheckListItem>
+                      <CheckListItem color="green" class="text-gray-600"><span>Apply curious questioning techniques</span></CheckListItem>
                     </ul>
                   </div>
                 </div>
@@ -294,25 +235,10 @@ import WaveSeparator from '../../components/WaveSeparator.astro';
                   <p class="text-lg text-gray-700 mb-4 font-medium" itemprop="description">Purposeful dialogue and intentional communication</p>
                   <div class="space-y-3">
                     <h4 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Learning Outcomes</h4>
-                    <ul class="space-y-2">
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Describe why intention is different from impact</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Practice preparing for intentional conversations</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Align conversation intentions with desired outcomes</span>
-                      </li>
+                    <ul class="space-y-3">
+                      <CheckListItem color="green" class="text-gray-600"><span>Describe why intention is different from impact</span></CheckListItem>
+                      <CheckListItem color="green" class="text-gray-600"><span>Practice preparing for intentional conversations</span></CheckListItem>
+                      <CheckListItem color="green" class="text-gray-600"><span>Align conversation intentions with desired outcomes</span></CheckListItem>
                     </ul>
                   </div>
                 </div>
@@ -341,25 +267,10 @@ import WaveSeparator from '../../components/WaveSeparator.astro';
                   <p class="text-lg text-gray-700 mb-4 font-medium" itemprop="description">Personal impact and future applications</p>
                   <div class="space-y-3">
                     <h4 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Learning Outcomes</h4>
-                    <ul class="space-y-2">
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Describe the personal impact of the course on your communication</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Explain what you would like to have happen now</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Create an action plan for continuing your learning journey</span>
-                      </li>
+                    <ul class="space-y-3">
+                      <CheckListItem color="green" class="text-gray-600"><span>Describe the personal impact of the course on your communication</span></CheckListItem>
+                      <CheckListItem color="green" class="text-gray-600"><span>Explain what you would like to have happen now</span></CheckListItem>
+                      <CheckListItem color="green" class="text-gray-600"><span>Create an action plan for continuing your learning journey</span></CheckListItem>
                     </ul>
                   </div>
                 </div>

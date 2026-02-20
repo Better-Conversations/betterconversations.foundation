@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import HeroSection from '../../components/HeroSection.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import { generateMetaProperties } from '../../utils/metadata';
+import CheckListItem from '../../components/CheckListItem.astro';
 
 const metadata = generateMetaProperties('/get-started/join-community');
 ---
@@ -110,30 +111,10 @@ const metadata = generateMetaProperties('/get-started/join-community');
             <h3 class="text-xl font-bold text-gray-900 ml-4">Complete course materials</h3>
           </div>
           <ul class="space-y-3">
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span class="text-gray-600"><strong>Flight Plans</strong> - Step-by-step delivery guides for each module</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span class="text-gray-600"><strong>Participant Guides</strong> - Comprehensive materials for learners</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span class="text-gray-600"><strong>Activities & Exercises</strong> - Hands-on practice materials</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span class="text-gray-600"><strong>Creative Commons Licensed</strong> - Customize for your context</span>
-            </li>
+            <CheckListItem><span class="text-gray-600"><strong>Flight Plans</strong> - Step-by-step delivery guides for each module</span></CheckListItem>
+            <CheckListItem><span class="text-gray-600"><strong>Participant Guides</strong> - Comprehensive materials for learners</span></CheckListItem>
+            <CheckListItem><span class="text-gray-600"><strong>Activities & Exercises</strong> - Hands-on practice materials</span></CheckListItem>
+            <CheckListItem><span class="text-gray-600"><strong>Creative Commons Licensed</strong> - Customize for your context</span></CheckListItem>
           </ul>
         </div>
 
@@ -148,30 +129,10 @@ const metadata = generateMetaProperties('/get-started/join-community');
             <h3 class="text-xl font-bold text-gray-900 ml-4">Support and community</h3>
           </div>
           <ul class="space-y-3">
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span class="text-gray-600"><strong>Facilitator Community</strong> - Connect with experienced facilitators</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span class="text-gray-600"><strong>Feedback Tools</strong> - Collect and analyze course impact</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span class="text-gray-600"><strong>Certificate Generation</strong> - Professional completion certificates</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span class="text-gray-600"><strong>Ongoing Support</strong> - Best-efforts volunteer assistance</span>
-            </li>
+            <CheckListItem color="green"><span class="text-gray-600"><strong>Facilitator Community</strong> - Connect with experienced facilitators</span></CheckListItem>
+            <CheckListItem color="green"><span class="text-gray-600"><strong>Feedback Tools</strong> - Collect and analyze course impact</span></CheckListItem>
+            <CheckListItem color="green"><span class="text-gray-600"><strong>Certificate Generation</strong> - Professional completion certificates</span></CheckListItem>
+            <CheckListItem color="green"><span class="text-gray-600"><strong>Ongoing Support</strong> - Best-efforts volunteer assistance</span></CheckListItem>
           </ul>
         </div>
       </div>
@@ -194,48 +155,18 @@ const metadata = generateMetaProperties('/get-started/join-community');
           <div class="grid md:grid-cols-2 gap-6">
             <div class="bg-gray-50 rounded-lg p-6">
               <h4 class="font-semibold text-gray-900 mb-3">Key features:</h4>
-              <ul class="space-y-2 text-gray-600">
-                <li class="flex items-start">
-                  <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                  </svg>
-                  <span>Distributed as editable PDFs</span>
-                </li>
-                <li class="flex items-start">
-                  <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                  </svg>
-                  <span>Versioned with detailed change logs</span>
-                </li>
-                <li class="flex items-start">
-                  <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                  </svg>
-                  <span>Customisable for your context</span>
-                </li>
+              <ul class="space-y-3 text-gray-600">
+                <CheckListItem><span>Distributed as editable PDFs</span></CheckListItem>
+                <CheckListItem><span>Versioned with detailed change logs</span></CheckListItem>
+                <CheckListItem><span>Customisable for your context</span></CheckListItem>
               </ul>
             </div>
             <div class="bg-gray-50 rounded-lg p-6">
               <h4 class="font-semibold text-gray-900 mb-3">Tips:</h4>
-              <ul class="space-y-2 text-gray-600">
-                <li class="flex items-start">
-                  <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                  </svg>
-                  <span>Use Word or Google Docs for solo delivery</span>
-                </li>
-                <li class="flex items-start">
-                  <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                  </svg>
-                  <span>Use SharePoint/Drive or ask us about our app for team delivery</span>
-                </li>
-                <li class="flex items-start">
-                  <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                  </svg>
-                  <span>Check the latest versions from the Foundation courses to stay current</span>
-                </li>
+              <ul class="space-y-3 text-gray-600">
+                <CheckListItem color="green"><span>Use Word or Google Docs for solo delivery</span></CheckListItem>
+                <CheckListItem color="green"><span>Use SharePoint/Drive or ask us about our app for team delivery</span></CheckListItem>
+                <CheckListItem color="green"><span>Check the latest versions from the Foundation courses to stay current</span></CheckListItem>
               </ul>
             </div>
           </div>
@@ -355,24 +286,9 @@ const metadata = generateMetaProperties('/get-started/join-community');
             workplace culture transformation and team development.
           </p>
           <ul class="space-y-2 text-sm text-gray-600">
-            <li class="flex items-start">
-              <svg class="w-4 h-4 text-[#54C4B6] mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Customized for your context</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-4 h-4 text-[#54C4B6] mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Flexible scheduling</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-4 h-4 text-[#54C4B6] mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Your venue or online</span>
-            </li>
+            <CheckListItem size="sm"><span>Customized for your context</span></CheckListItem>
+            <CheckListItem size="sm"><span>Flexible scheduling</span></CheckListItem>
+            <CheckListItem size="sm"><span>Your venue or online</span></CheckListItem>
           </ul>
         </div>
 
@@ -389,24 +305,9 @@ const metadata = generateMetaProperties('/get-started/join-community');
             expand your reach as a facilitator.
           </p>
           <ul class="space-y-2 text-sm text-gray-600">
-            <li class="flex items-start">
-              <svg class="w-4 h-4 text-[#A8D381] mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Open enrollment</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-4 h-4 text-[#A8D381] mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Diverse perspectives</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-4 h-4 text-[#A8D381] mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Wider community impact</span>
-            </li>
+            <CheckListItem color="green" size="sm"><span>Open enrollment</span></CheckListItem>
+            <CheckListItem color="green" size="sm"><span>Diverse perspectives</span></CheckListItem>
+            <CheckListItem color="green" size="sm"><span>Wider community impact</span></CheckListItem>
           </ul>
         </div>
 
@@ -423,24 +324,9 @@ const metadata = generateMetaProperties('/get-started/join-community');
             Maximize social impact while building your facilitation experience.
           </p>
           <ul class="space-y-2 text-sm text-gray-600">
-            <li class="flex items-start">
-              <svg class="w-4 h-4 text-[#54C4B6] mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Values-aligned partnerships</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-4 h-4 text-[#54C4B6] mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Foundation support</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-4 h-4 text-[#54C4B6] mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Social impact focus</span>
-            </li>
+            <CheckListItem size="sm"><span>Values-aligned partnerships</span></CheckListItem>
+            <CheckListItem size="sm"><span>Foundation support</span></CheckListItem>
+            <CheckListItem size="sm"><span>Social impact focus</span></CheckListItem>
           </ul>
         </div>
       </div>
