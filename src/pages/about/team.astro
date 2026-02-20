@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import HeroSection from '../../components/HeroSection.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
 ---
 
 <Layout title="Our Team - Better Conversations Foundation">
@@ -14,15 +15,12 @@ import HeroSection from '../../components/HeroSection.astro';
   <section class="py-16 lg:py-24 bg-white relative overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/5 via-transparent to-transparent"></div>
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 relative">
-      <div class="text-center mb-16">
-        <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Faculty</h2>
-        <p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
-          Trusted course facilitators
-        </p>
-        <p class="mt-4 max-w-3xl mx-auto text-xl text-gray-600 leading-relaxed">
-          Faculty members are trusted to deliver the course to a consistently high standard. They often deliver the course on behalf of the Foundation on a voluntary basis in our 'Experience Courses' as well as in their own private work.
-        </p>
-      </div>
+      <SectionHeader
+        eyebrow="Faculty"
+        heading="Trusted course facilitators"
+        description="Faculty members are trusted to deliver the course to a consistently high standard. They often deliver the course on behalf of the Foundation on a voluntary basis in our 'Experience Courses' as well as in their own private work."
+        class="mb-16"
+      />
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
         <!-- Faculty Member Cards -->
