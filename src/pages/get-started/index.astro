@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import HeroSection from '../../components/HeroSection.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
 import { generateMetaProperties } from '../../utils/metadata';
 
 const metadata = generateMetaProperties('/get-started');
@@ -20,12 +21,11 @@ const metadata = generateMetaProperties('/get-started');
   <!-- Partnership Focus Section -->
   <section class="py-16 lg:py-24 bg-white">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Who we work with</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          We focus on deep partnerships with organisations ready to embed Better Conversations at scale. Here's what that looks like for different contexts.
-        </p>
-      </div>
+      <SectionHeader
+        heading="Who we work with"
+        description="We focus on deep partnerships with organisations ready to embed Better Conversations at scale. Here's what that looks like for different contexts."
+        class="mb-16"
+      />
 
       <div class="grid md:grid-cols-3 gap-8 mb-16">
         <!-- For Organisations -->
@@ -91,12 +91,11 @@ const metadata = generateMetaProperties('/get-started');
   <!-- Other Ways to Work With Us -->
   <section class="py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-white">
     <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Partnership not right for you?</h2>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-          There are other ways to work with us or access Better Conversations.
-        </p>
-      </div>
+      <SectionHeader
+        heading="Partnership not right for you?"
+        description="There are other ways to work with us or access Better Conversations."
+        class="mb-12"
+      />
 
       <div class="grid md:grid-cols-3 gap-8">
         <!-- Download Materials -->
@@ -162,10 +161,11 @@ const metadata = generateMetaProperties('/get-started');
   <!-- Contact CTA -->
   <section class="py-16 lg:py-20 bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10">
     <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Want to talk it through?</h2>
-      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-        Not sure if partnership makes sense for you? Let's have a conversation.
-      </p>
+      <SectionHeader
+        heading="Want to talk it through?"
+        description="Not sure if partnership makes sense for you? Let's have a conversation."
+        class="mb-8"
+      />
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a href="/get-started/schedule-call" class="bcf-cta-primary">
