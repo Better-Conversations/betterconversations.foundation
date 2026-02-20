@@ -98,7 +98,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
         <h2 class="text-3xl font-bold text-gray-900 mb-8">Featured Articles</h2>
         <div class="grid gap-8 lg:grid-cols-2">
           {spotlightPosts.map((post) => (
-            <article class="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
+            <article class="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-[#54C4B6] hover:shadow-lg transition-all duration-300 flex flex-col">
               <div class="h-64 bg-gray-200 flex-shrink-0">
                 {post.optimizedImage ? (
                   <Image 
@@ -210,7 +210,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
 
             <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
               {regularPosts.map((post) => (
-                <article class="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-300 flex flex-col">
+                <article class="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-[#54C4B6] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
                   <div class="h-48 bg-gray-200 flex-shrink-0">
                     {post.optimizedImage ? (
                       <Image 
@@ -285,7 +285,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
         <h2 class="text-3xl font-bold text-gray-900 mb-8">Featured Articles</h2>
         <div class="grid gap-8 lg:grid-cols-2">
           {spotlightPosts.map((post) => (
-            <article class="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
+            <article class="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-[#54C4B6] hover:shadow-lg transition-all duration-300 flex flex-col">
               <div class="h-64 bg-gray-200 flex-shrink-0">
                 {post.optimizedImage ? (
                   <Image 
@@ -437,7 +437,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
                   x-transition:enter="transition ease-out duration-300"
                   x-transition:enter-start="opacity-0 transform scale-95"
                   x-transition:enter-end="opacity-100 transform scale-100"
-                  class="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-300 flex flex-col"
+                  class="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-[#54C4B6] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 flex flex-col"
                 >
                   <div class="h-48 bg-gray-200 flex-shrink-0">
                     <img x-show="post.image" :src="post.image" :alt="post.title" class="w-full h-full object-cover" />

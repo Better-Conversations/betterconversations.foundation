@@ -214,7 +214,7 @@ const uniqueTags = [...new Set(allTags)].sort();
       <div class="grid gap-8 lg:gap-12" id="whitepapers-grid">
         {whitepapersWithStats.map((paper, index) => (
           <article 
-            class="paper-stack spotlight-card bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden group whitepaper-card"
+            class="paper-stack spotlight-card bg-white rounded-xl border border-gray-200 overflow-hidden group whitepaper-card"
             data-category={paper.category}
             data-tags={paper.tags.join(',')}
           >
