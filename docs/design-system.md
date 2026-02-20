@@ -11,6 +11,62 @@ Better Conversations Foundation website design principles and implementation gui
 3. **Consistent Visual Language** - Teal/green brand colors, wave separators, open layouts
 4. **Mission-Driven** - Collaborative focus, not sales-oriented; community and partnership emphasis
 
+### Visual philosophy: gently confident
+
+Better Conversations may appear light and simple on the surface, but the
+impact observed in practice is deep and lasting. The visual design must
+reflect this — present and purposeful, never heavy-handed.
+
+**The test for every visual decision:** does this feel gently confident?
+
+#### Depth through diffusion, not saturation
+
+Visual depth comes from multiple soft, blurred colour patches (blobs)
+bleeding into each other over a light base — not from increasing the
+opacity of a flat gradient. This creates an organic, watercolour-like
+warmth that feels alive rather than printed.
+
+**Hero sections** use this pattern:
+- A white/`gray-50` gradient base (`bg-gradient-to-b from-white via-gray-50 to-white`)
+- A diagonal brand-colour overlay at ~30% opacity (`from-[#54C4B6]/30 via-transparent to-[#A8D381]/30`)
+- Multiple large, blurred blobs (`blur-2xl` to `blur-3xl`) at 15–25% opacity, positioned to create overlapping colour patches
+- A centre blob to fill the mid-section so the diffusion feels continuous, not concentrated at corners
+- Dark text (`gray-900` headings, `gray-600` body) on the light background
+
+#### What doesn't work (and why)
+
+These approaches were explored and intentionally rejected:
+
+| Approach | Why it was rejected |
+|---|---|
+| **Very light tint** (10–15% opacity wash) | Too insubstantial — doesn't reflect the depth of impact; feels forgettable |
+| **Solid brand gradient** (full-saturation teal-to-green) | Too heavy and corporate — overwhelms the warmth; feels like a painted wall |
+| **Translucent middle-ground** (40–55% opacity gradient over white) | Technically between the two extremes but lacks the organic quality — still feels flat |
+
+The key insight: the right approach isn't about finding the correct opacity
+percentage. It's about **layering multiple soft elements** to create depth
+through accumulation, the way watercolour builds richness through washes
+rather than a single heavy application.
+
+#### Values to visuals
+
+BCF's organisational values should directly inform visual treatment:
+
+| Value | Visual expression |
+|---|---|
+| **Simple in form, deep in impact** | Light base with layered depth — approachable surface, rich detail underneath |
+| **Partnership, not sales** | Design invites rather than persuades — no aggressive gradients, no urgent colour |
+| **Warm and collaborative** | Organic colour diffusion (blobs, blurs) rather than sharp geometric precision |
+| **Evidence-informed but accessible** | Clean structure with soft edges — professional without being clinical |
+
+#### Applying this across the site
+
+- **Hero sections:** White base + diffused blobs (see pattern above)
+- **Section backgrounds:** Alternate white and `gray-50` with wave separators
+- **Cards and CTAs:** Clean, rounded (`rounded-xl`), generous spacing — confidence through clarity, not boldness
+- **Gradients on interactive elements:** Reserve full-saturation `from-[#54C4B6] to-[#A8D381]` for buttons and small accent elements only — never for large background areas
+- **Decorative elements:** Always blurred and low-opacity; they should be felt, not seen
+
 ### Brand Identity
 
 **Colors:**
@@ -268,8 +324,10 @@ All interactive elements must have visible focus indicators:
 
 ### Background Patterns
 
+> **Hero sections** use a richer layered pattern (blobs + a `/30` diagonal overlay), not the `/5` shorthand below. See [Depth through diffusion, not saturation](#depth-through-diffusion-not-saturation) above.
+
 ```html
-<!-- Subtle gradient backgrounds -->
+<!-- Subtle gradient backgrounds (non-hero sections only) -->
 <section class="bg-gradient-to-br from-[#54C4B6]/5 to-[#A8D381]/5">
   <!-- Content -->
 </section>
