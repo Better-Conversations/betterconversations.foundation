@@ -12,63 +12,38 @@ New to the project? Start here:
 
 ## Documentation Structure
 
-### [Design System](./design-system.md)
-Visual design principles, UI patterns, and component specifications.
-
-**Contents:**
-- Core design philosophy
-- Brand colors and typography
-- Heading and button conventions
-- Spacing and layout standards
-- Component library (buttons, cards, forms)
-- Responsive design patterns
+### Design
+- [Design System](./design-system.md) — Visual philosophy, brand identity, heading/button conventions, typography
+- [Design Components](./design-components.md) — Buttons, cards, forms, spacing, responsive patterns, animation
 
 **When to use:** Designing new pages, creating components, styling elements
 
 ---
 
-### [Accessibility](./accessibility.md)
-WCAG 2.1 Level AA standards and implementation patterns.
-
-**Contents:**
-- Accessibility philosophy (semantic HTML first)
-- ARIA attribute usage guidelines
-- Keyboard navigation patterns
-- Screen reader considerations
-- Focus management
-- Testing checklist
+### Accessibility
+- [Accessibility](./accessibility.md) — Philosophy, ARIA usage, landmarks, focus, keyboard navigation
+- [Accessibility Testing & Patterns](./accessibility-testing.md) — Screen readers, colour contrast, forms, testing checklist
 
 **When to use:** Building interactive components, implementing forms, ensuring compliance
 
 ---
 
-### [Development](./development.md)
-Technical patterns, TypeScript rules, and build processes.
-
-**Contents:**
-- Project structure
-- TypeScript patterns and rules
-- Component development
-- Alpine.js integration
-- Image management
-- Progressive enhancement
+### Development
+- [Development](./development.md) — Project structure, commands, build process, layout system
+- [TypeScript](./typescript.md) — Script rules, component patterns, import paths
+- [Styling](./styling.md) — Tailwind approach, section background rhythm, WaveSeparator
+- [Alpine.js](./alpine.md) — Interactive components, progressive enhancement
+- [Content & Images](./content.md) — Content collections, image utilities
 
 **When to use:** Writing code, debugging issues, understanding architecture
 
 ---
 
-### [Content Guidelines](./content-guidelines.md)
-Writing standards, metadata conventions, and content management.
+### Content
+- [Content Guidelines](./content-guidelines.md) — Writing style, voice, tone, UK English, capitalisation
+- [Content & Metadata](./content-metadata.md) — Metadata system, SEO, blog posts, images
 
-**Contents:**
-- Writing style and tone
-- UK English spelling requirements
-- Metadata system (titles, descriptions)
-- Blog post guidelines
-- SEO best practices
-- Accessibility in content
-
-**When to use:** Writing blog posts, creating page content, optimizing for search
+**When to use:** Writing blog posts, creating page content, optimising for search
 
 ---
 
@@ -187,10 +162,12 @@ Before deploying:
 ## Getting Help
 
 **Questions about:**
-- **Design** → See [Design System](./design-system.md)
-- **Accessibility** → See [Accessibility](./accessibility.md)
-- **Code** → See [Development](./development.md)
-- **Content** → See [Content Guidelines](./content-guidelines.md)
+- **Design / visual patterns** → See [Design System](./design-system.md) or [Design Components](./design-components.md)
+- **Accessibility** → See [Accessibility](./accessibility.md) or [Accessibility Testing](./accessibility-testing.md)
+- **Code / TypeScript** → See [Development](./development.md) or [TypeScript](./typescript.md)
+- **Styling / layout** → See [Styling](./styling.md)
+- **Writing / tone** → See [Content Guidelines](./content-guidelines.md)
+- **Metadata / SEO / blog** → See [Content & Metadata](./content-metadata.md)
 
 **Still stuck?**
 - Check existing components for examples
