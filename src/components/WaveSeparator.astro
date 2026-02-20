@@ -1,0 +1,20 @@
+---
+interface Props {
+  topColor?: 'white' | 'gray' | 'transparent';
+  bottomColor?: 'white' | 'gray';
+  class?: string;
+}
+const { topColor = 'white', bottomColor = 'gray', class: className = '' } = Astro.props;
+const topBg = topColor === 'gray' ? 'bg-gray-50' : topColor === 'transparent' ? '' : 'bg-white';
+const fillColor = bottomColor === 'gray' ? '#f9fafb' : '#ffffff';
+---
+<div class:list={[topBg, 'leading-[0] overflow-hidden', className]}>
+  <svg
+    class="w-full h-10 sm:h-14 block"
+    preserveAspectRatio="none"
+    viewBox="0 0 1440 54"
+    fill={fillColor}
+  >
+    <path d="M0,22L60,27.2C120,32,240,43,360,44.7C480,46,600,38,720,30.3C840,22,960,14,1080,16.3C1200,19,1320,32,1380,38.5L1440,45L1440,54L1380,54C1320,54,1200,54,1080,54C960,54,840,54,720,54C600,54,480,54,360,54C240,54,120,54,60,54L0,54Z" />
+  </svg>
+</div>

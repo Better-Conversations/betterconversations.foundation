@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import { generateMetaProperties } from '../utils/metadata';
 import { siteConfig } from '../data/siteConfig';
 import SectionHeader from '../components/SectionHeader.astro';
+import WaveSeparator from '../components/WaveSeparator.astro';
 
 // Generate enhanced metadata for homepage
 const homeMetadata = generateMetaProperties('/');
@@ -169,12 +170,7 @@ const homeMetadata = generateMetaProperties('/');
 		<div class="absolute top-10 right-0 w-96 h-96 bg-[#A8D381]/20 rounded-full blur-3xl morphing"></div>
 		<div class="absolute bottom-10 left-0 w-96 h-96 bg-[#54C4B6]/20 rounded-full blur-3xl morphing" style="animation-delay: 4s;"></div>
 		<div class="absolute bottom-0 right-20 w-72 h-72 bg-[#A8D381]/15 rounded-full blur-2xl morphing" style="animation-delay: 2s;"></div>
-		<!-- Wave separator -->
-		<div class="absolute bottom-0 left-0 right-0">
-			<svg class="w-full h-16 text-white" preserveAspectRatio="none" viewBox="0 0 1440 54" fill="currentColor">
-				<path d="M0,22L60,27.2C120,32,240,43,360,44.7C480,46,600,38,720,30.3C840,22,960,14,1080,16.3C1200,19,1320,32,1380,38.5L1440,45L1440,54L1380,54C1320,54,1200,54,1080,54C960,54,840,54,720,54C600,54,480,54,360,54C240,54,120,54,60,54L0,54Z"></path>
-			</svg>
-		</div>
+		<WaveSeparator topColor="transparent" bottomColor="white" class="absolute bottom-0 left-0 right-0" />
 	</section>
 
 	<!-- Who we are Section -->

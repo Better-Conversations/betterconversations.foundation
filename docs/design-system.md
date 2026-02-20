@@ -391,15 +391,31 @@ All interactive elements must have visible focus indicators:
 
 ### Wave Separators
 
-Use between major sections for visual continuity:
+Use `<WaveSeparator>` to create a smooth curved transition between sections.
 
-```html
-<div class="absolute bottom-0 left-0 w-full">
-  <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
-    <path d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z" fill="white"/>
-  </svg>
-</div>
+```astro
+import WaveSeparator from '../components/WaveSeparator.astro';
+
+<!-- Section-to-section transition (block element between sections) -->
+<WaveSeparator topColor="gray" bottomColor="white" />
+<WaveSeparator topColor="white" bottomColor="gray" />
+
+<!-- Hero overlay (absolute-positioned at the bottom of a hero section) -->
+<WaveSeparator topColor="transparent" bottomColor="white" class="absolute bottom-0 left-0 right-0" />
 ```
+
+**Props**
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `topColor` | `'white' \| 'gray' \| 'transparent'` | `'white'` | Background of the wave container. Use `transparent` for absolute overlays on gradient sections. |
+| `bottomColor` | `'white' \| 'gray'` | `'gray'` | Fill colour of the wave shape — should match the section below. |
+| `class` | `string` | `''` | Additional classes (e.g. `absolute bottom-0 left-0 right-0` for hero overlays). |
+
+**Usage rules**
+- For body section transitions (e.g. white → gray-50 → white alternating sections), use as a block element between `<section>` tags with matching `topColor`/`bottomColor`.
+- For hero sections with gradient backgrounds, use `topColor="transparent"` and place inside the `relative overflow-hidden` section with `class="absolute bottom-0 left-0 right-0"`.
+- The custom 2-layer contact page wave is intentionally left inline (too decorative for this component's API).
 
 ## Responsive Design
 
