@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import HeroSection from '../../components/HeroSection.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
 import { generateMetaProperties } from '../../utils/metadata';
 
 const metadata = generateMetaProperties('/get-started/join-community');
@@ -56,12 +57,11 @@ const metadata = generateMetaProperties('/get-started/join-community');
   <!-- Why Community Section -->
   <section class="py-16 lg:py-20 bg-white">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Why join our community?</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          For facilitators within partner organisations, community membership provides ongoing support and connection.
-        </p>
-      </div>
+      <SectionHeader
+        heading="Why join our community?"
+        description="For facilitators within partner organisations, community membership provides ongoing support and connection."
+        class="mb-12"
+      />
 
       <div class="grid md:grid-cols-3 gap-8 mb-16">
         <div class="text-center">
@@ -100,12 +100,11 @@ const metadata = generateMetaProperties('/get-started/join-community');
   <!-- What You Get Section -->
   <section class="py-16 lg:py-20 bg-gradient-to-br from-[#54C4B6]/5 to-[#A8D381]/5">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">What you get</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Everything you need to deliver transformative Better Conversations courses with confidence.
-        </p>
-      </div>
+      <SectionHeader
+        heading="What you get"
+        description="Everything you need to deliver transformative Better Conversations courses with confidence."
+        class="mb-12"
+      />
 
       <div class="grid md:grid-cols-2 gap-8">
         <!-- Course Materials -->
@@ -258,12 +257,11 @@ const metadata = generateMetaProperties('/get-started/join-community');
   <!-- Path to Becoming a Facilitator -->
   <section class="py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-white">
     <div class="max-w-5xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Your path to facilitating courses</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          A simple, supportive journey from learner to facilitator
-        </p>
-      </div>
+      <SectionHeader
+        heading="Your path to facilitating courses"
+        description="A simple, supportive journey from learner to facilitator"
+        class="mb-12"
+      />
 
       <div class="space-y-8">
         <!-- Step 1 -->
@@ -371,12 +369,11 @@ const metadata = generateMetaProperties('/get-started/join-community');
   <!-- Delivery Options -->
   <section class="py-16 lg:py-20 bg-white">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Delivery options</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Flexible ways to bring Better Conversations to your community
-        </p>
-      </div>
+      <SectionHeader
+        heading="Delivery options"
+        description="Flexible ways to bring Better Conversations to your community"
+        class="mb-12"
+      />
 
       <div class="grid md:grid-cols-3 gap-8">
         <!-- Private Courses -->
@@ -487,12 +484,11 @@ const metadata = generateMetaProperties('/get-started/join-community');
   <!-- Who Should Deliver -->
   <section class="py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-white">
     <div class="max-w-5xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Who facilitates Better Conversations?</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Our facilitator community includes diverse professionals united by a passion for better communication
-        </p>
-      </div>
+      <SectionHeader
+        heading="Who facilitates Better Conversations?"
+        description="Our facilitator community includes diverse professionals united by a passion for better communication"
+        class="mb-12"
+      />
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
         <div class="text-center">
@@ -541,10 +537,11 @@ const metadata = generateMetaProperties('/get-started/join-community');
   <!-- CTA Section -->
   <section class="py-16 lg:py-20 bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10">
     <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Ready to start your journey?</h2>
-      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-        The first step is experiencing the transformative power of Better Conversations yourself.
-      </p>
+      <SectionHeader
+        heading="Ready to start your journey?"
+        description="The first step is experiencing the transformative power of Better Conversations yourself."
+        class="mb-8"
+      />
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
         <a href="/get-started/schedule-call" class="bcf-cta-primary">

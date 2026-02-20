@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import HeroSection from '../../components/HeroSection.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
 import { generateMetaProperties } from '../../utils/metadata';
 
 const metadata = generateMetaProperties('/get-started/organisations');
@@ -20,12 +21,11 @@ const metadata = generateMetaProperties('/get-started/organisations');
   <!-- Value Proposition Section -->
   <section class="py-16 lg:py-20 bg-white">
     <div class="max-w-5xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Why partner with us?</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          We work alongside you to ensure successful implementation and sustained impact.
-        </p>
-      </div>
+      <SectionHeader
+        heading="Why partner with us?"
+        description="We work alongside you to ensure successful implementation and sustained impact."
+        class="mb-12"
+      />
 
       <div class="grid md:grid-cols-3 gap-8">
         <!-- Guided Implementation -->
@@ -73,12 +73,11 @@ const metadata = generateMetaProperties('/get-started/organisations');
   <!-- Who Can Partner With BCF? Section -->
   <section class="py-16 lg:py-24 bg-gradient-to-br from-[#54C4B6]/5 via-white to-[#A8D381]/5">
     <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Who can partner with our Foundation?</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          We work with organisations that share our commitment to improving communication and creating positive change:
-        </p>
-      </div>
+      <SectionHeader
+        heading="Who can partner with our Foundation?"
+        description="We work with organisations that share our commitment to improving communication and creating positive change:"
+        class="mb-12"
+      />
 
       <div class="grid md:grid-cols-3 gap-6">
         <!-- Non-profits -->
@@ -147,12 +146,11 @@ const metadata = generateMetaProperties('/get-started/organisations');
   <!-- Partnership Model Section -->
   <section class="py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-white">
     <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">How partnership works</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          A collaborative, phased approach to embedding Better Conversations in your organisation
-        </p>
-      </div>
+      <SectionHeader
+        heading="How partnership works"
+        description="A collaborative, phased approach to embedding Better Conversations in your organisation"
+        class="mb-12"
+      />
 
       <div class="space-y-8">
         <!-- Phase 1 -->
@@ -309,12 +307,11 @@ const metadata = generateMetaProperties('/get-started/organisations');
   <!-- Who This Is For Section -->
   <section class="py-16 lg:py-20 bg-white">
     <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Is this right for your organisation?</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Organisational partnerships work best when there's commitment to implementation, not just interest in materials.
-        </p>
-      </div>
+      <SectionHeader
+        heading="Is this right for your organisation?"
+        description="Organisational partnerships work best when there's commitment to implementation, not just interest in materials."
+        class="mb-12"
+      />
 
       <div class="grid md:grid-cols-2 gap-8">
         <!-- Good Fit -->
@@ -401,11 +398,11 @@ const metadata = generateMetaProperties('/get-started/organisations');
   <!-- CTA Section -->
   <section class="py-16 lg:py-20 bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10">
     <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Ready to explore partnership?</h2>
-      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-        Let's have a conversation about your organisation's needs, goals, and how we might work together. 
-        No obligations. We'll help you determine if partnership is the right path.
-      </p>
+      <SectionHeader
+        heading="Ready to explore partnership?"
+        description="Let's have a conversation about your organisation's needs, goals, and how we might work together. No obligations. We'll help you determine if partnership is the right path."
+        class="mb-8"
+      />
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
         <a href="/get-started/schedule-call" class="bcf-cta-primary">

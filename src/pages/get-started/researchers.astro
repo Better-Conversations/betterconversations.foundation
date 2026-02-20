@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import HeroSection from '../../components/HeroSection.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
 import { generateMetaProperties } from '../../utils/metadata';
 
 const metadata = generateMetaProperties('/get-started/researchers');
@@ -20,12 +21,11 @@ const metadata = generateMetaProperties('/get-started/researchers');
   <!-- Value Proposition Section -->
   <section class="py-16 lg:py-20 bg-white">
     <div class="max-w-5xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Why research with us?</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          A standardised, evidence-based intervention that's ideal for studying conversation, team dynamics, and group processes.
-        </p>
-      </div>
+      <SectionHeader
+        heading="Why research with us?"
+        description="A standardised, evidence-based intervention that's ideal for studying conversation, team dynamics, and group processes."
+        class="mb-12"
+      />
 
       <div class="grid md:grid-cols-3 gap-8">
         <div class="bg-gradient-to-br from-gray-50 to-white rounded-xl p-8 shadow-sm border border-gray-200">
@@ -70,12 +70,11 @@ const metadata = generateMetaProperties('/get-started/researchers');
   <!-- Research Fit Section -->
   <section class="py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-white">
     <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Research applications</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Better Conversations as a research tool for studying groups, teams, and conversation
-        </p>
-      </div>
+      <SectionHeader
+        heading="Research applications"
+        description="Better Conversations as a research tool for studying groups, teams, and conversation"
+        class="mb-12"
+      />
 
       <div class="grid md:grid-cols-2 gap-8">
         <!-- Psychology & Social Science -->
@@ -208,13 +207,11 @@ const metadata = generateMetaProperties('/get-started/researchers');
   <!-- Collaboration Model Section -->
   <section class="py-16 lg:py-20 bg-white">
     <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">How research collaboration works</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          We commit to <strong>Open Science</strong>.
-          All research partnerships prioritise transparency, ethical practice, and contribution to public knowledge.
-        </p>
-      </div>
+      <SectionHeader heading="How research collaboration works" class="mb-4" />
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto text-center mb-12">
+        We commit to <strong>Open Science</strong>.
+        All research partnerships prioritise transparency, ethical practice, and contribution to public knowledge.
+      </p>
 
       <div class="space-y-6">
         <div class="bg-gradient-to-r from-[#54C4B6]/10 to-transparent rounded-xl p-8 border-l-4 border-[#54C4B6]">
@@ -252,10 +249,11 @@ const metadata = generateMetaProperties('/get-started/researchers');
   <section class="py-16 lg:py-20 bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10">
     <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
     
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Start a research conversation</h2>
-      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-        Research collaboration details are still being developed. We're actively interested in working with researchers studying conversation, team dynamics, and organisational change. Let's have a conversation about what might work.
-        </p>
+      <SectionHeader
+        heading="Start a research conversation"
+        description="Research collaboration details are still being developed. We're actively interested in working with researchers studying conversation, team dynamics, and organisational change. Let's have a conversation about what might work."
+        class="mb-8"
+      />
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
         <a href="/get-started/schedule-call" class="bcf-cta-primary">

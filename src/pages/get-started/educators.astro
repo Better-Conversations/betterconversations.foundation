@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import HeroSection from '../../components/HeroSection.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
 import { generateMetaProperties } from '../../utils/metadata';
 
 const metadata = generateMetaProperties('/get-started/educators');
@@ -20,12 +21,11 @@ const metadata = generateMetaProperties('/get-started/educators');
   <!-- Value Proposition Section -->
   <section class="py-16 lg:py-20 bg-white">
     <div class="max-w-5xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Why partner with us?</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          We can share more than just the course  materials—we help you embed conversation skills as a core competency in your educational context.
-        </p>
-      </div>
+      <SectionHeader
+        heading="Why partner with us?"
+        description="We can share more than just the course materials—we help you embed conversation skills as a core competency in your educational context."
+        class="mb-12"
+      />
 
       <div class="grid md:grid-cols-3 gap-8">
         <div class="bg-gradient-to-br from-gray-50 to-white rounded-xl p-8 shadow-sm border border-gray-200">
@@ -70,12 +70,11 @@ const metadata = generateMetaProperties('/get-started/educators');
   <!-- Educational Contexts Section -->
   <section class="py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-white">
     <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Better Conversations in Education</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Flexible enough to work across educational levels and disciplines
-        </p>
-      </div>
+      <SectionHeader
+        heading="Better Conversations in Education"
+        description="Flexible enough to work across educational levels and disciplines"
+        class="mb-12"
+      />
 
       <div class="grid md:grid-cols-2 gap-8">
         <!-- Secondary Education -->
@@ -160,14 +159,11 @@ const metadata = generateMetaProperties('/get-started/educators');
   <!-- Partnership Approach Section -->
   <section class="py-16 lg:py-20 bg-white">
     <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Partnership Approach for Educators</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Collaborative design tailored to your educational context. All course materials remain free and open-access under Creative Commons. 
-          Partnership adds pedagogical expertise and implementation support. We can work with individual educators, departments, or institution-wide programmes.
-        </p>
-        </p>
-      </div>
+      <SectionHeader
+        heading="Partnership approach for educators"
+        description="Collaborative design tailored to your educational context. All course materials remain free and open-access under Creative Commons. Partnership adds pedagogical expertise and implementation support. We can work with individual educators, departments, or institution-wide programmes."
+        class="mb-12"
+      />
 
       <div class="space-y-6">
         <div class="bg-gradient-to-r from-[#A8D381]/10 to-transparent rounded-xl p-8 border-l-4 border-[#A8D381]">
@@ -204,10 +200,11 @@ const metadata = generateMetaProperties('/get-started/educators');
   <!-- CTA Section -->
   <section class="py-16 lg:py-20 bg-gradient-to-br from-[#A8D381]/10 to-[#54C4B6]/10">
     <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Ready to Explore Partnership?</h2>
-      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-        Let's discuss how Better Conversations can fit your curriculum and support your students' development.
-      </p>
+      <SectionHeader
+        heading="Ready to explore partnership?"
+        description="Let's discuss how Better Conversations can fit your curriculum and support your students' development."
+        class="mb-8"
+      />
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
         <a href="/get-started/schedule-call" class="bcf-cta-primary">
