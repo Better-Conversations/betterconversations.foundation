@@ -16,15 +16,15 @@ const titleParts = titleHighlight ? title.split(titleHighlight) : [title];
 
 <section class={`relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white py-24 lg:py-32 ${className}`}>
   <!-- Enhanced gradient background — bumped from /25 to /30 for gentle confidence -->
-  <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/30 via-transparent to-[#A8D381]/30"></div>
+  <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/30 via-transparent to-[#A8D381]/30" aria-hidden="true"></div>
 
   <!-- Decorative blobs — main pair bumped from /20 to /25; secondary pair unchanged -->
-  <div class="absolute top-10 left-[5%] w-64 h-64 bg-[#54C4B6]/25 rounded-full blur-3xl"></div>
-  <div class="absolute bottom-10 right-[5%] w-72 h-72 bg-[#A8D381]/25 rounded-full blur-3xl"></div>
-  <div class="absolute top-40 right-[20%] w-48 h-48 bg-[#54C4B6]/15 rounded-full blur-2xl"></div>
-  <div class="absolute bottom-20 left-[15%] w-56 h-56 bg-[#A8D381]/15 rounded-full blur-2xl"></div>
+  <div class="absolute top-10 left-[5%] w-64 h-64 bg-[#54C4B6]/25 rounded-full blur-3xl" aria-hidden="true"></div>
+  <div class="absolute bottom-10 right-[5%] w-72 h-72 bg-[#A8D381]/25 rounded-full blur-3xl" aria-hidden="true"></div>
+  <div class="absolute top-40 right-[20%] w-48 h-48 bg-[#54C4B6]/15 rounded-full blur-2xl" aria-hidden="true"></div>
+  <div class="absolute bottom-20 left-[15%] w-56 h-56 bg-[#A8D381]/15 rounded-full blur-2xl" aria-hidden="true"></div>
   <!-- Fifth blob — fills the mid-section gap for continuous diffusion -->
-  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-[#54C4B6]/10 rounded-full blur-3xl"></div>
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-[#54C4B6]/10 rounded-full blur-3xl" aria-hidden="true"></div>
   
   <div class="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
     <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
@@ -32,7 +32,7 @@ const titleParts = titleHighlight ? title.split(titleHighlight) : [title];
       {titleHighlight && (
         <span class="text-[#54C4B6] relative">
           {titleHighlight}
-          <svg class="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 200 8" preserveAspectRatio="none">
+          <svg class="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 200 8" preserveAspectRatio="none" aria-hidden="true">
             <path d="M0 7 Q50 0 100 3 T200 7" stroke="#54C4B6" stroke-width="2" fill="none" opacity="0.5"/>
           </svg>
         </span>

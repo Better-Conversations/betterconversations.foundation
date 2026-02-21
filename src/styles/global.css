@@ -237,22 +237,13 @@
   }
 
   .bcf-step-badge-teal {
-    @apply w-7 h-7 bg-[#54C4B6] text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 flex-shrink-0;
+    @apply w-7 h-7 bg-[#3A9A8E] text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 flex-shrink-0;
   }
 
   .bcf-step-badge-green {
-    @apply w-7 h-7 bg-[#A8D381] text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 flex-shrink-0;
+    @apply w-7 h-7 bg-[#6B9A4E] text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 flex-shrink-0;
   }
 
-  /* Section Headers */
-  .bcf-section-header {
-    @apply text-3xl font-bold text-gray-900 mb-2;
-  }
-  
-  .bcf-section-description {
-    @apply text-gray-600 mb-8;
-  }
-  
   /* Gradient Text */
   .bcf-gradient-text {
     @apply bg-gradient-to-r from-[#54C4B6] to-[#A8D381] bg-clip-text text-transparent;
