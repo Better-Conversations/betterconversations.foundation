@@ -195,6 +195,11 @@
     @apply mt-auto pt-2;
   }
   
+  /* Icon + Heading row — inline icon beside heading */
+  .bcf-icon-heading {
+    @apply flex items-center gap-4 mb-6;
+  }
+
   /* Icon Containers - compact icons for home page cards */
   .bcf-icon {
     @apply w-12 h-12 bg-[#54C4B6]/10 text-[#54C4B6] rounded-lg flex items-center justify-center mx-auto;
@@ -207,6 +212,15 @@
 
   .bcf-icon-green {
     @apply w-14 h-14 bg-[#A8D381]/10 text-[#A8D381] rounded-lg flex items-center justify-center mb-6 mx-auto;
+  }
+
+  /* Icon Containers - large icons for prominent cards */
+  .bcf-icon-lg-teal {
+    @apply w-16 h-16 bg-[#54C4B6]/10 text-[#54C4B6] rounded-xl flex items-center justify-center mx-auto;
+  }
+
+  .bcf-icon-lg-green {
+    @apply w-16 h-16 bg-[#A8D381]/10 text-[#A8D381] rounded-xl flex items-center justify-center mx-auto;
   }
 
   /* Step cards - numbered process steps with left accent border */
