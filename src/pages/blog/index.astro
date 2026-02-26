@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import WaveSeparator from '../../components/WaveSeparator.astro';
 import { getCollection } from 'astro:content';
 import { Image, getImage } from 'astro:assets';
 import { formatDistanceToNow } from '../../utils/dateUtils';
@@ -48,7 +49,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
   title="Blog - Better Conversations Foundation"
 >
   <!-- Hero Section -->
-  <section class="relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white py-24 lg:py-32">
+  <section class="relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white">
     <!-- Enhanced gradient background -->
     <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/25 via-transparent to-[#A8D381]/25"></div>
     
@@ -86,23 +87,18 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
       </div>
     </div>
     
-    <!-- Wave separator -->
-    <div class="absolute bottom-0 left-0 right-0">
-      <svg class="w-full h-16 text-white" preserveAspectRatio="none" viewBox="0 0 1440 54" fill="currentColor">
-        <path d="M0,22L60,27.2C120,32,240,43,360,44.7C480,46,600,38,720,30.3C840,22,960,14,1080,16.3C1200,19,1320,32,1380,38.5L1440,45L1440,54L1380,54C1320,54,1200,54,1080,54C960,54,840,54,720,54C600,54,480,54,360,54C240,54,120,54,60,54L0,54Z"></path>
-      </svg>
-    </div>
+    <WaveSeparator topColor="transparent" bottomColor="white" class="absolute bottom-0 left-0 right-0" />
   </section>
 
   <!-- Server-side rendered content (shows before Alpine loads) -->
   <div class="blog-content-ssr">
     <!-- Spotlight Section -->
-    <section class="py-16">
+    <section>
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
         <h2 class="text-3xl font-bold text-gray-900 mb-8">Featured Articles</h2>
         <div class="grid gap-8 lg:grid-cols-2">
           {spotlightPosts.map((post) => (
-            <article class="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
+            <article class="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-[#54C4B6] hover:shadow-lg transition-all duration-300 flex flex-col">
               <div class="h-64 bg-gray-200 flex-shrink-0">
                 {post.optimizedImage ? (
                   <Image 
@@ -172,7 +168,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
     </section>
 
     <!-- Main Blog Grid with Sidebar -->
-    <section id="latest" class="py-16 bg-gray-50">
+    <section id="latest" class="bg-gray-50">
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
         <div class="lg:grid lg:grid-cols-4 lg:gap-8">
           <!-- Sidebar -->
@@ -214,7 +210,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
 
             <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
               {regularPosts.map((post) => (
-                <article class="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-300 flex flex-col">
+                <article class="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-[#54C4B6] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
                   <div class="h-48 bg-gray-200 flex-shrink-0">
                     {post.optimizedImage ? (
                       <Image 
@@ -284,12 +280,12 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
   <!-- Alpine.js enhanced version (progressive enhancement) -->
   <div x-data="blogFilters()" x-init="initFromURL()" x-cloak style="display: none;">
     <!-- Spotlight Section -->
-    <section class="py-16">
+    <section>
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
         <h2 class="text-3xl font-bold text-gray-900 mb-8">Featured Articles</h2>
         <div class="grid gap-8 lg:grid-cols-2">
           {spotlightPosts.map((post) => (
-            <article class="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
+            <article class="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-[#54C4B6] hover:shadow-lg transition-all duration-300 flex flex-col">
               <div class="h-64 bg-gray-200 flex-shrink-0">
                 {post.optimizedImage ? (
                   <Image 
@@ -359,7 +355,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
     </section>
 
     <!-- Main Blog Grid with Sidebar -->
-    <section id="latest" class="py-16 bg-gray-50">
+    <section id="latest" class="bg-gray-50">
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
         <div class="lg:grid lg:grid-cols-4 lg:gap-8">
           <!-- Sidebar -->
@@ -441,7 +437,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
                   x-transition:enter="transition ease-out duration-300"
                   x-transition:enter-start="opacity-0 transform scale-95"
                   x-transition:enter-end="opacity-100 transform scale-100"
-                  class="group bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-300 flex flex-col"
+                  class="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-[#54C4B6] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 flex flex-col"
                 >
                   <div class="h-48 bg-gray-200 flex-shrink-0">
                     <img x-show="post.image" :src="post.image" :alt="post.title" class="w-full h-full object-cover" />

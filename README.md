@@ -17,11 +17,18 @@ npx astro check         # Check for TypeScript errors
 ```text
 /
 ├── docs/               # Complete development documentation
-│   ├── README.md       # Documentation overview
-│   ├── design-system.md
-│   ├── accessibility.md
-│   ├── development.md
-│   └── content-guidelines.md
+│   ├── README.md            # Documentation overview
+│   ├── development.md       # Project structure, commands, build
+│   ├── typescript.md        # TypeScript rules and patterns
+│   ├── styling.md           # Tailwind, section backgrounds, WaveSeparator
+│   ├── alpine.md            # Alpine.js and progressive enhancement
+│   ├── content.md           # Content collections, image utilities
+│   ├── design-system.md     # Visual philosophy, brand, typography
+│   ├── design-components.md # Buttons, cards, forms, responsive
+│   ├── accessibility.md     # ARIA, landmarks, keyboard navigation
+│   ├── accessibility-testing.md # Screen readers, contrast, forms, testing
+│   ├── content-guidelines.md # Writing style, tone, UK English
+│   └── content-metadata.md  # Metadata, SEO, blog posts, images
 ├── public/             # Static assets (favicon, robots.txt)
 ├── scripts/            # Build automation scripts
 ├── src/
@@ -51,10 +58,16 @@ npx astro check         # Check for TypeScript errors
 
 **Primary Documentation:** [/docs/](./docs/) folder contains comprehensive guides:
 
-- **[Design System](./docs/design-system.md)** - Brand colors, UI components, spacing standards, button system
-- **[Accessibility](./docs/accessibility.md)** - WCAG 2.1 Level AA standards, ARIA patterns, keyboard navigation
-- **[Development](./docs/development.md)** - TypeScript rules, component structure, Alpine.js integration, build process
-- **[Content Guidelines](./docs/content-guidelines.md)** - UK English standards, metadata conventions, writing style, SEO
+- **[Design System](./docs/design-system.md)** — Visual philosophy, brand colours, heading/button conventions, typography
+- **[Design Components](./docs/design-components.md)** — Buttons, cards, forms, spacing, responsive patterns
+- **[Accessibility](./docs/accessibility.md)** — WCAG 2.1 Level AA, ARIA patterns, keyboard navigation
+- **[Accessibility Testing](./docs/accessibility-testing.md)** — Screen readers, colour contrast, forms, testing checklist
+- **[Development](./docs/development.md)** — Project structure, commands, build process
+- **[TypeScript](./docs/typescript.md)** — Script rules, component patterns, import paths
+- **[Styling](./docs/styling.md)** — Tailwind approach, section background rhythm, WaveSeparator
+- **[Alpine.js](./docs/alpine.md)** — Interactive components, progressive enhancement
+- **[Content Guidelines](./docs/content-guidelines.md)** — UK English, writing style, tone
+- **[Content & Metadata](./docs/content-metadata.md)** — Metadata, SEO, blog posts, images
 
 Start with [/docs/README.md](./docs/README.md) for an overview and common tasks.
 

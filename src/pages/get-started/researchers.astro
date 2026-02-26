@@ -1,7 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import HeroSection from '../../components/HeroSection.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
 import { generateMetaProperties } from '../../utils/metadata';
+import CheckListItem from '../../components/CheckListItem.astro';
 
 const metadata = generateMetaProperties('/get-started/researchers');
 ---
@@ -18,18 +20,17 @@ const metadata = generateMetaProperties('/get-started/researchers');
   />
 
   <!-- Value Proposition Section -->
-  <section class="py-16 lg:py-20 bg-white">
+  <section class="bg-white">
     <div class="max-w-5xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Why research with us?</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          A standardised, evidence-based intervention that's ideal for studying conversation, team dynamics, and group processes.
-        </p>
-      </div>
+      <SectionHeader
+        heading="Why research with us?"
+        description="A standardised, evidence-based intervention that's ideal for studying conversation, team dynamics, and group processes."
+        class="mb-12"
+      />
 
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-xl p-8 shadow-sm border border-gray-200">
-          <div class="w-14 h-14 bg-[#54C4B6]/10 rounded-lg flex items-center justify-center mb-6">
+        <div class="bcf-card-gradient text-center">
+          <div class="bcf-icon-teal">
             <svg class="w-7 h-7 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
             </svg>
@@ -40,8 +41,8 @@ const metadata = generateMetaProperties('/get-started/researchers');
           </p>
         </div>
 
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-xl p-8 shadow-sm border border-gray-200">
-          <div class="w-14 h-14 bg-[#A8D381]/10 rounded-lg flex items-center justify-center mb-6">
+        <div class="bcf-card-gradient text-center">
+          <div class="bcf-icon-green">
             <svg class="w-7 h-7 text-[#A8D381]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
             </svg>
@@ -52,8 +53,8 @@ const metadata = generateMetaProperties('/get-started/researchers');
           </p>
         </div>
 
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-xl p-8 shadow-sm border border-gray-200">
-          <div class="w-14 h-14 bg-[#54C4B6]/10 rounded-lg flex items-center justify-center mb-6">
+        <div class="bcf-card-gradient text-center">
+          <div class="bcf-icon-teal">
             <svg class="w-7 h-7 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
             </svg>
@@ -68,137 +69,56 @@ const metadata = generateMetaProperties('/get-started/researchers');
   </section>
 
   <!-- Research Fit Section -->
-  <section class="py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-white">
+  <section class="bg-gradient-to-br from-gray-50 to-white">
     <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Research applications</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Better Conversations as a research tool for studying groups, teams, and conversation
-        </p>
-      </div>
+      <SectionHeader
+        heading="Research applications"
+        description="Better Conversations as a research tool for studying groups, teams, and conversation"
+        class="mb-12"
+      />
 
       <div class="grid md:grid-cols-2 gap-8">
         <!-- Psychology & Social Science -->
-        <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
+        <div class="bcf-card-xl">
           <h3 class="text-xl font-bold text-gray-900 mb-4">Psychology & social science</h3>
           <ul class="space-y-3 text-gray-600">
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Team communication and collaboration patterns</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Group dynamics and psychological safety</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Skill acquisition and behavioral change</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Metacognition and self-awareness development</span>
-            </li>
+            <CheckListItem><span>Team communication and collaboration patterns</span></CheckListItem>
+            <CheckListItem><span>Group dynamics and psychological safety</span></CheckListItem>
+            <CheckListItem><span>Skill acquisition and behavioral change</span></CheckListItem>
+            <CheckListItem><span>Metacognition and self-awareness development</span></CheckListItem>
           </ul>
         </div>
 
         <!-- Organisational Studies -->
-        <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
+        <div class="bcf-card-xl">
           <h3 class="text-xl font-bold text-gray-900 mb-4">Organisational & management research</h3>
           <ul class="space-y-3 text-gray-600">
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Conversation as organisational infrastructure</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Workplace culture and employee engagement</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Leadership and management communication</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Learning intervention effectiveness and ROI</span>
-            </li>
+            <CheckListItem color="green"><span>Conversation as organisational infrastructure</span></CheckListItem>
+            <CheckListItem color="green"><span>Workplace culture and employee engagement</span></CheckListItem>
+            <CheckListItem color="green"><span>Leadership and management communication</span></CheckListItem>
+            <CheckListItem color="green"><span>Learning intervention effectiveness and ROI</span></CheckListItem>
           </ul>
         </div>
 
         <!-- Education Research -->
-        <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
+        <div class="bcf-card-xl">
           <h3 class="text-xl font-bold text-gray-900 mb-4">Education research</h3>
           <ul class="space-y-3 text-gray-600">
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Collaborative learning and peer interaction</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Student engagement and participation</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Skill development and learning outcomes</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#54C4B6] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Pedagogy and teaching effectiveness</span>
-            </li>
+            <CheckListItem><span>Collaborative learning and peer interaction</span></CheckListItem>
+            <CheckListItem><span>Student engagement and participation</span></CheckListItem>
+            <CheckListItem><span>Skill development and learning outcomes</span></CheckListItem>
+            <CheckListItem><span>Pedagogy and teaching effectiveness</span></CheckListItem>
           </ul>
         </div>
 
         <!-- Health & Wellbeing -->
-        <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
+        <div class="bcf-card-xl">
           <h3 class="text-xl font-bold text-gray-900 mb-4">Health & wellbeing research</h3>
           <ul class="space-y-3 text-gray-600">
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Healthcare team communication and patient outcomes</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Stress, burnout, and workplace wellbeing</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Social connection and mental health</span>
-            </li>
-            <li class="flex items-start">
-              <svg class="w-5 h-5 text-[#A8D381] mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              <span>Interprofessional collaboration</span>
-            </li>
+            <CheckListItem color="green"><span>Healthcare team communication and patient outcomes</span></CheckListItem>
+            <CheckListItem color="green"><span>Stress, burnout, and workplace wellbeing</span></CheckListItem>
+            <CheckListItem color="green"><span>Social connection and mental health</span></CheckListItem>
+            <CheckListItem color="green"><span>Interprofessional collaboration</span></CheckListItem>
           </ul>
         </div>
       </div>
@@ -206,40 +126,50 @@ const metadata = generateMetaProperties('/get-started/researchers');
   </section>
 
   <!-- Collaboration Model Section -->
-  <section class="py-16 lg:py-20 bg-white">
+  <section class="bg-gradient-to-br from-gray-50 to-white">
     <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">How research collaboration works</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          We commit to <strong>Open Science</strong>.
-          All research partnerships prioritise transparency, ethical practice, and contribution to public knowledge.
-        </p>
-      </div>
+      <SectionHeader
+        heading="How research collaboration works"
+        description="We commit to Open Science. All research partnerships prioritise transparency, ethical practice, and contribution to public knowledge."
+        class="mb-12"
+      />
 
-      <div class="space-y-6">
-        <div class="bg-gradient-to-r from-[#54C4B6]/10 to-transparent rounded-xl p-8 border-l-4 border-[#54C4B6]">
-          <h3 class="text-xl font-bold text-gray-900 mb-3">1. Initial consultation</h3>
+      <div class="space-y-8">
+        <div class="bcf-step-teal">
+          <h3 class="bcf-step-heading">
+            <span class="bcf-step-badge-teal">1</span>
+            Initial consultation
+          </h3>
           <p class="text-gray-600">
             Discuss your research questions, study design, and how Better Conversations might fit as an intervention or research tool. We help assess feasibility and alignment with existing evidence.
           </p>
         </div>
 
-        <div class="bg-gradient-to-r from-[#A8D381]/10 to-transparent rounded-xl p-8 border-l-4 border-[#A8D381]">
-          <h3 class="text-xl font-bold text-gray-900 mb-3">2. Co-design study</h3>
+        <div class="bcf-step-green">
+          <h3 class="bcf-step-heading">
+            <span class="bcf-step-badge-green">2</span>
+            Co-design study
+          </h3>
           <p class="text-gray-600">
             Collaborate on research design, measurement instruments, data collection protocols, and ethical approvals. Access our existing research tools and benefit from our experience running intervention studies.
           </p>
         </div>
 
-        <div class="bg-gradient-to-r from-[#54C4B6]/10 to-transparent rounded-xl p-8 border-l-4 border-[#54C4B6]">
-          <h3 class="text-xl font-bold text-gray-900 mb-3">3. Support implementation</h3>
+        <div class="bcf-step-teal">
+          <h3 class="bcf-step-heading">
+            <span class="bcf-step-badge-teal">3</span>
+            Support implementation
+          </h3>
           <p class="text-gray-600">
             We can help deliver the intervention, train facilitators to maintain fidelity, provide ongoing consultation, and troubleshoot implementation challenges as they arise.
           </p>
         </div>
 
-        <div class="bg-gradient-to-r from-[#A8D381]/10 to-transparent rounded-xl p-8 border-l-4 border-[#A8D381]">
-          <h3 class="text-xl font-bold text-gray-900 mb-3">4. Co-publish findings</h3>
+        <div class="bcf-step-green">
+          <h3 class="bcf-step-heading">
+            <span class="bcf-step-badge-green">4</span>
+            Co-publish findings
+          </h3>
           <p class="text-gray-600">
             Work together on data analysis, manuscript preparation, and publication. We're committed to open science and sharing findings with both academic and practitioner communities.
           </p>
@@ -249,13 +179,14 @@ const metadata = generateMetaProperties('/get-started/researchers');
   </section>
 
   <!-- CTA Section -->
-  <section class="py-16 lg:py-20 bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10">
+  <section class="bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10">
     <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
     
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Start a research conversation</h2>
-      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-        Research collaboration details are still being developed. We're actively interested in working with researchers studying conversation, team dynamics, and organisational change. Let's have a conversation about what might work.
-        </p>
+      <SectionHeader
+        heading="Start a research conversation"
+        description="Research collaboration details are still being developed. We're actively interested in working with researchers studying conversation, team dynamics, and organisational change. Let's have a conversation about what might work."
+        class="mb-8"
+      />
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
         <a href="/get-started/schedule-call" class="bcf-cta-primary">

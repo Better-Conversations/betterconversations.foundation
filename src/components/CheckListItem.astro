@@ -1,0 +1,28 @@
+---
+export interface Props {
+  color?: 'teal' | 'green' | 'gray';
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+}
+
+const { color = 'teal', size = 'md', class: className = '' } = Astro.props;
+
+const colorClass = {
+  teal: 'text-[#54C4B6]',
+  green: 'text-[#A8D381]',
+  gray: 'text-gray-500',
+}[color];
+
+const sizeClass = {
+  sm: 'w-4 h-4 mr-2',
+  md: 'w-5 h-5 mr-3',
+  lg: 'w-6 h-6 mr-3',
+}[size];
+---
+
+<li class:list={['flex items-start', className]}>
+  <svg class={`${sizeClass} ${colorClass} mt-0.5 flex-shrink-0`} fill="currentColor" viewBox="0 0 20 20">
+    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+  </svg>
+  <slot />
+</li>

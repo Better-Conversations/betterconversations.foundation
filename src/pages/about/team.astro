@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import HeroSection from '../../components/HeroSection.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
 ---
 
 <Layout title="Our Team - Better Conversations Foundation">
@@ -11,22 +12,19 @@ import HeroSection from '../../components/HeroSection.astro';
   />
 
   <!-- Faculty Section -->
-  <section class="py-16 lg:py-24 bg-white relative overflow-hidden">
+  <section class="bg-white relative overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/5 via-transparent to-transparent"></div>
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 relative">
-      <div class="text-center mb-16">
-        <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Faculty</h2>
-        <p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
-          Trusted course facilitators
-        </p>
-        <p class="mt-4 max-w-3xl mx-auto text-xl text-gray-600 leading-relaxed">
-          Faculty members are trusted to deliver the course to a consistently high standard. They often deliver the course on behalf of the Foundation on a voluntary basis in our 'Experience Courses' as well as in their own private work.
-        </p>
-      </div>
+      <SectionHeader
+        eyebrow="Faculty"
+        heading="Trusted course facilitators"
+        description="Faculty members are trusted to deliver the course to a consistently high standard. They often deliver the course on behalf of the Foundation on a voluntary basis in our 'Experience Courses' as well as in their own private work."
+        class="mb-16"
+      />
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
         <!-- Faculty Member Cards -->
-        <a href="https://www.linkedin.com/in/lyndsay-conklin-00670b290/" target="_blank" rel="noopener noreferrer" class="group bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 block">
+        <a href="https://www.linkedin.com/in/lyndsay-conklin-00670b290/" target="_blank" rel="noopener noreferrer" class="group bcf-card-xl">
           <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors">Lyndsay Conklin</h3>
           <div class="mt-3 h-1 w-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] rounded-full group-hover:w-24 transition-all"></div>
           <div class="mt-4 flex items-center gap-2 text-sm text-gray-500 group-hover:text-[#54C4B6] transition-colors">
@@ -37,7 +35,7 @@ import HeroSection from '../../components/HeroSection.astro';
           </div>
         </a>
 
-        <a href="https://www.linkedin.com/in/evelina-de-lain/" target="_blank" rel="noopener noreferrer" class="group bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 block">
+        <a href="https://www.linkedin.com/in/evelina-de-lain/" target="_blank" rel="noopener noreferrer" class="group bcf-card-xl">
           <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors">Evelina De Lain</h3>
           <div class="mt-3 h-1 w-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] rounded-full group-hover:w-24 transition-all"></div>
           <div class="mt-4 flex items-center gap-2 text-sm text-gray-500 group-hover:text-[#54C4B6] transition-colors">
@@ -48,7 +46,7 @@ import HeroSection from '../../components/HeroSection.astro';
           </div>
         </a>
 
-        <a href="https://www.linkedin.com/in/antoniamann/" target="_blank" rel="noopener noreferrer" class="group bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 block">
+        <a href="https://www.linkedin.com/in/antoniamann/" target="_blank" rel="noopener noreferrer" class="group bcf-card-xl">
           <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors">Antonia Mann</h3>
           <div class="mt-3 h-1 w-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] rounded-full group-hover:w-24 transition-all"></div>
           <div class="mt-4 flex items-center gap-2 text-sm text-gray-500 group-hover:text-[#54C4B6] transition-colors">
@@ -59,7 +57,7 @@ import HeroSection from '../../components/HeroSection.astro';
           </div>
         </a>
 
-        <a href="https://www.linkedin.com/in/virginia-mckendry-ph-d-3465b51b/" target="_blank" rel="noopener noreferrer" class="group bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 block">
+        <a href="https://www.linkedin.com/in/virginia-mckendry-ph-d-3465b51b/" target="_blank" rel="noopener noreferrer" class="group bcf-card-xl">
           <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors">Virginia McKendry, Ph.D.</h3>
           <div class="mt-3 h-1 w-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] rounded-full group-hover:w-24 transition-all"></div>
           <div class="mt-4 flex items-center gap-2 text-sm text-gray-500 group-hover:text-[#54C4B6] transition-colors">
@@ -70,7 +68,7 @@ import HeroSection from '../../components/HeroSection.astro';
           </div>
         </a>
 
-        <a href="https://www.linkedin.com/in/christianmejerknudsen/" target="_blank" rel="noopener noreferrer" class="group bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 block">
+        <a href="https://www.linkedin.com/in/christianmejerknudsen/" target="_blank" rel="noopener noreferrer" class="group bcf-card-xl">
           <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors">Christian Mejer Knudsen</h3>
           <div class="mt-3 h-1 w-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] rounded-full group-hover:w-24 transition-all"></div>
           <div class="mt-4 flex items-center gap-2 text-sm text-gray-500 group-hover:text-[#54C4B6] transition-colors">
@@ -81,7 +79,7 @@ import HeroSection from '../../components/HeroSection.astro';
           </div>
         </a>
 
-        <a href="https://www.linkedin.com/in/matt-michaelsen/" target="_blank" rel="noopener noreferrer" class="group bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 block">
+        <a href="https://www.linkedin.com/in/matt-michaelsen/" target="_blank" rel="noopener noreferrer" class="group bcf-card-xl">
           <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors">Matthew Michaelsen</h3>
           <div class="mt-3 h-1 w-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] rounded-full group-hover:w-24 transition-all"></div>
           <div class="mt-4 flex items-center gap-2 text-sm text-gray-500 group-hover:text-[#54C4B6] transition-colors">
@@ -92,7 +90,7 @@ import HeroSection from '../../components/HeroSection.astro';
           </div>
         </a>
 
-        <a href="https://www.linkedin.com/in/johanhnordin/" target="_blank" rel="noopener noreferrer" class="group bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 block">
+        <a href="https://www.linkedin.com/in/johanhnordin/" target="_blank" rel="noopener noreferrer" class="group bcf-card-xl">
           <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors">Johan Nordin</h3>
           <div class="mt-3 h-1 w-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] rounded-full group-hover:w-24 transition-all"></div>
           <div class="mt-4 flex items-center gap-2 text-sm text-gray-500 group-hover:text-[#54C4B6] transition-colors">
@@ -103,7 +101,7 @@ import HeroSection from '../../components/HeroSection.astro';
           </div>
         </a>
 
-        <a href="https://www.linkedin.com/in/robynodegaard/" target="_blank" rel="noopener noreferrer" class="group bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 block">
+        <a href="https://www.linkedin.com/in/robynodegaard/" target="_blank" rel="noopener noreferrer" class="group bcf-card-xl">
           <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors">Dr Robyn Lynette</h3>
           <div class="mt-3 h-1 w-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] rounded-full group-hover:w-24 transition-all"></div>
           <div class="mt-4 flex items-center gap-2 text-sm text-gray-500 group-hover:text-[#54C4B6] transition-colors">
@@ -114,7 +112,7 @@ import HeroSection from '../../components/HeroSection.astro';
           </div>
         </a>
 
-        <a href="https://www.linkedin.com/in/danielparsons2/" target="_blank" rel="noopener noreferrer" class="group bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 block">
+        <a href="https://www.linkedin.com/in/danielparsons2/" target="_blank" rel="noopener noreferrer" class="group bcf-card-xl">
           <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors">Dan Parsons</h3>
           <div class="mt-3 h-1 w-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] rounded-full group-hover:w-24 transition-all"></div>
           <div class="mt-4 flex items-center gap-2 text-sm text-gray-500 group-hover:text-[#54C4B6] transition-colors">
@@ -125,7 +123,7 @@ import HeroSection from '../../components/HeroSection.astro';
           </div>
         </a>
 
-        <a href="https://www.linkedin.com/in/naiara-sieben/" target="_blank" rel="noopener noreferrer" class="group bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 block">
+        <a href="https://www.linkedin.com/in/naiara-sieben/" target="_blank" rel="noopener noreferrer" class="group bcf-card-xl">
           <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors">Naiara Sieben</h3>
           <div class="mt-3 h-1 w-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] rounded-full group-hover:w-24 transition-all"></div>
           <div class="mt-4 flex items-center gap-2 text-sm text-gray-500 group-hover:text-[#54C4B6] transition-colors">
@@ -136,7 +134,7 @@ import HeroSection from '../../components/HeroSection.astro';
           </div>
         </a>
 
-        <a href="https://www.linkedin.com/in/christine-stief-hausch-669965ab/" target="_blank" rel="noopener noreferrer" class="group bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 block">
+        <a href="https://www.linkedin.com/in/christine-stief-hausch-669965ab/" target="_blank" rel="noopener noreferrer" class="group bcf-card-xl">
           <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#54C4B6] transition-colors">Christine Stief</h3>
           <div class="mt-3 h-1 w-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] rounded-full group-hover:w-24 transition-all"></div>
           <div class="mt-4 flex items-center gap-2 text-sm text-gray-500 group-hover:text-[#54C4B6] transition-colors">

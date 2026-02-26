@@ -1,12 +1,15 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { courseScope, courseInstanceScope } from '../../utils/microdata';
+import SectionHeader from '../../components/SectionHeader.astro';
+import WaveSeparator from '../../components/WaveSeparator.astro';
+import CheckListItem from '../../components/CheckListItem.astro';
 ---
 
 <Layout title="Course Overview - Better Conversations Foundation">
   <main>
     <!-- Hero Section -->
-    <section class="relative bg-gradient-to-br from-gray-50 to-white py-16 lg:py-20">
+    <section class="relative overflow-hidden bg-gradient-to-br from-gray-50 to-white">
       <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
         <div class="inline-flex items-center gap-2 bg-gradient-to-r from-[#54C4B6]/10 to-[#A8D381]/10 px-4 py-2 rounded-full mb-6">
           <div class="w-2 h-2 bg-[#54C4B6] rounded-full animate-pulse"></div>
@@ -56,10 +59,11 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
           </div>
         </div>
       </div>
+      <WaveSeparator topColor="transparent" bottomColor="white" class="absolute bottom-0 left-0 right-0" />
     </section>
 
     <!-- Course Journey Timeline -->
-    <section class="py-20 bg-white" id="modules" itemscope itemtype="https://schema.org/Course">
+    <section class="bg-white relative overflow-hidden" id="modules" itemscope itemtype="https://schema.org/Course">
       <!-- Hidden Course metadata -->
       <meta itemprop="name" content="Better Conversations Course Journey" />
       <meta itemprop="description" content="A transformative 6-module experiential journey, designed to revolutionise how you connect and communicate." />
@@ -71,12 +75,11 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
       </span>
 
       <div class="max-w-5xl mx-auto px-6 sm:px-8 lg:px-8">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold text-gray-900 mb-4">Course Modules</h2>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-            Each module builds upon the previous, creating a comprehensive foundation for better conversations
-          </p>
-        </div>
+        <SectionHeader
+          heading="Course modules"
+          description="Each module builds upon the previous, creating a comprehensive foundation for better conversations"
+          class="mb-16"
+        />
 
         <!-- Timeline -->
         <div class="timeline-container flex flex-col gap-8" style="--row-gap: 2rem; --circle-size: 5rem;">
@@ -94,7 +97,7 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
               <meta itemprop="courseMode" content="online" />
               <meta itemprop="timeRequired" content="PT1H" />
 
-              <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
+              <div class="bg-white rounded-xl p-6 md:p-8 border border-gray-200 hover:border-[#54C4B6] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
                   <div class="mb-2 flex items-center gap-3">
                     <h3 class="text-2xl md:text-3xl font-bold text-gray-900" itemprop="name">State</h3>
                     <svg class="w-8 h-8 text-[#54C4B6] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -104,25 +107,10 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
                   <p class="text-lg text-gray-700 mb-4 font-medium" itemprop="description">Understanding the State Model</p>
                   <div class="space-y-3">
                     <h4 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Learning Outcomes</h4>
-                    <ul class="space-y-2">
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Explain the State Model and its importance in conversations</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Describe how you know when you're in red, amber, or green state</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Recognize the impact of state on communication quality</span>
-                      </li>
+                    <ul class="space-y-3">
+                      <CheckListItem class="text-gray-600"><span>Explain the State Model and its importance in conversations</span></CheckListItem>
+                      <CheckListItem class="text-gray-600"><span>Describe how you know when you're in red, amber, or green state</span></CheckListItem>
+                      <CheckListItem class="text-gray-600"><span>Recognize the impact of state on communication quality</span></CheckListItem>
                     </ul>
                   </div>
                 </div>
@@ -141,7 +129,7 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
             <div class="flex-1" itemprop="hasCourseInstance" itemscope itemtype="https://schema.org/CourseInstance">
               <meta itemprop="courseMode" content="online" />
               <meta itemprop="timeRequired" content="PT1H" />
-              <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
+              <div class="bg-white rounded-xl p-6 md:p-8 border border-gray-200 hover:border-[#54C4B6] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
                   <div class="mb-2 flex items-center gap-3">
                     <h3 class="text-2xl md:text-3xl font-bold text-gray-900" itemprop="name">Assumptions</h3>
                     <svg class="w-8 h-8 text-[#54C4B6] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -151,25 +139,10 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
                   <p class="text-lg text-gray-700 mb-4 font-medium" itemprop="description">Impact of assumptions on conversations</p>
                   <div class="space-y-3">
                     <h4 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Learning Outcomes</h4>
-                    <ul class="space-y-2">
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Explain how assumptions affect conversations and outcomes</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Describe the link between state and assumptions</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Identify your own assumptions in real-time interactions</span>
-                      </li>
+                    <ul class="space-y-3">
+                      <CheckListItem class="text-gray-600"><span>Explain how assumptions affect conversations and outcomes</span></CheckListItem>
+                      <CheckListItem class="text-gray-600"><span>Describe the link between state and assumptions</span></CheckListItem>
+                      <CheckListItem class="text-gray-600"><span>Identify your own assumptions in real-time interactions</span></CheckListItem>
                     </ul>
                   </div>
                 </div>
@@ -188,7 +161,7 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
             <div class="flex-1" itemprop="hasCourseInstance" itemscope itemtype="https://schema.org/CourseInstance">
               <meta itemprop="courseMode" content="online" />
               <meta itemprop="timeRequired" content="PT1H" />
-              <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
+              <div class="bg-white rounded-xl p-6 md:p-8 border border-gray-200 hover:border-[#54C4B6] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
                   <div class="mb-2 flex items-center gap-3">
                     <h3 class="text-2xl md:text-3xl font-bold text-gray-900" itemprop="name">Context</h3>
                     <svg class="w-8 h-8 text-[#7ED49B] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -198,25 +171,10 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
                   <p class="text-lg text-gray-700 mb-4 font-medium" itemprop="description">Understanding contextual elements in conversations</p>
                   <div class="space-y-3">
                     <h4 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Learning Outcomes</h4>
-                    <ul class="space-y-2">
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Describe the elements of context in conversations</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Explain the link between context, assumptions, and state</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#54C4B6] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Apply contextual awareness to improve communication</span>
-                      </li>
+                    <ul class="space-y-3">
+                      <CheckListItem class="text-gray-600"><span>Describe the elements of context in conversations</span></CheckListItem>
+                      <CheckListItem class="text-gray-600"><span>Explain the link between context, assumptions, and state</span></CheckListItem>
+                      <CheckListItem class="text-gray-600"><span>Apply contextual awareness to improve communication</span></CheckListItem>
                     </ul>
                   </div>
                 </div>
@@ -235,7 +193,7 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
             <div class="flex-1" itemprop="hasCourseInstance" itemscope itemtype="https://schema.org/CourseInstance">
               <meta itemprop="courseMode" content="online" />
               <meta itemprop="timeRequired" content="PT1H" />
-              <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
+              <div class="bg-white rounded-xl p-6 md:p-8 border border-gray-200 hover:border-[#54C4B6] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
                   <div class="mb-2 flex items-center gap-3">
                     <h3 class="text-2xl md:text-3xl font-bold text-gray-900" itemprop="name">Listening with Curiosity</h3>
                     <svg class="w-8 h-8 text-[#A8D381] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -245,25 +203,10 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
                   <p class="text-lg text-gray-700 mb-4 font-medium" itemprop="description">Active listening and curious questioning</p>
                   <div class="space-y-3">
                     <h4 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Learning Outcomes</h4>
-                    <ul class="space-y-2">
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Demonstrate listening to accept rather than listening to respond</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Practice using questions to understand the other person</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Apply curious questioning techniques</span>
-                      </li>
+                    <ul class="space-y-3">
+                      <CheckListItem color="green" class="text-gray-600"><span>Demonstrate listening to accept rather than listening to respond</span></CheckListItem>
+                      <CheckListItem color="green" class="text-gray-600"><span>Practice using questions to understand the other person</span></CheckListItem>
+                      <CheckListItem color="green" class="text-gray-600"><span>Apply curious questioning techniques</span></CheckListItem>
                     </ul>
                   </div>
                 </div>
@@ -282,7 +225,7 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
             <div class="flex-1" itemprop="hasCourseInstance" itemscope itemtype="https://schema.org/CourseInstance">
               <meta itemprop="courseMode" content="online" />
               <meta itemprop="timeRequired" content="PT1H" />
-              <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
+              <div class="bg-white rounded-xl p-6 md:p-8 border border-gray-200 hover:border-[#54C4B6] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
                   <div class="mb-2 flex items-center gap-3">
                     <h3 class="text-2xl md:text-3xl font-bold text-gray-900" itemprop="name">Intentional Conversations</h3>
                     <svg class="w-8 h-8 text-[#A8D381] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -292,25 +235,10 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
                   <p class="text-lg text-gray-700 mb-4 font-medium" itemprop="description">Purposeful dialogue and intentional communication</p>
                   <div class="space-y-3">
                     <h4 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Learning Outcomes</h4>
-                    <ul class="space-y-2">
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Describe why intention is different from impact</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Practice preparing for intentional conversations</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Align conversation intentions with desired outcomes</span>
-                      </li>
+                    <ul class="space-y-3">
+                      <CheckListItem color="green" class="text-gray-600"><span>Describe why intention is different from impact</span></CheckListItem>
+                      <CheckListItem color="green" class="text-gray-600"><span>Practice preparing for intentional conversations</span></CheckListItem>
+                      <CheckListItem color="green" class="text-gray-600"><span>Align conversation intentions with desired outcomes</span></CheckListItem>
                     </ul>
                   </div>
                 </div>
@@ -329,7 +257,7 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
             <div class="flex-1" itemprop="hasCourseInstance" itemscope itemtype="https://schema.org/CourseInstance">
               <meta itemprop="courseMode" content="online" />
               <meta itemprop="timeRequired" content="PT1H" />
-              <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
+              <div class="bg-white rounded-xl p-6 md:p-8 border border-gray-200 hover:border-[#54C4B6] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
                   <div class="mb-2 flex items-center gap-3">
                     <h3 class="text-2xl md:text-3xl font-bold text-gray-900" itemprop="name">Applications</h3>
                     <svg class="w-8 h-8 text-[#A8D381] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -339,25 +267,10 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
                   <p class="text-lg text-gray-700 mb-4 font-medium" itemprop="description">Personal impact and future applications</p>
                   <div class="space-y-3">
                     <h4 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Learning Outcomes</h4>
-                    <ul class="space-y-2">
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Describe the personal impact of the course on your communication</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Explain what you would like to have happen now</span>
-                      </li>
-                      <li class="flex items-start text-gray-600">
-                        <svg class="w-5 h-5 text-[#A8D381] mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Create an action plan for continuing your learning journey</span>
-                      </li>
+                    <ul class="space-y-3">
+                      <CheckListItem color="green" class="text-gray-600"><span>Describe the personal impact of the course on your communication</span></CheckListItem>
+                      <CheckListItem color="green" class="text-gray-600"><span>Explain what you would like to have happen now</span></CheckListItem>
+                      <CheckListItem color="green" class="text-gray-600"><span>Create an action plan for continuing your learning journey</span></CheckListItem>
                     </ul>
                   </div>
                 </div>
@@ -365,96 +278,66 @@ import { courseScope, courseInstanceScope } from '../../utils/microdata';
           </div>
         </div>
       </div>
+      <WaveSeparator topColor="white" bottomColor="gray" class="absolute bottom-0 left-0 right-0" />
     </section>
 
     <!-- Course Format Section -->
-    <section class="py-20 bg-gradient-to-br from-[#54C4B6]/5 to-[#A8D381]/5">
+    <section class="bg-gray-50 relative overflow-hidden">
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-        <h2 class="text-4xl font-bold text-center mb-16 text-gray-900">Course Format</h2>
+        <SectionHeader heading="Course format" class="mb-16" />
 
         <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-            <div class="w-16 h-16 bg-[#54C4B6]/10 rounded-full flex items-center justify-center mb-6">
+          <div class="bcf-card-xl">
+            <div class="bcf-icon-lg-teal rounded-full mb-6">
               <svg class="w-8 h-8 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
               </svg>
             </div>
-            <h3 class="text-2xl font-bold text-gray-900 mb-4">Interactive Learning</h3>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">Interactive Learning</h3>
             <p class="text-gray-600 mb-6">
               Sessions blend instruction with hands-on practice, ensuring you can immediately apply what you learn.
             </p>
             <ul class="space-y-3 text-gray-600">
-              <li class="flex items-center">
-                <svg class="w-5 h-5 text-[#54C4B6] mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                Online and interactive format
-              </li>
-              <li class="flex items-center">
-                <svg class="w-5 h-5 text-[#54C4B6] mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                Mix of instruction and practice
-              </li>
-              <li class="flex items-center">
-                <svg class="w-5 h-5 text-[#54C4B6] mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                Designed for busy professionals
-              </li>
+              <CheckListItem><span>Online and interactive format</span></CheckListItem>
+              <CheckListItem><span>Mix of instruction and practice</span></CheckListItem>
+              <CheckListItem><span>Designed for busy professionals</span></CheckListItem>
             </ul>
           </div>
 
-          <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-            <div class="w-16 h-16 bg-[#A8D381]/10 rounded-full flex items-center justify-center mb-6">
+          <div class="bcf-card-xl">
+            <div class="bcf-icon-lg-green rounded-full mb-6">
               <svg class="w-8 h-8 text-[#A8D381]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
             </div>
-            <h3 class="text-2xl font-bold text-gray-900 mb-4">Technical Requirements</h3>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">Technical Requirements</h3>
             <p class="text-gray-600 mb-6">
               Simple setup ensures you can focus on learning, not technology.
             </p>
             <ul class="space-y-3 text-gray-600">
-              <li class="flex items-center">
-                <svg class="w-5 h-5 text-[#A8D381] mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                Computer with internet
-              </li>
-              <li class="flex items-center">
-                <svg class="w-5 h-5 text-[#A8D381] mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                Headset with microphone
-              </li>
-              <li class="flex items-center">
-                <svg class="w-5 h-5 text-[#A8D381] mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                Quiet, private space
-              </li>
+              <CheckListItem color="green"><span>Computer with internet</span></CheckListItem>
+              <CheckListItem color="green"><span>Headset with microphone</span></CheckListItem>
+              <CheckListItem color="green"><span>Quiet, private space</span></CheckListItem>
             </ul>
           </div>
         </div>
       </div>
+      <WaveSeparator topColor="gray" bottomColor="white" class="absolute bottom-0 left-0 right-0" />
     </section>
 
     <!-- CTA Section -->
-    <section class="py-20 bg-gradient-to-br from-[#54C4B6]/5 to-[#A8D381]/5">
+    <section class="bg-gradient-to-r from-[#54C4B6] to-[#A8D381] relative overflow-hidden">
       <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
-        <h2 class="text-4xl font-bold text-gray-900 mb-6">Ready to Bring This to Your Organisation?</h2>
-        <p class="text-xl text-gray-600 mb-8">
-          Transform your organisation's communication culture with deep partnership support or explore our free materials.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/get-started" class="bcf-cta-primary">
+        <h2 class="text-3xl md:text-4xl font-bold text-white">Ready to bring this to your organisation?</h2>
+        <p class="mt-4 text-xl text-white/90 max-w-3xl mx-auto">Transform your organisation's communication culture with deep partnership support or explore our free materials.</p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/get-started" class="bcf-cta-white-on-gradient">
             Explore Partnership
             <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
             </svg>
           </a>
-          <a href="https://betterconversations.foundation/course/index.html" target="_blank" rel="noopener noreferrer" class="bcf-cta-secondary">
+          <a href="https://betterconversations.foundation/course/index.html" target="_blank" rel="noopener noreferrer" class="bcf-cta-outline-on-gradient">
             View Documentation
             <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>

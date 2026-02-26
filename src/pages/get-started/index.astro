@@ -1,6 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import HeroSection from '../../components/HeroSection.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import WaveSeparator from '../../components/WaveSeparator.astro';
 import { generateMetaProperties } from '../../utils/metadata';
 
 const metadata = generateMetaProperties('/get-started');
@@ -18,14 +20,13 @@ const metadata = generateMetaProperties('/get-started');
   />
 
   <!-- Partnership Focus Section -->
-  <section class="py-16 lg:py-24 bg-white">
+  <section class="bg-white relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Who we work with</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          We focus on deep partnerships with organisations ready to embed Better Conversations at scale. Here's what that looks like for different contexts.
-        </p>
-      </div>
+      <SectionHeader
+        heading="Who we work with"
+        description="We focus on deep partnerships with organisations ready to embed Better Conversations at scale. Here's what that looks like for different contexts."
+        class="mb-16"
+      />
 
       <div class="grid md:grid-cols-3 gap-8 mb-16">
         <!-- For Organisations -->
@@ -86,22 +87,22 @@ const metadata = generateMetaProperties('/get-started');
         </a>
       </div>
     </div>
+    <WaveSeparator topColor="white" bottomColor="gray" class="absolute bottom-0 left-0 right-0" />
   </section>
 
   <!-- Other Ways to Work With Us -->
-  <section class="py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-white">
+  <section class="bg-gray-50 relative overflow-hidden">
     <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Partnership not right for you?</h2>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-          There are other ways to work with us or access Better Conversations.
-        </p>
-      </div>
+      <SectionHeader
+        heading="Partnership not right for you?"
+        description="There are other ways to work with us or access Better Conversations."
+        class="mb-12"
+      />
 
       <div class="grid md:grid-cols-3 gap-8">
         <!-- Download Materials -->
         <div class="bcf-card-xl text-center">
-          <div class="w-14 h-14 bg-[#54C4B6]/10 rounded-lg flex items-center justify-center mb-6 mx-auto">
+          <div class="bcf-icon-teal">
             <svg class="w-7 h-7 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>
@@ -120,7 +121,7 @@ const metadata = generateMetaProperties('/get-started');
 
         <!-- Community Membership -->
         <div class="bcf-card-xl text-center">
-          <div class="w-14 h-14 bg-[#A8D381]/10 rounded-lg flex items-center justify-center mb-6 mx-auto">
+          <div class="bcf-icon-green">
             <svg class="w-7 h-7 text-[#A8D381]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
             </svg>
@@ -139,7 +140,7 @@ const metadata = generateMetaProperties('/get-started');
 
         <!-- Experience a Course -->
         <div class="bcf-card-xl text-center">
-          <div class="w-14 h-14 bg-[#54C4B6]/10 rounded-lg flex items-center justify-center mb-6 mx-auto">
+          <div class="bcf-icon-teal">
             <svg class="w-7 h-7 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
             </svg>
@@ -157,24 +158,23 @@ const metadata = generateMetaProperties('/get-started');
         </div>
       </div>
     </div>
+    <WaveSeparator topColor="gray" bottomColor="white" class="absolute bottom-0 left-0 right-0" />
   </section>
 
   <!-- Contact CTA -->
-  <section class="py-16 lg:py-20 bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10">
+  <section class="bg-gradient-to-r from-[#54C4B6] to-[#A8D381] relative overflow-hidden">
     <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Want to talk it through?</h2>
-      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-        Not sure if partnership makes sense for you? Let's have a conversation.
-      </p>
+      <h2 class="text-3xl md:text-4xl font-bold text-white">Want to talk it through?</h2>
+      <p class="mt-4 text-xl text-white/90 max-w-3xl mx-auto">Not sure if partnership makes sense for you? Let's have a conversation.</p>
 
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/get-started/schedule-call" class="bcf-cta-primary">
+      <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/get-started/schedule-call" class="bcf-cta-white-on-gradient">
           Book a Call
           <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
           </svg>
         </a>
-        <a href="/about/contact" class="bcf-cta-secondary">
+        <a href="/about/contact" class="bcf-cta-outline-on-gradient">
           Contact Us
           <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>

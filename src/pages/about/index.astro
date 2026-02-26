@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import HeroSection from '../../components/HeroSection.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
 import { Image } from 'astro:assets';
 import simonColes from '../../assets/images/authors/simon-coles.jpg';
 import chandimaDutton from '../../assets/images/authors/chandima-dutton.jpg';
@@ -32,14 +33,11 @@ import missionImage from '../../assets/images/curated-lifestyle-1UfCHcZfFrQ-unsp
   />
 
   <!-- Mission Section -->
-  <section id="mission" class="py-16 lg:py-24 bg-white">
+  <section id="mission" class="bg-white">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
       <div class="flex flex-col lg:grid lg:grid-cols-2 lg:gap-16 items-center">
         <div class="order-2 lg:order-1">
-          <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Our Mission</h2>
-          <p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Building bridges through better conversations
-          </p>
+          <SectionHeader eyebrow="Our mission" heading="Building bridges through better conversations" align="left" />
           <p class="mt-6 text-xl text-gray-600 leading-relaxed">
             The Better Conversations Foundation is founded on a conviction: <strong>the quality of our conversations shapes nearly everything that matters—yet most of us have never been properly taught how to have them.</strong>
           </p>
@@ -65,7 +63,7 @@ import missionImage from '../../assets/images/curated-lifestyle-1UfCHcZfFrQ-unsp
   </section>
 
   <!-- Why Now Section -->
-  <section class="py-16 lg:py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
+  <section class="bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/5 via-transparent to-[#A8D381]/5"></div>
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 relative">
       <div class="flex flex-col lg:grid lg:grid-cols-2 lg:gap-16 items-center">
@@ -75,10 +73,7 @@ import missionImage from '../../assets/images/curated-lifestyle-1UfCHcZfFrQ-unsp
           </div>
         </div>
         <div class="order-1 lg:order-2 mb-8 lg:mb-0">
-          <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Why Now</h2>
-          <p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl mb-6">
-            Making sense of complexity
-          </p>
+          <SectionHeader eyebrow="Why now" heading="Making sense of complexity" align="left" class="mb-6" />
           <div class="space-y-6">
             <p class="text-xl text-gray-600 leading-relaxed">
               As our world becomes more complex and interconnected, the ability to have meaningful conversations is increasingly crucial. Whether we're working alongside AI, navigating diverse teams, or building community, <strong>the distinctly human skills of nuanced, adaptive, and emotionally-attuned dialogue are becoming more valuable, not less</strong>.
@@ -93,14 +88,9 @@ import missionImage from '../../assets/images/curated-lifestyle-1UfCHcZfFrQ-unsp
   </section>
 
   <!-- How We Work Section -->
-  <section class="py-16 lg:py-24 bg-white">
+  <section class="bg-white">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">How We Work</h2>
-        <p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
-          A partnership approach
-        </p>
-      </div>
+      <SectionHeader heading="A partnership approach" class="mb-16" />
 
       <div class="max-w-6xl mx-auto">
         <div class="grid md:grid-cols-[5fr_2fr_5fr] gap-1 items-center">
@@ -196,15 +186,10 @@ import missionImage from '../../assets/images/curated-lifestyle-1UfCHcZfFrQ-unsp
   </section>
 
   <!-- Founders Section -->
-  <section class="py-16 lg:py-24 bg-gray-50 relative overflow-hidden">
+  <section class="bg-gray-50 relative overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/5 via-transparent to-[#A8D381]/5"></div>
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 relative">
-      <div class="text-center mb-16">
-        <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Our Founders</h2>
-        <p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
-          Meet the people behind the mission
-        </p>
-      </div>
+      <SectionHeader heading="Meet the people behind the mission" class="mb-16" />
 
       <div class="space-y-24 max-w-6xl mx-auto">
         <!-- Simon Coles -->
@@ -253,14 +238,9 @@ import missionImage from '../../assets/images/curated-lifestyle-1UfCHcZfFrQ-unsp
   </section>
 
   <!-- Impact Section -->
-  <section class="py-16 lg:py-24 bg-white">
+  <section class="bg-white">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="text-center">
-        <h2 class="text-base text-[#54C4B6] font-semibold tracking-wide uppercase">Our Impact</h2>
-        <p class="mt-2 text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
-          Making a difference, one conversation at a time
-        </p>
-      </div>
+      <SectionHeader eyebrow="Our impact" heading="Making a difference, one conversation at a time" />
 
       <div class="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
         <div class="text-center">
@@ -285,9 +265,9 @@ import missionImage from '../../assets/images/curated-lifestyle-1UfCHcZfFrQ-unsp
   </section>
 
   <!-- CTA Section -->
-  <section class="py-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381]">
+  <section class="bg-gradient-to-r from-[#54C4B6] to-[#A8D381]">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
-      <h2 class="text-3xl font-bold text-white mb-4">Join us in our mission</h2>
+      <p class="text-3xl font-bold text-white mb-4">Join us in our mission</p>
       <p class="text-xl text-white/90 max-w-2xl mx-auto mb-8">
         Partner with us to transform how your organisation communicates and connects, or explore our free resources.
       </p>

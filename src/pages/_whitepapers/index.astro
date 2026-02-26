@@ -161,7 +161,7 @@ const uniqueTags = [...new Set(allTags)].sort();
       <div class="floating-particle bottom-40 right-1/4 w-4 h-4 bg-[#A8D381] rounded-full" style="animation-delay: 9s;"></div>
     </div>
     
-    <div class="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 py-16 lg:py-24">
+    <div class="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
       <div class="text-center">
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
           Research & <span class="text-[#54C4B6]">Whitepapers</span>
@@ -209,12 +209,12 @@ const uniqueTags = [...new Set(allTags)].sort();
   </section>
 
   <!-- Whitepapers Grid -->
-  <section class="py-16 lg:py-24 bg-white">
+  <section class="bg-white">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
       <div class="grid gap-8 lg:gap-12" id="whitepapers-grid">
         {whitepapersWithStats.map((paper, index) => (
           <article 
-            class="paper-stack spotlight-card bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden group whitepaper-card"
+            class="paper-stack spotlight-card bg-white rounded-xl border border-gray-200 overflow-hidden group whitepaper-card"
             data-category={paper.category}
             data-tags={paper.tags.join(',')}
           >
@@ -333,7 +333,7 @@ const uniqueTags = [...new Set(allTags)].sort();
   </section>
 
   <!-- CTA Section -->
-  <section class="py-16 bg-gradient-to-r from-[#54C4B6] to-[#A8D381]">
+  <section class="bg-gradient-to-r from-[#54C4B6] to-[#A8D381]">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
       <h2 class="text-3xl font-bold text-white mb-4">Need Custom Research?</h2>
       <p class="text-xl text-white/90 max-w-2xl mx-auto mb-8">

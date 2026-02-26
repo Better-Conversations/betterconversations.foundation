@@ -4,6 +4,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  /* Standard section spacing — override with explicit py-* utilities when needed */
+  section {
+    @apply py-16 lg:py-24;
+  }
+}
+
 /* Custom Dropdown Components */
 @layer components {
   /* Dropdown Button */
@@ -131,27 +138,21 @@
     @apply transition-all duration-300 cursor-pointer;
   }
   
-  /* Card Hover Effects */
+  /* Static Cards */
   .bcf-card {
-    @apply bg-white rounded-lg border border-gray-200 p-6;
-    @apply hover:border-[#54C4B6] hover:shadow-lg;
-    @apply transition-all duration-300 transform hover:-translate-y-1;
+    @apply bg-white rounded-xl border border-gray-200 p-6;
     @apply flex flex-col;
   }
 
   /* Card XL - Larger padding and border radius */
   .bcf-card-xl {
     @apply bg-white rounded-xl border border-gray-200 p-8;
-    @apply hover:border-[#54C4B6] hover:shadow-lg;
-    @apply transition-all duration-300 transform hover:-translate-y-1;
     @apply block;
   }
 
   /* Card with gradient background */
   .bcf-card-gradient {
     @apply bg-gradient-to-br from-gray-50 to-white rounded-xl border border-gray-200 p-8;
-    @apply hover:border-[#54C4B6] hover:shadow-lg;
-    @apply transition-all duration-300 transform hover:-translate-y-1;
     @apply block;
   }
 
@@ -194,6 +195,55 @@
     @apply mt-auto pt-2;
   }
   
+  /* Icon + Heading row — inline icon beside heading */
+  .bcf-icon-heading {
+    @apply flex items-center gap-4 mb-6;
+  }
+
+  /* Icon Containers - compact icons for home page cards */
+  .bcf-icon {
+    @apply w-12 h-12 bg-[#54C4B6]/10 text-[#54C4B6] rounded-lg flex items-center justify-center mx-auto;
+  }
+
+  /* Icon Containers - larger icons for value-prop card grids */
+  .bcf-icon-teal {
+    @apply w-14 h-14 bg-[#54C4B6]/10 text-[#54C4B6] rounded-lg flex items-center justify-center mb-6 mx-auto;
+  }
+
+  .bcf-icon-green {
+    @apply w-14 h-14 bg-[#A8D381]/10 text-[#A8D381] rounded-lg flex items-center justify-center mb-6 mx-auto;
+  }
+
+  /* Icon Containers - large icons for prominent cards */
+  .bcf-icon-lg-teal {
+    @apply w-16 h-16 bg-[#54C4B6]/10 text-[#54C4B6] rounded-xl flex items-center justify-center mx-auto;
+  }
+
+  .bcf-icon-lg-green {
+    @apply w-16 h-16 bg-[#A8D381]/10 text-[#A8D381] rounded-xl flex items-center justify-center mx-auto;
+  }
+
+  /* Step cards - numbered process steps with left accent border */
+  .bcf-step-teal {
+    @apply bg-gradient-to-r from-[#54C4B6]/10 to-transparent rounded-xl p-8 border-l-4 border-[#54C4B6];
+  }
+
+  .bcf-step-green {
+    @apply bg-gradient-to-r from-[#A8D381]/10 to-transparent rounded-xl p-8 border-l-4 border-[#A8D381];
+  }
+
+  .bcf-step-heading {
+    @apply text-xl font-bold text-gray-900 mb-3 flex items-center;
+  }
+
+  .bcf-step-badge-teal {
+    @apply w-7 h-7 bg-[#54C4B6] text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 flex-shrink-0;
+  }
+
+  .bcf-step-badge-green {
+    @apply w-7 h-7 bg-[#A8D381] text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 flex-shrink-0;
+  }
+
   /* Section Headers */
   .bcf-section-header {
     @apply text-3xl font-bold text-gray-900 mb-2;

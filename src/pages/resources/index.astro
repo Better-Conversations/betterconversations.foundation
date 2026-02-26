@@ -9,12 +9,12 @@ import { siteConfig } from '../../data/siteConfig';
     /* Card hover effect */
     .resource-card {
       transition: all 0.3s ease;
-      background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+      background: white;
     }
     
     .resource-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     }
     
     /* Icon animation */
@@ -114,12 +114,12 @@ import { siteConfig } from '../../data/siteConfig';
   />
 
   <!-- Resources Grid -->
-  <section class="py-16 lg:py-24 bg-white">
+  <section class="bg-white">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         
         <!-- Blog Card -->
-        <a href="/blog" class="resource-card flex flex-col p-8 rounded-2xl border border-gray-200 hover:border-[#54C4B6]/50 group">
+        <a href="/blog" class="resource-card flex flex-col p-8 rounded-xl border border-gray-200 hover:border-[#54C4B6] group">
           <div class="resource-icon w-16 h-16 bg-gradient-to-br from-[#54C4B6]/20 to-[#A8D381]/20 rounded-xl flex items-center justify-center mb-6 group-hover:from-[#54C4B6]/30 group-hover:to-[#A8D381]/30">
             <svg class="w-8 h-8 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
@@ -138,7 +138,7 @@ import { siteConfig } from '../../data/siteConfig';
         </a>
 
         <!-- Whitepapers Card (Under Development - Not Clickable) -->
-        <div class="resource-card flex flex-col p-8 rounded-2xl border border-gray-200 opacity-75 cursor-default">
+        <div class="resource-card flex flex-col p-8 rounded-xl border border-gray-200 opacity-75 cursor-default">
           <div class="resource-icon w-16 h-16 bg-gradient-to-br from-[#54C4B6]/20 to-[#A8D381]/20 rounded-xl flex items-center justify-center mb-6">
             <svg class="w-8 h-8 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -157,7 +157,7 @@ import { siteConfig } from '../../data/siteConfig';
         </div>
 
         <!-- Documentation Card (External) -->
-        <a href={siteConfig.docsUrl} target="_blank" rel="noopener noreferrer" class="resource-card flex flex-col p-8 rounded-2xl border border-gray-200 hover:border-[#54C4B6]/50 group relative">
+        <a href={siteConfig.docsUrl} target="_blank" rel="noopener noreferrer" class="resource-card flex flex-col p-8 rounded-xl border border-gray-200 hover:border-[#54C4B6] group relative">
           <div class="absolute top-4 right-4 px-2 py-1 bg-gray-100 rounded text-xs text-gray-600 font-medium">
             External Site
           </div>
@@ -213,7 +213,7 @@ import { siteConfig } from '../../data/siteConfig';
   </section>
 
   <!-- Quick Links Section with Network Effect -->
-  <section class="py-16 bg-gray-50 relative overflow-hidden">
+  <section class="bg-gray-50 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
       <h2 class="text-2xl font-bold text-gray-900 mb-2 text-center">Quick Access</h2>
       <p class="text-gray-600 text-center mb-8">Navigate to key areas of Better Conversations</p>
