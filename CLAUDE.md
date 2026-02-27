@@ -55,6 +55,8 @@ Use `/linear-issue BCTT-nnn` for the full automated workflow. It will:
 2. Present a plan and wait for your approval before writing any code.
 3. Create a branch, implement, validate, commit, and update Linear.
 
+**Important**: Always follow the command phases in order. Never skip asking the user before creating a branch or starting implementation.
+
 Use `/linear-review BCTT-nnn` to create a PR when work is done.
 
 ## Dev commands
