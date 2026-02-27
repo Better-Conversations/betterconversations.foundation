@@ -41,11 +41,12 @@ jobs:
           npm run build
 
       - name: Setup Tailscale
+        if: github.ref == 'refs/heads/main'
         uses: tailscale/github-action@v3
         with:
           oauth-client-id: ${{ secrets.TAILSCALE_CLIENT_ID }}
           oauth-secret: ${{ secrets.TAILSCALE_CLIENT_SECRET }}
-          tags: tag:github-content    
+          tags: tag:github-content
 
       - name: Deploy Site
         if: github.ref == 'refs/heads/main'
