@@ -26,7 +26,7 @@ astro-dev.log
 better-conversations-overview.md
 
 # local Claude settings
-CLAUDE.local.MD
+CLAUDE.local.md
 .claude/settings.local.json
 
 # browser binaries for PDF generation
