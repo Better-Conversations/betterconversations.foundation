@@ -72,7 +72,7 @@ export const pageMetadata: PageMetadataMap = {
 Here's roughly how it works: we start by understanding what you're trying to achieve, then we train some of your people to facilitate the course, support them as they start delivering it, and help you track whether it's making a difference. The whole thing typically takes several months. You keep all the materials under Creative Commons, so you can adapt them to your context.
 
 This approach isn't for everyone. It requires commitment: someone needs to champion it internally, you need people willing to train as facilitators, and ideally you're open to measuring outcomes and sharing what you learn. But if that sounds like you, we'd love to chat. We've worked directly with leaders of small nonprofit teams and also L&D teams deploying across larger organisations.`,
-    lastmod: '2026-02-20',
+    lastmod: '2026-02-21',
     priority: 0.5,
     changefreq: 'weekly'
   },
@@ -89,7 +89,7 @@ This approach isn't for everyone. It requires commitment: someone needs to champ
 If you're part of a partner organisation, you get access to detailed facilitator guides (we call them "flight plans"), participant workbooks, a community forum for sharing experiences and troubleshooting, and a certificate when you've completed training. The pathway is: first experience the course as a participant, then get trained as a facilitator through your organisation's partnership with us.
 
 Our facilitators work in nonprofits, universities, government bodies, and social enterprises across the UK, Europe, North America and beyond. If your organisation isn't yet a partner but you'd like to become a facilitator, the first step is getting your organisation to explore a partnership with us.`,
-    lastmod: '2026-02-20',
+    lastmod: '2026-02-21',
     priority: 0.4,
     changefreq: 'weekly'
   },
@@ -217,7 +217,7 @@ If you're not ready for a full partnership, you can still download all our mater
 The main routes in are: your organisation partners with us and runs the course internally, you're connected to someone in an existing partner organisation who can include you, or you catch one of our occasional showcase courses (though these are rare and usually need a referral).
 
 If none of those work for you right now, we'd suggest downloading the free materials to get a sense of the approach, or talking to your employer about whether a partnership might make sense. We know this is frustrating if you just want to attend a course as an individual, but we've genuinely found that standalone training doesn't create lasting change the way organisational implementation does.`,
-    lastmod: '2026-02-20',
+    lastmod: '2026-02-21',
     priority: 0.5,
     changefreq: 'weekly'
   },
@@ -290,7 +290,7 @@ We should be honest: this research partnership offering is still being developed
 It's very hands-on. Most of the time you're practising in pairs or small groups, trying out the techniques, and reflecting on what happened. We use a simple framework for noticing and managing your own state, understand what happens in a conversation and practical approaches for conversations you might be worried about. The six hours can be spread across several sessions, or integrated into a longer programme, and delivered online and in-person.
 
 The approach is grounded in psychology and communications research, and well-established techniques in attentive listening and generative questioning. Hundreds of people have taken the course. Their insights and feedback have helped us develop a course which has a deep impact and immediate applicability to professional and personal situations. The materials include facilitator guides with detailed timings, participant workbooks, and everything you need to run it virtually or in person.`,
-    lastmod: '2026-02-20',
+    lastmod: '2026-02-21',
     priority: 0.7,
     changefreq: 'weekly'
   },
@@ -307,7 +307,7 @@ The approach is grounded in psychology and communications research, and well-est
 We've taken this approach because we come from the software industry and have seen how open source transformed technology. The same principles apply to learning: knowledge grows when it's shared, and improvement is a collaborative effort. Wikipedia, MIT OpenCourseWare, and open-access academic journals are all part of this shift.
 
 Our model has three parts: the Foundation develops and maintains core materials, a community of facilitators tests and improves them, and partner organisations customise them for their contexts. This page also contrasts course-centric training (classroom-style, information-focused, success measured by completion) with outcome-centric learning (shared purpose, immediately applicable, learners become facilitators). That distinction draws on Robert Kegan and Lisa Laskow Lahey's Immunity to Change (Harvard Business Press, 2009), and explains why we focus on partnerships rather than just handing out materials.`,
-    lastmod: '2026-02-20',
+    lastmod: '2026-02-21',
     priority: 0.6,
     changefreq: 'monthly'
   },
@@ -426,7 +426,7 @@ We also show recent posts on this page, so you can quickly see what's new regard
 All our materials are free and open source under Creative Commons. We focus on working closely with a smaller number of organisations rather than running lots of public courses, because we've found that's what creates lasting change. Hundreds of people have been through the course so far, across for-profits businesses, nonprofits, universities, and in the public sector.
 
 The course draws on concepts from psychology about how our thinking and feelings affect conversations, attentive listening and purposeful questioning, and years of practical facilitation experience. It's hands-on and interactive, with lots of practice in pairs and small groups. No death by PowerPoint.`,
-    lastmod: '2026-02-20',
+    lastmod: '2026-02-21',
     priority: 1.0,
     changefreq: 'weekly'
   }
