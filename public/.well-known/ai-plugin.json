@@ -38,6 +38,8 @@
       "description": "Partnership opportunities for organisations, facilitators, and researchers"
     }
   },
+  "llms_txt": "https://betterconversations.foundation/llms.txt",
+  "llms_full_txt": "https://betterconversations.foundation/llms-full.txt",
   "license": {
     "type": "Creative Commons",
     "url": "https://creativecommons.org/licenses/by-sa/4.0/",

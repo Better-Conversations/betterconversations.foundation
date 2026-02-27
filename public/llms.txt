@@ -1,0 +1,46 @@
+# Better Conversations Foundation
+
+> A nonprofit making evidence-based communication skills accessible to every team, learner, and organisation — for free, under Creative Commons.
+
+Better Conversations Foundation (BCF) develops and freely shares a practical six-hour course that helps people listen better, ask better questions, and have more productive conversations at work. All materials are open source under CC BY-SA 4.0. We partner with organisations, educators, and researchers who want to build lasting internal capacity rather than rely on external trainers.
+
+This file describes the key content on our website at betterconversations.foundation to help LLMs understand and reference our work accurately.
+
+## Getting Started
+
+- [Work with Us](/get-started): Overview of partnership options for organisations, educators, and researchers
+- [For Organisations](/get-started/organisations): Partner to embed Better Conversations across your organisation
+- [For Educators](/get-started/educators): Integrate the course into your curriculum with pedagogical support
+- [For Researchers](/get-started/researchers): Use Better Conversations as a standardised research intervention
+- [Experience a Course](/get-started/attend-course): How to experience the course through partnerships or showcases
+- [Join Community](/get-started/join-community): Connect with trained facilitators in partner organisations
+- [Download Resources](/get-started/download): Access free course materials and guides
+- [Book a Call](/get-started/schedule-call): Schedule a video call to discuss partnership options
+
+## Our Approach
+
+- [The Better Conversations Framework](/approach): The six-module experiential course covering State, Assumptions, Context, Listening with Curiosity, Intentional Conversations, and Applications
+- [Open Content](/approach/open-content): Our commitment to Open Educational Resources and the 5Rs (retain, revise, remix, reuse, redistribute)
+- [FAQs](/approach/faqs): Common questions about the methodology, partnerships, and licensing
+
+## Resources
+
+- [Blog](/blog): Articles, partnership stories, and reflections on conversation practice
+- [Resources](/resources): Browse our collection of resources, documentation, and materials
+- [Documentation](https://docs.bettercourses.org): Facilitator guides, participant handbooks, and course materials
+- [Content API](/api/content-index.json): Machine-readable index of site content
+
+## About
+
+- [About BCF](/about): Who we are, our values, and how we work
+- [Our Mission](/about/mission): BCF's mission to make Better Conversations accessible worldwide
+- [Our Team](/about/team): Meet the faculty who facilitate Better Conversations courses
+- [Contact Us](/about/contact): Get in touch, book a call, or explore partnership opportunities
+
+## Optional
+
+- [Topics](/tags): Browse content by theme and topic
+- [Search](/search): Search across all site content with filters
+- [Our Ambassadors](/about/showcase): People championing Better Conversations in their professional networks
+- [Our Appreciation](/about/thanks): Acknowledging contributors, from course designers to community members
+- [Success Stories](/stories): Real-world impact of Better Conversations across contexts

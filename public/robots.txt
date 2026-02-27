@@ -7,3 +7,6 @@ Crawl-delay:1
 
 # Sitemap location
 Sitemap: https://betterconversations.foundation/sitemap-index.xml
+
+# LLM-friendly content
+Sitemap: https://betterconversations.foundation/llms.txt
