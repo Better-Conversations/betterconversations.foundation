@@ -1,0 +1,173 @@
+# Better Conversations Foundation
+
+> A nonprofit making evidence-based communication skills accessible to every team, learner, and organisation — for free, under Creative Commons.
+
+Better Conversations Foundation (BCF) develops and freely shares a practical six-hour course that helps people listen better, ask better questions, and have more productive conversations at work. All materials are open source under CC BY-SA 4.0. We partner with organisations, educators, and researchers who want to build lasting internal capacity rather than rely on external trainers.
+
+This file provides detailed content from our website at betterconversations.foundation to help LLMs understand and reference our work accurately. Each page entry includes an executive summary.
+
+## Getting Started
+
+- [Work with Us](/get-started): Overview of partnership options for organisations, educators, and researchers
+
+This page helps you figure out how to work with us. We partner with three types of organisations: workplaces wanting to improve how their teams communicate, educators wanting to teach conversation skills to students, and researchers wanting to study whether this stuff actually works.
+
+For each type of partner, we focus on what fits their needs. Organisations get help training their own facilitators so they can run the course themselves. Educators get curriculum materials and assessment frameworks. Researchers get a standardised course protocol they can use in studies, plus help with study design.
+
+If you're not ready for a full partnership, you can still download all our materials for free and have a look. We occasionally run demonstration courses too, though our main focus is on partnerships where we can work with others to support their outcomes rather than just delivering courses ourselves. We've found that's what makes the difference between people attending a training and actually changing how they work.
+
+- [For Organisations](/get-started/organisations): Partner to embed Better Conversations across your organisation
+
+This page is for organisations thinking about partnering with us: nonprofits, charities, social enterprises, government bodies, universities, and similar. We work best with organisations that want to build their own internal capacity to run the course, rather than relying on external trainers forever.
+
+Here's roughly how it works: we start by understanding what you're trying to achieve, then we train some of your people to facilitate the course, support them as they start delivering it, and help you track whether it's making a difference. The whole thing typically takes several months. You keep all the materials under Creative Commons, so you can adapt them to your context.
+
+This approach isn't for everyone. It requires commitment: someone needs to champion it internally, you need people willing to train as facilitators, and ideally you're open to measuring outcomes and sharing what you learn. But if that sounds like you, we'd love to chat. We've worked directly with leaders of small nonprofit teams and also L&D teams deploying across larger organisations.
+
+- [For Educators](/get-started/educators): Integrate the course into your curriculum with pedagogical support
+
+This page is for teachers, lecturers, and educational institutions wanting to teach conversation skills to students. We've worked with secondary schools and universities to integrate the course into their curricula, and we can help you do the same.
+
+What we offer: help adapting the materials for your educational context, assessment frameworks and rubrics, guidance on how to deliver experiential learning in academic settings, and support for faculty who'll be running the sessions. The course works well as an intensive workshop, spread across weekly sessions, or woven into existing modules.
+
+The six-hour programme has clear learning outcomes that stand up to academic scrutiny, and because everything's Creative Commons, you can adapt it to fit your institution's needs. We're particularly interested in working with educators who want to position conversation skills as a core competency rather than an optional extra. If that's you, get in touch and we can talk about what a partnership might look like.
+
+- [For Researchers](/get-started/researchers): Use Better Conversations as a standardised research intervention
+
+This page is for academics and researchers who want to study whether conversation skills training actually works. We offer a standardised six-hour intervention that's well-documented and replicable, which makes it suitable for rigorous research designs.
+
+What we can offer: the course protocol with detailed facilitator guides, help designing your study, support with implementation to ensure fidelity, and co-publishing opportunities. The course has been used in psychology, organisational behaviour, education, and health communication research contexts.
+
+We should be honest: this research partnership offering is still being developed. We're a small team and can only support a limited number of studies at once. But if you're interested in researching conversation skills and want a standardised intervention to work with, we'd love to hear from you.
+
+- [Experience a Course](/get-started/attend-course): How to experience the course through partnerships or showcases
+
+If you want to experience the Better Conversations course, you'll most likely do so through an organisation that's partnered with us. We don't run many public courses because we've found the learning sticks better when participants have organisational support to apply what they've learned.
+
+The main routes in are: your organisation partners with us and runs the course internally, you're connected to someone in an existing partner organisation who can include you, or you catch one of our occasional showcase courses (though these are rare and usually need a referral).
+
+If none of those work for you right now, we'd suggest downloading the free materials to get a sense of the approach, or talking to your employer about whether a partnership might make sense. We know this is frustrating if you just want to attend a course as an individual, but we've genuinely found that standalone training doesn't create lasting change the way organisational implementation does.
+
+- [Join Community](/get-started/join-community): Connect with trained facilitators in partner organisations
+
+Our community is made up of people who facilitate Better Conversations courses within their organisations. It's not currently open to individuals looking to attend a course or practise independently. We've set it up this way because we've found facilitators need organisational support to deliver the course well.
+
+If you're part of a partner organisation, you get access to detailed facilitator guides (we call them "flight plans"), participant workbooks, a community forum for sharing experiences and troubleshooting, and a certificate when you've completed training. The pathway is: first experience the course as a participant, then get trained as a facilitator through your organisation's partnership with us.
+
+Our facilitators work in nonprofits, universities, government bodies, and social enterprises across the UK, Europe, North America and beyond. If your organisation isn't yet a partner but you'd like to become a facilitator, the first step is getting your organisation to explore a partnership with us.
+
+- [Download Resources](/get-started/download): Access free course materials and guides
+
+- [Book a Call](/get-started/schedule-call): Schedule a video call to discuss partnership options
+
+## Our Approach
+
+- [The Better Conversations Framework](/approach): The six-module experiential course covering State, Assumptions, Context, Listening with Curiosity, Intentional Conversations, and Applications
+
+This page explains what the course actually covers. It's six hours split into six modules: State (how your thinking and feelings affect conversations), Assumptions (how quickly and easily we jump to conclusions), Context (the bigger picture around any conversation), Listening with Curiosity (listening well and asking questions that don't impose your assumptions), Intentional Conversations (preparing for important conversations), and Applications (understanding how the learning can be developed in work).
+
+It's very hands-on. Most of the time you're practising in pairs or small groups, trying out the techniques, and reflecting on what happened. We use a simple framework for noticing and managing your own state, understand what happens in a conversation and practical approaches for conversations you might be worried about. The six hours can be spread across several sessions, or integrated into a longer programme, and delivered online and in-person.
+
+The approach is grounded in psychology and communications research, and well-established techniques in attentive listening and generative questioning. Hundreds of people have taken the course. Their insights and feedback have helped us develop a course which has a deep impact and immediate applicability to professional and personal situations. The materials include facilitator guides with detailed timings, participant workbooks, and everything you need to run it virtually or in person.
+
+- [Open Content](/approach/open-content): Our commitment to Open Educational Resources and the 5Rs (retain, revise, remix, reuse, redistribute)
+
+We're part of the Open Educational Resources (OER) movement. All our materials—facilitator guides, participant handbooks, course overviews—are free to download under Creative Commons Attribution-ShareAlike 4.0. You can retain, revise, remix, reuse, and redistribute them, as long as you give credit and share improvements back.
+
+We've taken this approach because we come from the software industry and have seen how open source transformed technology. The same principles apply to learning: knowledge grows when it's shared, and improvement is a collaborative effort. Wikipedia, MIT OpenCourseWare, and open-access academic journals are all part of this shift.
+
+Our model has three parts: the Foundation develops and maintains core materials, a community of facilitators tests and improves them, and partner organisations customise them for their contexts. This page also contrasts course-centric training (classroom-style, information-focused, success measured by completion) with outcome-centric learning (shared purpose, immediately applicable, learners become facilitators). That distinction draws on Robert Kegan and Lisa Laskow Lahey's Immunity to Change (Harvard Business Press, 2009), and explains why we focus on partnerships rather than just handing out materials.
+
+- [FAQs](/approach/faqs): Common questions about the methodology, partnerships, and licensing
+
+This page answers the questions people most commonly ask us. Things like: How is this different from other communication training? Can I just attend a course as an individual? How do I become a facilitator? Can I adapt the materials for my context?
+
+The short answers: it's different because it's experiential and grounded in psychology and communications research rather than generic tips; we focus on partnerships rather than public courses, so individual access is limited; you can become a facilitator through a partner organisation; and yes, you can adapt the materials under Creative Commons.
+
+We've organised the FAQs by topic: understanding the methodology, partnership options, joining the facilitator community, practical delivery questions, and licensing. If you're trying to figure out whether BCF is right for you or your organisation, this is a good place to start.
+
+## Resources
+
+- [Blog](/blog): Articles, partnership stories, and reflections on conversation practice
+
+Our blog is where we share articles, stories, and reflections about conversation practice. You'll find partnership stories from organisations using the course, pieces exploring the evidence and theory behind what we do, practical tips for common conversation challenges, and updates from our community of facilitators.
+
+Contributors include our faculty, ambassadors, partner organisations, and researchers we work with. We try to mix bigger-picture thinking with practical, immediately useful content. Recent topics have included communication in the age of AI, remote and hybrid team dynamics, and how to actually measure whether soft skills training works.
+
+We also use the blog to share our own learning journey, including things that haven't gone as planned. You can browse by category or tag, search for specific topics, or sign up to our newsletter if you want updates sent to you.
+
+- [Resources](/resources): Browse our collection of resources, documentation, and materials
+
+This is where you'll find our blog articles, documentation, and (eventually) whitepapers. It's the main place to explore if you want to understand what we do before getting in touch.
+
+Everything here is free. The blog covers practical topics and stories from our community. The documentation includes facilitator guides and participant materials. We're planning to add whitepapers on topics like measuring conversation skills and curious listening in teams, though these aren't ready yet.
+
+We'll be adding more over time: videos, case studies, assessment tools. For now, have a browse and sign up to the newsletter if you want to hear about new resources.
+
+- [Documentation](https://docs.bettercourses.org): Facilitator guides, participant handbooks, and course materials
+
+- [Content API](/api/content-index.json): Machine-readable index of site content
+
+## About
+
+- [About BCF](/about): Who we are, our values, and how we work
+
+Better Conversations Foundation exists because we think good conversation skills shouldn't be locked behind expensive training programmes. We're a small nonprofit that makes all our materials freely available, and we work with organisations who want to embed better communication into how their teams actually work.
+
+We're not trying to be a training company. Instead, we partner with organisations who are willing to train their own people to deliver the course internally and educators who want to develop these skills in their students. This takes more effort upfront, but it means the skills stay in the organisation and with the learners long after we're gone. We've worked with hundreds of people in businesses, nonprofits, universities, and the public sector.
+
+The course draws on psychology research about how our state of mind affects conversations, questioning techniques that don't impose assumptions, and practical facilitation methods we've refined over years of delivery. Our team are volunteers who care about this stuff. We're based in the UK but work with partners internationally.
+
+- [Our Mission](/about/mission): BCF's mission to make Better Conversations accessible worldwide
+
+- [Our Team](/about/team): Meet the faculty who facilitate Better Conversations courses
+
+This page introduces the people who facilitate Better Conversations courses. They come from all sorts of backgrounds: organisational development, coaching, education, psychology, and more. What they have in common is that they've completed our facilitator training and actively deliver the course.
+
+Most faculty members facilitate within their own organisations as part of a partnership, though some also help with larger implementations or showcase courses. They share experiences through our community forum, and they've helped us refine the materials based on what actually works in practice.
+
+Our faculty are volunteers who believe in what we're doing. They're based across the UK, Europe, North America, and elsewhere. This page shows who they are and where they work, so you can get a sense of the range of contexts where Better Conversations is being used.
+
+- [Contact Us](/about/contact): Get in touch, book a call, or explore partnership opportunities
+
+This page is how you get in touch with us. You can send a message, book a call, or check the FAQs if your question is straightforward.
+
+We've set up different enquiry types so messages get to the right person: partnership enquiries if you're an organisation thinking about working with us, facilitator questions if you're already in our community or want to join, general questions about the methodology, or feedback on our materials.
+
+The calendar lets you book a video call if you'd rather talk than email. We're happy to chat at any stage, whether you're just curious or ready to discuss a partnership in detail. The FAQs cover the basics like who can join the community (facilitators in partner organisations) and how to access courses (mainly through partnerships).
+
+## Optional
+
+- [Topics](/tags): Browse content by theme and topic
+
+This page lets you browse our content by topic. You can see all the themes we write about, like facilitation techniques, listening skills, organisational change, research, and so on. Each topic shows how many articles are tagged with it, so you can tell where we have lots of content.
+
+It's useful if you want to explore a particular area rather than searching for something specific. Click a topic and you'll see all the related content in one place.
+
+We also show recent posts on this page, so you can quickly see what's new regardless of topic.
+
+- [Search](/search): Search across all site content with filters
+
+Search lets you find content across our whole site: blog posts, documentation, and resources. You can search by keyword and filter by content type, author, topic, or date.
+
+Results show the publication date, author, reading time, and a snippet so you can tell if it's what you're looking for before clicking through. The search is powered by Typesense, which is fast and handles typos well.
+
+We also show popular topics and recent posts on the search page to help you discover content you might not have thought to search for.
+
+- [Our Ambassadors](/about/showcase): People championing Better Conversations in their professional networks
+
+Ambassadors are people who champion Better Conversations in their professional networks. They're not paid staff; they're practitioners who've experienced the course and want to spread the word in their own fields. They work in areas like music therapy, coaching, tech leadership, educational psychology, nonprofit management, and organisational development.
+
+This page shows who our ambassadors are, what they do professionally, and how they use Better Conversations principles in their work. If you're exploring whether BCF might be right for your organisation, ambassadors can offer a peer perspective on what it's actually like to implement.
+
+Our ambassadors are based in the US, UK, Canada, Germany, and elsewhere. They help us reach new contexts and sectors, and they share stories about what's worked (and what hasn't) in their implementations. It's a way of building awareness without us having to be everywhere at once.
+
+- [Our Appreciation](/about/thanks): Acknowledging contributors, from course designers to community members
+
+This page thanks the people who've contributed to Better Conversations over the years: the course designers, facilitators who piloted early versions, partner organisations who took a chance on us, researchers, tech contributors, and community members who've shared their insights.
+
+We owe a particular debt to David Grove, who created Clean Language, a questioning methodology that has influenced how we approach curious listening. The authors and researchers who have influenced our work are documented in our course handbook, which we continually update as we learn more. We're not claiming to have invented anything new; we've built on the work of others.
+
+This page reflects our open-source values. Better Conversations isn't owned by anyone; it's a collaborative effort that keeps evolving. We update the acknowledgments as new people contribute.
+
+- [Success Stories](/stories): Real-world impact of Better Conversations across contexts
