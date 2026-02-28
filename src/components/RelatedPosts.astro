@@ -1,0 +1,115 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { getBlogImage } from '../data/blogImages';
+
+interface Props {
+  /** Current post to find related content for */
+  currentPost: CollectionEntry<'blog'>;
+  /** Maximum number of related posts to show */
+  limit?: number;
+}
+
+const { currentPost, limit = 3 } = Astro.props;
+
+// Get all blog posts except the current one
+const allPosts = await getCollection('blog');
+const otherPosts = allPosts.filter((post) => post.slug !== currentPost.slug);
+
+/**
+ * Score each post for relevance to the current post.
+ * Priority: explicit relatedContent > shared tags > same category > recency
+ */
+function scorePost(post: CollectionEntry<'blog'>): number {
+  let score = 0;
+  const currentTags = currentPost.data.tags;
+  const currentCategory = currentPost.data.category;
+  const explicitRelated = currentPost.data.relatedContent || [];
+
+  // Explicit relatedContent frontmatter gets highest priority
+  if (explicitRelated.includes(post.slug)) {
+    score += 100;
+  }
+
+  // Shared tags: +10 per shared tag
+  const sharedTags = post.data.tags.filter((tag: string) => currentTags.includes(tag));
+  score += sharedTags.length * 10;
+
+  // Same category: +5
+  if (post.data.category === currentCategory) {
+    score += 5;
+  }
+
+  // Recency tiebreaker: newer posts get a small boost (0-1 points)
+  const ageMs = Date.now() - post.data.date.getTime();
+  const maxAge = 365 * 24 * 60 * 60 * 1000; // 1 year
+  score += Math.max(0, 1 - ageMs / maxAge);
+
+  return score;
+}
+
+// Score, sort by relevance, take top N
+const relatedPosts = otherPosts
+  .map((post) => ({ post, score: scorePost(post) }))
+  .filter(({ score }) => score > 0)
+  .sort((a, b) => b.score - a.score)
+  .slice(0, limit)
+  .map(({ post }) => post);
+
+// Don't render anything if no related posts found
+if (relatedPosts.length === 0) {
+  return;
+}
+---
+
+<section class="bg-gray-50 py-12 lg:py-16" aria-labelledby="related-posts-heading">
+  <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8">
+    <h2 id="related-posts-heading" class="text-2xl font-bold text-gray-900 mb-8">Related articles</h2>
+    <div class={`grid gap-6 ${relatedPosts.length === 1 ? 'grid-cols-1 max-w-sm' : relatedPosts.length === 2 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
+      {relatedPosts.map((post) => {
+        const heroImage = getBlogImage(post.slug);
+        return (
+          <article class="group bcf-blog-card">
+            <a href={`/blog/${post.slug}`} class="block">
+              <div class="bcf-blog-card-image">
+                {heroImage ? (
+                  <Image
+                    src={heroImage}
+                    alt={post.data.title}
+                    width={400}
+                    height={192}
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div class="w-full h-full bg-gradient-to-br from-[#54C4B6]/20 to-[#A8D381]/20 flex items-center justify-center">
+                    <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+              <div class="bcf-blog-card-body">
+                <div class="bcf-blog-card-category">
+                  <span>{post.data.category}</span>
+                </div>
+                <h3 class="bcf-blog-card-title">{post.data.title}</h3>
+                <p class="bcf-blog-card-excerpt">{post.data.excerpt}</p>
+                <div class="bcf-blog-card-meta">
+                  <time datetime={post.data.date.toISOString()}>
+                    {post.data.date.toLocaleDateString('en-GB', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                    })}
+                  </time>
+                  <span>{post.data.readingTime || 5} min read</span>
+                </div>
+              </div>
+            </a>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</section>
