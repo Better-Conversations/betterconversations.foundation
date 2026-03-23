@@ -105,6 +105,16 @@ RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
 # Install Claude
 RUN npm install -g @anthropic-ai/claude-code
 
+# Claude Code usage tracking: VS Code's dev.containers.defaultMounts binds the
+# host's ~/.claude/usage-data to /home/vscode/.claude/usage-data (the conventional
+# devcontainer user). Since this image is based on node:20 and uses the `node` user
+# instead, we symlink so that Claude Code session data written to /home/node/ is
+# actually stored on the host via the mount at /home/vscode/. This allows `claude
+# /insights` on the host to include sessions from this devcontainer.
+# Safe to ignore if you don't use Claude Code — the symlink is a no-op without the mount.
+RUN mkdir -p /home/vscode/.claude && mkdir -p /home/node/.claude \
+    && ln -s /home/vscode/.claude/usage-data /home/node/.claude/usage-data
+
 
 # Set `DEVCONTAINER` environment variable to help with orientation
 ENV DEVCONTAINER=true
