@@ -315,6 +315,42 @@
     @apply hover:bg-[#54C4B6] hover:text-white transition-colors;
   }
 
+  /* Related post card (vertical card used in related posts sections) */
+  /* Note: add 'group' class directly in markup alongside bcf-blog-card */
+  .bcf-blog-card {
+    @apply bg-white rounded-xl border border-gray-200 overflow-hidden flex flex-col;
+    @apply hover:border-[#54C4B6] hover:shadow-lg transition-all duration-300;
+  }
+
+  .bcf-blog-card-image {
+    @apply h-48 bg-gray-200 flex-shrink-0;
+  }
+
+  .bcf-blog-card-image img {
+    @apply w-full h-full object-cover;
+  }
+
+  .bcf-blog-card-body {
+    @apply p-6 flex flex-col flex-grow;
+  }
+
+  .bcf-blog-card-category {
+    @apply text-xs text-gray-500 mb-2;
+  }
+
+  .bcf-blog-card-title {
+    @apply text-lg font-semibold text-gray-900 mb-2;
+    @apply group-hover:text-[#54C4B6] transition-colors;
+  }
+
+  .bcf-blog-card-excerpt {
+    @apply text-gray-600 text-sm mb-4 flex-grow line-clamp-2;
+  }
+
+  .bcf-blog-card-meta {
+    @apply flex items-center justify-between mt-auto text-xs text-gray-500;
+  }
+
   /* Enhanced readability for prose content */
   .bcf-prose-enhanced {
     @apply prose prose-lg prose-gray max-w-none;

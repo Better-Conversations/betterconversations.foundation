@@ -11,6 +11,10 @@ import Layout from '../../layouts/Layout.astro';
 
   <!-- Load Calendly script early -->
   <script slot="head" type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+  <!-- Close CRM form embed -->
+  <link slot="head" rel="preconnect" href="https://webforms.closeiocdn.com" />
+  <script slot="head" src="https://webforms.closeiocdn.com/webforms.js" type="module" crossorigin="anonymous" defer></script>
   <style>
     /* Calendar grid animation */
     @keyframes gridFade {
@@ -113,65 +117,6 @@ import Layout from '../../layouts/Layout.astro';
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Floating form labels */
-    .form-group {
-      position: relative;
-    }
-
-    .form-input {
-      background: transparent;
-      border: none;
-      border-bottom: 2px solid #e5e7eb;
-      transition: all 0.3s ease;
-    }
-
-    .form-input:focus {
-      outline: none;
-      border-bottom-color: #54C4B6;
-    }
-
-    .form-label {
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      transition: all 0.3s ease;
-      pointer-events: none;
-      color: #9ca3af;
-    }
-
-    .form-input:focus ~ .form-label,
-    .form-input:not(:placeholder-shown) ~ .form-label {
-      top: -8px;
-      transform: translateY(0);
-      font-size: 0.75rem;
-      color: #54C4B6;
-    }
-
-    /* Ripple effect */
-    .ripple {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .ripple::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.5);
-      transform: translate(-50%, -50%);
-      transition: width 0.6s, height 0.6s;
-    }
-
-    .ripple:active::after {
-      width: 300px;
-      height: 300px;
     }
 
     /* Calendly container styling */
@@ -433,114 +378,20 @@ import Layout from '../../layouts/Layout.astro';
 
       <!-- Tab Content -->
       <div class="tab-content active" id="content-message" role="tabpanel" aria-labelledby="tab-message">
-    <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8">
-      <div class="bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100">
-        <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Send us a Message</h2>
-
-        <form id="contact-form" class="space-y-6" aria-label="Contact form">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Name Field -->
-            <div class="form-group">
-              <input
-                type="text"
-                id="name"
-                class="form-input w-full px-0 py-3 text-gray-900"
-                placeholder=" "
-                required
-                aria-required="true"
-              >
-              <label for="name" class="form-label">Your Name</label>
-            </div>
-
-            <!-- Email Field -->
-            <div class="form-group">
-              <input
-                type="email"
-                id="email"
-                class="form-input w-full px-0 py-3 text-gray-900"
-                placeholder=" "
-                required
-                aria-required="true"
-              >
-              <label for="email" class="form-label">Email Address</label>
-            </div>
+        <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8">
+          <div class="bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Send us a message</h2>
+            <!-- Close CRM embedded form -->
+            <close-form id="form_032okJqOAWBl522FaNy0XH"></close-form>
           </div>
-
-          <!-- Organisation Field -->
-          <div class="form-group">
-            <input
-              type="text"
-              id="organisation"
-              class="form-input w-full px-0 py-3 text-gray-900"
-              placeholder=" "
-              aria-required="false"
-            >
-            <label for="organisation" class="form-label">Organisation (Optional)</label>
-          </div>
-
-          <!-- Interest Selector -->
-          <div class="space-y-2">
-            <label class="text-sm font-medium text-gray-700">I'm interested in:</label>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-              <label class="interest-option cursor-pointer">
-                <input type="checkbox" class="sr-only peer" name="interest" value="training">
-                <div class="px-4 py-2 rounded-full border-2 border-gray-200 peer-checked:border-[#54C4B6] peer-checked:bg-[#54C4B6]/10 peer-checked:text-[#54C4B6] transition-all text-center text-sm">
-                  Training
-                </div>
-              </label>
-              <label class="interest-option cursor-pointer">
-                <input type="checkbox" class="sr-only peer" name="interest" value="facilitation">
-                <div class="px-4 py-2 rounded-full border-2 border-gray-200 peer-checked:border-[#54C4B6] peer-checked:bg-[#54C4B6]/10 peer-checked:text-[#54C4B6] transition-all text-center text-sm">
-                  Facilitation
-                </div>
-              </label>
-              <label class="interest-option cursor-pointer">
-                <input type="checkbox" class="sr-only peer" name="interest" value="partnership">
-                <div class="px-4 py-2 rounded-full border-2 border-gray-200 peer-checked:border-[#A8D381] peer-checked:bg-[#A8D381]/10 peer-checked:text-[#A8D381] transition-all text-center text-sm">
-                  Partnership
-                </div>
-              </label>
-              <label class="interest-option cursor-pointer">
-                <input type="checkbox" class="sr-only peer" name="interest" value="membership">
-                <div class="px-4 py-2 rounded-full border-2 border-gray-200 peer-checked:border-[#A8D381] peer-checked:bg-[#A8D381]/10 peer-checked:text-[#A8D381] transition-all text-center text-sm">
-                  Membership
-                </div>
-              </label>
-            </div>
-          </div>
-
-          <!-- Message Field -->
-          <div class="form-group">
-            <textarea
-              id="message"
-              rows="6"
-              class="form-input w-full px-0 py-3 text-gray-900 resize-none"
-              placeholder=" "
-              required
-              aria-required="true"
-            ></textarea>
-            <label for="message" class="form-label">Your Message</label>
-          </div>
-
-          <!-- Submit Button -->
-          <div class="text-center pt-4">
-            <button type="submit" class="ripple magnetic-button inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] text-white font-medium rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-300">
-              Send Message
-              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-              </svg>
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+        </div>
       </div>
 
       <!-- Call Tab Content -->
       <div class="tab-content" id="content-call" role="tabpanel" aria-labelledby="tab-call">
         <div class="text-center mb-8">
-          <h2 class="text-3xl font-bold text-gray-900 mb-4">Choose Your Preferred Time</h2>
-          <p class="text-lg text-gray-600">Select a time that works best for you from our available slots</p>
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Choose your preferred time</h2>
+          <p class="text-lg text-gray-600">Pick a time that suits you and we'll be happy to have a conversation</p>
         </div>
 
         <!-- Calendly inline widget begin -->
@@ -553,7 +404,7 @@ import Layout from '../../layouts/Layout.astro';
   <!-- FAQ Section -->
   <section class="bg-white">
     <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8">
-      <h2 class="text-3xl font-bold text-gray-900 text-center mb-12">Frequently Asked Questions</h2>
+      <h2 class="text-3xl font-bold text-gray-900 text-center mb-12">Frequently asked questions</h2>
 
       <div class="space-y-4">
         <details class="group bg-gray-50 rounded-lg shadow-sm border border-gray-200 overflow-hidden">
@@ -636,44 +487,6 @@ import Layout from '../../layouts/Layout.astro';
       // Check URL parameters and open correct tab
       checkAndOpenTab();
 
-      // Magnetic button effect (for submit button)
-      document.querySelectorAll('.magnetic-button').forEach(function(button) {
-        button.addEventListener('mousemove', function(e) {
-          var rect = button.getBoundingClientRect();
-          var x = e.clientX - rect.left - rect.width / 2;
-          var y = e.clientY - rect.top - rect.height / 2;
-
-          button.style.transform = 'translate(' + (x * 0.2) + 'px, ' + (y * 0.2) + 'px)';
-        });
-
-        button.addEventListener('mouseleave', function() {
-          button.style.transform = 'translate(0, 0)';
-        });
-      });
-
-      // Form submission handling
-      var contactForm = document.getElementById('contact-form');
-      if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-          e.preventDefault();
-
-          // Add success animation
-          var button = e.target.querySelector('button[type="submit"]');
-          var originalText = button.innerHTML;
-
-          button.innerHTML = '<svg class="w-5 h-5 mr-2 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Sending...';
-
-          // Simulate form submission
-          setTimeout(function() {
-            button.innerHTML = '<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Message Sent!';
-
-            setTimeout(function() {
-              button.innerHTML = originalText;
-              e.target.reset();
-            }, 3000);
-          }, 2000);
-        });
-      }
     }
 
     // Initialize when DOM is ready

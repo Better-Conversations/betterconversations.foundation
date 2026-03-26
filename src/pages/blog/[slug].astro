@@ -3,6 +3,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import WaveSeparator from '../../components/WaveSeparator.astro';
+import RelatedPosts from '../../components/RelatedPosts.astro';
 import { extractCollectionMetadata } from '../../utils/metadata';
 import { getBlogImage } from '../../data/blogImages';
 import { blogPostingScope, personScope } from '../../utils/microdata';
@@ -149,6 +150,9 @@ const blogMetadata = extractCollectionMetadata(entry, 'blog');
       </div>
     </div>
   </section>
+
+  <!-- Related Posts -->
+  <RelatedPosts currentPost={entry} />
 
   <!-- Related Content / CTA Section -->
   <section class="bg-gradient-to-r from-[#54C4B6] to-[#A8D381]">
