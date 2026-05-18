@@ -163,6 +163,35 @@ See [AGENTS.md](./AGENTS.md) for quick reference or [docs/development.md](./docs
 - **Tailwind CSS**: https://tailwindcss.com/docs
 - **BCF Website**: https://betterconversations.foundation
 
+## 📄 Licence
+
+This project — including the source code, written content, and assets in this repository — is licensed under the **[Creative Commons Attribution-NoDerivatives 4.0 International Licence (CC BY-ND 4.0)](https://creativecommons.org/licenses/by-nd/4.0/)**. The full legal text is in [LICENSE](./LICENSE).
+
+### What this means in plain English
+
+**You are free to:**
+
+- **Share** — copy and redistribute the material in any medium or format
+- **Use it for any purpose**, including commercially
+
+**Under the following terms:**
+
+- **Attribution** — You must give appropriate credit to Better Conversations Foundation, provide a link to the licence, and indicate if any changes were made. You may do so in any reasonable manner, but not in any way that suggests BCF endorses you or your use.
+- **NoDerivatives** — If you remix, transform, or build upon the material, you **may not distribute the modified material**. Private modifications are fine; publishing them is not.
+- **No additional restrictions** — You may not apply legal terms or technological measures that legally restrict others from doing anything the licence permits.
+
+### What this means in practice
+
+- ✅ You can republish a blog post or page in full, with attribution and a link back.
+- ✅ You can deploy an unmodified copy of this site internally or commercially.
+- ✅ You can quote excerpts for review, commentary, or teaching (also covered by fair use / fair dealing).
+- ❌ You cannot publish a forked version of the site with your own edits, rebranding, or modified content.
+- ❌ You cannot translate, adapt, or remix the content and republish the result.
+
+If you'd like to adapt or build on this material, please [get in touch](https://betterconversations.foundation/about/contact) — we're open to collaboration.
+
+> **Note on code:** CC BY-ND 4.0 is primarily designed for creative content rather than software. We've chosen it deliberately to keep the site's voice and presentation consistent. If you want to reuse code patterns from this repo in your own project, please contact us to discuss a separate arrangement.
+
 ---
 
 **About BCF:** The Better Conversations Foundation promotes improved communication through evidence-based methodologies. This is not a sales site—we emphasize partnership, collaboration, and open resources.
