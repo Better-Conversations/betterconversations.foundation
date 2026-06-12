@@ -33,7 +33,7 @@ Streamline the BCF website navigation for clarity and better user experience, wh
 - For Educators → `/get-started/educators`
 - For Researchers → `/get-started/researchers`
 - Join our Community → `/get-started/join-community`
-- Experience a Course → `/get-started/attend-course`
+- Experience the Course → `/get-started/attend-course`
 - Book a Call → `/get-started/schedule-call`
 
 **Our Approach** (2 links)
