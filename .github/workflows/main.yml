@@ -40,16 +40,20 @@ jobs:
           npm install
           npm run build
 
-      - name: Setup Tailscale
+      - name: Set up SSH key
         if: github.ref == 'refs/heads/main'
-        uses: tailscale/github-action@v3
-        with:
-          oauth-client-id: ${{ secrets.TAILSCALE_CLIENT_ID }}
-          oauth-secret: ${{ secrets.TAILSCALE_CLIENT_SECRET }}
-          tags: tag:github-content
+        env:
+          SSH_KEY: ${{ secrets.CRUMPET_ACCOUNT_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/crumpet_deploy
+          chmod 600 ~/.ssh/crumpet_deploy
 
       - name: Deploy Site
         if: github.ref == 'refs/heads/main'
         run: |
-          # Send to bcf-production-common where Caddy will serve it
-          rsync --delete -vv -r -e 'ssh -o StrictHostKeyChecking=no' dist/* bcf-dev@bcf-production-common.anteater-catfish.ts.net:/home/bcf-dev/html/
+          # Mirror the built site to crumpet.amphora.cloud, served from ~/public_html
+          rsync --delete -vv -r \
+            -e 'ssh -i ~/.ssh/crumpet_deploy -p 1970 -o StrictHostKeyChecking=no' \
+            dist/ bcf-web@crumpet.amphora.cloud:public_html/
