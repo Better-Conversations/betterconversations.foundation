@@ -2,6 +2,7 @@
   "name": "curved-cloud",
   "type": "module",
   "version": "0.0.1",
+  "license": "CC-BY-ND-4.0",
   "scripts": {
     "dev": "astro dev --host 0.0.0.0",
     "prebuild": "node scripts/generate-content-dates.js && node scripts/update-lastmod-from-git.js",
@@ -20,7 +21,7 @@
     "mime-types": "^3.0.1",
     "pdf-lib": "^1.17.1",
     "puppeteer": "^24.25.0",
-    "astro": "^5.15.9",
+    "astro": "^6.1.10",
     "typescript": "^5.9.2",
     "typesense": "^2.1.0-13",
     "typesense-instantsearch-adapter": "^2.9.0"
