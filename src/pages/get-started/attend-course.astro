@@ -16,116 +16,122 @@ const metadata = generateMetaProperties('/get-started/attend-course');
   <HeroSection
     title="Experience Better Conversations"
     titleHighlight="Better Conversations"
-    description="Experience the power of Better Conversations through partnerships with organisations, educators, and researchers."
+    description="Take the course through a partner organisation, with an expert trainer we connect you with, or in your own way using the open materials."
   />
 
   <!-- Course Options Section -->
   <section class="bg-white">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8">
       <SectionHeader
-        heading="How to experience Better Conversations"
-        description="We prioritise organisational partnerships and research, including in educational settings. There are pathways to experience the course if you want to understand more about what we do, and how you might deliver this."
+        heading="Three ways to experience the course"
+        description="The Foundation no longer runs courses itself. We support everyone working with the material, and when you want a course delivered we'll introduce you to people who do it well."
         class="mb-12"
       />
 
       <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        <!-- Organisational Partnership (Primary) -->
-        <a href="/get-started" class="bg-gradient-to-br from-[#54C4B6]/10 to-[#54C4B6]/5 rounded-xl shadow-md border-2 border-[#54C4B6] p-8 hover:shadow-xl transition-shadow relative block">
-          <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[#54C4B6] text-white px-3 py-1 rounded-md text-sm font-semibold">
-            Our focus
-          </div>
-          <div class="bcf-icon-lg-teal bg-[#54C4B6]/20">
-            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <!-- Partner Organisation -->
+        <a href="/get-started" class="bcf-card-gradient text-center hover:shadow-lg hover:border-[#54C4B6] transition-all duration-300">
+          <div class="bcf-icon-lg-teal">
+            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
             </svg>
           </div>
-          <h3 class="mt-6 text-xl font-bold text-gray-900 text-center">Organisational partnership</h3>
-          <p class="mt-4 text-base text-gray-600 text-center">
-            Transform your organisation with deep implementation support, facilitator development, and sustained partnership.
+          <h3 class="mt-6 text-xl font-bold text-gray-900">Through a partner organisation</h3>
+          <p class="mt-4 text-base text-gray-600">
+            If your organisation partners with us (or already does), you can take the course as part of its own programme, delivered by facilitators we've helped train.
           </p>
-          <div class="mt-6 text-center text-[#54C4B6] font-semibold">
+          <div class="mt-6 text-[#54C4B6] font-semibold">
             Explore partnerships →
           </div>
         </a>
 
-        <!-- Partner Organisation Member -->
-        <div class="bcf-card-gradient text-center">
-          <div class="bcf-icon-lg-green">
-            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <!-- Expert Trainer (Primary) -->
+        <a href="/get-started/schedule-call" class="bg-gradient-to-br from-[#54C4B6]/10 to-[#54C4B6]/5 rounded-xl shadow-md border-2 border-[#54C4B6] p-8 hover:shadow-xl transition-shadow relative block text-center">
+          <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[#54C4B6] text-white px-3 py-1 rounded-md text-sm font-semibold">
+            For most people
+          </div>
+          <div class="bcf-icon-lg-teal bg-[#54C4B6]/20">
+            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
           </div>
-          <h3 class="mt-6 text-xl font-bold text-gray-900">Partner organisation member</h3>
+          <h3 class="mt-6 text-xl font-bold text-gray-900">With an expert trainer</h3>
           <p class="mt-4 text-base text-gray-600">
-            If your organisation is already a Foundation partner, you can access courses through your organisation's programme.
+            Want the course delivered for you or your team? We'll connect you with experienced trainers around the world who have worked closely with the Foundation.
           </p>
-        </div>
+          <div class="mt-6 text-[#54C4B6] font-semibold">
+            Get an introduction →
+          </div>
+        </a>
 
-        <!-- Experience Courses -->
-        <div class="bcf-card-gradient text-center">
-          <div class="bcf-icon-lg-teal">
-            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        <!-- Open Materials -->
+        <a href="/approach/open-content" class="bcf-card-gradient text-center hover:shadow-lg hover:border-[#A8D381] transition-all duration-300">
+          <div class="bcf-icon-lg-green">
+            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
           </div>
-          <h3 class="mt-6 text-xl font-bold text-gray-900">Showcase courses</h3>
+          <h3 class="mt-6 text-xl font-bold text-gray-900">With the open materials</h3>
           <p class="mt-4 text-base text-gray-600">
-            We occasionally run limited 'experience' courses to demonstrate the approach. These require Foundation member referral.
+            Everything is free under Creative Commons. Download the course, try it out, and run it yourself, with our community and support behind you.
           </p>
-        </div>
+          <div class="mt-6 text-[#A8D381] font-semibold">
+            Download materials →
+          </div>
+        </a>
       </div>
 
       <div class="max-w-5xl mx-auto mt-12">
         <div class="bg-gradient-to-r from-[#54C4B6]/5 to-[#A8D381]/5 rounded-xl p-8">
-          <h3 class="text-xl font-bold text-gray-900 mb-4 text-center">Why we focus on partnerships</h3>
+          <h3 class="text-xl font-bold text-gray-900 mb-4 text-center">How a referral works</h3>
           <div class="space-y-3 text-gray-800 max-w-3xl mx-auto text-center">
-            <p>Lasting change requires sustained support. By partnering deeply with organisations, educators, and researchers, we develop internal capacity — whether that means training facilitators who scale Better Conversations across departments, embedding the framework into curricula, or co-designing research.</p>
-            <p>Working with a small number of partners at a time means we provide quality support and can measure real impact over time.</p>
+            <p>Tell us a little about what you're looking for: who the course is for, where you are, and any context that matters. We'll introduce you to a trainer from our network who fits, whether that's for one person or a whole team.</p>
+            <p>Trainers are independent practitioners with real experience of working with the Foundation. You agree scope and fees directly with them, and we stay on hand to support you. The introduction itself costs nothing.</p>
           </div>
         </div>
 
         <div class="grid md:grid-cols-2 gap-8 mt-8">
-          <!-- Partnership Path (Preferred) -->
-        <a href="/get-started" class="bcf-card-xl text-center hover:shadow-lg hover:border-[#54C4B6] transition-all duration-300">
+          <!-- Faculty -->
+        <a href="/about/team" class="bcf-card-xl text-center hover:shadow-lg hover:border-[#54C4B6] transition-all duration-300">
           <div class="bcf-icon-lg-teal">
-            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
             </svg>
           </div>
-          <h3 class="mt-6 text-xl font-bold text-gray-900">Partnership</h3>
+          <h3 class="mt-6 text-xl font-bold text-gray-900">Our faculty</h3>
           <p class="mt-4 text-gray-600 mb-6">
-            We work alongside you to introduce and sustain Better Conversations in your context:
+            Faculty members are trusted to deliver the course to a consistently high standard, and many deliver it in their own professional work:
           </p>
           <ul class="space-y-3 text-left">
-            <CheckListItem class="text-gray-600"><span>Capacity-building to develop internal facilitators</span></CheckListItem>
-            <CheckListItem class="text-gray-600"><span>Implementation planning and support</span></CheckListItem>
-            <CheckListItem class="text-gray-600"><span>Impact measurement and case study development</span></CheckListItem>
-            <CheckListItem class="text-gray-600"><span>Research collaboration</span></CheckListItem>
+            <CheckListItem class="text-gray-600"><span>Experienced course facilitators and trainers</span></CheckListItem>
+            <CheckListItem class="text-gray-600"><span>Deliver in their own practice and with partners</span></CheckListItem>
+            <CheckListItem class="text-gray-600"><span>Help shape and improve the course materials</span></CheckListItem>
+            <CheckListItem class="text-gray-600"><span>Based across the UK, Europe, North America and beyond</span></CheckListItem>
           </ul>
           <div class="mt-6 text-[#54C4B6] font-semibold">
-            Explore partnership →
+            Meet the faculty →
           </div>
         </a>
 
-        <!-- DIY Option -->
-        <a href="/approach/open-content" class="bcf-card-xl text-center hover:shadow-lg hover:border-[#A8D381] transition-all duration-300">
+        <!-- Ambassadors -->
+        <a href="/about/showcase" class="bcf-card-xl text-center hover:shadow-lg hover:border-[#A8D381] transition-all duration-300">
           <div class="bcf-icon-lg-green">
-            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
             </svg>
           </div>
-          <h3 class="mt-6 text-xl font-bold text-gray-900">Download materials (DIY)</h3>
+          <h3 class="mt-6 text-xl font-bold text-gray-900">Our ambassadors</h3>
           <p class="mt-4 text-gray-600 mb-6">
-            All our course materials are available under Creative Commons.
+            Ambassadors champion Better Conversations in their own professional fields and can tell you what working with the material is really like:
           </p>
           <ul class="space-y-3 text-left">
-            <CheckListItem color="green" class="text-gray-600"><span>Free and open-access materials</span></CheckListItem>
-            <CheckListItem color="green" class="text-gray-600"><span>Ideal for testing the materials independently</span></CheckListItem>
-            <CheckListItem color="green" class="text-gray-600"><span>Download and use without needing partnership</span></CheckListItem>
-             <CheckListItem color="green" class="text-gray-600"><span>Deliver the course independently</span></CheckListItem>
+            <CheckListItem color="green" class="text-gray-600"><span>Practitioners in coaching, education, therapy and more</span></CheckListItem>
+            <CheckListItem color="green" class="text-gray-600"><span>A peer perspective before you commit</span></CheckListItem>
+            <CheckListItem color="green" class="text-gray-600"><span>Experience across sectors and countries</span></CheckListItem>
+            <CheckListItem color="green" class="text-gray-600"><span>Champion the course in their own networks</span></CheckListItem>
           </ul>
           <div class="mt-6 text-[#A8D381] font-semibold">
-            Download materials →
+            Meet our ambassadors →
           </div>
         </a>
       </div>
@@ -137,29 +143,29 @@ const metadata = generateMetaProperties('/get-started/attend-course');
   <section class="bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10">
     <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
       <SectionHeader
-        heading="Ready to explore partnership?"
-        description="Let's discuss how Better Conversations can create lasting impact in your organisation, classroom, or research"
+        heading="Want a course delivered?"
+        description="Book a call or send us a message and we'll connect you with a suitable trainer. No charge for the introduction, and no obligation."
         class="mb-8"
       />
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
         <a href="/get-started/schedule-call" class="bcf-cta-primary">
           Book a Call
-          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
           </svg>
         </a>
-        <a href="/get-started" class="bcf-cta-secondary">
-          Explore Partnership
-          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+        <a href="/about/contact" class="bcf-cta-secondary">
+          Contact Us
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
           </svg>
         </a>
       </div>
 
-      
+
         <p class="text-gray-700 mb-2 text-center">
-          <strong>Note:</strong> We work with a limited number of partner organisations each year to ensure quality support. Initial consultations are free with no obligation—we'll help you determine if partnership is the right path.
+          <strong>Note:</strong> Trainers in our network are independent, so you arrange delivery directly with them. We're always happy to help if you're not sure who to ask for.
         </p>
     </div>
   </section>

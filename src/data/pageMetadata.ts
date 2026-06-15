@@ -72,7 +72,7 @@ export const pageMetadata: PageMetadataMap = {
 Here's roughly how it works: we start by understanding what you're trying to achieve, then we train some of your people to facilitate the course, support them as they start delivering it, and help you track whether it's making a difference. The whole thing typically takes several months. You keep all the materials under Creative Commons, so you can adapt them to your context.
 
 This approach isn't for everyone. It requires commitment: someone needs to champion it internally, you need people willing to train as facilitators, and ideally you're open to measuring outcomes and sharing what you learn. But if that sounds like you, we'd love to chat. We've worked directly with leaders of small nonprofit teams and also L&D teams deploying across larger organisations.`,
-    lastmod: '2026-02-21',
+    lastmod: '2026-06-12',
     priority: 0.5,
     changefreq: 'weekly'
   },
@@ -81,15 +81,15 @@ This approach isn't for everyone. It requires commitment: someone needs to champ
     excerpt: 'Join Our Community',
     tags: ['community', 'facilitator', 'facilitation', 'membership', 'network'],
     category: 'Getting Started',
-    description: 'Connect with trained facilitators from partner organisations who are delivering Better Conversations across diverse contexts worldwide.',
-    metaDescription: 'Join our facilitator community—connect with trained facilitators delivering Better Conversations across diverse contexts worldwide.',
-    keywords: ['facilitator community', 'Better Conversations network', 'facilitator support', 'global community', 'partner organisations'],
-    executiveSummary: `Our community is made up of people who facilitate Better Conversations courses within their organisations. It's not currently open to individuals looking to attend a course or practise independently. We've set it up this way because we've found facilitators need organisational support to deliver the course well.
+    description: 'Connect with facilitators and trainers delivering Better Conversations across diverse contexts worldwide. Open to anyone working with the material.',
+    metaDescription: 'Join our facilitator community. Open to anyone working with the Better Conversations material, from partner organisations to independent trainers and coaches.',
+    keywords: ['facilitator community', 'Better Conversations network', 'facilitator support', 'global community', 'independent facilitators'],
+    executiveSummary: `Our community brings together people who work with the Better Conversations material: facilitators in partner organisations, independent trainers and coaches, educators, and people preparing to run the course for the first time. We support anyone working with the material.
 
-If you're part of a partner organisation, you get access to detailed facilitator guides (we call them "flight plans"), participant workbooks, a community forum for sharing experiences and troubleshooting, and a certificate when you've completed training. The pathway is: first experience the course as a participant, then get trained as a facilitator through your organisation's partnership with us.
+Members get access to detailed facilitator guides (we call them "flight plans"), participant workbooks, a community forum for sharing experiences and troubleshooting, and a certificate when you've completed training. The usual pathway is to experience the course as a participant first, then start facilitating with the community's support.
 
-Our facilitators work in nonprofits, universities, government bodies, and social enterprises across the UK, Europe, North America and beyond. If your organisation isn't yet a partner but you'd like to become a facilitator, the first step is getting your organisation to explore a partnership with us.`,
-    lastmod: '2026-02-21',
+Our facilitators work in nonprofits, universities, government bodies, social enterprises and private practice across the UK, Europe, North America and beyond. If you're not sure where to start, book a call and we'll help you find the right route in: joining the community, a partnership, or an introduction to an expert trainer.`,
+    lastmod: '2026-06-12',
     priority: 0.4,
     changefreq: 'weekly'
   },
@@ -127,13 +127,13 @@ The course draws on psychology research about how our state of mind affects conv
     tags: ['about', 'team', 'people', 'leadership', 'founders'],
     category: 'About',
     description: 'Meet the dedicated team driving BCF\'s mission forward',
-    metaDescription: 'Meet our Faculty. Trusted course facilitators who deliver Better Conversations training to consistently high standards in public courses and private work.',
+    metaDescription: 'Meet our Faculty: trusted facilitators who deliver Better Conversations to a consistently high standard, and the trainers we refer people to worldwide.',
     executiveSummary: `This page introduces the people who facilitate Better Conversations courses. They come from all sorts of backgrounds: organisational development, coaching, education, psychology, and more. What they have in common is that they've completed our facilitator training and actively deliver the course.
 
-Most faculty members facilitate within their own organisations as part of a partnership, though some also help with larger implementations or showcase courses. They share experiences through our community forum, and they've helped us refine the materials based on what actually works in practice.
+Most faculty members facilitate within their own organisations or independent practice, and they're among the expert trainers we recommend when someone asks us for a course. They share experiences through our community forum, and they've helped us refine the materials based on what actually works in practice.
 
 Our faculty are volunteers who believe in what we're doing. They're based across the UK, Europe, North America, and elsewhere. This page shows who they are and where they work, so you can get a sense of the range of contexts where Better Conversations is being used.`,
-    lastmod: '2026-02-20',
+    lastmod: '2026-06-12',
     priority: 0.4,
     changefreq: 'monthly'
   },
@@ -148,8 +148,8 @@ Our faculty are volunteers who believe in what we're doing. They're based across
 
 We've set up different enquiry types so messages get to the right person: partnership enquiries if you're an organisation thinking about working with us, facilitator questions if you're already in our community or want to join, general questions about the methodology, or feedback on our materials.
 
-The calendar lets you book a video call if you'd rather talk than email. We're happy to chat at any stage, whether you're just curious or ready to discuss a partnership in detail. The FAQs cover the basics like who can join the community (facilitators in partner organisations) and how to access courses (mainly through partnerships).`,
-    lastmod: '2026-02-20',
+The calendar lets you book a video call if you'd rather talk than email. We're happy to chat at any stage, whether you're just curious or ready to discuss a partnership in detail. The FAQs cover the basics like who can join the community (anyone working with the material) and how to access courses (through a partner organisation or an introduction to an expert trainer).`,
+    lastmod: '2026-06-12',
     priority: 0.5,
     changefreq: 'monthly'
   },
@@ -199,25 +199,25 @@ Our ambassadors are based in the US, UK, Canada, Germany, and elsewhere. They he
 
 For each type of partner, we focus on what fits their needs. Organisations get help training their own facilitators so they can run the course themselves. Educators get curriculum materials and assessment frameworks. Researchers get a standardised course protocol they can use in studies, plus help with study design.
 
-If you're not ready for a full partnership, you can still download all our materials for free and have a look. We occasionally run demonstration courses too, though our main focus is on partnerships where we can work with others to support their outcomes rather than just delivering courses ourselves. We've found that's what makes the difference between people attending a training and actually changing how they work.`,
-    lastmod: '2026-02-20',
+If you're not ready for a full partnership, you can still download all our materials for free and have a look. We don't deliver courses ourselves; if you'd like one delivered, we'll connect you with an expert trainer who has experience working with the Foundation. Our focus is on partnerships and on supporting everyone working with the material, because we've found that's what makes the difference between people attending a training and actually changing how they work.`,
+    lastmod: '2026-06-12',
     priority: 0.8,
     changefreq: 'weekly'
   },
   '/get-started/attend-course': {
-    title: 'Experience a Course',
-    excerpt: 'Experience Better Conversations',
-    tags: ['courses', 'learning', 'workshops', 'experience', 'attend'],
+    title: 'Experience the Course',
+    excerpt: 'Ways to experience Better Conversations',
+    tags: ['courses', 'learning', 'experience', 'attend', 'trainers', 'referral'],
     category: 'Getting Started',
-    description: 'Experience the transformative power of Better Conversations through organisational partnerships or showcase courses.',
-    metaDescription: 'Experience Better Conversations through organisational partnerships or showcase courses—transformative communication skills development.',
-    keywords: ['Better Conversations course', 'organisational partnership', 'showcase courses', 'experiential learning', 'communication skills'],
-    executiveSummary: `If you want to experience the Better Conversations course, you'll most likely do so through an organisation that's partnered with us. We don't run many public courses because we've found the learning sticks better when participants have organisational support to apply what they've learned.
+    description: 'Experience the Better Conversations course through a partner organisation, with an expert trainer we connect you with, or using the free open materials.',
+    metaDescription: 'Three ways to experience Better Conversations: through a partner organisation, with an expert trainer we connect you with, or using the free open materials.',
+    keywords: ['Better Conversations course', 'find a trainer', 'expert trainers', 'partner organisation', 'open course materials', 'communication skills course'],
+    executiveSummary: `There are three ways to experience the Better Conversations course. If your organisation partners with us, you take the course as part of its own programme. If you'd like a course delivered for you or your team, we'll connect you with an expert trainer from the worldwide network of practitioners who have experience working with the Foundation. And because all the materials are free under Creative Commons, you can also explore the course yourself.
 
-The main routes in are: your organisation partners with us and runs the course internally, you're connected to someone in an existing partner organisation who can include you, or you catch one of our occasional showcase courses (though these are rare and usually need a referral).
+The Foundation doesn't run courses itself any more. Our focus is on supporting everyone who works with the material and on partnerships that build lasting capacity. When you want a course delivered, the quickest route is to book a call or send us a message: tell us a little about your context and we'll introduce you to a trainer who fits. Trainers are independent practitioners, so you agree arrangements directly with them. Many appear on our faculty and ambassadors pages.
 
-If none of those work for you right now, we'd suggest downloading the free materials to get a sense of the approach, or talking to your employer about whether a partnership might make sense. We know this is frustrating if you just want to attend a course as an individual, but we've genuinely found that standalone training doesn't create lasting change the way organisational implementation does.`,
-    lastmod: '2026-02-21',
+This works for individuals as well as teams: if you just want to take the course yourself, get in touch and we'll point you to the right person. If you'd rather start by reading, download the free materials and see how the course works.`,
+    lastmod: '2026-06-12',
     priority: 0.5,
     changefreq: 'weekly'
   },
@@ -307,7 +307,7 @@ The approach is grounded in psychology and communications research, and well-est
 We've taken this approach because we come from the software industry and have seen how open source transformed technology. The same principles apply to learning: knowledge grows when it's shared, and improvement is a collaborative effort. Wikipedia, MIT OpenCourseWare, and open-access academic journals are all part of this shift.
 
 Our model has three parts: the Foundation develops and maintains core materials, a community of facilitators tests and improves them, and partner organisations customise them for their contexts. This page also contrasts course-centric training (classroom-style, information-focused, success measured by completion) with outcome-centric learning (shared purpose, immediately applicable, learners become facilitators). That distinction draws on Robert Kegan and Lisa Laskow Lahey's Immunity to Change (Harvard Business Press, 2009), and explains why we focus on partnerships rather than just handing out materials.`,
-    lastmod: '2026-02-21',
+    lastmod: '2026-06-12',
     priority: 0.6,
     changefreq: 'monthly'
   },
@@ -319,10 +319,10 @@ Our model has three parts: the Foundation develops and maintains core materials,
     description: 'Find answers to common questions about Better Conversations and BCF',
     executiveSummary: `This page answers the questions people most commonly ask us. Things like: How is this different from other communication training? Can I just attend a course as an individual? How do I become a facilitator? Can I adapt the materials for my context?
 
-The short answers: it's different because it's experiential and grounded in psychology and communications research rather than generic tips; we focus on partnerships rather than public courses, so individual access is limited; you can become a facilitator through a partner organisation; and yes, you can adapt the materials under Creative Commons.
+The short answers: it's different because it's experiential and grounded in psychology and communications research rather than generic tips; we don't deliver courses ourselves, but we'll happily connect you with an expert trainer if you'd like to take one; you can become a facilitator within a partner organisation or independently, with our support either way; and yes, you can adapt the materials under Creative Commons.
 
 We've organised the FAQs by topic: understanding the methodology, partnership options, joining the facilitator community, practical delivery questions, and licensing. If you're trying to figure out whether BCF is right for you or your organisation, this is a good place to start.`,
-    lastmod: '2025-10-18',
+    lastmod: '2026-06-12',
     priority: 0.3,
     changefreq: 'weekly'
   },

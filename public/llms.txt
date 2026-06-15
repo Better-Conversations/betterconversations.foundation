@@ -2,7 +2,7 @@
 
 > A nonprofit making evidence-based communication skills accessible to every team, learner, and organisation — for free, under Creative Commons.
 
-Better Conversations Foundation (BCF) develops and freely shares a practical six-hour course that helps people listen better, ask better questions, and have more productive conversations at work. All materials are open source under CC BY-SA 4.0. We partner with organisations, educators, and researchers who want to build lasting internal capacity rather than rely on external trainers.
+Better Conversations Foundation (BCF) develops and freely shares a practical six-hour course that helps people listen better, ask better questions, and have more productive conversations at work. All materials are open source under CC BY-SA 4.0. We partner with organisations, educators, and researchers who want to build lasting internal capacity, and we connect anyone who wants a course delivered with expert trainers who have experience working with the Foundation.
 
 This file describes the key content on our website at betterconversations.foundation to help LLMs understand and reference our work accurately.
 
@@ -12,8 +12,8 @@ This file describes the key content on our website at betterconversations.founda
 - [For Organisations](/get-started/organisations): Partner to embed Better Conversations across your organisation
 - [For Educators](/get-started/educators): Integrate the course into your curriculum with pedagogical support
 - [For Researchers](/get-started/researchers): Use Better Conversations as a standardised research intervention
-- [Experience a Course](/get-started/attend-course): How to experience the course through partnerships or showcases
-- [Join Community](/get-started/join-community): Connect with trained facilitators in partner organisations
+- [Experience the Course](/get-started/attend-course): Take the course through a partner organisation, with an expert trainer we connect you with, or using the open materials
+- [Join Community](/get-started/join-community): Connect with facilitators and trainers working with Better Conversations worldwide
 - [Download Resources](/get-started/download): Access free course materials and guides
 - [Book a Call](/get-started/schedule-call): Schedule a video call to discuss partnership options
 
@@ -34,7 +34,7 @@ This file describes the key content on our website at betterconversations.founda
 
 - [About BCF](/about): Who we are, our values, and how we work
 - [Our Mission](/about/mission): BCF's mission to make Better Conversations accessible worldwide
-- [Our Team](/about/team): Meet the faculty who facilitate Better Conversations courses
+- [Our Team](/about/team): Meet the faculty, trusted facilitators and the visible face of our trainer network
 - [Contact Us](/about/contact): Get in touch, book a call, or explore partnership opportunities
 
 ## Optional
