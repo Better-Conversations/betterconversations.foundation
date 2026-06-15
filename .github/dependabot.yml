@@ -1,0 +1,12 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    ignore:
+      # Astro 6 requires migrating off the deprecated @astrojs/tailwind
+      # integration (no Astro 6 release) to the Tailwind 4 Vite plugin.
+      # Hold on Astro 5 until that migration is done deliberately.
+      - dependency-name: "astro"
+        update-types: ["version-update:semver-major"]
