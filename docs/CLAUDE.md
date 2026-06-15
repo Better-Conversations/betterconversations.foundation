@@ -16,3 +16,4 @@ When working on a task that touches this area, read the relevant file — don't 
 | Alpine.js progressive enhancement | alpine.md | Interactive components with Alpine |
 | Content collections, image utilities | content.md | Working with Astro content or images |
 | Project structure, build process, commands | development.md | Build issues, project overview |
+| Build & deploy pipeline, SSH rsync to crumpet | deployment.md | Changing how the site is built or published |
