@@ -47,6 +47,13 @@ New to the project? Start here:
 
 ---
 
+### Deployment & Infrastructure
+- [Deployment](./deployment.md) — Build and deploy pipeline, SSH rsync to crumpet, required secrets
+
+**When to use:** Changing how the site is built or published, debugging a deploy
+
+---
+
 ## Critical Rules
 
 ### Always Follow
