@@ -38,6 +38,11 @@ jobs:
           
       # Build the documentation and then check the links
       - name: Build Astro site
+        env:
+          # CI only runs `astro build`; puppeteer (Chrome) is needed solely for
+          # the manual generate:pdf script, and downloading it here also trips
+          # over a corrupted browser cache on the self-hosted runner
+          PUPPETEER_SKIP_DOWNLOAD: "true"
         run: |
           npm install
           npm run build
