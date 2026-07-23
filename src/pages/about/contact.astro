@@ -122,10 +122,18 @@ import Layout from '../../layouts/Layout.astro';
     /* Calendly container styling */
     .calendly-inline-widget {
       min-width: 320px;
-      height: 700px;
+      /* Tall enough to show the whole booking flow, so Calendly doesn't add its own internal scrollbar */
+      height: 1100px;
       border-radius: 16px;
       overflow: hidden;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Calendly stacks its layout on narrow screens, so it needs a bit more height there */
+    @media (max-width: 640px) {
+      .calendly-inline-widget {
+        height: 1180px;
+      }
     }
 
     /* Conversation flow animations */
@@ -395,7 +403,7 @@ import Layout from '../../layouts/Layout.astro';
         </div>
 
         <!-- Calendly inline widget begin -->
-        <div class="calendly-inline-widget" data-url="https://calendly.com/amphora-simonc/better-conversations?hide_gdpr_banner=1" style="min-width:320px;height:700px;" aria-label="Schedule a call with Better Conversations Foundation"></div>
+        <div class="calendly-inline-widget" data-url="https://calendly.com/amphora-simonc/better-conversations?hide_gdpr_banner=1" style="min-width:320px;" aria-label="Schedule a call with Better Conversations Foundation"></div>
         <!-- Calendly inline widget end -->
       </div>
     </div>
