@@ -10,6 +10,16 @@ Vercel, or GitHub Pages) and, since the migration described below, **no Tailscal
 
 The workflow lives in [`.github/workflows/main.yml`](../.github/workflows/main.yml).
 
+## Runner
+
+The job runs on a **self-hosted runner** (`runs-on: self-hosted`), not a
+GitHub-hosted `ubuntu-latest` runner. At least one active self-hosted runner
+carrying the default `self-hosted` label must be registered to the repository or
+its organisation, otherwise the workflow queues indefinitely with no runner to
+pick it up. Register runners under **Settings → Actions → Runners**. The runner
+needs Node 20 available (the `actions/setup-node` step provisions it) and outbound
+SSH to `crumpet.amphora.cloud` on port `1970` for the deploy step.
+
 ## How it works
 
 1. **Trigger** — push or pull request to `main`, or a manual `workflow_dispatch`.
