@@ -14,7 +14,7 @@ const { currentPost, limit = 3 } = Astro.props;
 
 // Get all blog posts except the current one
 const allPosts = await getCollection('blog');
-const otherPosts = allPosts.filter((post) => post.slug !== currentPost.slug);
+const otherPosts = allPosts.filter((post) => post.id !== currentPost.id);
 
 /**
  * Score each post for relevance to the current post.
@@ -27,7 +27,7 @@ function scorePost(post: CollectionEntry<'blog'>): number {
   const explicitRelated = currentPost.data.relatedContent || [];
 
   // Explicit relatedContent frontmatter gets highest priority
-  if (explicitRelated.includes(post.slug)) {
+  if (explicitRelated.includes(post.id)) {
     score += 100;
   }
 
@@ -67,10 +67,10 @@ if (relatedPosts.length === 0) {
     <h2 id="related-posts-heading" class="text-2xl font-bold text-gray-900 mb-8">Related articles</h2>
     <div class={`grid gap-6 ${relatedPosts.length === 1 ? 'grid-cols-1 max-w-sm' : relatedPosts.length === 2 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
       {relatedPosts.map((post) => {
-        const heroImage = getBlogImage(post.slug);
+        const heroImage = getBlogImage(post.id);
         return (
           <article class="group bcf-blog-card">
-            <a href={`/blog/${post.slug}`} class="block">
+            <a href={`/blog/${post.id}`} class="block">
               <div class="bcf-blog-card-image">
                 {heroImage ? (
                   <Image

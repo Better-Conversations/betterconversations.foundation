@@ -105,7 +105,7 @@ export async function getContentByTag(tag: string): Promise<TaggedContent[]> {
         type: 'blog',
         title: post.data.title,
         excerpt: post.data.excerpt,
-        slug: `/blog/${post.slug}`,
+        slug: `/blog/${post.id}`,
         date: post.data.date,
         authors: post.data.author,
         category: post.data.category,

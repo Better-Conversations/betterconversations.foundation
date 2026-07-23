@@ -220,7 +220,6 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
           </div>
         </div>
       </div>
-    </div>
     
     <WaveSeparator topColor="transparent" bottomColor="white" class="absolute bottom-0 left-0 right-0" />
   </section>
@@ -297,7 +296,7 @@ const pageDescription = 'Search our blogs, whitepapers, and resources.';
             </div>
             <div class="space-y-3">
               {recentBlogs.map(post => (
-                <a href={`/blog/${post.slug}`} class="block group">
+                <a href={`/blog/${post.id}`} class="block group">
                   <h4 class="font-medium text-gray-900 group-hover:text-[#54C4B6] transition-colors">
                     {post.data.title}
                   </h4>

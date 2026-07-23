@@ -1,7 +1,9 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 
 const blog = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
   schema: z.object({
     title: z.string(),
     excerpt: z.string(),
@@ -12,7 +14,7 @@ const blog = defineCollection({
     image: z.string().optional(),
     imageCredit: z.object({
       photographer: z.string(),
-      photographerUrl: z.string().url(),
+      photographerUrl: z.url(),
       source: z.string().optional(),
     }).optional(),
     readingTime: z.number().positive().optional(),
@@ -31,7 +33,7 @@ const blog = defineCollection({
 // DISABLED: Whitepapers collection (files moved to _whitepapers to hide from build)
 // Uncomment and rename _whitepapers back to whitepapers when ready to publish
 // const whitepapers = defineCollection({
-//   type: 'content',
+//   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/whitepapers' }),
 //   schema: z.object({
 //     title: z.string(),
 //     excerpt: z.string(),

@@ -17,7 +17,7 @@ export const GET: APIRoute = async ({ params, url }) => {
 
     // Verify the whitepaper exists
     const whitepapers = await getCollection('whitepapers');
-    const whitepaper = whitepapers.find(p => p.slug === slug);
+    const whitepaper = whitepapers.find(p => p.id === slug);
     
     if (!whitepaper) {
       return new Response(JSON.stringify({ error: 'Whitepaper not found' }), {
@@ -69,6 +69,6 @@ export async function getStaticPaths() {
   const whitepapers = await getCollection('whitepapers');
   
   return whitepapers.map((paper) => ({
-    params: { slug: paper.slug }
+    params: { slug: paper.id }
   }));
 }

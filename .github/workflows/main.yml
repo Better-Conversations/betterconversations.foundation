@@ -33,7 +33,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          # Astro 7 requires Node 22.12 or newer
+          node-version: 22
           
       # Build the documentation and then check the links
       - name: Build Astro site

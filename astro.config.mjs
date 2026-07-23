@@ -1,6 +1,5 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { contentDates } from './src/utils/generated-content-dates.js';
@@ -11,9 +10,11 @@ import { pageMetadata } from './src/data/pageMetadata.js';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://betterconversations.foundation',
+  // Astro 7 defaults to compressHTML: 'jsx', which also strips whitespace between
+  // inline elements; keep the Astro 5 behaviour until the site is visually re-checked
+  compressHTML: true,
   integrations: [
-    tailwind(), 
-    mdx(), 
+    mdx(),
     sitemap({
       serialize(item) {
         const url = item.url;

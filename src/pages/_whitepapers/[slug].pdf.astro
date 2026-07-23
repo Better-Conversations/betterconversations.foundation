@@ -1,11 +1,11 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
   const whitepapers = await getCollection('whitepapers');
   
   return whitepapers.map((paper) => ({
-    params: { slug: paper.slug },
+    params: { slug: paper.id },
     props: { paper },
   }));
 }
@@ -24,7 +24,7 @@ import ProgressBarPDF from '../../components/whitepapers/pdf/ProgressBarPDF.astr
 import InteractiveQuizPDF from '../../components/whitepapers/pdf/InteractiveQuizPDF.astro';
 
 // Render content
-const { Content } = await paper.render();
+const { Content } = await render(paper);
 
 // Format date
 const publicationDate = paper.data.date.toLocaleDateString('en-GB', { 
