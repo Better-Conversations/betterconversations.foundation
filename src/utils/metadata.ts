@@ -243,7 +243,7 @@ export function generateCanonicalURL(
 
 // Extract metadata from content collections for consistency
 export function extractCollectionMetadata<T extends Record<string, any>>(
-  entry: { data: T; slug: string },
+  entry: { data: T; id: string },
   type: 'blog' | 'whitepaper'
 ): MetaProperties {
   const data = entry.data;
@@ -260,7 +260,7 @@ export function extractCollectionMetadata<T extends Record<string, any>>(
     schemaType: type === 'blog' ? 'BlogPosting' : 'Article',
     publishDate: data.date,
     author: type === 'blog' ? data.author : data.authors,
-    canonicalURL: `${basePath}/${entry.slug}`
+    canonicalURL: `${basePath}/${entry.id}`
   };
 }
 

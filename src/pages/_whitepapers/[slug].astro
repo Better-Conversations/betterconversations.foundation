@@ -1,12 +1,12 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
   const whitepapers = await getCollection('whitepapers');
   
   return whitepapers.map((paper) => ({
-    params: { slug: paper.slug },
+    params: { slug: paper.id },
     props: { paper },
   }));
 }
@@ -16,12 +16,12 @@ type Props = {
 };
 
 const { paper } = Astro.props;
-const { Content } = await paper.render();
+const { Content } = await render(paper);
 
 // Get related whitepapers (same category, different paper)
 const allWhitepapers = await getCollection('whitepapers');
 const relatedWhitepapers = allWhitepapers
-  .filter(p => p.data.category === paper.data.category && p.slug !== paper.slug)
+  .filter(p => p.data.category === paper.data.category && p.id !== paper.id)
   .slice(0, 3);
 ---
 
@@ -232,7 +232,7 @@ const relatedWhitepapers = allWhitepapers
                 {related.data.category}
               </span>
               <h3 class="text-lg font-semibold text-gray-900 mb-2 hover:text-[#54C4B6] transition-colors">
-                <a href={`/_whitepapers/${related.slug}`}>
+                <a href={`/_whitepapers/${related.id}`}>
                   {related.data.title}
                 </a>
               </h3>

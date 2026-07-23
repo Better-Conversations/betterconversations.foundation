@@ -15,7 +15,7 @@ const blogPosts = await Promise.all(
   allPosts
     .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
     .map(async (post) => {
-      const heroImage = getBlogImage(post.slug);
+      const heroImage = getBlogImage(post.id);
       let optimizedImageUrl = post.data.image; // fallback to original
       
       if (heroImage) {
@@ -25,7 +25,7 @@ const blogPosts = await Promise.all(
       
       return {
         ...post.data,
-        slug: post.slug,
+        slug: post.id,
         readingTime: Math.ceil((post.body?.length || 0) / 1000),
         publishedAt: formatDistanceToNow(post.data.date),
         tags: post.data.tags || [],

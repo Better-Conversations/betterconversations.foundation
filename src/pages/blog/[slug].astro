@@ -1,5 +1,5 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import WaveSeparator from '../../components/WaveSeparator.astro';
@@ -11,7 +11,7 @@ import { blogPostingScope, personScope } from '../../utils/microdata';
 export async function getStaticPaths() {
   const blogEntries = await getCollection('blog');
   return blogEntries.map((entry: CollectionEntry<'blog'>) => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.id },
     props: { entry },
   }));
 }
@@ -21,10 +21,10 @@ type Props = {
 };
 
 const { entry } = Astro.props as Props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 
 // Get the optimised hero image for this blog post
-const heroImage = getBlogImage(entry.slug);
+const heroImage = getBlogImage(entry.id);
 
 // Generate enhanced metadata for the blog post
 const blogMetadata = extractCollectionMetadata(entry, 'blog');

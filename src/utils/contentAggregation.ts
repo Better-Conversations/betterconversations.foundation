@@ -40,7 +40,7 @@ export async function aggregateContent(options: AggregationOptions = {}) {
       type: 'blog' as const,
       title: post.data.title,
       excerpt: post.data.excerpt,
-      slug: formatUrl(`/blog/${post.slug}`),
+      slug: formatUrl(`/blog/${post.id}`),
       tags: post.data.tags,
       author: post.data.author,
       date: post.data.date

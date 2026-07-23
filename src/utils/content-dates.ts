@@ -13,7 +13,7 @@ export async function getContentDates(): Promise<Map<string, string>> {
   // Get all blog posts
   const blogPosts = await getCollection('blog');
   for (const post of blogPosts) {
-    const url = `https://betterconversations.foundation/blog/${post.slug}/`;
+    const url = `https://betterconversations.foundation/blog/${post.id}/`;
     const date = post.data.date.toISOString().split('T')[0];
     dateMap.set(url, date);
   }
