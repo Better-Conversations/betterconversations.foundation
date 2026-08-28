@@ -12,9 +12,6 @@ import Layout from '../../layouts/Layout.astro';
   <!-- Load Calendly script early -->
   <script slot="head" type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
-  <!-- Close CRM form embed -->
-  <link slot="head" rel="preconnect" href="https://webforms.closeiocdn.com" />
-  <script slot="head" src="https://webforms.closeiocdn.com/webforms.js" type="module" crossorigin="anonymous" defer></script>
   <style>
     /* Calendar grid animation */
     @keyframes gridFade {
@@ -389,8 +386,10 @@ import Layout from '../../layouts/Layout.astro';
         <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-8">
           <div class="bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100">
             <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Send us a message</h2>
-            <!-- Close CRM embedded form -->
-            <close-form id="form_032okJqOAWBl522FaNy0XH"></close-form>
+              <!-- Contact Form -->
+            <iframe src="https://helpdesk.radicaltechteam.co.uk/f/bcf"
+              style="width:100%;max-width:640px;height:700px;border:0"
+              title="Contact The BCF"></iframe>
           </div>
         </div>
       </div>
