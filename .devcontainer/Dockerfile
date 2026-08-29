@@ -1,4 +1,4 @@
-FROM node:20
+FROM node:22
 
 # ==============================================================================
 # Chromium Installation for Puppeteer
@@ -107,7 +107,7 @@ RUN npm install -g @anthropic-ai/claude-code
 
 # Claude Code usage tracking: VS Code's dev.containers.defaultMounts binds the
 # host's ~/.claude/usage-data to /home/vscode/.claude/usage-data (the conventional
-# devcontainer user). Since this image is based on node:20 and uses the `node` user
+# devcontainer user). Since this image is based on node:22 and uses the `node` user
 # instead, we symlink so that Claude Code session data written to /home/node/ is
 # actually stored on the host via the mount at /home/vscode/. This allows `claude
 # /insights` on the host to include sessions from this devcontainer.

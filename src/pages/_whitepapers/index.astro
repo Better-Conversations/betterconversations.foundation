@@ -152,7 +152,7 @@ const uniqueTags = [...new Set(allTags)].sort();
   </style>
 
   <!-- Hero Section -->
-  <section class="relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white">
+  <section class="relative overflow-hidden bg-linear-to-b from-white via-gray-50 to-white">
     <!-- Floating particles -->
     <div class="absolute inset-0 pointer-events-none">
       <div class="floating-particle top-20 left-10 w-4 h-4 bg-[#54C4B6] rounded-full" style="animation-delay: 0s;"></div>
@@ -195,7 +195,7 @@ const uniqueTags = [...new Set(allTags)].sort();
         <!-- Filter Display -->
         <div class="flex justify-center gap-2 items-center">
           <span id="category-filter-display" class="hidden px-3 py-1 text-xs font-medium bg-[#54C4B6] text-white rounded-full cursor-pointer hover:bg-[#54C4B6]/90 transition-colors" title="Click to clear filter"></span>
-          <span id="tag-filter-display" class="hidden px-3 py-1 text-xs font-medium bg-gradient-to-r from-[#54C4B6] to-[#A8D381] text-white rounded-full cursor-pointer hover:opacity-90 transition-opacity" title="Click to clear filter"></span>
+          <span id="tag-filter-display" class="hidden px-3 py-1 text-xs font-medium bg-linear-to-r from-[#54C4B6] to-[#A8D381] text-white rounded-full cursor-pointer hover:opacity-90 transition-opacity" title="Click to clear filter"></span>
         </div>
       </div>
     </div>
@@ -226,11 +226,11 @@ const uniqueTags = [...new Set(allTags)].sort();
                   alt={paper.title}
                   class="w-full h-64 lg:h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent lg:bg-gradient-to-r"></div>
+                <div class="absolute inset-0 bg-linear-to-t from-black/50 to-transparent lg:bg-linear-to-r"></div>
                 
                 <!-- Category Badge -->
                 <div class="absolute top-4 left-4">
-                  <div class="bg-black/60 backdrop-blur-sm px-3 py-1 border-l-2 border-[#54C4B6] text-center">
+                  <div class="bg-black/60 backdrop-blur-xs px-3 py-1 border-l-2 border-[#54C4B6] text-center">
                     <span class="text-white text-xs font-medium tracking-wide">
                       {paper.category}
                     </span>
@@ -263,7 +263,7 @@ const uniqueTags = [...new Set(allTags)].sort();
                   </div>
                   
                   <!-- Abstract -->
-                  <p class="text-gray-600 mb-4 flex-grow line-clamp-3 lg:line-clamp-none">
+                  <p class="text-gray-600 mb-4 grow line-clamp-3 lg:line-clamp-none">
                     {paper.abstract}
                   </p>
                   
@@ -314,7 +314,7 @@ const uniqueTags = [...new Set(allTags)].sort();
                         Read Online
                       </a>
                       <button 
-                        class="download-button px-4 py-2 bg-gradient-to-r from-[#54C4B6] to-[#A8D381] text-white rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300 relative overflow-hidden"
+                        class="download-button px-4 py-2 bg-linear-to-r from-[#54C4B6] to-[#A8D381] text-white rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300 relative overflow-hidden"
                         data-id={paper.id}
                         data-downloads={paper.downloads}
                       >
@@ -333,7 +333,7 @@ const uniqueTags = [...new Set(allTags)].sort();
   </section>
 
   <!-- CTA Section -->
-  <section class="bg-gradient-to-r from-[#54C4B6] to-[#A8D381]">
+  <section class="bg-linear-to-r from-[#54C4B6] to-[#A8D381]">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 text-center">
       <h2 class="text-3xl font-bold text-white mb-4">Need Custom Research?</h2>
       <p class="text-xl text-white/90 max-w-2xl mx-auto mb-8">
@@ -470,11 +470,11 @@ const uniqueTags = [...new Set(allTags)].sort();
         button.dataset.active = String(isActive);
         
         if (isActive) {
-          button.classList.add('bg-gradient-to-r', 'from-[#54C4B6]', 'to-[#A8D381]', 'text-white');
-          button.classList.remove('bg-gray-100', 'text-gray-700', 'hover:bg-gradient-to-r', 'hover:from-[#54C4B6]', 'hover:to-[#A8D381]', 'hover:text-white');
+          button.classList.add('bg-linear-to-r', 'from-[#54C4B6]', 'to-[#A8D381]', 'text-white');
+          button.classList.remove('bg-gray-100', 'text-gray-700', 'hover:bg-linear-to-r', 'hover:from-[#54C4B6]', 'hover:to-[#A8D381]', 'hover:text-white');
         } else {
-          button.classList.remove('bg-gradient-to-r', 'from-[#54C4B6]', 'to-[#A8D381]', 'text-white');
-          button.classList.add('bg-gray-100', 'text-gray-700', 'hover:bg-gradient-to-r', 'hover:from-[#54C4B6]', 'hover:to-[#A8D381]', 'hover:text-white');
+          button.classList.remove('bg-linear-to-r', 'from-[#54C4B6]', 'to-[#A8D381]', 'text-white');
+          button.classList.add('bg-gray-100', 'text-gray-700', 'hover:bg-linear-to-r', 'hover:from-[#54C4B6]', 'hover:to-[#A8D381]', 'hover:text-white');
         }
       });
     }

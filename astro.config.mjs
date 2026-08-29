@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import tailwindcss from '@tailwindcss/vite';
 import { contentDates } from './src/utils/generated-content-dates.js';
 import { pageMetadata } from './src/data/pageMetadata.js';
 
@@ -13,6 +14,9 @@ export default defineConfig({
   // Astro 7 defaults to compressHTML: 'jsx', which also strips whitespace between
   // inline elements; keep the Astro 5 behaviour until the site is visually re-checked
   compressHTML: true,
+  vite: {
+    plugins: [tailwindcss()],
+  },
   integrations: [
     mdx(),
     sitemap({

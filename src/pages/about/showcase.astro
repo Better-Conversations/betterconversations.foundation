@@ -115,7 +115,7 @@ const sortedAmbassadors = [...ambassadors].sort((a, b) => {
 
   <!-- Ambassadors Section -->
   <section class="bg-white relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/5 via-transparent to-[#A8D381]/5"></div>
+    <div class="absolute inset-0 bg-linear-to-br from-[#54C4B6]/5 via-transparent to-[#A8D381]/5"></div>
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 relative">
 
       <div class="space-y-16">
@@ -123,8 +123,8 @@ const sortedAmbassadors = [...ambassadors].sort((a, b) => {
           <div class={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-8 lg:gap-12 ${index > 0 ? 'pt-16 border-t border-gray-100' : ''}`}>
             <!-- Image Section -->
             <div class="flex-shrink-0 relative">
-              <div class="absolute -inset-4 bg-gradient-to-r from-[#54C4B6]/20 to-[#A8D381]/20 rounded-full blur-2xl"></div>
-              <div class={`absolute top-3 ${index % 2 === 0 ? 'left-3' : 'right-3'} w-[200px] h-[200px] bg-gradient-to-br from-[#54C4B6] to-[#A8D381] rounded-full opacity-20`}></div>
+              <div class="absolute -inset-4 bg-linear-to-r from-[#54C4B6]/20 to-[#A8D381]/20 rounded-full blur-2xl"></div>
+              <div class={`absolute top-3 ${index % 2 === 0 ? 'left-3' : 'right-3'} w-[200px] h-[200px] bg-linear-to-br from-[#54C4B6] to-[#A8D381] rounded-full opacity-20`}></div>
               {typeof person.image === 'string' ? (
                 <img
                   src={person.image}
@@ -148,7 +148,7 @@ const sortedAmbassadors = [...ambassadors].sort((a, b) => {
               <div class="mb-4">
                 <h3 class="text-3xl font-bold text-gray-900 mb-2">{person.name}</h3>
                 <p class="text-lg text-[#54C4B6] font-medium">{person.role}</p>
-                <div class={`h-1 w-20 bg-gradient-to-r ${index % 2 === 0 ? 'from-[#54C4B6] to-[#A8D381]' : 'from-[#A8D381] to-[#54C4B6]'} rounded-full mt-4 mx-auto lg:mx-0`}></div>
+                <div class={`h-1 w-20 bg-linear-to-r ${index % 2 === 0 ? 'from-[#54C4B6] to-[#A8D381]' : 'from-[#A8D381] to-[#54C4B6]'} rounded-full mt-4 mx-auto lg:mx-0`}></div>
               </div>
 
               <p class="text-lg text-gray-600 mb-6 leading-relaxed">
@@ -159,7 +159,7 @@ const sortedAmbassadors = [...ambassadors].sort((a, b) => {
                 <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Specialties</h4>
                 <div class="flex flex-wrap gap-2 justify-center lg:justify-start">
                   {person.specialties.map((specialty) => (
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-[#54C4B6]/10 to-[#A8D381]/10 text-gray-700">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-linear-to-r from-[#54C4B6]/10 to-[#A8D381]/10 text-gray-700">
                       {specialty}
                     </span>
                   ))}

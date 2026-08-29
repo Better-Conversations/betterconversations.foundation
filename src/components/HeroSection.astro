@@ -14,9 +14,9 @@ const { title, titleHighlight, description, class: className = '' } = Astro.prop
 const titleParts = titleHighlight ? title.split(titleHighlight) : [title];
 ---
 
-<section class={`relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white py-24 lg:py-32 ${className}`}>
+<section class={`relative overflow-hidden bg-linear-to-b from-white via-gray-50 to-white py-24 lg:py-32 ${className}`}>
   <!-- Enhanced gradient background — bumped from /25 to /30 for gentle confidence -->
-  <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/30 via-transparent to-[#A8D381]/30"></div>
+  <div class="absolute inset-0 bg-linear-to-br from-[#54C4B6]/30 via-transparent to-[#A8D381]/30"></div>
 
   <!-- Decorative blobs — main pair bumped from /20 to /25; secondary pair unchanged -->
   <div class="absolute top-10 left-[5%] w-64 h-64 bg-[#54C4B6]/25 rounded-full blur-3xl"></div>

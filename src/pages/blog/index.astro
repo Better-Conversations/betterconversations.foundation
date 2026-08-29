@@ -49,9 +49,9 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
   title="Blog - Better Conversations Foundation"
 >
   <!-- Hero Section -->
-  <section class="relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white">
+  <section class="relative overflow-hidden bg-linear-to-b from-white via-gray-50 to-white">
     <!-- Enhanced gradient background -->
-    <div class="absolute inset-0 bg-gradient-to-br from-[#54C4B6]/25 via-transparent to-[#A8D381]/25"></div>
+    <div class="absolute inset-0 bg-linear-to-br from-[#54C4B6]/25 via-transparent to-[#A8D381]/25"></div>
     
     <!-- Larger decorative circles -->
     <div class="absolute top-10 left-[5%] w-64 h-64 bg-[#54C4B6]/20 rounded-full blur-3xl"></div>
@@ -111,7 +111,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
                 ) : post.image ? (
                   <img src={post.image} alt={post.title} class="w-full h-full object-cover" />
                 ) : (
-                  <div class="w-full h-full bg-gradient-to-br from-[#54C4B6]/20 to-[#A8D381]/20 flex items-center justify-center">
+                  <div class="w-full h-full bg-linear-to-br from-[#54C4B6]/20 to-[#A8D381]/20 flex items-center justify-center">
                     <svg class="w-24 h-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path>
                     </svg>
@@ -126,7 +126,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
                   <h3 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#54C4B6] transition-colors">
                     <a href={`/blog/${post.slug}`}>{post.title}</a>
                   </h3>
-                  <p class="text-gray-600 mb-4 flex-grow">{post.excerpt}</p>
+                  <p class="text-gray-600 mb-4 grow">{post.excerpt}</p>
                   <div class="mt-auto">
                     <div class="flex items-center gap-3 mb-4">
                       <Image 
@@ -189,7 +189,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
                 ))}
               </nav>
 
-              <div class="mt-8 p-6 bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10 rounded-lg overflow-hidden">
+              <div class="mt-8 p-6 bg-linear-to-br from-[#54C4B6]/10 to-[#A8D381]/10 rounded-lg overflow-hidden">
                 <h3 class="font-semibold text-gray-900 mb-2">Newsletter</h3>
                 <p class="text-sm text-gray-600 mb-4">Get the latest insights delivered to your inbox.</p>
                 <form action="/newsletter/subscribe" method="POST">
@@ -223,18 +223,18 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
                     ) : post.image ? (
                       <img src={post.image} alt={post.title} class="w-full h-full object-cover" />
                     ) : (
-                      <div class="w-full h-full bg-gradient-to-br from-[#54C4B6]/20 to-[#A8D381]/20 flex items-center justify-center">
+                      <div class="w-full h-full bg-linear-to-br from-[#54C4B6]/20 to-[#A8D381]/20 flex items-center justify-center">
                         <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path>
                         </svg>
                       </div>
                     )}
                   </div>
-                  <div class="p-6 flex flex-col flex-grow">
+                  <div class="p-6 flex flex-col grow">
                     <div class="flex items-center gap-3 text-xs text-gray-500 mb-2">
                       <a 
                         href={`/blog?category=${encodeURIComponent(post.category)}`}
-                        class="bg-black/60 backdrop-blur-sm px-3 py-1 border-l-2 border-[#54C4B6] text-center hover:bg-black/80 transition-colors text-white"
+                        class="bg-black/60 backdrop-blur-xs px-3 py-1 border-l-2 border-[#54C4B6] text-center hover:bg-black/80 transition-colors text-white"
                       >
                         {post.category}
                       </a>
@@ -248,7 +248,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
                     <h3 class="text-lg font-semibold text-gray-900 mb-2 group-hover:text-[#54C4B6] transition-colors">
                       <a href={`/blog/${post.slug}`}>{post.title}</a>
                     </h3>
-                    <p class="text-gray-600 text-sm mb-4 flex-grow">{post.excerpt}</p>
+                    <p class="text-gray-600 text-sm mb-4 grow">{post.excerpt}</p>
                     <div class="flex items-center justify-between mt-auto">
                       <time datetime={post.date.toISOString()} class="text-xs text-gray-500">{post.publishedAt}</time>
                       {post.tags?.length > 0 && (
@@ -298,7 +298,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
                 ) : post.image ? (
                   <img src={post.image} alt={post.title} class="w-full h-full object-cover" />
                 ) : (
-                  <div class="w-full h-full bg-gradient-to-br from-[#54C4B6]/20 to-[#A8D381]/20 flex items-center justify-center">
+                  <div class="w-full h-full bg-linear-to-br from-[#54C4B6]/20 to-[#A8D381]/20 flex items-center justify-center">
                     <svg class="w-24 h-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path>
                     </svg>
@@ -313,7 +313,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
                   <h3 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#54C4B6] transition-colors">
                     <a href={`/blog/${post.slug}`}>{post.title}</a>
                   </h3>
-                  <p class="text-gray-600 mb-4 flex-grow">{post.excerpt}</p>
+                  <p class="text-gray-600 mb-4 grow">{post.excerpt}</p>
                   <div class="mt-auto">
                     <div class="flex items-center gap-3 mb-4">
                       <Image 
@@ -378,7 +378,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
                 </template>
               </nav>
 
-              <div class="mt-8 p-6 bg-gradient-to-br from-[#54C4B6]/10 to-[#A8D381]/10 rounded-lg overflow-hidden">
+              <div class="mt-8 p-6 bg-linear-to-br from-[#54C4B6]/10 to-[#A8D381]/10 rounded-lg overflow-hidden">
                 <h3 class="font-semibold text-gray-900 mb-2">Newsletter</h3>
                 <p class="text-sm text-gray-600 mb-4">Get the latest insights delivered to your inbox.</p>
                 <input type="email" placeholder="Your email" aria-label="Email address for newsletter" class="w-full px-3 py-2 mb-3 text-sm border border-gray-200 rounded-md focus:ring-[#54C4B6] focus:border-[#54C4B6]" />
@@ -441,17 +441,17 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
                 >
                   <div class="h-48 bg-gray-200 flex-shrink-0">
                     <img x-show="post.image" :src="post.image" :alt="post.title" class="w-full h-full object-cover" />
-                    <div x-show="!post.image" class="w-full h-full bg-gradient-to-br from-[#54C4B6]/20 to-[#A8D381]/20 flex items-center justify-center">
+                    <div x-show="!post.image" class="w-full h-full bg-linear-to-br from-[#54C4B6]/20 to-[#A8D381]/20 flex items-center justify-center">
                       <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2"></path>
                       </svg>
                     </div>
                   </div>
-                  <div class="p-6 flex flex-col flex-grow">
+                  <div class="p-6 flex flex-col grow">
                     <div class="flex items-center gap-3 text-xs text-gray-500 mb-2">
                       <button 
                         @click="setFilter('category', post.category)"
-                        class="bg-black/60 backdrop-blur-sm px-3 py-1 border-l-2 border-[#54C4B6] text-center cursor-pointer hover:bg-black/80 transition-colors text-white"
+                        class="bg-black/60 backdrop-blur-xs px-3 py-1 border-l-2 border-[#54C4B6] text-center cursor-pointer hover:bg-black/80 transition-colors text-white"
                         x-text="post.category"
                       ></button>
                       <button 
@@ -463,7 +463,7 @@ const allTags = [...new Set(blogPosts.flatMap(post => post.tags))].sort();
                     <h3 class="text-lg font-semibold text-gray-900 mb-2 group-hover:text-[#54C4B6] transition-colors">
                       <a :href="'/blog/' + post.slug" x-text="post.title"></a>
                     </h3>
-                    <p class="text-gray-600 text-sm mb-4 flex-grow" x-text="post.excerpt"></p>
+                    <p class="text-gray-600 text-sm mb-4 grow" x-text="post.excerpt"></p>
                     <div class="flex items-center justify-between mt-auto">
                       <time :datetime="new Date(post.date).toISOString()" class="text-xs text-gray-500" x-text="post.publishedAt"></time>
                       <div class="flex gap-2 flex-wrap" x-show="post.tags.length > 0">

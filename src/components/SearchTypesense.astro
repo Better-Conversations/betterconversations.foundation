@@ -13,7 +13,7 @@
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
     </svg>
     <span class="text-gray-600">Search...</span>
-    <kbd class="hidden sm:inline-block px-2 py-1 text-xs bg-gray-100 rounded">⌘K</kbd>
+    <kbd class="hidden sm:inline-block px-2 py-1 text-xs bg-gray-100 rounded-sm">⌘K</kbd>
   </button>
 
   <!-- Search Modal -->
@@ -21,7 +21,7 @@
     x-show="open" 
     x-cloak
     @keydown.escape.window="open = false"
-    class="fixed inset-0 z-[100]"
+    class="fixed inset-0 z-100"
     role="dialog"
     aria-modal="true"
   >
@@ -35,7 +35,7 @@
       x-transition:leave-start="opacity-100"
       x-transition:leave-end="opacity-0"
       @click="open = false"
-      class="absolute inset-0 bg-black/50 backdrop-blur-sm"
+      class="absolute inset-0 bg-black/50 backdrop-blur-xs"
     ></div>
     
     <!-- Modal -->
@@ -52,7 +52,7 @@
         class="w-full max-w-3xl bg-white rounded-2xl shadow-2xl overflow-hidden"
       >
         <!-- Search Header -->
-        <div class="p-6 sm:p-8 border-b border-gray-200 bg-gradient-to-br from-gray-50 to-white">
+        <div class="p-6 sm:p-8 border-b border-gray-200 bg-linear-to-br from-gray-50 to-white">
           <div class="flex items-center gap-4 relative">
             <svg class="w-6 h-6 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -66,7 +66,7 @@
               @keydown.enter.prevent="goToSelected"
               type="text"
               placeholder="Search blogs, whitepapers, and pages..."
-              class="flex-1 text-lg bg-transparent outline-none placeholder-gray-400 text-gray-900 font-medium"
+              class="flex-1 text-lg bg-transparent outline-hidden placeholder-gray-400 text-gray-900 font-medium"
               autocomplete="off"
             />
             <button 
@@ -153,15 +153,15 @@
         </div>
         
         <!-- Footer -->
-        <div class="p-4 sm:px-6 border-t border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100/50 flex items-center justify-between text-sm text-gray-500">
+        <div class="p-4 sm:px-6 border-t border-gray-200 bg-linear-to-br from-gray-50 to-gray-100/50 flex items-center justify-between text-sm text-gray-500">
           <div class="flex items-center gap-3 text-xs sm:text-sm">
             <span class="flex items-center gap-1.5">
-              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-mono shadow-sm">↑↓</kbd>
+              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded-sm text-xs font-mono shadow-xs">↑↓</kbd>
               Navigate
             </span>
             <span class="text-gray-400">•</span>
             <span class="flex items-center gap-1.5">
-              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-mono shadow-sm">Enter</kbd>
+              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded-sm text-xs font-mono shadow-xs">Enter</kbd>
               Select
             </span>
           </div>
@@ -190,7 +190,7 @@
 <script is:inline>
   // Load Typesense from CDN
   const script = document.createElement('script');
-  script.src = 'https://cdn.jsdelivr.net/npm/typesense@2.1.0-13/dist/typesense.min.js';
+  script.src = 'https://cdn.jsdelivr.net/npm/typesense@3.0.6/dist/typesense.min.js';
   script.onload = () => {
     // Dispatch event when Typesense is loaded
     window.dispatchEvent(new Event('typesense:loaded'));

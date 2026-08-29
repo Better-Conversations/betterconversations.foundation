@@ -28,7 +28,7 @@ const { searchData, loadDataOnDemand = true } = Astro.props;
         name="q"
         placeholder="Search..."
         aria-label="Search site content"
-        class="flex-1 bg-transparent outline-none placeholder-gray-400 text-gray-900"
+        class="flex-1 bg-transparent outline-hidden placeholder-gray-400 text-gray-900"
         required
       />
       <button 
@@ -51,7 +51,7 @@ const { searchData, loadDataOnDemand = true } = Astro.props;
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
     </svg>
     <span class="text-gray-600">Search...</span>
-    <kbd class="hidden sm:inline-block px-2 py-1 text-xs bg-gray-100 rounded">⌘K</kbd>
+    <kbd class="hidden sm:inline-block px-2 py-1 text-xs bg-gray-100 rounded-sm">⌘K</kbd>
   </button>
 
   <!-- Search Modal -->
@@ -59,7 +59,7 @@ const { searchData, loadDataOnDemand = true } = Astro.props;
     x-show="open" 
     x-cloak
     @keydown.escape.window="open = false"
-    class="fixed inset-0 z-[100]"
+    class="fixed inset-0 z-100"
     role="dialog"
     aria-modal="true"
   >
@@ -73,7 +73,7 @@ const { searchData, loadDataOnDemand = true } = Astro.props;
       x-transition:leave-start="opacity-100"
       x-transition:leave-end="opacity-0"
       @click="open = false"
-      class="absolute inset-0 bg-black/50 backdrop-blur-sm"
+      class="absolute inset-0 bg-black/50 backdrop-blur-xs"
     ></div>
     
     <!-- Modal -->
@@ -90,7 +90,7 @@ const { searchData, loadDataOnDemand = true } = Astro.props;
         class="w-full max-w-3xl bg-white rounded-2xl shadow-2xl overflow-hidden"
       >
         <!-- Search Header -->
-        <div class="p-6 sm:p-8 border-b border-gray-200 bg-gradient-to-br from-gray-50 to-white">
+        <div class="p-6 sm:p-8 border-b border-gray-200 bg-linear-to-br from-gray-50 to-white">
           <div class="flex items-center gap-4 relative">
             <svg class="w-6 h-6 text-[#54C4B6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -104,7 +104,7 @@ const { searchData, loadDataOnDemand = true } = Astro.props;
               @keydown.enter.prevent="goToSelected"
               type="text"
               placeholder="Search blogs, whitepapers, and topics..."
-              class="flex-1 text-lg bg-transparent outline-none placeholder-gray-400 text-gray-900 font-medium"
+              class="flex-1 text-lg bg-transparent outline-hidden placeholder-gray-400 text-gray-900 font-medium"
               autocomplete="off"
             />
             <button 
@@ -122,7 +122,7 @@ const { searchData, loadDataOnDemand = true } = Astro.props;
             <template x-for="filter in filters" :key="filter">
               <button 
                 @click="activeFilter = filter; search()"
-                :class="activeFilter === filter ? 'bg-gradient-to-r from-[#54C4B6] to-[#A8D381] text-white shadow-md' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
+                :class="activeFilter === filter ? 'bg-linear-to-r from-[#54C4B6] to-[#A8D381] text-white shadow-md' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
                 class="px-3 py-1 text-sm rounded-full transition-all duration-200"
                 x-text="filter === 'all' ? 'All' : filter.charAt(0).toUpperCase() + filter.slice(1) + 's'"
               ></button>
@@ -209,21 +209,21 @@ const { searchData, loadDataOnDemand = true } = Astro.props;
         </div>
         
         <!-- Footer -->
-        <div class="p-4 sm:px-6 border-t border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100/50 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-gray-500">
+        <div class="p-4 sm:px-6 border-t border-gray-200 bg-linear-to-br from-gray-50 to-gray-100/50 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-gray-500">
           <div class="flex items-center gap-3 text-xs sm:text-sm">
             <span class="flex items-center gap-1.5">
-              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-mono shadow-sm">↑</kbd>
-              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-mono shadow-sm">↓</kbd>
+              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded-sm text-xs font-mono shadow-xs">↑</kbd>
+              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded-sm text-xs font-mono shadow-xs">↓</kbd>
               <span class="hidden sm:inline">Navigate</span>
             </span>
             <span class="text-gray-400">•</span>
             <span class="flex items-center gap-1.5">
-              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-mono shadow-sm">Enter</kbd>
+              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded-sm text-xs font-mono shadow-xs">Enter</kbd>
               <span class="hidden sm:inline">Select</span>
             </span>
             <span class="text-gray-400">•</span>
             <span class="flex items-center gap-1.5">
-              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-mono shadow-sm">Esc</kbd>
+              <kbd class="px-2 py-1 bg-white border border-gray-300 rounded-sm text-xs font-mono shadow-xs">Esc</kbd>
               <span class="hidden sm:inline">Close</span>
             </span>
           </div>
