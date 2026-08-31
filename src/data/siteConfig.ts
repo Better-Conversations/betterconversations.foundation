@@ -12,9 +12,6 @@ export const siteConfig = {
   communityUrl: 'https://community.betterconversations.foundation',
   typesenseHost: 'typesense.bettercourses.org',
 
-  // Analytics
-  umamiUrl: 'https://umami.betterconversations.foundation',
-
   // Social
   githubUrl: 'https://github.com/Better-Conversations',
   linkedinUrl: 'https://linkedin.com/company/the-better-conversations-foundation',
