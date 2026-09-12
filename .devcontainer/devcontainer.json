@@ -2,6 +2,14 @@
 	"name": "bcf-content-site",
 	"dockerFile": "Dockerfile",
 	"forwardPorts": [4321],
+	"mounts": [
+		"source=bcf-node-config,target=/home/node/.config,type=volume",
+		"source=bcf-codex-config,target=/home/node/.codex,type=volume",
+		"source=bcf-claude-config,target=/home/node/.claude,type=volume",
+		"source=bcf-kimi-code-config,target=/home/node/.kimi-code,type=volume",
+		"source=bcf-doppler-config,target=/home/node/.doppler,type=volume",
+		"source=bcf-oh-my-pi-config,target=/home/node/.omp,type=volume"
+	],
 	"customizations": {
 		"vscode": {
 			"extensions": [

@@ -23,6 +23,9 @@ FROM node:22
 # Version pinning removed
 
 RUN apt update && apt install -y \
+    ca-certificates \
+    curl \
+    gpg \
     less \
     man-db \
     sudo \
@@ -32,7 +35,34 @@ RUN apt update && apt install -y \
     chromium-sandbox \
     python3 \
     python3-pip \
-    && pip3 install --break-system-packages python-pptx
+    && pip3 install --break-system-packages python-pptx \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install GitHub CLI from GitHub's official apt repository.
+RUN mkdir -p -m 755 /etc/apt/keyrings \
+    && curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+        -o /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+    && chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
+        > /etc/apt/sources.list.d/github-cli.list \
+    && apt update \
+    && apt install -y gh \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Doppler CLI from Doppler's official apt repository.
+RUN mkdir -p -m 755 /etc/apt/keyrings \
+    && curl -fsSL https://packages.doppler.com/public/cli/gpg.DE2A7741A397C129.key \
+        | gpg --dearmor -o /etc/apt/keyrings/doppler-archive-keyring.gpg \
+    && chmod go+r /etc/apt/keyrings/doppler-archive-keyring.gpg \
+    && echo "deb [signed-by=/etc/apt/keyrings/doppler-archive-keyring.gpg] https://packages.doppler.com/public/cli/deb/debian any-version main" \
+        > /etc/apt/sources.list.d/doppler-cli.list \
+    && apt update \
+    && apt install -y doppler \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Bun, which Oh My Pi uses as its runtime.
+ENV BUN_INSTALL=/usr/local
+RUN curl -fsSL https://bun.sh/install | bash
 
 # ==============================================================================
 # ALTERNATIVE APPROACH (Puppeteer's Bundled Chrome) - DOES NOT WORK ON ARM64
@@ -102,18 +132,29 @@ ARG USERNAME=node
 RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 
-# Install Claude
-RUN npm install -g @anthropic-ai/claude-code
+# Install AI coding CLIs.
+RUN npm install -g \
+    @openai/codex \
+    @anthropic-ai/claude-code \
+    @moonshot-ai/kimi-code \
+    @oh-my-pi/pi-coding-agent
 
-# Claude Code usage tracking: VS Code's dev.containers.defaultMounts binds the
-# host's ~/.claude/usage-data to /home/vscode/.claude/usage-data (the conventional
-# devcontainer user). Since this image is based on node:22 and uses the `node` user
-# instead, we symlink so that Claude Code session data written to /home/node/ is
-# actually stored on the host via the mount at /home/vscode/. This allows `claude
-# /insights` on the host to include sessions from this devcontainer.
-# Safe to ignore if you don't use Claude Code — the symlink is a no-op without the mount.
-RUN mkdir -p /home/vscode/.claude && mkdir -p /home/node/.claude \
-    && ln -s /home/vscode/.claude/usage-data /home/node/.claude/usage-data
+# Create tool config directories. devcontainer.json mounts named volumes over
+# these paths so CLI auth and settings survive container rebuilds.
+RUN mkdir -p \
+    /home/node/.config \
+    /home/node/.codex \
+    /home/node/.claude \
+    /home/node/.kimi-code \
+    /home/node/.doppler \
+    /home/node/.omp \
+    && chown -R node:node \
+    /home/node/.config \
+    /home/node/.codex \
+    /home/node/.claude \
+    /home/node/.kimi-code \
+    /home/node/.doppler \
+    /home/node/.omp
 
 
 # Set `DEVCONTAINER` environment variable to help with orientation
