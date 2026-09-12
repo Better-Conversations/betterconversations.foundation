@@ -73,11 +73,13 @@ const navItems = [
       <!-- Logo -->
       <div class="flex-shrink-0">
         <a href="/" class="block logo-link transition-all duration-300" itemprop="url">
+          <!-- Height only: Astro derives the width from the source aspect ratio.
+               Setting a width that does not match the source ratio makes Astro's
+               image service centre-crop the logo. 128px = 2x the 64px pop-out size. -->
           <Image
             src={bcfLogo}
             alt="Better Conversations Foundation"
-            height={48}
-            width={300}
+            height={128}
             class="h-12 w-auto transition-all duration-300"
             id="navbar-logo"
             itemprop="logo"
