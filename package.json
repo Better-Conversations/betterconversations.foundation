@@ -23,7 +23,7 @@
     "puppeteer": "^25.5.0",
     "astro": "^7.3.2",
     "typescript": "^5.9.2",
-    "typesense": "^2.1.0-13",
+    "typesense": "^3.0.6",
     "typesense-instantsearch-adapter": "^2.9.0"
   },
   "devDependencies": {
